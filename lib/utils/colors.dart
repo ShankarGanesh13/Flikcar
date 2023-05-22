@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AppColors{
+class AppColors {}
 
+class TextColors {
+  static Color black = Colors.black;
 }
-class TextColors{
-
- static Color black=Colors.black;
-}
-
