@@ -1,3 +1,4 @@
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
 import 'package:flikcar/screens/start_screen/widgets/option_card.dart';
 import 'package:flutter/material.dart';
@@ -58,9 +59,11 @@ class StartScreen extends StatelessWidget {
                       GestureDetector(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SellCarHomeScreen()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomeScreen(),
+                            ),
+                          );
                         },
                         child: OptionCard(
                           title: "Sell Car",

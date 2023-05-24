@@ -1,6 +1,6 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/splash_screen.dart/splash_screen.dart';
+import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/car_condition.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -210,9 +210,9 @@ class SellingProcessProvider extends ChangeNotifier {
       case 8:
         {
           if (list[9] != "") {
-            clearData();
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SplashScreen()));
+                MaterialPageRoute(builder: (context) => const CarCondition()));
+            // clearData();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
                 context, "Please select the time period"));
@@ -234,8 +234,8 @@ class SellingProcessProvider extends ChangeNotifier {
     switch (counter) {
       case 1:
         {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomeScreen()));
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
         }
         break;
 

@@ -39,37 +39,38 @@ class KilometersDriven extends StatelessWidget {
               spacing: 40,
               runSpacing: 15,
               children: List.generate(
-                  kilometersDriven.length,
-                  (index) => InkWell(
-                        onTap: () {
-                          Provider.of<SellingProcessProvider>(context,
-                                  listen: false)
-                              .setKilometersDriven(
-                                  kilometers: kilometersDriven[index],
-                                  selectedIndex: index);
-                          print(index);
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 47,
-                          decoration: BoxDecoration(
-                            color: selectedIndex != index
-                                ? Colors.white
-                                : const Color(0xff9A2870),
-                            borderRadius: BorderRadius.circular(5),
-                            border: Border.all(
-                              color: Color(0xffCDCDCD),
-                            ),
-                          ),
-                          child: Center(
-                              child: Text(
-                            kilometersDriven[index],
-                            style: selectedIndex == index
-                                ? AppFonts.w500white14
-                                : AppFonts.w500black14,
-                          )),
-                        ),
-                      )),
+                kilometersDriven.length,
+                (index) => InkWell(
+                  onTap: () {
+                    Provider.of<SellingProcessProvider>(context, listen: false)
+                        .setKilometersDriven(
+                            kilometers: kilometersDriven[index],
+                            selectedIndex: index);
+                    print(index);
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 47,
+                    decoration: BoxDecoration(
+                      color: selectedIndex != index
+                          ? Colors.white
+                          : const Color(0xff9A2870),
+                      borderRadius: BorderRadius.circular(5),
+                      border: Border.all(
+                        color: Color(0xffCDCDCD),
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        kilometersDriven[index],
+                        style: selectedIndex == index
+                            ? AppFonts.w500white14
+                            : AppFonts.w500black14,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
             const SizedBox(
               height: 30,

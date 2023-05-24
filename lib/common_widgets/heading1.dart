@@ -5,7 +5,9 @@ import '../utils/fonts.dart';
 class Heading1 extends StatelessWidget {
   final String title1;
   final String title2;
-  const Heading1({super.key, required this.title1, required this.title2});
+  final String? title3;
+  const Heading1(
+      {super.key, required this.title1, required this.title2, this.title3});
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,15 @@ class Heading1 extends StatelessWidget {
               ? const SizedBox()
               : Text(
                   title2,
+                  style: AppFonts.w700black20,
+                ),
+          const SizedBox(
+            height: 3,
+          ),
+          title3 == null
+              ? const SizedBox()
+              : Text(
+                  title3!,
                   style: AppFonts.w700black20,
                 ),
         ],

@@ -49,6 +49,5 @@ class NavButton extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

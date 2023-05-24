@@ -89,7 +89,10 @@ class SellCarHomeScreen extends StatelessWidget {
                           const EdgeInsets.only(top: 30, left: 15.0, right: 15),
                       child: Column(children: [
                         const CarNoTextField(),
-                        const PrimaryButton(title: "Get Car Price"),
+                        PrimaryButton(
+                          title: "Get Car Price",
+                          function: () {},
+                        ),
                         const Padding(
                           padding: EdgeInsets.all(6.0),
                           child: Text("or,",

@@ -1,4 +1,5 @@
 import 'package:flikcar/screens/home_screen/home_screen.dart';
+import 'package:flikcar/screens/sell_car_flow/selling_process/book_evaluation/book_evaluation.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -18,14 +19,14 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
     );
 
     _animation = Tween<double>(begin: 0, end: 1).animate(_animationController);
 
     _animationController.forward().whenComplete(() {
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => HomeScreen()),
+        MaterialPageRoute(builder: (context) => BookEvaluation()),
       );
     });
   }
@@ -48,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
               opacity: _animation.value,
               child: Column(
                 children: [
-                  SizedBox(height: 200),
+                  const SizedBox(height: 200),
                   Transform.scale(
                     scale: _animation.value,
                     child: const Icon(

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String title;
-  const PrimaryButton({super.key, required this.title});
+  final Function() function;
+  const PrimaryButton({super.key, required this.title, required this.function});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class PrimaryButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(5),
           ),
         ),
-        onPressed: () {},
+        onPressed: function,
         child: Text(
           title,
           style: AppFonts.w500white14,

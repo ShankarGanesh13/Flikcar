@@ -77,4 +77,34 @@ class AppFonts {
     color: Colors.white,
     height: 1,
   );
+  static final w700p216 = getAppFont(
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    color: const Color(0xff9A2870),
+    height: 1.2,
+  );
+  static final w700s116 = getAppFont(
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    color: const Color(0xff100049),
+    height: 1.4,
+  );
+  static final w700dark216 = getAppFont(
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    color: const Color(0xff606060),
+    height: 1,
+  );
+  static final w700white16 = getAppFont(
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    color: Colors.white,
+    height: 1,
+  );
+  static final w500p215 = getAppFont(
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
+    color: const Color(0xff9A2870),
+    height: 1,
+  );
 }

@@ -1,6 +1,4 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
-import 'package:flikcar/common_widgets/secondary_button.dart';
-import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/manufacturing_year/manufacturing_year.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
@@ -69,26 +67,33 @@ class SellingProcess extends StatelessWidget {
                 ],
               ),
             ),
-            Wrap(
-              alignment: WrapAlignment.start,
-              runAlignment: WrapAlignment.start,
-              spacing: 15,
-              runSpacing: 15,
-              children: List.generate(
-                context.watch<SellingProcessProvider>().list.length,
-                (index) => InkWell(
-                  onTap: () {
-                    print(index);
-                  },
-                  child:
-                      context.watch<SellingProcessProvider>().list[index] == ""
-                          ? SizedBox()
-                          : PositionButton(
-                              title: context
-                                  .watch<SellingProcessProvider>()
-                                  .list[index],
-                              function: () {},
-                            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, right: 15),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Wrap(
+                  alignment: WrapAlignment.start,
+                  runAlignment: WrapAlignment.start,
+                  spacing: 15,
+                  runSpacing: 15,
+                  children: List.generate(
+                    context.watch<SellingProcessProvider>().list.length,
+                    (index) => InkWell(
+                      onTap: () {
+                        print(index);
+                      },
+                      child:
+                          context.watch<SellingProcessProvider>().list[index] ==
+                                  ""
+                              ? SizedBox()
+                              : PositionButton(
+                                  title: context
+                                      .watch<SellingProcessProvider>()
+                                      .list[index],
+                                  function: () {},
+                                ),
+                    ),
+                  ),
                 ),
               ),
             ),

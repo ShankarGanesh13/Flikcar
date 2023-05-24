@@ -55,12 +55,13 @@ class SellingTime extends StatelessWidget {
                             ),
                           ),
                           child: Center(
-                              child: Text(
-                            ownership[index],
-                            style: selectedIndex == index
-                                ? AppFonts.w500white14
-                                : AppFonts.w500black14,
-                          )),
+                            child: Text(
+                              ownership[index],
+                              style: selectedIndex == index
+                                  ? AppFonts.w500white14
+                                  : AppFonts.w500black14,
+                            ),
+                          ),
                         ),
                       )),
             ),
@@ -71,6 +72,5 @@ class SellingTime extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

@@ -1,6 +1,4 @@
 import 'package:flikcar/common_widgets/heading1.dart';
-import 'package:flikcar/common_widgets/secondary_button.dart';
-import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
