@@ -1,13 +1,17 @@
+import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SelectCondition extends StatelessWidget {
   SelectCondition({super.key});
-  final int selectedIndex = 1;
+
   final List<String> condition = ["Fair", "Good", "Very Good", "Excellent"];
   @override
   Widget build(BuildContext context) {
+    int selectedIndex =
+        context.watch<SellingProcessProvider>().carConditionIndex;
     return Container(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(
@@ -22,6 +26,9 @@ class SelectCondition extends StatelessWidget {
             4,
             (index) => InkWell(
               onTap: () {
+                Provider.of<SellingProcessProvider>(context, listen: false)
+                    .setCarCondition(
+                        condition: condition[index], selectedIndex: index);
                 print(index);
               },
               child: Container(

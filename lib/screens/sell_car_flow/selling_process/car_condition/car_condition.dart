@@ -1,9 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/book_evaluation/book_evaluation.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/widgets/expected_price.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/widgets/select_condition.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/splash_screen.dart/splash_screen.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -106,12 +104,8 @@ class CarCondition extends StatelessWidget {
                     PrimaryButton(
                         title: "Proceed",
                         function: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SplashScreen(),
-                            ),
-                          );
+                          Provider.of<SellingProcessProvider>(context)
+                              .uploadCarDetails(context: context);
                         }),
                   ],
                 ),

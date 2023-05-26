@@ -5,30 +5,34 @@ class ExpectedPrice extends StatelessWidget {
   ExpectedPrice({super.key});
   final TextEditingController minPrice = TextEditingController();
   final TextEditingController maxPrice = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            "What is your expected sell price?",
-            style: AppFonts.w500dark214,
-          ),
-          const SizedBox(height: 15),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              textField(context: context, controller: minPrice, hint: "min"),
-              Text(
-                "-",
-                style: AppFonts.w700black16,
-              ),
-              textField(context: context, controller: maxPrice, hint: "max")
-            ],
-          )
-        ],
+      child: Form(
+        key: _formKey,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              "What is your expected sell price?",
+              style: AppFonts.w500dark214,
+            ),
+            const SizedBox(height: 15),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                textField(context: context, controller: minPrice, hint: "min"),
+                Text(
+                  "-",
+                  style: AppFonts.w700black16,
+                ),
+                textField(context: context, controller: maxPrice, hint: "max")
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -57,6 +61,13 @@ class ExpectedPrice extends StatelessWidget {
           ),
         ),
         maxLength: 8,
+        onChanged: (value) {},
+        validator: (value) {
+          if (value!.length < 5) {
+            return "Enter a valid price";
+          }
+          return null;
+        },
       ),
     );
   }

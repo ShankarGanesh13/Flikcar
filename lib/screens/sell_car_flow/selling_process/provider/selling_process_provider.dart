@@ -1,9 +1,9 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/car_condition.dart';
+import 'package:flikcar/screens/sell_car_flow/selling_process/splash_screen.dart/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class SellingProcessProvider extends ChangeNotifier {
   int counter = 1;
@@ -17,6 +17,9 @@ class SellingProcessProvider extends ChangeNotifier {
   late String carOwnership;
   late String kilometersDriven;
   late String sellingTime;
+  late String carCondition;
+  String minExpectedPrice = "";
+  String maxExpectedPrice = "";
   int sellingTimeIndex = -1;
   int kilometersDrivenIndex = -1;
   int carOwnershipIndex = -1;
@@ -27,6 +30,7 @@ class SellingProcessProvider extends ChangeNotifier {
   int locationIndex = -1;
   int manufacturingYearIndex = -1;
   int modelIndex = -1;
+  int carConditionIndex = -1;
 
   List<String> list = ["", "", "", "", "", "", "", "", "", ""];
 
@@ -99,6 +103,13 @@ class SellingProcessProvider extends ChangeNotifier {
     sellingTime = time;
     list[9] = time;
     sellingTimeIndex = selectedIndex;
+    notifyListeners();
+  }
+
+  setCarCondition({required String condition, required int selectedIndex}) {
+    carCondition = condition;
+
+    carConditionIndex = selectedIndex;
     notifyListeners();
   }
 
@@ -312,6 +323,20 @@ class SellingProcessProvider extends ChangeNotifier {
           print("Invalid choice");
         }
         break;
+    }
+  }
+
+  uploadCarDetails({required BuildContext context}) {
+    if (maxExpectedPrice != "" &&
+        minExpectedPrice != "" &&
+        carConditionIndex != -1) {
+      print(maxExpectedPrice);
+      notifyListeners();
+      // Navigator.push(
+      //     context,
+      //     MaterialPageRoute(
+      //       builder: (context) => SplashScreen(),
+      //     ));
     }
   }
 

@@ -7,6 +7,9 @@ class EvaluationProvider extends ChangeNotifier {
   late String phoneNumber;
   late String name;
   late String reasonForSelling;
+  late String reasonForCancelling;
+  bool whatsappNotification = false;
+  int reasonForCancellingIndex = -1;
   int dateTimeIndex = -1;
   int timeSlotIndex = -1;
   int reasonForSellingIndex = -1;
@@ -31,4 +34,21 @@ class EvaluationProvider extends ChangeNotifier {
     print(reasonForSelling);
     notifyListeners();
   }
+
+  setReasonForCancelling({required String reason, required int index}) {
+    reasonForCancelling = reason;
+    reasonForCancellingIndex = index;
+
+    notifyListeners();
+  }
+
+  turnOnWhatsappNotification() {
+    whatsappNotification = whatsappNotification == true ? false : true;
+    notifyListeners();
+  }
+
+  bookEvaluation(
+      {required TextEditingController addressController,
+      required TextEditingController nameControler,
+      required TextEditingController phoneController}) {}
 }

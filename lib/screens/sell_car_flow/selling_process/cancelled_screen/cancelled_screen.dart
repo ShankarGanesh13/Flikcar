@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,12 @@ class CancelledScreen extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15, top: 40),
               child: PrimaryButton(
-                function: () {},
+                function: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen()));
+                },
                 title: "Continue",
               ),
             )

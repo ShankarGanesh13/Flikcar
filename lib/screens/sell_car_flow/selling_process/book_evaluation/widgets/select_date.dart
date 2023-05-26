@@ -42,14 +42,16 @@ class SelectDate extends StatelessWidget {
                 height: 65,
                 width: 70,
                 decoration: BoxDecoration(
+                  color: selectedIndex == index
+                      ? const Color(0xff9A2870)
+                      : Colors.white,
+                  borderRadius: BorderRadius.circular(5),
+                  border: Border.all(
                     color: selectedIndex == index
-                        ? Color(0xff9A2870)
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(
-                        color: selectedIndex == index
-                            ? Colors.transparent
-                            : Color(0xff606060))),
+                        ? Colors.transparent
+                        : const Color(0xff606060),
+                  ),
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
