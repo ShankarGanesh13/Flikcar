@@ -14,11 +14,12 @@ class PositionButton extends StatelessWidget {
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             splashFactory: NoSplash.splashFactory,
-            backgroundColor: Color(0xffF2E1ED),
+            backgroundColor: Color.fromARGB(255, 246, 255, 251),
+            shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),
-            padding: EdgeInsets.only(left: 10, right: 10)),
+            padding: const EdgeInsets.only(left: 10, right: 10)),
         onPressed: () {},
         child: Text(
           title,

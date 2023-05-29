@@ -4,6 +4,7 @@ import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/splash_screen.dart/splash_screen.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +49,10 @@ class SellingTime extends StatelessWidget {
                           decoration: BoxDecoration(
                             color: selectedIndex != index
                                 ? Colors.white
-                                : const Color(0xff9A2870),
+                                : AppColors.p2,
                             borderRadius: BorderRadius.circular(5),
                             border: Border.all(
-                              color: const Color(0xffCDCDCD),
+                              color: AppColors.grey,
                             ),
                           ),
                           child: Center(

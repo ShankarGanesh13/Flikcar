@@ -1,4 +1,5 @@
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,12 +41,10 @@ class Plans extends StatelessWidget {
                 width: MediaQuery.of(context).size.width,
                 height: 47,
                 decoration: BoxDecoration(
-                  color: selectedIndex != index
-                      ? Colors.white
-                      : const Color(0xff9A2870),
+                  color: selectedIndex != index ? Colors.white : AppColors.p2,
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
-                    color: const Color(0xffCDCDCD),
+                    color: const Color(0xffE0E0E0),
                   ),
                 ),
                 child: Center(

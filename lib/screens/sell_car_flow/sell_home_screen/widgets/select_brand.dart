@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -26,7 +27,7 @@ class SelectBrand extends StatelessWidget {
                 width: 86,
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Color(0xff606060),
+                    color: AppColors.dark2,
                   ),
                   borderRadius: BorderRadius.circular(10),
                 ),

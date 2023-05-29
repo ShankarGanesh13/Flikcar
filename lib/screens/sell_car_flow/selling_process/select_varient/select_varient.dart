@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +9,12 @@ class SelectVarient extends StatelessWidget {
   final PageController controller;
   const SelectVarient({super.key, required this.controller});
 
-  static const List<String> fuelVarients = ["Petrol", "Others"];
+  static const List<String> fuelVarients = [
+    "Petrol",
+    "Diesel",
+    "Electric",
+    "Others"
+  ];
   static const List<String> transmissonType = ["Automatic", "Manual"];
 
   static const List<String> transmissonImage = [
@@ -38,7 +44,7 @@ class SelectVarient extends StatelessWidget {
             spacing: 40,
             runSpacing: 15,
             children: List.generate(
-              2,
+              4,
               (index) => InkWell(
                 onTap: () {
                   Provider.of<SellingProcessProvider>(context, listen: false)
@@ -53,10 +59,10 @@ class SelectVarient extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 2.5,
                   decoration: BoxDecoration(
                     color: fuelSelectedIndex == index
-                        ? const Color(0xff9A2870)
+                        ? AppColors.p2
                         : Colors.white,
                     border: Border.all(
-                      color: const Color(0xffCDCDCD),
+                      color: AppColors.grey,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -110,10 +116,10 @@ class SelectVarient extends StatelessWidget {
                   width: MediaQuery.of(context).size.width / 2.5,
                   decoration: BoxDecoration(
                     color: transmissonSelectedIndex == index
-                        ? const Color(0xff9A2870)
+                        ? AppColors.p2
                         : Colors.white,
                     border: Border.all(
-                      color: const Color(0xffCDCDCD),
+                      color: AppColors.grey,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -170,10 +176,10 @@ class SelectVarient extends StatelessWidget {
                   width: MediaQuery.of(context).size.width,
                   decoration: BoxDecoration(
                     color: selectedVarientIndex == index
-                        ? const Color(0xff9A2870)
+                        ? AppColors.p2
                         : Colors.white,
                     border: Border.all(
-                      color: const Color(0xffCDCDCD),
+                      color: AppColors.grey,
                     ),
                     borderRadius: BorderRadius.circular(10),
                   ),

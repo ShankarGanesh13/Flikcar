@@ -10,6 +10,7 @@ import 'package:flikcar/screens/sell_car_flow/selling_process/select_varient/sel
 import 'package:flikcar/screens/sell_car_flow/selling_process/selling_time/selling_time.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/nav_button.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/position_buttton.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,7 +27,7 @@ class SellingProcess extends StatelessWidget {
         appBar: CustomAppBar.getAppBar(),
         bottomNavigationBar: Container(
             height: 60,
-            color: const Color(0xff100049),
+            color: AppColors.s1,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

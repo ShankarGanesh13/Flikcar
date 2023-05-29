@@ -1,4 +1,5 @@
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -42,14 +43,12 @@ class SelectDate extends StatelessWidget {
                 height: 65,
                 width: 70,
                 decoration: BoxDecoration(
-                  color: selectedIndex == index
-                      ? const Color(0xff9A2870)
-                      : Colors.white,
+                  color: selectedIndex == index ? AppColors.p2 : Colors.white,
                   borderRadius: BorderRadius.circular(5),
                   border: Border.all(
                     color: selectedIndex == index
                         ? Colors.transparent
-                        : const Color(0xff606060),
+                        : AppColors.grey,
                   ),
                 ),
                 child: Column(

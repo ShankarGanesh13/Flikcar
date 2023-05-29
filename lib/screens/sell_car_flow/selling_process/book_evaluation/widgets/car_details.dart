@@ -1,4 +1,6 @@
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +26,19 @@ class CarDetails extends StatelessWidget {
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Row(
           children: [
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const HomeScreen(index: 2),
+                    ));
+              },
+              child: Icon(
+                Icons.chevron_left,
+                color: AppColors.p2,
+              ),
+            ),
             Text(
               "${context.watch<SellingProcessProvider>().list[2]} ${context.watch<SellingProcessProvider>().list[0]} ${context.watch<SellingProcessProvider>().list[3]}",
               style: AppFonts.w700black16,

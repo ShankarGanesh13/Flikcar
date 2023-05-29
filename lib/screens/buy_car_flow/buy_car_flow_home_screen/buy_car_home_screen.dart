@@ -6,6 +6,7 @@ import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/bu
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/seller_testimonials.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class BuyCarHomeScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class BuyCarHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffB70050),
+      backgroundColor: AppColors.p2,
       appBar: CustomAppBar.getBuyCarAppBar(context),
       body: SingleChildScrollView(
         child: Column(children: [

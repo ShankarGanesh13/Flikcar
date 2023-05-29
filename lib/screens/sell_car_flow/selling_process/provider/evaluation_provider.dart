@@ -38,7 +38,6 @@ class EvaluationProvider extends ChangeNotifier {
   setReasonForCancelling({required String reason, required int index}) {
     reasonForCancelling = reason;
     reasonForCancellingIndex = index;
-
     notifyListeners();
   }
 

@@ -1,3 +1,4 @@
+import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
@@ -10,6 +11,7 @@ import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_p
 import 'package:flikcar/screens/sell_car_flow/selling_process/selling_process.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/splash_screen.dart/splash_screen.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,10 +38,10 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
         useMaterial3: true,
       ),
-      home: HomeScreen(),
+      home: const HomeScreen(index: 0),
     );
   }
 }

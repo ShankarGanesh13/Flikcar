@@ -1,3 +1,4 @@
+import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/fonts.dart';
@@ -16,16 +17,16 @@ class Heading1 extends StatelessWidget {
         margin: const EdgeInsets.only(right: 10),
         height: 19,
         width: 4,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomLeft,
-            colors: [
-              Color(0xffB70050).withOpacity(0.8),
-              Color(0xff100049).withOpacity(0.8),
-            ],
-          ),
-        ),
+        decoration: BoxDecoration(color: AppColors.p2
+            // gradient: LinearGradient(
+            //   begin: Alignment.topLeft,
+            //   end: Alignment.bottomLeft,
+            //   colors: [
+            //     Color(0xffB70050).withOpacity(0.8),
+            //     Color(0xff100049).withOpacity(0.8),
+            //   ],
+            // ),
+            ),
       ),
       Column(
         crossAxisAlignment: CrossAxisAlignment.start,

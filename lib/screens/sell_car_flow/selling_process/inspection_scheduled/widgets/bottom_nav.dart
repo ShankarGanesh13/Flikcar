@@ -1,6 +1,7 @@
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/book_evaluation/book_evaluation.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/cancel_reason/cancel_reason.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +12,7 @@ class CustomBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: 67,
-      color: const Color(0xff100049),
+      color: AppColors.s1,
       width: MediaQuery.of(context).size.width,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
         navButton(
@@ -25,7 +26,7 @@ class CustomBottomNav extends StatelessWidget {
                 ),
               );
             },
-            color: Color(0xff100049),
+            color: AppColors.s1,
             icon: Icons.close),
         navButton(
             title: "Reschedule",
@@ -37,7 +38,7 @@ class CustomBottomNav extends StatelessWidget {
                 ),
               );
             },
-            color: Color(0xff9A2870),
+            color: AppColors.p2,
             icon: Icons.watch_later_outlined),
         navButton(
             title: "Finish",
@@ -45,11 +46,13 @@ class CustomBottomNav extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
+                  builder: (context) => const HomeScreen(
+                    index: 1,
+                  ),
                 ),
               );
             },
-            color: Color(0xff9A2870),
+            color: AppColors.p2,
             icon: Icons.flag),
       ]),
     );

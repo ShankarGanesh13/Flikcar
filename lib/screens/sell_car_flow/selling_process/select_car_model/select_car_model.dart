@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/secondary_button.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/my_text_field.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,11 +45,10 @@ class SelectCarModel extends StatelessWidget {
                     ),
                     width: MediaQuery.of(context).size.width / 2.3,
                     decoration: BoxDecoration(
-                      color: selectedIndex != index
-                          ? Colors.white
-                          : const Color(0xff9A2870),
+                      color:
+                          selectedIndex != index ? Colors.white : AppColors.p2,
                       border: Border.all(
-                        color: Color(0xffCDCDCD),
+                        color: AppColors.grey,
                       ),
                       borderRadius: BorderRadius.circular(6),
                     ),

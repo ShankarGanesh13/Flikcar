@@ -4,12 +4,13 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/buy_car_home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
-import 'package:flikcar/utils/fonts.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final int index;
+  const HomeScreen({super.key, required this.index});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -59,14 +60,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ));
   }
 
+  int _currentIndex = 0;
   @override
   void initState() {
     // TODO: implement initState
+    _currentIndex = widget.index;
     super.initState();
     startStreaming();
   }
 
-  int _currentIndex = 0;
   List<Widget> pages = [
     const BuyCarHomeScreen(),
     const SellCarHomeScreen(),
@@ -81,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
         selectedColor: const Color(0xff9A2870),
         strokeColor: const Color(0x30040307),
         unSelectedColor: Colors.white,
-        backgroundColor: const Color(0xff100049),
+        backgroundColor: AppColors.s1,
         items: [
           navBarItems(
             imagePath: "assets/buy_car_icon.png",
@@ -120,13 +122,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return CustomNavigationBarItem(
       icon: Image.asset(
         imagePath,
-        color: _currentIndex == index ? const Color(0xff9A2870) : Colors.white,
+        color: _currentIndex == index ? AppColors.p2 : Colors.white,
       ),
       title: Text(
         title,
         style: TextStyle(
-          color:
-              _currentIndex == index ? const Color(0xff9A2870) : Colors.white,
+          color: _currentIndex == index ? AppColors.p2 : Colors.white,
           fontSize: 12,
           fontWeight: FontWeight.w500,
         ),

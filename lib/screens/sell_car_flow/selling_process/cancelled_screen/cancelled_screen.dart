@@ -70,7 +70,7 @@ class CancelledScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen()));
+                          builder: (context) => const HomeScreen(index: 1)));
                 },
                 title: "Continue",
               ),

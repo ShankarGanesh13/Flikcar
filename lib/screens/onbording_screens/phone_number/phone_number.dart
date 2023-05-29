@@ -1,6 +1,5 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';  
 import 'package:flutter/material.dart';
 
 class PhoneNumber extends StatelessWidget {

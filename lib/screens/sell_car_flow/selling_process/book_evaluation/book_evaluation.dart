@@ -7,6 +7,7 @@ import 'package:flikcar/screens/sell_car_flow/selling_process/book_evaluation/wi
 import 'package:flikcar/screens/sell_car_flow/selling_process/book_evaluation/widgets/select_timeslot.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/inspection_scheduled/inspection_scheduled.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -48,9 +49,9 @@ class BookEvaluation extends StatelessWidget {
                       height: 20,
                     ),
                     titleAndTextField(
-                        prefix: const Icon(
+                        prefix: Icon(
                           Icons.location_on,
-                          color: Color(0xff9A2870),
+                          color: AppColors.p2,
                         ),
                         title: "Your Address",
                         hint: "Enter your address",

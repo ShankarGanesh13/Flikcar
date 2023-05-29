@@ -3,6 +3,7 @@ import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/inspection_scheduled/widgets/bottom_nav.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/inspection_scheduled/widgets/inspection_day.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -74,16 +75,16 @@ class InspectionScheduled extends StatelessWidget {
                           shadowColor: Colors.transparent,
                           disabledBackgroundColor: Colors.transparent,
                           shape: RoundedRectangleBorder(
-                            side: const BorderSide(color: Color(0xff9A2870)),
+                            side: BorderSide(color: AppColors.p2),
                             borderRadius: BorderRadius.circular(5),
                           ),
                         ),
                         onPressed: () {},
                         child: Row(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.headphones,
-                              color: Color(0xff9A2870),
+                              color: AppColors.p2,
                             ),
                             const SizedBox(
                               width: 3,

@@ -245,8 +245,10 @@ class SellingProcessProvider extends ChangeNotifier {
     switch (counter) {
       case 1:
         {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const HomeScreen()));
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomeScreen(index: 1)));
         }
         break;
 
@@ -331,13 +333,12 @@ class SellingProcessProvider extends ChangeNotifier {
         minExpectedPrice != "" &&
         carConditionIndex != -1) {
       print(maxExpectedPrice);
-      notifyListeners();
-      // Navigator.push(
-      //     context,
-      //     MaterialPageRoute(
-      //       builder: (context) => SplashScreen(),
-      //     ));
     }
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => SplashScreen(),
+        ));
   }
 
   clearData() {

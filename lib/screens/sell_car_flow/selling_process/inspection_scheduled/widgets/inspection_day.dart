@@ -1,4 +1,5 @@
 import 'package:dotted_line/dotted_line.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -17,9 +18,9 @@ class InspectionDay extends StatelessWidget {
                 Container(
                   height: 37,
                   width: 43,
-                  decoration: const BoxDecoration(
-                    color: Color(0xff9A2870),
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: AppColors.p2,
+                    borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
                   ),
@@ -80,9 +81,9 @@ class InspectionDay extends StatelessWidget {
                 Container(
                   height: 37,
                   width: 43,
-                  decoration: const BoxDecoration(
-                    color: Color(0xff9A2870),
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: AppColors.p2,
+                    borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
                   ),
@@ -157,9 +158,9 @@ class InspectionDay extends StatelessWidget {
                 Container(
                   height: 37,
                   width: 43,
-                  decoration: const BoxDecoration(
-                    color: Color(0xff9A2870),
-                    borderRadius: BorderRadius.only(
+                  decoration: BoxDecoration(
+                    color: AppColors.p2,
+                    borderRadius: const BorderRadius.only(
                         topRight: Radius.circular(20),
                         bottomRight: Radius.circular(20)),
                   ),

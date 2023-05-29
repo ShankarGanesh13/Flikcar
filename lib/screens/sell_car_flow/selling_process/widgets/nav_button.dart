@@ -1,3 +1,4 @@
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,7 @@ class NavButton extends StatelessWidget {
       width: 91,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xff9A2870),
+            backgroundColor: AppColors.p2,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),

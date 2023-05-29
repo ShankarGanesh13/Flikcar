@@ -104,8 +104,11 @@ class CarCondition extends StatelessWidget {
                     PrimaryButton(
                         title: "Proceed",
                         function: () {
-                          Provider.of<SellingProcessProvider>(context)
-                              .uploadCarDetails(context: context);
+                          Provider.of<SellingProcessProvider>(context,
+                                  listen: false)
+                              .uploadCarDetails(
+                            context: context,
+                          );
                         }),
                   ],
                 ),

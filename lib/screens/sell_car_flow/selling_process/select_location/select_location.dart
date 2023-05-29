@@ -1,6 +1,7 @@
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/secondary_button.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,11 +39,10 @@ class SelectLocation extends StatelessWidget {
                     height: 62,
                     width: 86,
                     decoration: BoxDecoration(
-                      color: selectedIndex == index
-                          ? Color(0xff9A2870)
-                          : Colors.white,
+                      color:
+                          selectedIndex == index ? AppColors.p2 : Colors.white,
                       border: Border.all(
-                        color: Color(0xffCDCDCD),
+                        color: AppColors.grey,
                       ),
                       borderRadius: BorderRadius.circular(10),
                     ),

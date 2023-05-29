@@ -24,10 +24,10 @@ class SellerTestimonials extends StatelessWidget {
             shrinkWrap: true,
             itemBuilder: ((context, index) {
               return Container(
-                  margin: EdgeInsets.only(left: 20, bottom: 15, top: 10),
+                  margin: const EdgeInsets.only(left: 20, bottom: 15, top: 10),
                   height: 235,
                   width: 239,
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     color: Colors.white,

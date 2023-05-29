@@ -1,3 +1,4 @@
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ class CustomAppBar {
     return AppBar(
       automaticallyImplyLeading: false,
       shadowColor: Colors.transparent,
-      backgroundColor: Color(0xff100049),
+      backgroundColor: AppColors.s1,
       title: Container(
         margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
         height: 37,
@@ -23,7 +24,7 @@ class CustomAppBar {
           height: 27,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-                backgroundColor: Color(0xff9A2870),
+                backgroundColor: AppColors.p2,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5),
                 ),
@@ -60,7 +61,7 @@ class CustomAppBar {
           AppBar(
             automaticallyImplyLeading: false,
             shadowColor: Colors.transparent,
-            backgroundColor: Color(0xff100049),
+            backgroundColor: AppColors.s1,
             title: Container(
               margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
               height: 37,
@@ -77,7 +78,7 @@ class CustomAppBar {
                 height: 27,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xff9A2870),
+                    backgroundColor: AppColors.p2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5),
                     ),
@@ -109,7 +110,7 @@ class CustomAppBar {
             height: 67,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(12),
-            color: const Color(0xff100049),
+            color: AppColors.s1,
             child: TextFormField(
               decoration: InputDecoration(
                 filled: true,
