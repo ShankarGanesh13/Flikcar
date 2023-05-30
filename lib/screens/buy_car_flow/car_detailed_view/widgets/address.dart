@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -59,7 +60,13 @@ class CarAddress extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          PrimaryButton(title: "View all Cars at the Store", function: () {})
+          PrimaryButton(
+            title: "View all Cars at the Store",
+            function: () {},
+            backgroundColor: AppColors.p2,
+            borderColor: Colors.transparent,
+            textStyle: AppFonts.w500white14,
+          )
         ],
       ),
     );

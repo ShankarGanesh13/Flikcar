@@ -1,5 +1,7 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';  
+import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
+import 'package:flikcar/utils/colors.dart';
+import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class PhoneNumber extends StatelessWidget {
@@ -40,6 +42,9 @@ class PhoneNumber extends StatelessWidget {
           ),
           const SizedBox(height: 40),
           PrimaryButton(
+            backgroundColor: AppColors.p2,
+            borderColor: Colors.transparent,
+            textStyle: AppFonts.w500white14,
             title: "Send OTP",
             function: () {
               Navigator.push(context,

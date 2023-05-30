@@ -135,6 +135,9 @@ class BookEvaluation extends StatelessWidget {
                       height: 20,
                     ),
                     PrimaryButton(
+                        backgroundColor: AppColors.p2,
+                        borderColor: Colors.transparent,
+                        textStyle: AppFonts.w500white14,
                         title: "Book Free Evaluation",
                         function: () {
                           if (_formKey.currentState!.validate()) {

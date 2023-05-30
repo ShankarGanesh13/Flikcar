@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -108,10 +109,16 @@ class OtpScreen extends StatelessWidget {
           const SizedBox(height: 40),
           PrimaryButton(
             title: "Verify OTP",
+            backgroundColor: AppColors.p2,
+            borderColor: Colors.transparent,
+            textStyle: AppFonts.w500white14,
             function: () {},
           ),
           const SizedBox(height: 20),
           PrimaryButton(
+            backgroundColor: AppColors.p2,
+            borderColor: Colors.transparent,
+            textStyle: AppFonts.w500white14,
             title: "Back",
             function: () {
               Navigator.pop(context);

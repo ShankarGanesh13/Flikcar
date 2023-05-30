@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/widgets/expected_price.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/widgets/select_condition.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -102,6 +103,9 @@ class CarCondition extends StatelessWidget {
                       height: 40,
                     ),
                     PrimaryButton(
+                        backgroundColor: AppColors.p2,
+                        borderColor: Colors.transparent,
+                        textStyle: AppFonts.w500white14,
                         title: "Proceed",
                         function: () {
                           Provider.of<SellingProcessProvider>(context,

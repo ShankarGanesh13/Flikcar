@@ -5,7 +5,16 @@ import 'package:flutter/material.dart';
 class PrimaryButton extends StatelessWidget {
   final String title;
   final Function() function;
-  const PrimaryButton({super.key, required this.title, required this.function});
+  final Color borderColor;
+  final TextStyle textStyle;
+  final Color backgroundColor;
+  const PrimaryButton(
+      {super.key,
+      required this.title,
+      required this.function,
+      required this.borderColor,
+      required this.backgroundColor,
+      required this.textStyle});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +23,8 @@ class PrimaryButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.p2,
+          side: BorderSide(color: borderColor),
+          backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
           ),
@@ -22,7 +32,7 @@ class PrimaryButton extends StatelessWidget {
         onPressed: function,
         child: Text(
           title,
-          style: AppFonts.w500white14,
+          style: textStyle,
         ),
       ),
     );

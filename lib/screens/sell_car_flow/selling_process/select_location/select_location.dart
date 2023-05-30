@@ -1,5 +1,4 @@
 import 'package:flikcar/common_widgets/heading1.dart';
-import 'package:flikcar/common_widgets/secondary_button.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';

@@ -99,6 +99,9 @@ class CancelReason extends StatelessWidget {
               ),
               SizedBox(height: MediaQuery.of(context).size.height / 4),
               PrimaryButton(
+                  backgroundColor: AppColors.p2,
+                  borderColor: Colors.transparent,
+                  textStyle: AppFonts.w500white14,
                   title: "Cancel Evaluation",
                   function: () {
                     Navigator.push(

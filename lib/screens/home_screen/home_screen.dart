@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flikcar/screens/account/account_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/buy_car_home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -72,8 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = [
     const BuyCarHomeScreen(),
     const SellCarHomeScreen(),
-    const BuyCarHomeScreen(),
-    const BuyCarHomeScreen(),
+    const AccountScreen(),
+    const AccountScreen(),
   ];
   @override
   Widget build(BuildContext context) {

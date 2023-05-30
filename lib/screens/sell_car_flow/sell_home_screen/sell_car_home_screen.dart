@@ -6,6 +6,8 @@ import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/select_brand.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/seller_testimonials.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/selling_process.dart';
+import 'package:flikcar/utils/colors.dart';
+import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class SellCarHomeScreen extends StatelessWidget {
@@ -90,6 +92,9 @@ class SellCarHomeScreen extends StatelessWidget {
                       child: Column(children: [
                         const CarNoTextField(),
                         PrimaryButton(
+                          backgroundColor: AppColors.p2,
+                          borderColor: Colors.transparent,
+                          textStyle: AppFonts.w500white14,
                           title: "Get Car Price",
                           function: () {},
                         ),

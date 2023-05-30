@@ -6,6 +6,7 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_featu
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/image_viewer.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
+import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +34,13 @@ class CarDetailedView extends StatelessWidget {
           BuyNavButton(
             icon: Icons.watch_later,
             title: "Schedule Test Drive",
-            function: () {},
+            function: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => ScheduleTestDrive(),
+                  ));
+            },
           )
         ]),
       ),

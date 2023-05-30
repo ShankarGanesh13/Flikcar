@@ -153,7 +153,12 @@ class HomeScreenCard extends StatelessWidget {
                                   width: 180,
                                   height: 35,
                                   child: PrimaryButton(
-                                      title: "Contact Dealer", function: () {}),
+                                    title: "Contact Dealer",
+                                    function: () {},
+                                    borderColor: Colors.transparent,
+                                    textStyle: AppFonts.w500white14,
+                                    backgroundColor: AppColors.p2,
+                                  ),
                                 ),
                                 Spacer(),
                                 FavoriteButton(
