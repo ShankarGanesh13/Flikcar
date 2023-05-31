@@ -107,10 +107,16 @@ class AppFonts {
     color: AppColors.p2,
     height: 1,
   );
-  static final w700s120 = getAppFont(
+  static final w700s140 = getAppFont(
     fontWeight: FontWeight.w700,
-    fontSize: 20,
+    fontSize: 14,
     color: const Color(0xff161F31),
+    height: 1,
+  );
+  static final w700p220 = getAppFont(
+    fontWeight: FontWeight.w700,
+    fontSize: 16,
+    color: AppColors.p2,
     height: 1,
   );
   static final w500black12 = getAppFont(

@@ -4,6 +4,7 @@ import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/buyer_testimonial.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/seller_testimonials.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -17,7 +18,12 @@ class BuyCarHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.p2,
-      appBar: CustomAppBar.getBuyCarAppBar(context),
+      appBar: CustomAppBar.getBuyCarAppBar(
+          context: context,
+          function: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => FilterApplied()));
+          }),
       body: SingleChildScrollView(
         child: Column(children: [
           Stack(

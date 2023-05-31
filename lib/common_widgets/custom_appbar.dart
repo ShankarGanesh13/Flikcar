@@ -1,3 +1,4 @@
+import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,8 @@ class CustomAppBar {
     );
   }
 
-  static PreferredSizeWidget getBuyCarAppBar(context) {
+  static PreferredSizeWidget getBuyCarAppBar(
+      {required BuildContext context, required Function() function}) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(123.0),
       child: Column(
@@ -125,6 +127,7 @@ class CustomAppBar {
                 hintText: "Search for Cars",
                 prefixIcon: const Icon(Icons.search),
               ),
+              onTap: function,
               maxLength: 30,
             ),
           ),

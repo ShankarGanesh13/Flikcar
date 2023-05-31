@@ -64,7 +64,7 @@ class HomeScreenCard extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => CarDetailedView(),
+                            builder: (context) => const CarDetailedView(),
                           ));
                     },
                     child: Container(
@@ -110,11 +110,11 @@ class HomeScreenCard extends StatelessWidget {
                                   child: Row(
                                     children: [
                                       Text("Car Name",
-                                          style: AppFonts.w700s120),
+                                          style: AppFonts.w700s140),
                                       const Spacer(),
                                       Text(
                                         "₹ 130000",
-                                        style: AppFonts.w700s120,
+                                        style: AppFonts.w700s140,
                                       ),
                                     ],
                                   ),
@@ -143,7 +143,7 @@ class HomeScreenCard extends StatelessWidget {
                               ],
                             ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Padding(
                             padding:
                                 const EdgeInsets.only(left: 10.0, right: 10),
@@ -155,12 +155,12 @@ class HomeScreenCard extends StatelessWidget {
                                   child: PrimaryButton(
                                     title: "Contact Dealer",
                                     function: () {},
-                                    borderColor: Colors.transparent,
-                                    textStyle: AppFonts.w500white14,
-                                    backgroundColor: AppColors.p2,
+                                    borderColor: Colors.black,
+                                    textStyle: AppFonts.w500black14,
+                                    backgroundColor: Colors.white,
                                   ),
                                 ),
-                                Spacer(),
+                                const Spacer(),
                                 FavoriteButton(
                                   iconSize: 30,
                                   valueChanged: (_) {},

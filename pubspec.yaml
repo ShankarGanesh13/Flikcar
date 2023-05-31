@@ -46,6 +46,7 @@ dependencies:
   pinput: ^2.2.31
   dotted_line: ^3.1.0
   favorite_button: ^0.0.4
+  flutter_xlider: ^3.5.0
 
 dev_dependencies:
   flutter_test:

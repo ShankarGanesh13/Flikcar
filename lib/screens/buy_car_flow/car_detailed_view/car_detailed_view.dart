@@ -6,6 +6,7 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_featu
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/image_viewer.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -17,7 +18,13 @@ class CarDetailedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getBuyCarAppBar(context),
+      appBar: CustomAppBar.getBuyCarAppBar(
+        context: context,
+        function: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => FilterApplied()));
+        },
+      ),
       bottomNavigationBar: Container(
         height: 63,
         width: MediaQuery.of(context).size.width,

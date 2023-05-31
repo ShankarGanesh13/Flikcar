@@ -1,3 +1,5 @@
+import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
@@ -32,7 +34,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
         useMaterial3: true,
       ),
-      home: const HomeScreen(index: 0),
+      home: const HomeScreen(
+        index: 0,
+      ),
     );
   }
 }
