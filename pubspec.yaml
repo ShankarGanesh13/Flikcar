@@ -47,6 +47,7 @@ dependencies:
   dotted_line: ^3.1.0
   favorite_button: ^0.0.4
   flutter_xlider: ^3.5.0
+  percent_indicator: ^4.2.3
 
 dev_dependencies:
   flutter_test:

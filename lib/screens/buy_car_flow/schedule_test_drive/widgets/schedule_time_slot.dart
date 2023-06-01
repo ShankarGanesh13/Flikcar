@@ -1,12 +1,16 @@
+import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ScheduleTimeSlot extends StatelessWidget {
   const ScheduleTimeSlot({super.key});
-  final int selectedIndex = 0;
+
   @override
   Widget build(BuildContext context) {
+    final int selectedIndex =
+        context.watch<BuyCarProvider>().testDriveTimeSlotIndex;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -23,7 +27,11 @@ class ScheduleTimeSlot extends StatelessWidget {
             children: List.generate(
               6,
               (index) => InkWell(
-                onTap: () {},
+                onTap: () {
+                  Provider.of<BuyCarProvider>(context, listen: false)
+                      .getTestDriveTimeSlot(
+                          timeslot: "4:00pm - 5:00pm", index: index);
+                },
                 child: Container(
                   padding: const EdgeInsets.only(
                       top: 5, bottom: 5, left: 15, right: 15),

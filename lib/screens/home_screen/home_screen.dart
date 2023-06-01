@@ -5,6 +5,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flikcar/screens/account/account_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/buy_car_home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
+import 'package:flikcar/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = [
     const BuyCarHomeScreen(),
     const SellCarHomeScreen(),
-    const AccountScreen(),
+    const WishlistScreen(),
     const AccountScreen(),
   ];
   @override

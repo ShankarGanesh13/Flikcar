@@ -1,15 +1,20 @@
+import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
+import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class ScheduleDate extends StatelessWidget {
   const ScheduleDate({super.key});
-  final int selectedIndex = 0;
+
   static final date = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    final int selectedIndex =
+        context.watch<BuyCarProvider>().testDriveDateIndex;
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
         "Select Date",
@@ -23,7 +28,10 @@ class ScheduleDate extends StatelessWidget {
           8,
           (index) => InkWell(
             onTap: () {
-              print(index);
+              Provider.of<BuyCarProvider>(context, listen: false)
+                  .getTestDriveDate(
+                      date: date.add(Duration(days: index)).toString(),
+                      index: index);
             },
             child: Container(
               height: 65,

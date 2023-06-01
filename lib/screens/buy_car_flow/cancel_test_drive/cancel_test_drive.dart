@@ -1,11 +1,12 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/buy_car_flow/booking_cancelled/booking_cancelled.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
+import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CancelTestDrive extends StatelessWidget {
   const CancelTestDrive({super.key});
@@ -19,10 +20,12 @@ class CancelTestDrive extends StatelessWidget {
     "Inadequate staff assistance",
     "Car related issue"
   ];
-  final selectedIndex = 1;
 
   @override
   Widget build(BuildContext context) {
+    final selectedIndex =
+        context.watch<BuyCarProvider>().testDriveCancellingReasonIndex;
+
     return Scaffold(
         appBar: CustomAppBar.getAppBar(),
         body: SingleChildScrollView(
@@ -68,7 +71,12 @@ class CancelTestDrive extends StatelessWidget {
                       children: List.generate(
                           reason.length,
                           (index) => InkWell(
-                                onTap: () {},
+                                onTap: () {
+                                  Provider.of<BuyCarProvider>(context,
+                                          listen: false)
+                                      .getTestDriveCancellingReason(
+                                          reason: reason[index], index: index);
+                                },
                                 child: Container(
                                   width: MediaQuery.of(context).size.width,
                                   height: 47,

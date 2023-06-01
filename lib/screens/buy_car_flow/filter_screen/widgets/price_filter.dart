@@ -122,16 +122,16 @@ class _PriceFilterState extends State<PriceFilter> {
             },
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
         Text(
           "Suggestions",
           style: AppFonts.w700black16,
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 20),
         Wrap(
             direction: Axis.vertical,
             runSpacing: 20,
-            spacing: 10,
+            spacing: 20,
             children: List.generate(
               5,
               (index) => SizedBox(

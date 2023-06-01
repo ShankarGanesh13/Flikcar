@@ -65,7 +65,9 @@ class ConfirmTestDrive extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 2.3,
                     child: IconElevatedButton(
                         title: "Reschedule",
-                        function: () {},
+                        function: () {
+                          Navigator.pop(context);
+                        },
                         borderColor: Colors.black,
                         backgroundColor: Colors.white,
                         textStyle: AppFonts.w500black14,
