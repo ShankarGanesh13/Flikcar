@@ -4,11 +4,13 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flikcar/screens/account/account_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/buy_car_home_screen.dart';
+import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
 import 'package:flikcar/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   final int index;
@@ -19,57 +21,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late ConnectivityResult result;
-  late StreamSubscription subscription;
-  bool isConnected = false;
-
-  checkInternet() async {
-    result = await Connectivity().checkConnectivity();
-    if (result != ConnectivityResult.none) {
-      setState(() {
-        isConnected = true;
-      });
-    } else {
-      setState(() {
-        isConnected = false;
-      });
-      showDialogBox();
-      print("No internet");
-    }
-  }
-
-  startStreaming() {
-    subscription = Connectivity().onConnectivityChanged.listen((event) async {
-      checkInternet();
-    });
-  }
-
-  showDialogBox() {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (context) => CupertinoAlertDialog(
-              title: const Text("No Internet"),
-              content: const Text("Please check your internet connection"),
-              actions: [
-                CupertinoButton.filled(
-                    child: const Text("Retry"),
-                    onPressed: () {
-                      Navigator.pop(context);
-                      checkInternet();
-                    })
-              ],
-            ));
-  }
-
   int _currentIndex = 0;
-  @override
-  void initState() {
-    // TODO: implement initState
-    _currentIndex = widget.index;
-    super.initState();
-    startStreaming();
-  }
 
   List<Widget> pages = [
     const BuyCarHomeScreen(),
@@ -77,6 +29,14 @@ class _HomeScreenState extends State<HomeScreen> {
     const WishlistScreen(),
     const AccountScreen(),
   ];
+
+  @override
+  void initState() {
+    Provider.of<CheckInternetProvider>(context, listen: false)
+        .startStreaming(context);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -108,14 +68,14 @@ class _HomeScreenState extends State<HomeScreen> {
             index: 3,
           )
         ],
-        currentIndex: _currentIndex!,
+        currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
             _currentIndex = index;
           });
         },
       ),
-      body: pages.elementAt(_currentIndex!),
+      body: pages.elementAt(_currentIndex),
     );
   }
 

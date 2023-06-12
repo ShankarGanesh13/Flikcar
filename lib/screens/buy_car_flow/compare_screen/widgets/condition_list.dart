@@ -1,4 +1,5 @@
 import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/condition_details_card.dart';
+import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/tyre_condition.dart';
 import 'package:flutter/material.dart';
 
 import 'overview_details.dart';
@@ -40,11 +41,11 @@ class ConditionList extends StatelessWidget {
               indicator1: "good",
               indicator2: "bad",
             ),
+            TyreCondition(title: "Tyres"),
             SizedBox(height: 50)
           ],
         ),
       ),
     );
-    ;
   }
 }

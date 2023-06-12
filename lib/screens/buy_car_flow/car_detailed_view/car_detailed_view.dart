@@ -18,11 +18,12 @@ class CarDetailedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getBuyCarAppBar(
+      appBar: CustomAppBar.getAppBarWithSearch(
+        back: true,
         context: context,
         function: () {
           Navigator.push(context,
-              MaterialPageRoute(builder: (context) => FilterApplied()));
+              MaterialPageRoute(builder: (context) => const FilterApplied()));
         },
       ),
       bottomNavigationBar: Container(
@@ -45,7 +46,7 @@ class CarDetailedView extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ScheduleTestDrive(),
+                    builder: (context) => const ScheduleTestDrive(),
                   ));
             },
           )
@@ -59,16 +60,16 @@ class CarDetailedView extends StatelessWidget {
               color: const Color.fromARGB(255, 240, 255, 249),
               child: Row(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.chevron_left,
-                      color: AppColors.p2,
-                      size: 28,
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Navigator.pop(context);
+                  //   },
+                  //   child: Icon(
+                  //     Icons.chevron_left,
+                  //     color: AppColors.p2,
+                  //     size: 28,
+                  //   ),
+                  // ),
                   const SizedBox(width: 10),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

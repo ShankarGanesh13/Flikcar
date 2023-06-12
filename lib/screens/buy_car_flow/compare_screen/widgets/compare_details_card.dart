@@ -38,14 +38,14 @@ class CompareDetailsCard extends StatelessWidget {
               "Variant name",
               style: AppFonts.w500dark214,
             ),
-            Spacer(),
+            const Spacer(),
             PrimaryButton(
                 title: "Contact Dealer",
                 function: () {},
                 borderColor: AppColors.s1,
                 backgroundColor: Colors.white,
                 textStyle: AppFonts.w500s114),
-            SizedBox(height: 20)
+            const SizedBox(height: 20)
           ],
         ));
   }

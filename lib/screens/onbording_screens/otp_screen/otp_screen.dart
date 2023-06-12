@@ -1,7 +1,7 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
@@ -127,6 +127,5 @@ class OtpScreen extends StatelessWidget {
         ],
       ),
     ));
-    ;
   }
 }

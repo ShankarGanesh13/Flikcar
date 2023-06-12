@@ -5,6 +5,8 @@ class BuyCarProvider extends ChangeNotifier {
   late String testDriveCancellingReason;
   late String testDriveTimeSlot;
 
+  bool compare = false;
+
   int testDriveCancellingReasonIndex = -1;
   int testDriveDateIndex = -1;
   int testDriveTimeSlotIndex = -1;
@@ -24,6 +26,11 @@ class BuyCarProvider extends ChangeNotifier {
   getTestDriveTimeSlot({required String timeslot, required int index}) {
     testDriveTimeSlot = timeslot;
     testDriveTimeSlotIndex = index;
+    notifyListeners();
+  }
+
+  compareCars() {
+    compare = compare == true ? false : true;
     notifyListeners();
   }
 }

@@ -55,7 +55,9 @@ class CustomAppBar {
   }
 
   static PreferredSizeWidget getBuyCarAppBar(
-      {required BuildContext context, required Function() function}) {
+      {required BuildContext context,
+      required Function() function,
+      required bool back}) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(123.0),
       child: Column(
@@ -111,24 +113,43 @@ class CustomAppBar {
           Container(
             height: 67,
             width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.only(top: 12, right: 12, bottom: 12),
             color: AppColors.s1,
-            child: TextFormField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                contentPadding: const EdgeInsets.only(
-                    left: 12, right: 12, top: 6, bottom: 6),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
+            child: Row(
+              children: [
+                back
+                    ? IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.chevron_left),
+                        color: Colors.white,
+                      )
+                    : SizedBox(),
+                Spacer(),
+                SizedBox(
+                  width: back
+                      ? MediaQuery.of(context).size.width / 1.2
+                      : MediaQuery.of(context).size.width / 1.06,
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      contentPadding: const EdgeInsets.only(
+                          left: 12, right: 12, top: 6, bottom: 6),
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      counterText: "",
+                      counterStyle: const TextStyle(color: Colors.transparent),
+                      hintText: "Search for Cars",
+                      prefixIcon: const Icon(Icons.search),
+                    ),
+                    onTap: function,
+                    maxLength: 30,
+                  ),
                 ),
-                counterText: "",
-                counterStyle: const TextStyle(color: Colors.transparent),
-                hintText: "Search for Cars",
-                prefixIcon: const Icon(Icons.search),
-              ),
-              onTap: function,
-              maxLength: 30,
+              ],
             ),
           ),
         ],

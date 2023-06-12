@@ -11,7 +11,7 @@ class DisplayRating extends StatelessWidget {
       children: List.generate(5, (index) {
         return Icon(
           index < value ? Icons.star : Icons.star_border,
-          color: Color(0xffF5CE00),
+          color: const Color(0xffF5CE00),
           size: 18,
         );
       }),

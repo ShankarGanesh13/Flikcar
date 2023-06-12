@@ -81,8 +81,7 @@ class SellerTestimonials extends StatelessWidget {
                             decoration: const BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                      'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?cs=srgb&dl=pexels-pixabay-220453.jpg&fm=jpg'),
+                                  image: ExactAssetImage("assets/user.jpg"),
                                   fit: BoxFit.fill),
                             ),
                           ),
