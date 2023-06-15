@@ -1,4 +1,5 @@
 import 'package:flikcar/screens/home_screen/home_screen.dart';
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
 import 'package:flikcar/screens/start_screen/widgets/option_card.dart';
 import 'package:flutter/material.dart';
@@ -46,13 +47,13 @@ class StartScreen extends StatelessWidget {
               Expanded(
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [Color(0xff100049), Color(0xffB70050)],
-                    ),
-                  ),
+                  decoration: const BoxDecoration(color: Color(0xff161F31)
+                      // gradient: LinearGradient(
+                      //   begin: Alignment.topRight,
+                      //   end: Alignment.bottomLeft,
+                      //   colors: [Color(0xff100049), Color(0xffB70050)],
+                      // ),
+                      ),
                   child: Padding(
                     padding: const EdgeInsets.only(left: 15, right: 15, top: 2),
                     child: Column(children: [
@@ -66,17 +67,21 @@ class StartScreen extends StatelessWidget {
                           );
                         },
                         child: OptionCard(
-                          title: "Sell Car",
-                          imagePath: "assets/sell_car.png",
+                          title: "Buy Car &\nSell Car",
+                          imagePath: "assets/buy_car.png",
                         ),
                       ),
-                      OptionCard(
-                        title: "Buy Car",
-                        imagePath: "assets/buy_car.png",
-                      ),
-                      OptionCard(
-                        title: "Auction\nHouse",
-                        imagePath: "assets/auction_house.png",
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const DealerDetails()));
+                        },
+                        child: OptionCard(
+                          title: "Dealers'\nPortal",
+                          imagePath: "assets/auction_house.png",
+                        ),
                       ),
                     ]),
                   ),

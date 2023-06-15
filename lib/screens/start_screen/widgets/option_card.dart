@@ -8,7 +8,7 @@ class OptionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 150,
+      height: 220,
       margin: const EdgeInsets.only(top: 30),
       width: MediaQuery.of(context).size.width,
       decoration: BoxDecoration(
@@ -17,6 +17,7 @@ class OptionCard extends StatelessWidget {
         children: [
           SizedBox(
             width: MediaQuery.of(context).size.width,
+            height: 220,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10.0),
               child: Image.asset(

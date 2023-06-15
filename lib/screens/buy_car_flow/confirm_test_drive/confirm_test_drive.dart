@@ -3,6 +3,7 @@ import 'package:flikcar/common_widgets/icon_elevated_button.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/buy_car_flow/cancel_test_drive/cancel_test_drive.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_car_details.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -51,8 +52,13 @@ class ConfirmTestDrive extends StatelessWidget {
                   subtitle: "Between  5 pm - 6pm",
                   icon: Icons.location_on),
               PrimaryButton(
-                  title: "Add to calender",
-                  function: () {},
+                  title: "Continue",
+                  function: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(index: 0)));
+                  },
                   borderColor: Colors.transparent,
                   backgroundColor: AppColors.p2,
                   textStyle: AppFonts.w500white14),

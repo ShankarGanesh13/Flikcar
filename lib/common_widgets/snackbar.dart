@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 class MySnackbar {
   static SnackBar showSnackBar(context, String message) {
+    print(message);
     return SnackBar(
       backgroundColor: AppColors.p2,
       content: Text(

@@ -54,7 +54,7 @@ class CustomAppBar {
     );
   }
 
-  static PreferredSizeWidget getBuyCarAppBar(
+  static PreferredSizeWidget getAppBarWithSearch(
       {required BuildContext context,
       required Function() function,
       required bool back}) {
@@ -152,6 +152,35 @@ class CustomAppBar {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  static PreferredSizeWidget getDealerOnboardingAppBar(
+      {required String title}) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      shadowColor: Colors.transparent,
+      backgroundColor: AppColors.s1,
+      title: Row(
+        children: [
+          Container(
+            margin:
+                const EdgeInsets.only(left: 0, top: 8, bottom: 15, right: 20),
+            height: 37,
+            width: 59,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage("assets/flikcar_logo2.png"),
+              ),
+            ),
+          ),
+          Text(
+            title,
+            style: AppFonts.w700white16,
+          )
         ],
       ),
     );

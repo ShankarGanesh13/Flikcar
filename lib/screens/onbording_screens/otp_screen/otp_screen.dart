@@ -1,12 +1,13 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
-
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 
 class OtpScreen extends StatelessWidget {
-  OtpScreen({super.key});
+  final String phoneNumber;
+  OtpScreen({super.key, required this.phoneNumber});
   final TextEditingController controller = TextEditingController();
   final defaultPinTheme = PinTheme(
     width: 56,
@@ -112,7 +113,12 @@ class OtpScreen extends StatelessWidget {
             backgroundColor: AppColors.p2,
             borderColor: Colors.transparent,
             textStyle: AppFonts.w500white14,
-            function: () {},
+            function: () {
+              AuthService.verifyOtp(
+                  phoneNumber: phoneNumber,
+                  otp: controller.text,
+                  context: context);
+            },
           ),
           const SizedBox(height: 20),
           PrimaryButton(

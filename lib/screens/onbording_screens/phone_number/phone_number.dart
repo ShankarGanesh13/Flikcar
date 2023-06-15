@@ -1,14 +1,29 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
 import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class PhoneNumber extends StatelessWidget {
+class PhoneNumber extends StatefulWidget {
   PhoneNumber({super.key});
+
+  @override
+  State<PhoneNumber> createState() => _PhoneNumberState();
+}
+
+class _PhoneNumberState extends State<PhoneNumber> {
   final TextEditingController controller = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
+  // @override
+  // void initState() {
+  //   Provider.of<CheckInternetProvider>(context, listen: false)
+  //       .startStreaming(context);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -62,8 +77,12 @@ class PhoneNumber extends StatelessWidget {
               function: () {
                 if (_formKey.currentState!.validate()) {
                   AuthService.sendOtp(phoneNumber: controller.text);
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => OtpScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OtpScreen(
+                                phoneNumber: controller.text,
+                              )));
                 }
               },
             )

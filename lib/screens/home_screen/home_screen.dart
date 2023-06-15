@@ -29,13 +29,12 @@ class _HomeScreenState extends State<HomeScreen> {
     const WishlistScreen(),
     const AccountScreen(),
   ];
-
-  @override
-  void initState() {
-    Provider.of<CheckInternetProvider>(context, listen: false)
-        .startStreaming(context);
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   Provider.of<CheckInternetProvider>(context, listen: false)
+  //       .startStreaming(context);
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {

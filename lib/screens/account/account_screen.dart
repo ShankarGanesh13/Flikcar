@@ -1,6 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/sell_request/sell_request.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
+import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -51,18 +52,23 @@ class AccountScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Row(
-              children: [
-                const Spacer(),
-                const Icon(
-                  Icons.logout,
-                  color: Colors.black,
-                ),
-                Text(
-                  "  Logout    ",
-                  style: AppFonts.w700black16,
-                )
-              ],
+            GestureDetector(
+              onTap: () {
+                AuthService.signout(context);
+              },
+              child: Row(
+                children: [
+                  const Spacer(),
+                  const Icon(
+                    Icons.logout,
+                    color: Colors.black,
+                  ),
+                  Text(
+                    "  Logout    ",
+                    style: AppFonts.w700black16,
+                  )
+                ],
+              ),
             )
           ],
         ));

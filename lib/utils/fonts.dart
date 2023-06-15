@@ -125,4 +125,10 @@ class AppFonts {
     color: Colors.black,
     height: 1,
   );
+  static final w500red14 = getAppFont(
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
+    color: const Color(0xffFF0000),
+    height: 1.2,
+  );
 }

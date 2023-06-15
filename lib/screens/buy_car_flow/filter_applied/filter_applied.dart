@@ -16,7 +16,7 @@ class FilterApplied extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool compare = context.watch<BuyCarProvider>().compare;
-    print(compare);
+
     return Scaffold(
         appBar: CustomAppBar.getAppBarWithSearch(
             context: context,
@@ -57,7 +57,8 @@ class FilterApplied extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => CompareScreen()));
+                                  builder: (context) => const CompareScreen(),
+                                ));
                           },
                           textStyle: AppFonts.w500white14),
                     ),
@@ -98,7 +99,8 @@ class FilterApplied extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => FilterScreen()));
+                              builder: (context) => const FilterScreen(),
+                            ));
                       },
                       child: menu(
                           image: "assets/car_details_icon/filter.png",
@@ -148,7 +150,7 @@ class FilterApplied extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => CarDetailedView()));
+                            builder: (context) => const CarDetailedView()));
                   },
                   child: FilterAppliedCard(
                     compare: compare,
