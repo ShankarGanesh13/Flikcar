@@ -5,13 +5,20 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 
 import 'package:file_picker/file_picker.dart';
 
-class PickFile {
+class UploadDealerDocumentsProvider extends ChangeNotifier {
   FilePickerResult? result;
+
   String? fileName;
   bool isLoading = false;
   File? fileToDisplay;
   PlatformFile? pickedFile;
-  Future<FilePickerResult?> pickFile({required BuildContext context}) async {
+  String panImagePath = "";
+  String addressFrontImagePath = "";
+  String addressBAckImagePath = "";
+  String dealershipImagePath = "";
+  String dealerSelfiePath = "";
+
+  pickFile({required BuildContext context, required String imageType}) async {
     try {
       result = await FilePicker.platform.pickFiles(
         type: FileType.image,
@@ -20,40 +27,78 @@ class PickFile {
       if (result != null) {
         fileName = result!.files.first.name;
         pickedFile = result!.files.first;
-
         fileToDisplay = File(pickedFile!.path.toString());
+        print(fileToDisplay!.path);
       }
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
 
     if (pickedFile != null) {
-      final dir = await path_provider.getTemporaryDirectory();
-      final targetPath = dir.absolute.path + '/temp.jpg';
-
-      final result = await FlutterImageCompress.compressAndGetFile(
-        fileToDisplay!.absolute.path,
-        targetPath,
-        quality: 75,
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: const Duration(seconds: 4),
-          backgroundColor: const Color(0xFF0D332B),
-          content: Text("Uploading"),
-        ),
-      );
+      selectImage(imageType: imageType, pickedFilePath: pickedFile!.path!);
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 2),
+            backgroundColor: Color(0xFF45C08D),
+            content: Text("Image Selected"),
+          ),
+        );
+      }
     }
     if (pickedFile == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          duration: Duration(seconds: 4),
-          backgroundColor: const Color(0xFF0D332B),
-          content: Text(
-            "No file selected",
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            duration: Duration(seconds: 2),
+            backgroundColor: Color(0xFF45C08D),
+            content: Text(
+              "No image selected",
+            ),
           ),
-        ),
-      );
+        );
+      }
     }
     return result;
+  }
+
+  selectImage({required String imageType, required String pickedFilePath}) {
+    switch (imageType) {
+      case "pan":
+        {
+          panImagePath = pickedFilePath;
+          notifyListeners();
+        }
+        break;
+      case "addressFront":
+        {
+          addressFrontImagePath = pickedFilePath;
+          notifyListeners();
+        }
+        break;
+      case "addressBack":
+        {
+          addressBAckImagePath = pickedFilePath;
+          notifyListeners();
+        }
+        break;
+      case "dealershipImage":
+        {
+          dealershipImagePath = pickedFilePath;
+          notifyListeners();
+        }
+        break;
+      case "dealerSelfie":
+        {
+          dealerSelfiePath = pickedFilePath;
+          notifyListeners();
+        }
+        break;
+      default:
+        {
+          print("invalid choice");
+        }
+        break;
+    }
   }
 }

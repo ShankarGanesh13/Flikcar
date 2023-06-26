@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
+import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +69,6 @@ class AuthService {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.setBool('isLoggedIn', false);
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => PhoneNumber()));
+        context, MaterialPageRoute(builder: (context) => StartScreen()));
   }
 }

@@ -6,26 +6,26 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class DealerCarCard extends StatelessWidget {
-  const DealerCarCard({super.key});
+  final List<String> filters;
+  final String title;
+  final bool filterButton;
+
+  const DealerCarCard(
+      {super.key,
+      required this.filters,
+      required this.title,
+      required this.filterButton});
   static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
-  final bool filterButton = true;
-  static final List<String> filters = [
-    "2012 & above",
-    "2014 & above",
-    "2016 & above",
-    "2018 & above",
-    "2020 & above"
-  ];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Padding(
-          padding: EdgeInsets.only(
+        Padding(
+          padding: const EdgeInsets.only(
             left: 15,
           ),
-          child: Heading1(title1: "Cars by body type", title2: ''),
+          child: Heading1(title1: title, title2: ''),
         ),
         const SizedBox(height: 12),
         filterButton == true
@@ -51,7 +51,7 @@ class DealerCarCard extends StatelessWidget {
             : const SizedBox(),
         SizedBox(height: filterButton == true ? 12 : 0),
         Container(
-            padding: const EdgeInsets.only(left: 15, bottom: 15),
+            padding: const EdgeInsets.only(left: 0, bottom: 15),
             height: 450,
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -63,8 +63,8 @@ class DealerCarCard extends StatelessWidget {
                     child: Container(
                       height: 400,
                       width: 268,
-                      margin:
-                          const EdgeInsets.only(right: 30, bottom: 20, top: 5),
+                      margin: const EdgeInsets.only(
+                          right: 15, bottom: 20, top: 5, left: 15),
                       decoration: BoxDecoration(
                         boxShadow: const [
                           BoxShadow(

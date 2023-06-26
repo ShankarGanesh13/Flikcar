@@ -12,6 +12,8 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
+import '../../../services/get_car_details.dart';
+
 class CarDetailedView extends StatelessWidget {
   const CarDetailedView({super.key});
 
@@ -99,9 +101,10 @@ class CarDetailedView extends StatelessWidget {
           const CarFeatures(),
           const CarSpecification(),
           const SizedBox(height: 20),
-          const HomeScreenCard(
+          HomeScreenCard(
               title: "Similar Cars You Might Like",
               filters: [],
+              cars: GetCarDetails.getAllCarDetails(),
               filterButton: false),
           const SizedBox(height: 100),
         ]),

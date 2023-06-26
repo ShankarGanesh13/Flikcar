@@ -1,9 +1,15 @@
+import 'package:fast_cached_network_image/fast_cached_network_image.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_car_detail_screen/detail_car_detail_screen.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_car_list_screen/dealer_car_list_screen.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_home_screen/dealer_home_screen.dart';
+import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
@@ -12,20 +18,30 @@ import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
+import 'package:flikcar/services/get_car_details.dart';
+import 'package:flikcar/services/pick_file_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  GetCarDetails();
+  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 15));
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SellingProcessProvider()),
         ChangeNotifierProvider(create: (context) => EvaluationProvider()),
         ChangeNotifierProvider(create: (context) => BuyCarProvider()),
+        ChangeNotifierProvider(create: (context) => DealerProvider()),
         ChangeNotifierProvider(create: (context) => CheckInternetProvider()),
+        ChangeNotifierProvider(
+            create: (context) => UploadDealerDocumentsProvider()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -34,7 +50,7 @@ void main() {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
           useMaterial3: true,
         ),
-        home: const MyApp(),
+        home: const DealerCarDetailScreen(),
       ),
     ),
   );
@@ -46,15 +62,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print("app is running build context");
-    return FutureBuilder<bool>(
-        future: isLoggedIn(context),
-        builder: (context, snapshot) {
-          if (snapshot.data == true) {
-            return const StartScreen();
-          } else {
-            return PhoneNumber();
-          }
-        });
+    return const StartScreen();
   }
 
   Future<bool> isLoggedIn(context) async {
@@ -70,3 +78,22 @@ class MyApp extends StatelessWidget {
     }
   }
 }
+//  Navigator.pushAndRemoveUntil(
+//                     context,
+//                     MaterialPageRoute(
+//                       builder: (context) => const CommonHomeScreen(),
+//                     ),
+//                     (route) => false,
+//                   );
+
+
+
+// FutureBuilder<bool>(
+//         future: isLoggedIn(context),
+//         builder: (context, snapshot) {
+//           if (snapshot.data == true) {
+//             return const StartScreen();
+//           } else {
+//             return PhoneNumber();
+//           }
+//         });

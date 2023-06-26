@@ -1,6 +1,9 @@
+import 'dart:io';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
+import 'package:flikcar/services/pick_file_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DealershipDetails extends StatefulWidget {
   const DealershipDetails({super.key});
@@ -14,6 +17,8 @@ class _DealershipDetailsState extends State<DealershipDetails> {
   int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
+    String dealershipProof =
+        context.watch<UploadDealerDocumentsProvider>().dealershipImagePath;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -42,7 +47,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                     ),
                     const SizedBox(height: 20),
                     ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
+                        physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemCount: 2,
                         itemBuilder: (context, index) {
@@ -91,7 +96,25 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const UploadImage(),
+                      GestureDetector(
+                          onTap: () {
+                            Provider.of<UploadDealerDocumentsProvider>(context,
+                                    listen: false)
+                                .pickFile(
+                                    context: context,
+                                    imageType: "dealershipImage");
+                          },
+                          child: dealershipProof == ""
+                              ? const UploadImage()
+                              : SizedBox(
+                                  height: 136,
+                                  width: 136,
+                                  child: Image.file(
+                                    File(dealershipProof),
+                                    fit: BoxFit.fill,
+                                    width: double.infinity,
+                                  ),
+                                )),
                     ],
                   ),
                 ],

@@ -1,5 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_home_screen/dealer_home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/address_details.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/dealership_details.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/selfie.dart';
@@ -66,15 +68,23 @@ class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: PrimaryButton(
-                  title: "Next",
+                  title: selectedIndex == 3 ? "Submit" : "Next",
                   function: () {
                     if (selectedIndex < 3) {
                       selectedIndex++;
                       setState(() {});
+                    } else {
+                      Navigator.pushAndRemoveUntil(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const DealerFlow(),
+                        ),
+                        (route) => false,
+                      );
                     }
                   },
                   borderColor: Colors.white,
-                  backgroundColor: Color(0xff161F31),
+                  backgroundColor: const Color(0xff161F31),
                   textStyle: AppFonts.w500white14),
             )
           ]),

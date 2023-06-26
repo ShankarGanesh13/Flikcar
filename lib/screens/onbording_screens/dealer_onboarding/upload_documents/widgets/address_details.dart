@@ -1,6 +1,10 @@
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
+import 'package:flikcar/services/pick_file_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'dart:io';
 
 class AddressDetails extends StatefulWidget {
   const AddressDetails({super.key});
@@ -20,6 +24,10 @@ class _AddressDetailsState extends State<AddressDetails> {
 
   @override
   Widget build(BuildContext context) {
+    String addressFront =
+        context.watch<UploadDealerDocumentsProvider>().addressFrontImagePath;
+    String addressBack =
+        context.watch<UploadDealerDocumentsProvider>().addressBAckImagePath;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -101,7 +109,26 @@ class _AddressDetailsState extends State<AddressDetails> {
                           const SizedBox(
                             height: 8,
                           ),
-                          const UploadImage(),
+                          GestureDetector(
+                              onTap: () {
+                                Provider.of<UploadDealerDocumentsProvider>(
+                                        context,
+                                        listen: false)
+                                    .pickFile(
+                                        context: context,
+                                        imageType: "addressFront");
+                              },
+                              child: addressFront == ""
+                                  ? const UploadImage()
+                                  : SizedBox(
+                                      height: 136,
+                                      width: 136,
+                                      child: Image.file(
+                                        File(addressFront),
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      ),
+                                    )),
                         ],
                       ),
                       Column(
@@ -114,7 +141,26 @@ class _AddressDetailsState extends State<AddressDetails> {
                           const SizedBox(
                             height: 8,
                           ),
-                          const UploadImage(),
+                          GestureDetector(
+                              onTap: () {
+                                Provider.of<UploadDealerDocumentsProvider>(
+                                        context,
+                                        listen: false)
+                                    .pickFile(
+                                        context: context,
+                                        imageType: "addressBack");
+                              },
+                              child: addressBack == ""
+                                  ? const UploadImage()
+                                  : SizedBox(
+                                      height: 136,
+                                      width: 136,
+                                      child: Image.file(
+                                        File(addressBack),
+                                        fit: BoxFit.cover,
+                                        width: double.infinity,
+                                      ),
+                                    )),
                         ],
                       ),
                     ],

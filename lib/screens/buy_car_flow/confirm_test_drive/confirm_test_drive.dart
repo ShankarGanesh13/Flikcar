@@ -54,10 +54,15 @@ class ConfirmTestDrive extends StatelessWidget {
               PrimaryButton(
                   title: "Continue",
                   function: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen(index: 0)));
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const HomeScreen(
+                          index: 0,
+                        ),
+                      ),
+                      (route) => false,
+                    );
                   },
                   borderColor: Colors.transparent,
                   backgroundColor: AppColors.p2,

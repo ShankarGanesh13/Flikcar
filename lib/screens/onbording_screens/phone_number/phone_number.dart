@@ -80,9 +80,10 @@ class _PhoneNumberState extends State<PhoneNumber> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => OtpScreen(
-                                phoneNumber: controller.text,
-                              )));
+                        builder: (context) => OtpScreen(
+                          phoneNumber: controller.text,
+                        ),
+                      ));
                 }
               },
             )

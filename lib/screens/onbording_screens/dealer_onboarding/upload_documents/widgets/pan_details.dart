@@ -1,12 +1,18 @@
+import 'package:file_picker/file_picker.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
+import 'package:flikcar/services/pick_file_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:provider/provider.dart';
 
 class PanDetails extends StatelessWidget {
   const PanDetails({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String panPath =
+        context.watch<UploadDealerDocumentsProvider>().panImagePath;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -14,7 +20,7 @@ class PanDetails extends StatelessWidget {
           Container(
               height: 205,
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.all(15),
+              padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
                   color: Colors.white,
                   boxShadow: const [
@@ -35,7 +41,25 @@ class PanDetails extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const UploadImage(),
+                  GestureDetector(
+                    onTap: () {
+                      //pickFile(context: context);
+                      Provider.of<UploadDealerDocumentsProvider>(context,
+                              listen: false)
+                          .pickFile(context: context, imageType: "pan");
+                    },
+                    child: panPath == ""
+                        ? const UploadImage()
+                        : SizedBox(
+                            height: 136,
+                            width: 136,
+                            child: Image.file(
+                              File(panPath),
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                            ),
+                          ),
+                  ),
                 ],
               )),
           const SizedBox(

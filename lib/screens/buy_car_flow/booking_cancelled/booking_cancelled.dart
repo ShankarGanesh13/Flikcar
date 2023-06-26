@@ -3,6 +3,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_car_details.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
+import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -62,9 +63,10 @@ class BookingCancelled extends StatelessWidget {
             ],
           ),
         ),
-        const HomeScreenCard(
+        HomeScreenCard(
             title: "Similar cars you may like",
             filters: [],
+            cars: GetCarDetails.getAllCarDetails(),
             filterButton: false)
       ]),
     );

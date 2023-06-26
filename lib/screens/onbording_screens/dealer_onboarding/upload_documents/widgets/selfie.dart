@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
+import 'package:flikcar/services/pick_file_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class Selfie extends StatelessWidget {
   const Selfie({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String dealerSelfie =
+        context.watch<UploadDealerDocumentsProvider>().dealerSelfiePath;
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
@@ -35,7 +41,25 @@ class Selfie extends StatelessWidget {
                   const SizedBox(
                     height: 10,
                   ),
-                  const UploadImage(),
+                  GestureDetector(
+                      onTap: () {
+                        //pickFile(context: context);
+                        Provider.of<UploadDealerDocumentsProvider>(context,
+                                listen: false)
+                            .pickFile(
+                                context: context, imageType: "dealerSelfie");
+                      },
+                      child: dealerSelfie == ""
+                          ? const UploadImage()
+                          : SizedBox(
+                              height: 136,
+                              width: 136,
+                              child: Image.file(
+                                File(dealerSelfie),
+                                fit: BoxFit.cover,
+                                width: double.infinity,
+                              ),
+                            )),
                 ],
               )),
           const SizedBox(

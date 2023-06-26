@@ -21,7 +21,13 @@ class AppFonts {
     fontWeight: FontWeight.w700,
     fontSize: 20,
     color: Colors.black,
-    height: 1,
+    height: 1.2,
+  );
+  static final w700black14 = getAppFont(
+    fontWeight: FontWeight.w700,
+    fontSize: 14,
+    color: Colors.black,
+    height: 1.2,
   );
   static final w700white32 = getAppFont(
     fontWeight: FontWeight.w700,
@@ -129,6 +135,12 @@ class AppFonts {
     fontWeight: FontWeight.w500,
     fontSize: 14,
     color: const Color(0xffFF0000),
+    height: 1.2,
+  );
+  static final w500green14 = getAppFont(
+    fontWeight: FontWeight.w500,
+    fontSize: 14,
+    color: const Color(0xff00A407),
     height: 1.2,
   );
 }
