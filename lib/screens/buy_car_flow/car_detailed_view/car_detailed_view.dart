@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/address.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
@@ -15,7 +16,8 @@ import 'package:flutter/material.dart';
 import '../../../services/get_car_details.dart';
 
 class CarDetailedView extends StatelessWidget {
-  const CarDetailedView({super.key});
+  final BuyerCar car;
+  const CarDetailedView({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -77,11 +79,11 @@ class CarDetailedView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Car Name",
+                        car.carName,
                         style: AppFonts.w700black16,
                       ),
                       Text(
-                        "Varient Name",
+                        car.model,
                         style: AppFonts.w500dark214,
                       ),
                     ],

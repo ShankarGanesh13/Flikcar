@@ -5,10 +5,14 @@ import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart'
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_detail_screen/detail_car_detail_screen.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_list_screen/dealer_car_list_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/detail_car_detail_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_home_screen/dealer_home_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/dealer_auction_home_screen.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
+import 'package:flikcar/screens/dealers_flow/my_schedule_screen/cancel_schedule/cancel_schedule.dart';
+import 'package:flikcar/screens/dealers_flow/my_schedule_screen/reschedule_screen/reschedule_screen.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
@@ -26,6 +30,8 @@ import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/listing_car_features.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +56,7 @@ void main() async {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
           useMaterial3: true,
         ),
-        home: const DealerCarDetailScreen(),
+        home: const StartScreen(),
       ),
     ),
   );

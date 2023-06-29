@@ -119,7 +119,7 @@ class BuyCarHomeScreen extends StatelessWidget {
                 HomeScreenCard(
                   title: "Cars by body type",
                   filterButton: true,
-                  filters: ["Hatchback", "Sedan", "SUV", "MUV"],
+                  filters: const ["Hatchback", "Sedan", "SUV", "MUV"],
                   cars: GetCarDetails.getAllCarDetails(),
                 ),
                 HomeScreenCard(

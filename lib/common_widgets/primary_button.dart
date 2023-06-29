@@ -23,6 +23,7 @@ class PrimaryButton extends StatelessWidget {
       width: MediaQuery.of(context).size.width,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.all(8),
           side: BorderSide(color: borderColor),
           backgroundColor: backgroundColor,
           foregroundColor: Colors.white,

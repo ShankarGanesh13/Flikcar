@@ -59,14 +59,14 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                           valueChanged: () {},
                           iconSize: 20,
                         ),
-                      )
+                      ),
                     ],
                   ),
                   Text(
                     "Varient Name",
                     style: AppFonts.w500dark214,
                   ),
-                  SizedBox(height: 5),
+                  const SizedBox(height: 5),
                   Wrap(
                     spacing: 6,
                     children: List.generate(

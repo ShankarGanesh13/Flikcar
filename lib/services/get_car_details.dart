@@ -45,15 +45,19 @@ class GetCarDetails {
     List result = data["data"] as List;
 
     result.forEach((e) async {
+      BuyerCar car = BuyerCar.fromJson(e);
+      print(car.bodytype);
       await isar.writeTxn(() async {
         await isar.buyerCars.put(BuyerCar.fromJson(e));
       });
     });
+    print("car details saved");
   }
 
   static Future<List<BuyerCar>> getAllCarDetails() async {
     final isar = await localDB;
     final allCars = await isar.buyerCars.where().findAll();
+    print(allCars);
     return allCars;
   }
 }

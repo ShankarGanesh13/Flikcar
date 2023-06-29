@@ -1,5 +1,7 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_home_screen/dealer_home_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/dealer_auction_home_screen.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_sell_car_screen.dart';
+import 'package:flikcar/screens/dealers_flow/my_schedule_screen/my_schedule_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +19,8 @@ class _DealerFlowState extends State<DealerFlow> {
 
   List<Widget> pages = [
     const DealerAuctionHomeScreen(),
-    const DealerAccountScreen(),
+    const DealerSellCarScreen(),
+    const MyScheduleScreen(),
     const DealerAccountScreen(),
     const DealerAccountScreen(),
   ];
@@ -25,7 +28,7 @@ class _DealerFlowState extends State<DealerFlow> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: CustomNavigationBar(
-        iconSize: 24.0,
+        iconSize: 22.0,
         selectedColor: const Color(0xff9A2870),
         strokeColor: const Color(0x30040307),
         unSelectedColor: Colors.white,
@@ -42,14 +45,19 @@ class _DealerFlowState extends State<DealerFlow> {
             index: 1,
           ),
           navBarItems(
+            imagePath: "assets/car_details_icon/my_schedule.png",
+            title: "My Schedule",
+            index: 2,
+          ),
+          navBarItems(
             imagePath: "assets/wishlist_icon.png",
             title: "Wishlist",
-            index: 2,
+            index: 3,
           ),
           navBarItems(
             imagePath: "assets/account_icon.png",
             title: "Account",
-            index: 3,
+            index: 4,
           )
         ],
         currentIndex: _currentIndex,
@@ -66,15 +74,19 @@ class _DealerFlowState extends State<DealerFlow> {
   CustomNavigationBarItem navBarItems(
       {required String imagePath, required String title, required int index}) {
     return CustomNavigationBarItem(
-      icon: Image.asset(
-        imagePath,
-        color: _currentIndex == index ? AppColors.p2 : Colors.white,
+      icon: SizedBox(
+        height: 20,
+        width: 20,
+        child: Image.asset(
+          imagePath,
+          color: _currentIndex == index ? AppColors.p2 : Colors.white,
+        ),
       ),
       title: Text(
         title,
         style: TextStyle(
           color: _currentIndex == index ? AppColors.p2 : Colors.white,
-          fontSize: 12,
+          fontSize: 10,
           fontWeight: FontWeight.w500,
         ),
       ),

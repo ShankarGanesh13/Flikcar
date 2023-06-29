@@ -100,6 +100,5 @@ class _ColorFilterState extends State<ColorFilter> {
             ))
       ],
     );
-    ;
   }
 }

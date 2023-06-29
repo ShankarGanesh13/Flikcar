@@ -14,7 +14,8 @@ class StartScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.transparent,
         body: SafeArea(
-          child: Column(
+          child: ListView(
+            scrollDirection: Axis.vertical,
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width,
@@ -46,55 +47,56 @@ class StartScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              Expanded(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(color: Color(0xff161F31)
-                      // gradient: LinearGradient(
-                      //   begin: Alignment.topRight,
-                      //   end: Alignment.bottomLeft,
-                      //   colors: [Color(0xff100049), Color(0xffB70050)],
-                      // ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(color: Color(0xff161F31)
+                    // gradient: LinearGradient(
+                    //   begin: Alignment.topRight,
+                    //   end: Alignment.bottomLeft,
+                    //   colors: [Color(0xff100049), Color(0xffB70050)],
+                    // ),
+                    ),
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 15, right: 15, top: 2),
+                  child: Column(children: [
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => FutureBuilder<bool>(
+                                future: isLoggedIn(context),
+                                builder: (context, snapshot) {
+                                  if (snapshot.data == true) {
+                                    return const HomeScreen(index: 1);
+                                  } else {
+                                    return PhoneNumber();
+                                  }
+                                }),
+                          ),
+                        );
+                      },
+                      child: OptionCard(
+                        title: "Buy Car &\nSell Car",
+                        imagePath: "assets/buy_car.png",
                       ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 15, right: 15, top: 2),
-                    child: Column(children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => FutureBuilder<bool>(
-                                  future: isLoggedIn(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.data == true) {
-                                      return const HomeScreen(index: 1);
-                                    } else {
-                                      return PhoneNumber();
-                                    }
-                                  }),
-                            ),
-                          );
-                        },
-                        child: OptionCard(
-                          title: "Buy Car &\nSell Car",
-                          imagePath: "assets/buy_car.png",
-                        ),
+                                builder: (context) => DealerDetails()));
+                      },
+                      child: OptionCard(
+                        title: "Dealers'\nPortal",
+                        imagePath: "assets/auction_house.png",
                       ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => DealerDetails()));
-                        },
-                        child: OptionCard(
-                          title: "Dealers'\nPortal",
-                          imagePath: "assets/auction_house.png",
-                        ),
-                      ),
-                    ]),
-                  ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                  ]),
                 ),
               )
             ],

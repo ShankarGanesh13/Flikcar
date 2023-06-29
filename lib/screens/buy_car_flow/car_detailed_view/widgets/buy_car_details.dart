@@ -33,7 +33,7 @@ class BuyCarDetails extends StatelessWidget {
                 "1200000 ₹",
                 style: AppFonts.w700black20,
               ),
-              Spacer(),
+              const Spacer(),
               Text(
                 "Inspection Score:",
                 style: AppFonts.w500black14,

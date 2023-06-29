@@ -57,6 +57,7 @@ dependencies:
   path_provider: ^2.0.15
   fast_cached_network_image: ^1.2.0
   shimmer: ^3.0.0
+  dropdown_button2: ^2.1.4
 
 dev_dependencies:
   flutter_test:

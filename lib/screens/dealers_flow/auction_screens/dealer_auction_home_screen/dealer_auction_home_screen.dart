@@ -2,8 +2,9 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_home_screen/widgets/dealer_car_card.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_home_screen/widgets/dealer_header.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_car_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_header.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +40,13 @@ class DealerAuctionHomeScreen extends StatelessWidget {
                             top: 30.0, left: 15, right: 15, bottom: 30),
                         child: PrimaryButton(
                             title: "View All",
-                            function: () {},
+                            function: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const DealerCarListScreen()));
+                            },
                             borderColor: Colors.transparent,
                             backgroundColor: AppColors.s1,
                             textStyle: AppFonts.w500white14),

@@ -1,7 +1,8 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_list_screen/widget/dealer_car_list_card.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_list_screen/widget/upcoming_auction_dealer_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_auction_dealer_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_filter_screen/dealer_filter_screen.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -21,11 +22,7 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
     bool live = context.watch<DealerProvider>().live;
     return Scaffold(
       appBar: CustomAppBar.getAppBarWithSearch(
-          context: context,
-          back: true,
-          function: () {
-            print("mmbro");
-          }),
+          context: context, back: true, function: () {}),
       body: SingleChildScrollView(
         child: Column(children: [
           Padding(
@@ -73,7 +70,17 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
                   color: const Color(0xffE0E0E0),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet<void>(
+                        context: context,
+                        isScrollControlled: true,
+                        builder: (BuildContext context) {
+                          return MediaQuery(
+                              data: MediaQueryData.fromView(
+                                  WidgetsBinding.instance.window),
+                              child: const DealerFilterScreen());
+                        });
+                  },
                   child: menu(
                       image: "assets/car_details_icon/filter.png",
                       title: "Filters",

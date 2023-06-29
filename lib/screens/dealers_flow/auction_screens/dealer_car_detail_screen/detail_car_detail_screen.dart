@@ -1,11 +1,11 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_detail_screen/widgets/dealer_car_details.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_detail_screen/widgets/dealer_car_features.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_detail_screen/widgets/dealer_car_specification.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_detail_screen/widgets/dealer_image_viewer.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_car_detail_screen/widgets/inspection_report.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_home_screen/widgets/dealer_car_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_details.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_features.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_specification.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_image_viewer.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/inspection_report.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_car_card.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -42,7 +42,7 @@ class DealerCarDetailScreen extends StatelessWidget {
                   Provider.of<DealerProvider>(context, listen: false)
                       .increaseBidAmount();
                 }),
-            Spacer(),
+            const Spacer(),
             BuyNavButton(
               icon: Icons.chevron_right,
               title: "Place Bid",

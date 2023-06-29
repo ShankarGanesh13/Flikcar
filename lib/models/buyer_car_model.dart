@@ -47,9 +47,6 @@ class BuyerCar {
   int? salePrice;
   String? soldTo;
   String? saleAt;
-  String metaTitle;
-  String metaKeyword;
-  String metaDescription;
   String status;
   String saleStatus;
   String brand;
@@ -110,9 +107,6 @@ class BuyerCar {
       required this.salePrice,
       required this.soldTo,
       required this.saleAt,
-      required this.metaTitle,
-      required this.metaKeyword,
-      required this.metaDescription,
       required this.status,
       required this.saleStatus,
       required this.brand,
@@ -175,34 +169,35 @@ class BuyerCar {
       salePrice: json['sale_price'] ?? 0,
       soldTo: json['sold_to'] ?? "Data not available",
       saleAt: json['sale_at'] ?? "Data not available",
-      metaTitle: json['meta_title'] ?? "Data not available",
-      metaKeyword: json['meta_keyword'] ?? "Data not available",
-      metaDescription: json['meta_description'] ?? "Data not available",
       status: json['status'] ?? "Data not available",
       saleStatus: json['sale_status'] ?? "Data not available",
-      brand: json['brand'] ?? "Data not available",
-      model: json['model'] ?? "Data not available",
-      variant: json['variant'] ?? "Data not available",
-      fuel: json['fuel'] ?? "Data not available",
-      bodytype: json['bodytype'] ?? "Data not available",
-      color: json['color'] ?? "Data not available",
-      seat: json['seat'] ?? "Data not available",
-      ownertype: json['ownertype'] ?? "Data not available",
-      carImages: List<String>.from(myfunc("path", json["carImages"])),
-      featureDetails: List<String>.from(myfunc("name", json['featureDetails'])),
+
+      ///
+      brand: json['vehicleBrand']["name"] ?? "Data not available",
+      model: json['vehicleModel']["name"] ?? "Data not available",
+      variant: json['vehicleVariantType']["name"] ?? "Data not available",
+      fuel: json['vehicleFuelType']["name"] ?? "Data not available",
+      bodytype: json['vehicleBodyType']["name"] ?? "Data not available",
+      color: json['vehicleColor']["name"] ?? "Data not available",
+      seat: json['vehicleSeat']["no_of_seats"] ?? 5,
+      ownertype: json['vehicleOwnerType']["type"] ?? "Data not available",
+      //
+      carImages: List<String>.from(myfunc("path", json["vehicleImages"])),
+      featureDetails: List<String>.from(myfunc("name", json['vehicleFeature'])),
       exteriorDetails:
-          List<String>.from(myfunc("name", json['exteriorDetails'])),
-      comfortDetails: List<String>.from(myfunc("name", json['comfortDetails'])),
-      entertainmentDetails:
-          List<String>.from(myfunc("name", json['entertainmentDetails'])),
+          List<String>.from(myfunc("name", json['vehicleExterior'])),
+      comfortDetails:
+          List<String>.from(myfunc("name", json['vehicleComfortConvenience'])),
+      entertainmentDetails: List<String>.from(
+          myfunc("name", json['vehicleEntertainmentCommunications'])),
       interiorDetails:
-          List<String>.from(myfunc("name", json['interiorDetails'])),
-      safetyDetails: List<String>.from(myfunc("name", json['safetyDetails'])),
+          List<String>.from(myfunc("name", json['vehicleInterior'])),
+      safetyDetails: List<String>.from(myfunc("name", json['vehicleSafety'])),
     );
   }
   static List<String> myfunc(key, list) {
     List<String> result = [];
-    list.forEach((e) => result.add(e[key]));
+    list.forEach((e) => result.add(e[key].toString()));
     return result;
   }
 }

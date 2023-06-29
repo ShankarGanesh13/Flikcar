@@ -79,8 +79,9 @@ class HomeScreenCard extends StatelessWidget {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) =>
-                                        const CarDetailedView(),
+                                    builder: (context) => CarDetailedView(
+                                      car: snapshot.data![index],
+                                    ),
                                   ));
                             },
                             child: Container(
@@ -148,12 +149,16 @@ class HomeScreenCard extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
-                                          height: 23,
+                                          height: 35,
                                           child: Row(
                                             children: [
-                                              Text(
-                                                  snapshot.data![index].carName,
-                                                  style: AppFonts.w700s140),
+                                              SizedBox(
+                                                width: 160,
+                                                child: Text(
+                                                    snapshot
+                                                        .data![index].carName,
+                                                    style: AppFonts.w700s140),
+                                              ),
                                               const Spacer(),
                                               Text(
                                                 "₹ ${snapshot.data![index].carPrice}",
@@ -162,9 +167,10 @@ class HomeScreenCard extends StatelessWidget {
                                             ],
                                           ),
                                         ),
+                                        const SizedBox(height: 4),
                                         Text(snapshot.data![index].brand,
                                             style: AppFonts.w500dark214),
-                                        const SizedBox(height: 10),
+                                        const SizedBox(height: 4),
                                         Wrap(
                                           spacing: 6,
                                           children: List.generate(
@@ -190,7 +196,7 @@ class HomeScreenCard extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(height: 10),
+                                  const SizedBox(height: 5),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 10.0, right: 10),

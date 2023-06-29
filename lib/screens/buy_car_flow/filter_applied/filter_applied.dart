@@ -147,10 +147,10 @@ class FilterApplied extends StatelessWidget {
                 5,
                 (index) => GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const CarDetailedView()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context) => const CarDetailedView()));
                   },
                   child: FilterAppliedCard(
                     compare: compare,

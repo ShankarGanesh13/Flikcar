@@ -162,163 +162,148 @@ const BuyerCarSchema = CollectionSchema(
       name: r'maxTorque',
       type: IsarType.string,
     ),
-    r'metaDescription': PropertySchema(
-      id: 29,
-      name: r'metaDescription',
-      type: IsarType.string,
-    ),
-    r'metaKeyword': PropertySchema(
-      id: 30,
-      name: r'metaKeyword',
-      type: IsarType.string,
-    ),
-    r'metaTitle': PropertySchema(
-      id: 31,
-      name: r'metaTitle',
-      type: IsarType.string,
-    ),
     r'mileage': PropertySchema(
-      id: 32,
+      id: 29,
       name: r'mileage',
       type: IsarType.long,
     ),
     r'minTurningRadius': PropertySchema(
-      id: 33,
+      id: 30,
       name: r'minTurningRadius',
       type: IsarType.long,
     ),
     r'model': PropertySchema(
-      id: 34,
+      id: 31,
       name: r'model',
       type: IsarType.string,
     ),
     r'noOfCylinders': PropertySchema(
-      id: 35,
+      id: 32,
       name: r'noOfCylinders',
       type: IsarType.long,
     ),
     r'noOfDoors': PropertySchema(
-      id: 36,
+      id: 33,
       name: r'noOfDoors',
       type: IsarType.long,
     ),
     r'noOfSeatsRow': PropertySchema(
-      id: 37,
+      id: 34,
       name: r'noOfSeatsRow',
       type: IsarType.long,
     ),
     r'ownertype': PropertySchema(
-      id: 38,
+      id: 35,
       name: r'ownertype',
       type: IsarType.string,
     ),
     r'rearBrakeType': PropertySchema(
-      id: 39,
+      id: 36,
       name: r'rearBrakeType',
       type: IsarType.string,
     ),
     r'rearTyres': PropertySchema(
-      id: 40,
+      id: 37,
       name: r'rearTyres',
       type: IsarType.string,
     ),
     r'registrationYear': PropertySchema(
-      id: 41,
+      id: 38,
       name: r'registrationYear',
       type: IsarType.long,
     ),
     r'safetyDetails': PropertySchema(
-      id: 42,
+      id: 39,
       name: r'safetyDetails',
       type: IsarType.stringList,
     ),
     r'saleAt': PropertySchema(
-      id: 43,
+      id: 40,
       name: r'saleAt',
       type: IsarType.string,
     ),
     r'salePrice': PropertySchema(
-      id: 44,
+      id: 41,
       name: r'salePrice',
       type: IsarType.long,
     ),
     r'saleStatus': PropertySchema(
-      id: 45,
+      id: 42,
       name: r'saleStatus',
       type: IsarType.string,
     ),
     r'seat': PropertySchema(
-      id: 46,
+      id: 43,
       name: r'seat',
       type: IsarType.long,
     ),
     r'soldTo': PropertySchema(
-      id: 47,
+      id: 44,
       name: r'soldTo',
       type: IsarType.string,
     ),
     r'spareWheel': PropertySchema(
-      id: 48,
+      id: 45,
       name: r'spareWheel',
       type: IsarType.string,
     ),
     r'status': PropertySchema(
-      id: 49,
+      id: 46,
       name: r'status',
       type: IsarType.string,
     ),
     r'steeringType': PropertySchema(
-      id: 50,
+      id: 47,
       name: r'steeringType',
       type: IsarType.string,
     ),
     r'suspensionFront': PropertySchema(
-      id: 51,
+      id: 48,
       name: r'suspensionFront',
       type: IsarType.string,
     ),
     r'suspensionRear': PropertySchema(
-      id: 52,
+      id: 49,
       name: r'suspensionRear',
       type: IsarType.string,
     ),
     r'torque': PropertySchema(
-      id: 53,
+      id: 50,
       name: r'torque',
       type: IsarType.long,
     ),
     r'transmission': PropertySchema(
-      id: 54,
+      id: 51,
       name: r'transmission',
       type: IsarType.string,
     ),
     r'turbocharger': PropertySchema(
-      id: 55,
+      id: 52,
       name: r'turbocharger',
       type: IsarType.string,
     ),
     r'valveCylinders': PropertySchema(
-      id: 56,
+      id: 53,
       name: r'valveCylinders',
       type: IsarType.long,
     ),
     r'variant': PropertySchema(
-      id: 57,
+      id: 54,
       name: r'variant',
       type: IsarType.string,
     ),
     r'wheelCover': PropertySchema(
-      id: 58,
+      id: 55,
       name: r'wheelCover',
       type: IsarType.string,
     ),
     r'wheelbase': PropertySchema(
-      id: 59,
+      id: 56,
       name: r'wheelbase',
       type: IsarType.long,
     ),
     r'width': PropertySchema(
-      id: 60,
+      id: 57,
       name: r'width',
       type: IsarType.long,
     )
@@ -397,9 +382,6 @@ int _buyerCarEstimateSize(
   }
   bytesCount += 3 + object.limitedSlipDiffe.length * 3;
   bytesCount += 3 + object.maxTorque.length * 3;
-  bytesCount += 3 + object.metaDescription.length * 3;
-  bytesCount += 3 + object.metaKeyword.length * 3;
-  bytesCount += 3 + object.metaTitle.length * 3;
   bytesCount += 3 + object.model.length * 3;
   bytesCount += 3 + object.ownertype.length * 3;
   bytesCount += 3 + object.rearBrakeType.length * 3;
@@ -471,38 +453,35 @@ void _buyerCarSerialize(
   writer.writeString(offsets[26], object.limitedSlipDiffe);
   writer.writeLong(offsets[27], object.maxPower);
   writer.writeString(offsets[28], object.maxTorque);
-  writer.writeString(offsets[29], object.metaDescription);
-  writer.writeString(offsets[30], object.metaKeyword);
-  writer.writeString(offsets[31], object.metaTitle);
-  writer.writeLong(offsets[32], object.mileage);
-  writer.writeLong(offsets[33], object.minTurningRadius);
-  writer.writeString(offsets[34], object.model);
-  writer.writeLong(offsets[35], object.noOfCylinders);
-  writer.writeLong(offsets[36], object.noOfDoors);
-  writer.writeLong(offsets[37], object.noOfSeatsRow);
-  writer.writeString(offsets[38], object.ownertype);
-  writer.writeString(offsets[39], object.rearBrakeType);
-  writer.writeString(offsets[40], object.rearTyres);
-  writer.writeLong(offsets[41], object.registrationYear);
-  writer.writeStringList(offsets[42], object.safetyDetails);
-  writer.writeString(offsets[43], object.saleAt);
-  writer.writeLong(offsets[44], object.salePrice);
-  writer.writeString(offsets[45], object.saleStatus);
-  writer.writeLong(offsets[46], object.seat);
-  writer.writeString(offsets[47], object.soldTo);
-  writer.writeString(offsets[48], object.spareWheel);
-  writer.writeString(offsets[49], object.status);
-  writer.writeString(offsets[50], object.steeringType);
-  writer.writeString(offsets[51], object.suspensionFront);
-  writer.writeString(offsets[52], object.suspensionRear);
-  writer.writeLong(offsets[53], object.torque);
-  writer.writeString(offsets[54], object.transmission);
-  writer.writeString(offsets[55], object.turbocharger);
-  writer.writeLong(offsets[56], object.valveCylinders);
-  writer.writeString(offsets[57], object.variant);
-  writer.writeString(offsets[58], object.wheelCover);
-  writer.writeLong(offsets[59], object.wheelbase);
-  writer.writeLong(offsets[60], object.width);
+  writer.writeLong(offsets[29], object.mileage);
+  writer.writeLong(offsets[30], object.minTurningRadius);
+  writer.writeString(offsets[31], object.model);
+  writer.writeLong(offsets[32], object.noOfCylinders);
+  writer.writeLong(offsets[33], object.noOfDoors);
+  writer.writeLong(offsets[34], object.noOfSeatsRow);
+  writer.writeString(offsets[35], object.ownertype);
+  writer.writeString(offsets[36], object.rearBrakeType);
+  writer.writeString(offsets[37], object.rearTyres);
+  writer.writeLong(offsets[38], object.registrationYear);
+  writer.writeStringList(offsets[39], object.safetyDetails);
+  writer.writeString(offsets[40], object.saleAt);
+  writer.writeLong(offsets[41], object.salePrice);
+  writer.writeString(offsets[42], object.saleStatus);
+  writer.writeLong(offsets[43], object.seat);
+  writer.writeString(offsets[44], object.soldTo);
+  writer.writeString(offsets[45], object.spareWheel);
+  writer.writeString(offsets[46], object.status);
+  writer.writeString(offsets[47], object.steeringType);
+  writer.writeString(offsets[48], object.suspensionFront);
+  writer.writeString(offsets[49], object.suspensionRear);
+  writer.writeLong(offsets[50], object.torque);
+  writer.writeString(offsets[51], object.transmission);
+  writer.writeString(offsets[52], object.turbocharger);
+  writer.writeLong(offsets[53], object.valveCylinders);
+  writer.writeString(offsets[54], object.variant);
+  writer.writeString(offsets[55], object.wheelCover);
+  writer.writeLong(offsets[56], object.wheelbase);
+  writer.writeLong(offsets[57], object.width);
 }
 
 BuyerCar _buyerCarDeserialize(
@@ -542,38 +521,35 @@ BuyerCar _buyerCarDeserialize(
     limitedSlipDiffe: reader.readString(offsets[26]),
     maxPower: reader.readLong(offsets[27]),
     maxTorque: reader.readString(offsets[28]),
-    metaDescription: reader.readString(offsets[29]),
-    metaKeyword: reader.readString(offsets[30]),
-    metaTitle: reader.readString(offsets[31]),
-    mileage: reader.readLong(offsets[32]),
-    minTurningRadius: reader.readLong(offsets[33]),
-    model: reader.readString(offsets[34]),
-    noOfCylinders: reader.readLong(offsets[35]),
-    noOfDoors: reader.readLong(offsets[36]),
-    noOfSeatsRow: reader.readLong(offsets[37]),
-    ownertype: reader.readString(offsets[38]),
-    rearBrakeType: reader.readString(offsets[39]),
-    rearTyres: reader.readString(offsets[40]),
-    registrationYear: reader.readLong(offsets[41]),
-    safetyDetails: reader.readStringList(offsets[42]) ?? [],
-    saleAt: reader.readStringOrNull(offsets[43]),
-    salePrice: reader.readLongOrNull(offsets[44]),
-    saleStatus: reader.readString(offsets[45]),
-    seat: reader.readLong(offsets[46]),
-    soldTo: reader.readStringOrNull(offsets[47]),
-    spareWheel: reader.readString(offsets[48]),
-    status: reader.readString(offsets[49]),
-    steeringType: reader.readString(offsets[50]),
-    suspensionFront: reader.readString(offsets[51]),
-    suspensionRear: reader.readString(offsets[52]),
-    torque: reader.readLong(offsets[53]),
-    transmission: reader.readString(offsets[54]),
-    turbocharger: reader.readString(offsets[55]),
-    valveCylinders: reader.readLong(offsets[56]),
-    variant: reader.readString(offsets[57]),
-    wheelCover: reader.readString(offsets[58]),
-    wheelbase: reader.readLong(offsets[59]),
-    width: reader.readLong(offsets[60]),
+    mileage: reader.readLong(offsets[29]),
+    minTurningRadius: reader.readLong(offsets[30]),
+    model: reader.readString(offsets[31]),
+    noOfCylinders: reader.readLong(offsets[32]),
+    noOfDoors: reader.readLong(offsets[33]),
+    noOfSeatsRow: reader.readLong(offsets[34]),
+    ownertype: reader.readString(offsets[35]),
+    rearBrakeType: reader.readString(offsets[36]),
+    rearTyres: reader.readString(offsets[37]),
+    registrationYear: reader.readLong(offsets[38]),
+    safetyDetails: reader.readStringList(offsets[39]) ?? [],
+    saleAt: reader.readStringOrNull(offsets[40]),
+    salePrice: reader.readLongOrNull(offsets[41]),
+    saleStatus: reader.readString(offsets[42]),
+    seat: reader.readLong(offsets[43]),
+    soldTo: reader.readStringOrNull(offsets[44]),
+    spareWheel: reader.readString(offsets[45]),
+    status: reader.readString(offsets[46]),
+    steeringType: reader.readString(offsets[47]),
+    suspensionFront: reader.readString(offsets[48]),
+    suspensionRear: reader.readString(offsets[49]),
+    torque: reader.readLong(offsets[50]),
+    transmission: reader.readString(offsets[51]),
+    turbocharger: reader.readString(offsets[52]),
+    valveCylinders: reader.readLong(offsets[53]),
+    variant: reader.readString(offsets[54]),
+    wheelCover: reader.readString(offsets[55]),
+    wheelbase: reader.readLong(offsets[56]),
+    width: reader.readLong(offsets[57]),
   );
   return object;
 }
@@ -644,9 +620,9 @@ P _buyerCarDeserializeProp<P>(
     case 28:
       return (reader.readString(offset)) as P;
     case 29:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 30:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 31:
       return (reader.readString(offset)) as P;
     case 32:
@@ -654,39 +630,39 @@ P _buyerCarDeserializeProp<P>(
     case 33:
       return (reader.readLong(offset)) as P;
     case 34:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 35:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 36:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 37:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 38:
-      return (reader.readString(offset)) as P;
-    case 39:
-      return (reader.readString(offset)) as P;
-    case 40:
-      return (reader.readString(offset)) as P;
-    case 41:
       return (reader.readLong(offset)) as P;
-    case 42:
+    case 39:
       return (reader.readStringList(offset) ?? []) as P;
-    case 43:
+    case 40:
       return (reader.readStringOrNull(offset)) as P;
-    case 44:
+    case 41:
       return (reader.readLongOrNull(offset)) as P;
+    case 42:
+      return (reader.readString(offset)) as P;
+    case 43:
+      return (reader.readLong(offset)) as P;
+    case 44:
+      return (reader.readStringOrNull(offset)) as P;
     case 45:
       return (reader.readString(offset)) as P;
     case 46:
-      return (reader.readLong(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 47:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 48:
       return (reader.readString(offset)) as P;
     case 49:
       return (reader.readString(offset)) as P;
     case 50:
-      return (reader.readString(offset)) as P;
+      return (reader.readLong(offset)) as P;
     case 51:
       return (reader.readString(offset)) as P;
     case 52:
@@ -700,12 +676,6 @@ P _buyerCarDeserializeProp<P>(
     case 56:
       return (reader.readLong(offset)) as P;
     case 57:
-      return (reader.readString(offset)) as P;
-    case 58:
-      return (reader.readString(offset)) as P;
-    case 59:
-      return (reader.readLong(offset)) as P;
-    case 60:
       return (reader.readLong(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -4381,405 +4351,6 @@ extension BuyerCarQueryFilter
     });
   }
 
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'metaDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'metaDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'metaDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'metaDescription',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'metaDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'metaDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionContains(String value, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'metaDescription',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionMatches(String pattern, {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'metaDescription',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'metaDescription',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaDescriptionIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'metaDescription',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaKeywordEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'metaKeyword',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaKeywordGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'metaKeyword',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaKeywordLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'metaKeyword',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaKeywordBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'metaKeyword',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaKeywordStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'metaKeyword',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaKeywordEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'metaKeyword',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaKeywordContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'metaKeyword',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaKeywordMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'metaKeyword',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaKeywordIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'metaKeyword',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaKeywordIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'metaKeyword',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleEqualTo(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'metaTitle',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleGreaterThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        include: include,
-        property: r'metaTitle',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleLessThan(
-    String value, {
-    bool include = false,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.lessThan(
-        include: include,
-        property: r'metaTitle',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleBetween(
-    String lower,
-    String upper, {
-    bool includeLower = true,
-    bool includeUpper = true,
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.between(
-        property: r'metaTitle',
-        lower: lower,
-        includeLower: includeLower,
-        upper: upper,
-        includeUpper: includeUpper,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleStartsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.startsWith(
-        property: r'metaTitle',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleEndsWith(
-    String value, {
-    bool caseSensitive = true,
-  }) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.endsWith(
-        property: r'metaTitle',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleContains(
-      String value,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.contains(
-        property: r'metaTitle',
-        value: value,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleMatches(
-      String pattern,
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.matches(
-        property: r'metaTitle',
-        wildcard: pattern,
-        caseSensitive: caseSensitive,
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> metaTitleIsEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.equalTo(
-        property: r'metaTitle',
-        value: '',
-      ));
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
-      metaTitleIsNotEmpty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(FilterCondition.greaterThan(
-        property: r'metaTitle',
-        value: '',
-      ));
-    });
-  }
-
   QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> mileageEqualTo(
       int value) {
     return QueryBuilder.apply(this, (query) {
@@ -8095,42 +7666,6 @@ extension BuyerCarQuerySortBy on QueryBuilder<BuyerCar, BuyerCar, QSortBy> {
     });
   }
 
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByMetaDescription() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaDescription', Sort.asc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByMetaDescriptionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaDescription', Sort.desc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByMetaKeyword() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaKeyword', Sort.asc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByMetaKeywordDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaKeyword', Sort.desc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByMetaTitle() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaTitle', Sort.asc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByMetaTitleDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaTitle', Sort.desc);
-    });
-  }
-
   QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByMileage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'mileage', Sort.asc);
@@ -8758,42 +8293,6 @@ extension BuyerCarQuerySortThenBy
     });
   }
 
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByMetaDescription() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaDescription', Sort.asc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByMetaDescriptionDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaDescription', Sort.desc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByMetaKeyword() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaKeyword', Sort.asc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByMetaKeywordDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaKeyword', Sort.desc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByMetaTitle() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaTitle', Sort.asc);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByMetaTitleDesc() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(r'metaTitle', Sort.desc);
-    });
-  }
-
   QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByMileage() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'mileage', Sort.asc);
@@ -9322,28 +8821,6 @@ extension BuyerCarQueryWhereDistinct
     });
   }
 
-  QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByMetaDescription(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'metaDescription',
-          caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByMetaKeyword(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'metaKeyword', caseSensitive: caseSensitive);
-    });
-  }
-
-  QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByMetaTitle(
-      {bool caseSensitive = true}) {
-    return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(r'metaTitle', caseSensitive: caseSensitive);
-    });
-  }
-
   QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByMileage() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'mileage');
@@ -9722,24 +9199,6 @@ extension BuyerCarQueryProperty
   QueryBuilder<BuyerCar, String, QQueryOperations> maxTorqueProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'maxTorque');
-    });
-  }
-
-  QueryBuilder<BuyerCar, String, QQueryOperations> metaDescriptionProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'metaDescription');
-    });
-  }
-
-  QueryBuilder<BuyerCar, String, QQueryOperations> metaKeywordProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'metaKeyword');
-    });
-  }
-
-  QueryBuilder<BuyerCar, String, QQueryOperations> metaTitleProperty() {
-    return QueryBuilder.apply(this, (query) {
-      return query.addPropertyName(r'metaTitle');
     });
   }
 
