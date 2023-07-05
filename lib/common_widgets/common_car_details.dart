@@ -6,7 +6,7 @@ import '../utils/fonts.dart';
 
 class CommonCarDetails extends StatelessWidget {
   const CommonCarDetails({super.key});
-
+  static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -74,7 +74,7 @@ class CommonCarDetails extends StatelessWidget {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20)),
                     child: Text(
-                      FilterAppliedCard.features[index],
+                      features[index],
                       style: AppFonts.w500black10,
                     ),
                   ),

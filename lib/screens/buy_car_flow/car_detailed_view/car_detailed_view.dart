@@ -1,6 +1,8 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
+import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/car_specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/address.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_features.dart';
@@ -79,13 +81,13 @@ class CarDetailedView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        car.carName,
+                        "Car Details",
                         style: AppFonts.w700black16,
                       ),
-                      Text(
-                        car.model,
-                        style: AppFonts.w500dark214,
-                      ),
+                      // Text(
+                      //   car.model,
+                      //   style: AppFonts.w500dark214,
+                      // ),
                     ],
                   ),
                   const Spacer(),
@@ -96,12 +98,35 @@ class CarDetailedView extends StatelessWidget {
                   const Icon(Icons.flag),
                 ],
               )),
-          ImageViewer(),
+          ImageViewer(
+            car: car,
+          ),
           const SizedBox(height: 12),
-          const BuyCarDetails(),
-          const CarAddress(),
-          const CarFeatures(),
-          const CarSpecification(),
+          BuyCarDetails(
+            car: car,
+          ),
+          //  const CarAddress(),
+          CarFeatures(
+            car: car,
+          ),
+          CarSpecification(
+            car: car,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: PrimaryButton(
+                title: "View Specification",
+                function: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              CarSpecificationScreen(car: car)));
+                },
+                borderColor: Colors.white,
+                backgroundColor: AppColors.p2,
+                textStyle: AppFonts.w500white14),
+          ),
           const SizedBox(height: 20),
           HomeScreenCard(
               title: "Similar Cars You Might Like",

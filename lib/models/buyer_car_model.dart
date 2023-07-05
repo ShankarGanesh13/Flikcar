@@ -130,7 +130,7 @@ class BuyerCar {
       id: json['id'] ?? "Data not available",
       carName: json['car_name'] ?? "Data not available",
       carDescription: json['car_description'] ?? "Data not available",
-      mileage: json['mileage'] ?? "Data not available",
+      mileage: json['mileage'] ?? 00,
       torque: json['torque'] ?? "Data not available",
       engine: json['engine'] ?? "Data not available",
       maxPower: json['max_power'] ?? "Data not available",

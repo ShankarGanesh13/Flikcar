@@ -5,9 +5,11 @@ import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
+import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
 
 class HomeScreenCard extends StatelessWidget {
@@ -112,7 +114,7 @@ class HomeScreenCard extends StatelessWidget {
                                       ),
                                       child: FastCachedImage(
                                         url:
-                                            "https://imgd.aeplcdn.com/370x208/n/cw/ec/130591/fronx-exterior-right-front-three-quarter-4.jpeg?isig=0&q=75",
+                                            "https://admin.flikcar.com/${snapshot.data![index].carImages[0]}",
                                         fit: BoxFit.cover,
                                         fadeInDuration:
                                             const Duration(seconds: 1),
@@ -207,7 +209,13 @@ class HomeScreenCard extends StatelessWidget {
                                           height: 35,
                                           child: PrimaryButton(
                                             title: "Contact Dealer",
-                                            function: () {},
+                                            function: () {
+                                              Provider.of<WishlistService>(
+                                                      context,
+                                                      listen: false)
+                                                  .getWishlistCars(
+                                                      context: context);
+                                            },
                                             borderColor: AppColors.s1,
                                             textStyle: AppFonts.w500s114,
                                             backgroundColor: Colors.white,
@@ -216,7 +224,15 @@ class HomeScreenCard extends StatelessWidget {
                                         const Spacer(),
                                         FavoriteButton(
                                           iconSize: 30,
-                                          valueChanged: (_) {},
+                                          valueChanged: (_) {
+                                            Provider.of<WishlistService>(
+                                                    context,
+                                                    listen: false)
+                                                .addToWishlist(
+                                                    carId: snapshot
+                                                        .data![index].id,
+                                                    context: context);
+                                          },
                                         ),
                                       ],
                                     ),

@@ -1,14 +1,10 @@
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class ImageViewer extends StatefulWidget {
-  ImageViewer({super.key});
-  static const List<String> images = [
-    "assets/sample_car/tigor1.png",
-    "assets/sample_car/tigor2.png",
-    "assets/sample_car/tigor3.png",
-    "assets/sample_car/tigor4.png"
-  ];
+  BuyerCar car;
+  ImageViewer({super.key, required this.car});
 
   @override
   State<ImageViewer> createState() => _ImageViewerState();
@@ -19,13 +15,15 @@ class _ImageViewerState extends State<ImageViewer> {
 
   @override
   Widget build(BuildContext context) {
+    List<String> images = widget.car.carImages;
+
     return Column(
       children: [
         SizedBox(
           height: MediaQuery.of(context).size.height / 4,
           width: MediaQuery.of(context).size.width,
-          child: Image.asset(
-            ImageViewer.images[selectedIndex],
+          child: Image.network(
+            "https://admin.flikcar.com/${images[selectedIndex]}",
             fit: BoxFit.cover,
           ),
         ),
@@ -35,7 +33,7 @@ class _ImageViewerState extends State<ImageViewer> {
         SizedBox(
           height: 85,
           child: ListView.builder(
-              itemCount: ImageViewer.images.length,
+              itemCount: images.length,
               scrollDirection: Axis.horizontal,
               shrinkWrap: false,
               itemBuilder: (context, index) {
@@ -61,8 +59,8 @@ class _ImageViewerState extends State<ImageViewer> {
                           selectedIndex = index;
                         });
                       },
-                      child: Image.asset(
-                        ImageViewer.images[index],
+                      child: Image.network(
+                        "https://admin.flikcar.com/${images[index]}",
                         fit: BoxFit.cover,
                       ),
                     ),

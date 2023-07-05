@@ -1,12 +1,14 @@
 import 'package:favorite_button/favorite_button.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class FilterAppliedCard extends StatefulWidget {
   final bool compare;
-  const FilterAppliedCard({super.key, required this.compare});
-  static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
+  final BuyerCar car;
+  const FilterAppliedCard(
+      {super.key, required this.compare, required this.car});
 
   @override
   State<FilterAppliedCard> createState() => _FilterAppliedCardState();
@@ -16,12 +18,18 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
   bool isSelected = false;
   @override
   Widget build(BuildContext context) {
+    List<String> features = [
+      widget.car.fuel,
+      "${widget.car.driveKms}kms",
+      widget.car.registrationYear.toString(),
+      widget.car.transmission
+    ];
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Container(
           margin: const EdgeInsets.only(left: 15, right: 15, bottom: 10),
-          height: 104,
+          height: 105,
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
               color: Colors.white,
@@ -38,7 +46,15 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
             SizedBox(
               width: MediaQuery.of(context).size.width / 2.4,
               height: 104,
-              child: Image.asset("assets/sample_car/tigor1.png"),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(5),
+                child: Image.network(
+                  widget.car.carImages.isNotEmpty
+                      ? "https://admin.flikcar.com/${widget.car.carImages[0]}"
+                      : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+                  fit: BoxFit.fill,
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -47,11 +63,17 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        "Car Name",
-                        style: AppFonts.w700black16,
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        child: Text(
+                          widget.car.carName,
+                          maxLines: 1,
+                          style: AppFonts.w700black16,
+                        ),
                       ),
-                      SizedBox(width: MediaQuery.of(context).size.width / 4.7),
+                      const SizedBox(
+                        width: 4,
+                      ),
                       SizedBox(
                         height: 20,
                         width: 20,
@@ -63,7 +85,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                     ],
                   ),
                   Text(
-                    "Varient Name",
+                    widget.car.brand,
                     style: AppFonts.w500dark214,
                   ),
                   const SizedBox(height: 5),
@@ -78,7 +100,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20)),
                         child: Text(
-                          FilterAppliedCard.features[index],
+                          features[index],
                           style: AppFonts.w500black10,
                         ),
                       ),
@@ -86,7 +108,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "₹326000 ",
+                    "${widget.car.carPrice} ₹",
                     style: AppFonts.w700black20,
                   )
                 ],

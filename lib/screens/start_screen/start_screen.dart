@@ -1,7 +1,6 @@
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
-import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
 import 'package:flikcar/screens/start_screen/widgets/option_card.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -86,7 +85,8 @@ class StartScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => DealerDetails()));
+                              builder: (context) => DealerDetails(),
+                            ));
                       },
                       child: OptionCard(
                         title: "Dealers'\nPortal",

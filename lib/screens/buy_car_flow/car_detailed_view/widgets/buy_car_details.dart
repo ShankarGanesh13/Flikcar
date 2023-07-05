@@ -1,9 +1,11 @@
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class BuyCarDetails extends StatelessWidget {
-  const BuyCarDetails({super.key});
+  final BuyerCar car;
+  const BuyCarDetails({super.key, required this.car});
   static List<String> icondata = [
     "assets/car_details_icon/location.png",
     "assets/car_details_icon/speedometer.png",
@@ -12,17 +14,18 @@ class BuyCarDetails extends StatelessWidget {
     "assets/car_details_icon/engine.png",
     "assets/car_details_icon/transmisson.png"
   ];
-  static List<String> data = [
-    "City: Kolkata",
-    "Km Driven: 53467",
-    "Owners: 1st Owner",
-    "Fuel Type: Diesel",
-    "Engine: N/A cc",
-    "Transmission: Manual"
-  ];
 
   @override
   Widget build(BuildContext context) {
+    List data = [
+      "City: Kolkata",
+      "Km Driven: ${car.driveKms.toString()}",
+      "Owners: ${car.ownertype}",
+      "Fuel Type: ${car.fuel}",
+      "Engine: ${car.engine} bhp",
+      "Transmission: ${car.transmission}"
+    ];
+
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(

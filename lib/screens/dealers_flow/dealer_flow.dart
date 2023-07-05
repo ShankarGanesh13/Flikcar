@@ -1,6 +1,7 @@
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/dealer_auction_home_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_sell_car_screen.dart';
+import 'package:flikcar/screens/dealers_flow/my_bids_screen/my_bids_screen.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/my_schedule_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _DealerFlowState extends State<DealerFlow> {
     const DealerAuctionHomeScreen(),
     const DealerSellCarScreen(),
     const MyScheduleScreen(),
-    const DealerAccountScreen(),
+    const MyBidsScreen(),
     const DealerAccountScreen(),
   ];
   @override
@@ -50,8 +51,8 @@ class _DealerFlowState extends State<DealerFlow> {
             index: 2,
           ),
           navBarItems(
-            imagePath: "assets/wishlist_icon.png",
-            title: "Wishlist",
+            imagePath: "assets/car_details_icon/Group.png",
+            title: "My Bids",
             index: 3,
           ),
           navBarItems(

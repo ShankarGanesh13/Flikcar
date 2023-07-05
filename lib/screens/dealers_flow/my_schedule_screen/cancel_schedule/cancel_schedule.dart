@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 
 class CancelSchedule extends StatelessWidget {
   const CancelSchedule({super.key});
-
+  static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,7 +93,7 @@ class CancelSchedule extends StatelessWidget {
                                         borderRadius:
                                             BorderRadius.circular(20)),
                                     child: Text(
-                                      FilterAppliedCard.features[index],
+                                      features[index],
                                       style: AppFonts.w500black10,
                                     ),
                                   ),

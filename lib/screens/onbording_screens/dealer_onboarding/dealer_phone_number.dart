@@ -1,3 +1,7 @@
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_otp.dart';
+import 'package:flikcar/services/dealer_auth_service.dart';
+import 'package:flutter/material.dart';
+
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
@@ -9,14 +13,9 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class PhoneNumber extends StatefulWidget {
-  PhoneNumber({super.key});
+class DealerPhoneNumber extends StatelessWidget {
+  DealerPhoneNumber({super.key});
 
-  @override
-  State<PhoneNumber> createState() => _PhoneNumberState();
-}
-
-class _PhoneNumberState extends State<PhoneNumber> {
   final TextEditingController controller = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -42,8 +41,8 @@ class _PhoneNumberState extends State<PhoneNumber> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(height: 15),
-                  const Heading1(
-                      title1: "Login with your", title2: "mobile number"),
+                  const SizedBox(height: 15),
+                  const Heading1(title1: "Dealer Login", title2: ""),
                   const SizedBox(height: 20),
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
@@ -59,12 +58,19 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         errorBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(5),
                         ),
-                        prefix: const Text("+91 - "),
                         prefixStyle: AppFonts.w500black14,
                         counterText: "",
                         counterStyle:
                             const TextStyle(color: Colors.transparent),
-                        hintText: "Enter phone number",
+                        hintText: "Enter mobile number",
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.only(
+                              top: 14.0, bottom: 12, left: 8),
+                          child: Text(
+                            "+91 - ",
+                            style: AppFonts.w500black14,
+                          ),
+                        ),
                       ),
                       maxLength: 10,
                       validator: (value) {
@@ -105,14 +111,13 @@ class _PhoneNumberState extends State<PhoneNumber> {
                     title: "Send OTP",
                     function: () {
                       if (_formKey.currentState!.validate()) {
-                        AuthService.sendOtp(phoneNumber: controller.text);
+                        DealerAuthService.sendOtp(phoneNumber: controller.text);
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => OtpScreen(
-                                phoneNumber: controller.text,
-                              ),
-                            ));
+                                builder: (context) => DealerOtpScreen(
+                                      phoneNumber: controller.text,
+                                    )));
                       }
                     },
                   )

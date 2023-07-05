@@ -10,10 +10,13 @@ import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/price_filter.
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/transmisson_filter.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/year_filter.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
+import 'package:flikcar/services/get_car_details.dart';
+import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
+import 'package:provider/provider.dart';
 
 class FilterScreen extends StatefulWidget {
   const FilterScreen({super.key});
@@ -25,8 +28,7 @@ class FilterScreen extends StatefulWidget {
     "Fuel Type",
     "Body Type",
     "Transmission",
-    "Color",
-    "Owners"
+    "Owners",
   ];
 
   @override
@@ -43,8 +45,7 @@ class _FilterScreenState extends State<FilterScreen> {
     const FuelTypeFilter(),
     const BodyTypeFilter(),
     const TransmissionFilter(),
-    const ColorFilter(),
-    const OwnersFilter()
+    const OwnersFilter(),
   ];
 
   @override
@@ -63,27 +64,33 @@ class _FilterScreenState extends State<FilterScreen> {
           ]),
           child: Padding(
             padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Row(children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "130",
-                    style: AppFonts.w700black16,
-                  ),
-                  Text(
-                    "cars found",
-                    style: AppFonts.w500dark214,
-                  )
-                ],
-              ),
-              const Spacer(),
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Text(
+              //       "130",
+              //       style: AppFonts.w700black16,
+              //     ),
+              //     Text(
+              //       "cars found",
+              //       style: AppFonts.w500dark214,
+              //     )
+              //   ],
+              // ),
+              //  const Spacer(),
               SizedBox(
                 width: 150,
                 child: PrimaryButton(
                     title: "Show Result",
-                    function: () {},
+                    function: () {
+                      Provider.of<SearchService>(context, listen: false)
+                          .showFilterResult();
+                      Provider.of<SearchService>(context, listen: false)
+                          .getAppliedFilters();
+                      Navigator.pop(context);
+                    },
                     borderColor: Colors.transparent,
                     backgroundColor: AppColors.p2,
                     textStyle: AppFonts.w500white14),
@@ -112,9 +119,16 @@ class _FilterScreenState extends State<FilterScreen> {
                         style: AppFonts.w700black16,
                       ),
                       const Spacer(),
-                      Text(
-                        "CLEAR FILTERS",
-                        style: AppFonts.w500p215,
+                      GestureDetector(
+                        onTap: () {
+                          Provider.of<SearchService>(context, listen: false)
+                              .clearAllFilter();
+                          Navigator.pop(context);
+                        },
+                        child: Text(
+                          "CLEAR FILTERS",
+                          style: AppFonts.w500p215,
+                        ),
                       )
                     ],
                   )),
@@ -122,7 +136,7 @@ class _FilterScreenState extends State<FilterScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: MediaQuery.of(context).size.width / 2.4,
+                    width: MediaQuery.of(context).size.width / 2.5,
                     // height: MediaQuery.of(context).size.height / 1.4,
                     color: const Color(0xffE0E0E0),
                     child: Column(
@@ -168,7 +182,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     ),
                   ),
                   Container(
-                      padding: const EdgeInsets.all(12),
+                      padding: const EdgeInsets.all(0),
                       child: filterWidgets[selectedIndex])
                 ],
               )

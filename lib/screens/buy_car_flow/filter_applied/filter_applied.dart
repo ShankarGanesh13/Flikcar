@@ -1,21 +1,42 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/services/get_car_details.dart';
+import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FilterApplied extends StatelessWidget {
+class FilterApplied extends StatefulWidget {
   const FilterApplied({super.key});
+
+  @override
+  State<FilterApplied> createState() => _FilterAppliedState();
+}
+
+class _FilterAppliedState extends State<FilterApplied> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<SearchService>(context, listen: false).showFilterResult();
+    Provider.of<SearchService>(context, listen: false).getFuelTypes();
+    Provider.of<SearchService>(context, listen: false).getBodyTypes();
+    Provider.of<SearchService>(context, listen: false).getOwnerTypes();
+    Provider.of<SearchService>(context, listen: false).getBrandAndModels();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     bool compare = context.watch<BuyCarProvider>().compare;
+    List<BuyerCar> allCars = context.watch<SearchService>().allCars;
+    List<String> filterApplied = context.watch<SearchService>().appliedFilters;
 
     return Scaffold(
         appBar: CustomAppBar.getAppBarWithSearch(
@@ -124,13 +145,41 @@ class FilterApplied extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
+              filterApplied.isNotEmpty
+                  ? Container(
+                      margin: const EdgeInsets.only(left: 15, bottom: 15),
+                      width: MediaQuery.of(context).size.width,
+                      height: 30,
+                      child: ListView(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          Center(
+                            child: Text(
+                              "Clear All",
+                              style: AppFonts.w700green16,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 6,
+                          ),
+                          Row(
+                            children: List.generate(
+                                filterApplied.length,
+                                (index) => filterButton(
+                                    title: filterApplied[index], index: index)),
+                          )
+                        ],
+                      ),
+                    )
+                  : const SizedBox(),
               Row(
                 children: [
                   const SizedBox(
                     width: 15,
                   ),
                   Text(
-                    "303 ",
+                    "${allCars.length} ",
                     style: AppFonts.w700black16,
                   ),
                   Text(
@@ -142,21 +191,34 @@ class FilterApplied extends StatelessWidget {
               const SizedBox(
                 height: 20,
               ),
-              Column(
-                  children: List.generate(
-                5,
-                (index) => GestureDetector(
-                  onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //         builder: (context) => const CarDetailedView()));
-                  },
-                  child: FilterAppliedCard(
-                    compare: compare,
-                  ),
-                ),
-              ))
+              allCars.isNotEmpty
+                  ? ListView.builder(
+                      itemCount: allCars.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CarDetailedView(
+                                          car: allCars[index],
+                                        )));
+                          },
+                          child: FilterAppliedCard(
+                            compare: compare,
+                            car: allCars[index],
+                          ),
+                        );
+                      })
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 120),
+                      child: Text(
+                        "No cars found",
+                        style: AppFonts.w700black16,
+                      ),
+                    )
             ],
           ),
         ));
@@ -174,6 +236,49 @@ class FilterApplied extends StatelessWidget {
         const SizedBox(width: 8),
         Text(title, style: style),
       ],
+    );
+  }
+
+  Widget filterButton({required String title, required int index}) {
+    return Container(
+      height: 28,
+      margin: const EdgeInsets.only(right: 6),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          padding: const EdgeInsets.only(top: 5, bottom: 5, left: 8, right: 8),
+          side: const BorderSide(
+            color: Color(0xff45C08D),
+          ),
+          backgroundColor: const Color(0xffE9F9F2),
+          foregroundColor: Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
+        onPressed: () {},
+        child: Row(
+          children: [
+            Text(
+              title,
+              style: AppFonts.w500dark212,
+            ),
+            const SizedBox(
+              width: 4,
+            ),
+            GestureDetector(
+              onTap: () {
+                Provider.of<SearchService>(context, listen: false)
+                    .removeFilter(filter: title);
+              },
+              child: const Icon(
+                Icons.close,
+                color: Colors.black,
+                size: 20,
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

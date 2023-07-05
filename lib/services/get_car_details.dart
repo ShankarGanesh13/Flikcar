@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/models/car_brand_model.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';

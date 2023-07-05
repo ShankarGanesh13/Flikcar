@@ -88,7 +88,7 @@ class DealerListedCars extends StatelessWidget {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20)),
                           child: Text(
-                            FilterAppliedCard.features[index],
+                            features[index],
                             style: AppFonts.w500black10,
                           ),
                         ),

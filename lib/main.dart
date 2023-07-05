@@ -1,6 +1,8 @@
 import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
+import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/car_specifications.dart';
+import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
@@ -18,12 +20,15 @@ import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
+import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/pick_file_service.dart';
+import 'package:flikcar/services/search_service.dart';
+import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
@@ -32,6 +37,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 
 import 'screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/listing_car_features.dart';
+import 'screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -46,18 +52,19 @@ void main() async {
         ChangeNotifierProvider(create: (context) => BuyCarProvider()),
         ChangeNotifierProvider(create: (context) => DealerProvider()),
         ChangeNotifierProvider(create: (context) => CheckInternetProvider()),
+        ChangeNotifierProvider(create: (context) => WishlistService()),
+        ChangeNotifierProvider(create: (context) => SearchService()),
         ChangeNotifierProvider(
             create: (context) => UploadDealerDocumentsProvider()),
       ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
-          useMaterial3: true,
-        ),
-        home: const StartScreen(),
-      ),
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
+            useMaterial3: true,
+          ),
+          home: DealerPhoneNumber()),
     ),
   );
 }
