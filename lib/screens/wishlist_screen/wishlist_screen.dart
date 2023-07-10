@@ -4,6 +4,7 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/wishlist_screen/widgets/wishlist_card.dart';
 import 'package:flikcar/services/wishlist_service.dart';
+import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,15 +35,25 @@ class _WishlistScreenState extends State<WishlistScreen> {
           const SizedBox(
             height: 30,
           ),
-          ListView.builder(
-              itemCount: wishlistCars.length,
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (context, index) {
-                return WishlistCard(
-                  car: wishlistCars[index],
-                );
-              })
+          wishlistCars.isEmpty
+              ? Padding(
+                  padding: const EdgeInsets.only(top: 60.0),
+                  child: Center(
+                    child: Text(
+                      "No cars to show",
+                      style: AppFonts.w700black16,
+                    ),
+                  ),
+                )
+              : ListView.builder(
+                  itemCount: wishlistCars.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return WishlistCard(
+                      car: wishlistCars[index],
+                    );
+                  })
         ]),
       ),
     );

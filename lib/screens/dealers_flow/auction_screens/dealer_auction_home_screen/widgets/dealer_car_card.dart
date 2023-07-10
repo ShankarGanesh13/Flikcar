@@ -74,11 +74,17 @@ class DealerCarCard extends StatelessWidget {
                           right: 15, bottom: 20, top: 5, left: 15),
                       decoration: BoxDecoration(
                         boxShadow: const [
+                          // BoxShadow(
+                          //   color: Color.fromRGBO(0, 0, 0, 0.25),
+                          //   offset: Offset(12, 12),
+                          //   blurRadius: 10,
+                          //   spreadRadius: -10,
+                          // ),
                           BoxShadow(
                             color: Color.fromRGBO(0, 0, 0, 0.25),
-                            offset: Offset(12, 12),
-                            blurRadius: 10,
-                            spreadRadius: -10,
+                            offset: Offset(1, 1),
+                            blurRadius: 20,
+                            spreadRadius: 0,
                           ),
                         ],
                         color: const Color(0xffF2F2F2),

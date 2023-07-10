@@ -1,6 +1,6 @@
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
-import 'package:flikcar/services/pick_file_service.dart';
+import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -193,7 +193,7 @@ class _AddressDetailsState extends State<AddressDetails> {
               ),
               Row(
                 children: [
-                  const SizedBox(width: 30),
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -209,7 +209,7 @@ class _AddressDetailsState extends State<AddressDetails> {
                             width: 5,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
                               "Address Proof should be clearly visible",
                               style: AppFonts.w500black14,
@@ -231,7 +231,7 @@ class _AddressDetailsState extends State<AddressDetails> {
                             width: 5,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
                               "Upload both sides (front + back)",
                               style: AppFonts.w500black14,
@@ -253,7 +253,7 @@ class _AddressDetailsState extends State<AddressDetails> {
                             width: 5,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
                               "You can use upload your Aadhar Card, Driving License, Passport or Voter Id as the address proof",
                               style: AppFonts.w500black14,

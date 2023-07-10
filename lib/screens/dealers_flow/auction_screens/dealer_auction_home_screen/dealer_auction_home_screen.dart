@@ -5,6 +5,7 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_car_card.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_header.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
+import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +17,15 @@ class DealerAuctionHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar.getAppBarWithSearch(
-          context: context, function: () {}, back: false),
+      appBar: CustomAppBar.getAppBarWithContainerSearch(
+          context: context,
+          function: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DealerCarListScreen()));
+          },
+          back: false),
       body: SingleChildScrollView(
         child: SizedBox(
           height: 1950,
@@ -46,6 +54,7 @@ class DealerAuctionHomeScreen extends StatelessWidget {
                                   MaterialPageRoute(
                                       builder: (context) =>
                                           const DealerCarListScreen()));
+                              // GetBrandModelVarient().getBrandModelVarient();
                             },
                             borderColor: Colors.transparent,
                             backgroundColor: AppColors.s1,

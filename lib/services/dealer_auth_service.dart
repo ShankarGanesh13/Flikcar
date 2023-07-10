@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
+import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -41,7 +42,7 @@ class DealerAuthService {
 
     var data = json.decode(response.body);
     if (data["status"] == 200) {
-      await sp.setString('delaerToken', data["data"]["access_token"]);
+      await sp.setString('dealerToken', data["data"]["access_token"]);
       await sp.setBool('dealerIsLoggedIn', true);
       await sp.setString('dealerStatus', data["data"]["profileStatus"]);
       if (context.mounted) {
@@ -62,5 +63,13 @@ class DealerAuthService {
 
       await sp.setBool('isLoggedIn', false);
     }
+  }
+
+  static signout(context) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.setBool('isLoggedIn', false);
+
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => StartScreen()));
   }
 }

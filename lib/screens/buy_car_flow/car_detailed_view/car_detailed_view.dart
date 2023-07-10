@@ -24,7 +24,7 @@ class CarDetailedView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getAppBarWithSearch(
+      appBar: CustomAppBar.getAppBarWithContainerSearch(
         back: true,
         context: context,
         function: () {
@@ -81,13 +81,13 @@ class CarDetailedView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Car Details",
+                        car.brand,
                         style: AppFonts.w700black16,
                       ),
-                      // Text(
-                      //   car.model,
-                      //   style: AppFonts.w500dark214,
-                      // ),
+                      Text(
+                        car.model,
+                        style: AppFonts.w500dark214,
+                      ),
                     ],
                   ),
                   const Spacer(),

@@ -23,7 +23,9 @@ class _ImageViewerState extends State<ImageViewer> {
           height: MediaQuery.of(context).size.height / 4,
           width: MediaQuery.of(context).size.width,
           child: Image.network(
-            "https://admin.flikcar.com/${images[selectedIndex]}",
+            images.isNotEmpty
+                ? "https://admin.flikcar.com/${images[selectedIndex]}"
+                : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
             fit: BoxFit.cover,
           ),
         ),

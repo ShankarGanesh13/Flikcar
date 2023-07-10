@@ -29,19 +29,26 @@ class _FilterAppliedState extends State<FilterApplied> {
     Provider.of<SearchService>(context, listen: false).getBodyTypes();
     Provider.of<SearchService>(context, listen: false).getOwnerTypes();
     Provider.of<SearchService>(context, listen: false).getBrandAndModels();
+
     super.initState();
   }
+
+  List<BuyerCar> allCars = [];
 
   @override
   Widget build(BuildContext context) {
     bool compare = context.watch<BuyCarProvider>().compare;
-    List<BuyerCar> allCars = context.watch<SearchService>().allCars;
+    allCars = context.watch<SearchService>().searchedCarList;
     List<String> filterApplied = context.watch<SearchService>().appliedFilters;
 
     return Scaffold(
         appBar: CustomAppBar.getAppBarWithSearch(
             context: context,
             back: true,
+            onchange: (value) {
+              Provider.of<SearchService>(context, listen: false)
+                  .searchFunction(value);
+            },
             function: () {
               print("mmbro");
             }),

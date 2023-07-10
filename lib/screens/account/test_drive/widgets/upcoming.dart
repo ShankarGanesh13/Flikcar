@@ -44,7 +44,7 @@ class UpcomingTestDrive extends StatelessWidget {
                           width: 5,
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.35,
+                          width: MediaQuery.of(context).size.width / 1.4,
                           child: Text(
                             "Your Location at 47 Lenin Sarani Kolkata 700013 ",
                             maxLines: 1,

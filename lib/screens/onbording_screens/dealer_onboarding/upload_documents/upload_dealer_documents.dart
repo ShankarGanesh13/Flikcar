@@ -6,8 +6,10 @@ import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_docum
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/dealership_details.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/selfie.dart';
 import 'package:flikcar/services/get_car_details.dart';
+import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'widgets/pan_details.dart';
 
@@ -74,13 +76,12 @@ class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
                       selectedIndex++;
                       setState(() {});
                     } else {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DealerFlow(),
-                        ),
-                        (route) => false,
-                      );
+                      Provider.of<UploadDealerDocumentsProvider>(context,
+                              listen: false)
+                          .validateForm(context);
+                      // Provider.of<UploadDealerDocumentsProvider>(context,
+                      //         listen: false)
+                      //     .uploadDealerDocuments(context);
                     }
                   },
                   borderColor: Colors.white,

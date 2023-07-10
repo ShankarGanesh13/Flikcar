@@ -26,8 +26,8 @@ class CommonCarDetails extends StatelessWidget {
           borderRadius: BorderRadius.circular(5)),
       child: Row(children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width / 2.3,
-          height: 104,
+          width: MediaQuery.of(context).size.width / 2.35,
+          height: 100,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(5),
             child: Image.asset(
@@ -37,7 +37,7 @@ class CommonCarDetails extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(6.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

@@ -22,7 +22,11 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
     bool live = context.watch<DealerProvider>().live;
     return Scaffold(
       appBar: CustomAppBar.getAppBarWithSearch(
-          context: context, back: true, function: () {}),
+        context: context,
+        back: true,
+        function: () {},
+        onchange: (value) {},
+      ),
       body: SingleChildScrollView(
         child: Column(children: [
           Padding(

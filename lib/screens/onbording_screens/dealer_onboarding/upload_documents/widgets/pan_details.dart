@@ -1,6 +1,6 @@
 import 'package:file_picker/file_picker.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
-import 'package:flikcar/services/pick_file_service.dart';
+import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
@@ -66,7 +66,7 @@ class PanDetails extends StatelessWidget {
             height: 30,
           ),
           Container(
-            height: 189,
+            height: 215,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
@@ -90,7 +90,7 @@ class PanDetails extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const SizedBox(width: 30),
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -106,7 +106,7 @@ class PanDetails extends StatelessWidget {
                             width: 5,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
                               "Photo must be clear with readable details",
                               style: AppFonts.w500black14,
@@ -128,7 +128,7 @@ class PanDetails extends StatelessWidget {
                             width: 5,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
                               "PAN must have your signature otherwise it is considered invalid",
                               style: AppFonts.w500black14,
@@ -150,7 +150,7 @@ class PanDetails extends StatelessWidget {
                             width: 5,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
                               "If you are Partnership or Company, please upload Partnership or Company PAN Card",
                               style: AppFonts.w500black14,

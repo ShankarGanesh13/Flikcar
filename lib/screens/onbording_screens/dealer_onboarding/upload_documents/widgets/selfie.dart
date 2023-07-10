@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
-import 'package:flikcar/services/pick_file_service.dart';
+import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -90,7 +90,7 @@ class Selfie extends StatelessWidget {
               ),
               Row(
                 children: [
-                  const SizedBox(width: 30),
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,

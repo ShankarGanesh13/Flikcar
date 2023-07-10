@@ -24,7 +24,7 @@ class SellRequestCarDetails extends StatelessWidget {
           const SizedBox(width: 10),
           const Spacer(),
           SizedBox(
-            width: MediaQuery.of(context).size.width / 1.32,
+            width: MediaQuery.of(context).size.width / 1.34,
             child: Text(
               "2012 Maruti Suzuki Alto 800 LXI O [2016-2019], 40k-50k km, Petrol Manual Transmission, 2nd owner",
               style: AppFonts.w500black14,

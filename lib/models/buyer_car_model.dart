@@ -8,32 +8,32 @@ class BuyerCar {
   Id id;
   String carName;
   String carDescription;
-  int mileage;
-  int torque;
-  int engine;
-  int maxPower;
-  int driveKms;
-  int registrationYear;
+  String mileage;
+  String torque;
+  String engine;
+  String maxPower;
+  String driveKms;
+  String registrationYear;
   String transmission;
-  int groundClearance;
-  int bootSpace;
-  int noOfSeatsRow;
-  int fuelTankCapacity;
-  int wheelbase;
-  int length;
+  String groundClearance;
+  String bootSpace;
+  String noOfSeatsRow;
+  String fuelTankCapacity;
+  String wheelbase;
+  String length;
   String alloyWheels;
   String frontTyres;
   String rearTyres;
   String spareWheel;
-  int noOfDoors;
-  int height;
-  int width;
+  String noOfDoors;
+  String height;
+  String width;
   String wheelCover;
   String drivetrain;
-  int gearBox;
-  int displacement;
-  int noOfCylinders;
-  int valveCylinders;
+  String gearBox;
+  String displacement;
+  String noOfCylinders;
+  String valveCylinders;
   String turbocharger;
   String limitedSlipDiffe;
   String maxTorque;
@@ -42,9 +42,9 @@ class BuyerCar {
   String frontBrakeType;
   String rearBrakeType;
   String steeringType;
-  int minTurningRadius;
-  int carPrice;
-  int? salePrice;
+  String mStringurningRadius;
+  String carPrice;
+  String? salePrice;
   String? soldTo;
   String? saleAt;
   String status;
@@ -55,7 +55,7 @@ class BuyerCar {
   String fuel;
   String bodytype;
   String color;
-  int seat;
+  String seat;
   String ownertype;
   List<String> carImages;
   List<String> featureDetails;
@@ -102,7 +102,7 @@ class BuyerCar {
       required this.frontBrakeType,
       required this.rearBrakeType,
       required this.steeringType,
-      required this.minTurningRadius,
+      required this.mStringurningRadius,
       required this.carPrice,
       required this.salePrice,
       required this.soldTo,
@@ -127,60 +127,60 @@ class BuyerCar {
 
   factory BuyerCar.fromJson(Map<String, dynamic> json) {
     return BuyerCar(
-      id: json['id'] ?? "Data not available",
-      carName: json['car_name'] ?? "Data not available",
-      carDescription: json['car_description'] ?? "Data not available",
-      mileage: json['mileage'] ?? 00,
-      torque: json['torque'] ?? "Data not available",
-      engine: json['engine'] ?? "Data not available",
-      maxPower: json['max_power'] ?? "Data not available",
-      driveKms: json['drive_kms'] ?? "Data not available",
-      registrationYear: json['registration_year'] ?? "Data not available",
-      transmission: json['transmission'] ?? "Data not available",
-      groundClearance: json['ground_clearance'] ?? "Data not available",
-      bootSpace: json['boot_space'] ?? "Data not available",
-      noOfSeatsRow: json['no_of_seats_row'] ?? "Data not available",
-      fuelTankCapacity: json['fuel_tank_capacity'] ?? "Data not available",
-      wheelbase: json['wheelbase'] ?? "Data not available",
-      length: json['length'] ?? "Data not available",
-      alloyWheels: json['alloy_wheels'] ?? "Data not available",
-      frontTyres: json['front_tyres'] ?? "Data not available",
-      rearTyres: json['rear_tyres'] ?? "Data not available",
-      spareWheel: json['spare_wheel'] ?? "Data not available",
-      noOfDoors: json['no_of_doors'] ?? "Data not available",
-      height: json['height'] ?? "Data not available",
-      width: json['width'] ?? "Data not available",
-      wheelCover: json['wheel_cover'] ?? "Data not available",
-      drivetrain: json['drivetrain'] ?? "Data not available",
-      gearBox: json['gear_box'] ?? "Data not available",
-      displacement: json['displacement'] ?? "Data not available",
-      noOfCylinders: json['no_of_cylinders'] ?? "Data not available",
-      valveCylinders: json['valve_cylinders'] ?? "Data not available",
-      turbocharger: json['turbocharger'] ?? "Data not available",
-      limitedSlipDiffe: json['limited_slip_diffe'] ?? "Data not available",
-      maxTorque: json['max_torque'] ?? "Data not available",
-      suspensionFront: json['suspension_front'] ?? "Data not available",
-      suspensionRear: json['suspension_rear'] ?? "Data not available",
-      frontBrakeType: json['front_brake_type'] ?? "Data not available",
-      rearBrakeType: json['rear_brake_type'] ?? "Data not available",
-      steeringType: json['steering_type'] ?? "Data not available",
-      minTurningRadius: json['min_turning_radius'] ?? "Data not available",
-      carPrice: json['car_price'] ?? "Data not available",
-      salePrice: json['sale_price'] ?? 0,
-      soldTo: json['sold_to'] ?? "Data not available",
-      saleAt: json['sale_at'] ?? "Data not available",
-      status: json['status'] ?? "Data not available",
-      saleStatus: json['sale_status'] ?? "Data not available",
+      id: json['id'] ?? "No data",
+      carName: json['car_name'] ?? "No data",
+      carDescription: json['car_description'] ?? "No data",
+      mileage: json['mileage'].toString() ?? "No data",
+      torque: json['torque'].toString() ?? "No data",
+      engine: json['engine'].toString() ?? "No data",
+      maxPower: json['max_power'].toString() ?? "No data",
+      driveKms: json['drive_kms'].toString() ?? "No data",
+      registrationYear: json['registration_year'].toString() ?? "No data",
+      transmission: json['transmission'] ?? "No data",
+      groundClearance: json['ground_clearance'].toString() ?? "No data",
+      bootSpace: json['boot_space'].toString() ?? "No data",
+      noOfSeatsRow: json['no_of_seats_row'].toString() ?? "No data",
+      fuelTankCapacity: json['fuel_tank_capacity'].toString() ?? "No data",
+      wheelbase: json['wheelbase'].toString() ?? "No data",
+      length: json['length'].toString() ?? "No data",
+      alloyWheels: json['alloy_wheels'] ?? "No data",
+      frontTyres: json['front_tyres'] ?? "No data",
+      rearTyres: json['rear_tyres'] ?? "No data",
+      spareWheel: json['spare_wheel'] ?? "No data",
+      noOfDoors: json['no_of_doors'].toString() ?? "No data",
+      height: json['height'].toString() ?? "No data",
+      width: json['width'].toString() ?? "No data",
+      wheelCover: json['wheel_cover'] ?? "No data",
+      drivetrain: json['drivetrain'] ?? "No data",
+      gearBox: json['gear_box'].toString() ?? "No data",
+      displacement: json['displacement'].toString() ?? "No data",
+      noOfCylinders: json['no_of_cylinders'].toString() ?? "No data",
+      valveCylinders: json['valve_cylinders'].toString() ?? "No data",
+      turbocharger: json['turbocharger'] ?? "No data",
+      limitedSlipDiffe: json['limited_slip_diffe'] ?? "No data",
+      maxTorque: json['max_torque'].toString() ?? "No data",
+      suspensionFront: json['suspension_front'] ?? "No data",
+      suspensionRear: json['suspension_rear'] ?? "No data",
+      frontBrakeType: json['front_brake_type'] ?? "No data",
+      rearBrakeType: json['rear_brake_type'] ?? "No data",
+      steeringType: json['steering_type'] ?? "No data",
+      mStringurningRadius: json['min_turning_radius'].toString() ?? "No data",
+      carPrice: json['car_price'].toString() ?? "No data",
+      salePrice: json['sale_price'].toString() ?? "Na data",
+      soldTo: json['sold_to'] ?? "No data",
+      saleAt: json['sale_at'] ?? "No data",
+      status: json['status'] ?? "No data",
+      saleStatus: json['sale_status'] ?? "No data",
 
       ///
-      brand: json['vehicleBrand']["name"] ?? "Data not available",
-      model: json['vehicleModel']["name"] ?? "Data not available",
-      variant: json['vehicleVariantType']["name"] ?? "Data not available",
-      fuel: json['vehicleFuelType']["name"] ?? "Data not available",
-      bodytype: json['vehicleBodyType']["name"] ?? "Data not available",
-      color: json['vehicleColor']["name"] ?? "Data not available",
-      seat: json['vehicleSeat']["no_of_seats"] ?? 5,
-      ownertype: json['vehicleOwnerType']["type"] ?? "Data not available",
+      brand: json['vehicleBrand']["name"] ?? "No data",
+      model: json['vehicleModel']["name"] ?? "No data",
+      variant: json['vehicleVariantType']["name"] ?? "No data",
+      fuel: json['vehicleFuelType']["name"] ?? "No data",
+      bodytype: json['vehicleBodyType']["name"] ?? "No data",
+      color: json['vehicleColor']["name"] ?? "No data",
+      seat: json['vehicleSeat']["no_of_seats"].toString() ?? "No data",
+      ownertype: json['vehicleOwnerType']["type"] ?? "No data",
       //
       carImages: List<String>.from(myfunc("path", json["vehicleImages"])),
       featureDetails: List<String>.from(myfunc("name", json['vehicleFeature'])),
@@ -195,9 +195,14 @@ class BuyerCar {
       safetyDetails: List<String>.from(myfunc("name", json['vehicleSafety'])),
     );
   }
-  static List<String> myfunc(key, list) {
+  static List<String> myfunc(key, List list) {
     List<String> result = [];
-    list.forEach((e) => result.add(e[key].toString()));
+
+    if (list.isNotEmpty) {
+      list.forEach((e) => result.add(
+            e[key].toString(),
+          ));
+    }
     return result;
   }
 }

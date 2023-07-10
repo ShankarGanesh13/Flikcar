@@ -29,7 +29,7 @@ class GetCarDetails {
     return Future.value(Isar.getInstance());
   }
 
-  saveCarDetails() async {
+  static saveCarDetails() async {
     final isar = await localDB;
 
     final SharedPreferences sp = await SharedPreferences.getInstance();

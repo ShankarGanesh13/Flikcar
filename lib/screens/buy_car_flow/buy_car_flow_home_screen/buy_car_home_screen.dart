@@ -1,8 +1,10 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/buyer_testimonial.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
+import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/upcoming_test_drive_card.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/services/get_car_details.dart';
@@ -17,7 +19,7 @@ class BuyCarHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.p2,
-      appBar: CustomAppBar.getAppBarWithSearch(
+      appBar: CustomAppBar.getAppBarWithContainerSearch(
           back: false,
           context: context,
           function: () {
@@ -95,7 +97,10 @@ class BuyCarHomeScreen extends StatelessWidget {
                     PrimaryButton(
                       title: "View All Cars",
                       function: () {
-                        GetCarDetails().saveCarDetails();
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const FilterApplied()));
                       },
                       backgroundColor: AppColors.p2,
                       borderColor: Colors.transparent,
@@ -104,12 +109,18 @@ class BuyCarHomeScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                   ]),
                 ),
-                HomeScreenCard(
-                  title: "Recently Viewed",
-                  filterButton: false,
-                  filters: [],
-                  cars: GetCarDetails.getAllCarDetails(),
-                ),
+                FutureBuilder<List<BuyerCar>>(
+                    future: GetCarDetails.getAllCarDetails(),
+                    builder: (context, snapshot) {
+                      if (snapshot.data != null) {
+                        return UpcomingTestDriveCard(
+                          cars: snapshot.data!,
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    }),
+                const SizedBox(height: 20),
                 HomeScreenCard(
                   title: "Featured Cars",
                   filterButton: false,
@@ -122,18 +133,18 @@ class BuyCarHomeScreen extends StatelessWidget {
                   filters: const ["Hatchback", "Sedan", "SUV", "MUV"],
                   cars: GetCarDetails.getAllCarDetails(),
                 ),
-                HomeScreenCard(
-                  title: "Cars by budget",
-                  filterButton: true,
-                  filters: const [
-                    "1-5 lakh",
-                    "5-10 lakh",
-                    "10-15 lakh",
-                    "15-20 lakh",
-                    "20-25 lakh"
-                  ],
-                  cars: GetCarDetails.getAllCarDetails(),
-                ),
+                // HomeScreenCard(
+                //   title: "Cars by budget",
+                //   filterButton: true,
+                //   filters: const [
+                //     "1-5 lakh",
+                //     "5-10 lakh",
+                //     "10-15 lakh",
+                //     "15-20 lakh",
+                //     "20-25 lakh"
+                //   ],
+                //   cars: GetCarDetails.getAllCarDetails(),
+                // ),
                 Image.asset(
                   "assets/confused_banner.png",
                   fit: BoxFit.fill,
@@ -164,31 +175,23 @@ class BuyCarHomeScreen extends StatelessWidget {
                   ],
                   cars: GetCarDetails.getAllCarDetails(),
                 ),
-                HomeScreenCard(
-                  title: "Cars by year",
-                  filterButton: true,
-                  filters: const [
-                    "2012 & above",
-                    "2014 & above",
-                    "2016 & above",
-                    "2018 & above",
-                    "2020 & above"
-                  ],
-                  cars: GetCarDetails.getAllCarDetails(),
-                ),
+                // HomeScreenCard(
+                //   title: "Cars by year",
+                //   filterButton: true,
+                //   filters: const [
+                //     "2012 & above",
+                //     "2014 & above",
+                //     "2016 & above",
+                //     "2018 & above",
+                //     "2020 & above"
+                //   ],
+                //   cars: GetCarDetails.getAllCarDetails(),
+                // ),
                 BuyerTestimonials(),
                 FrequentQuestions(),
               ],
             ),
           ),
-          PrimaryButton(
-              title: "get car",
-              function: () {
-                GetCarDetails.getAllCarDetails();
-              },
-              borderColor: Colors.red,
-              backgroundColor: Colors.green,
-              textStyle: AppFonts.w500white14)
         ]),
       ),
     );

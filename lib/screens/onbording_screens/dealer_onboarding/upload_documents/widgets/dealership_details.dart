@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
-import 'package:flikcar/services/pick_file_service.dart';
+import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -111,7 +111,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                                   width: 136,
                                   child: Image.file(
                                     File(dealershipProof),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                     width: double.infinity,
                                   ),
                                 )),
@@ -145,7 +145,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
               ),
               Row(
                 children: [
-                  const SizedBox(width: 30),
+                  const SizedBox(width: 20),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -161,7 +161,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                             width: 5,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
                               "Visiting Card should have dealer & dealership name clearly visible",
                               style: AppFonts.w500black14,
@@ -183,7 +183,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                             width: 5,
                           ),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.4,
+                            width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
                               "Front Shop photo should clearly show the dealership name",
                               style: AppFonts.w500black14,

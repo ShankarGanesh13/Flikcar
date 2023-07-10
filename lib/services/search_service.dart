@@ -26,6 +26,7 @@ class SearchService extends ChangeNotifier {
   List<int> budgetFilter = [];
   List<BuyerCar> allCars = [];
   List<String> appliedFilters = [];
+  List<BuyerCar> searchedCarList = [];
 
   //////////
   getBrandAndModels() async {
@@ -191,17 +192,17 @@ class SearchService extends ChangeNotifier {
     var url =
         Uri.parse('http://webservice.flikcar.com:8000/api/cars/search-car');
     SearchReqModel body = SearchReqModel(
-      brand: brandFilter,
-      model: modelFilter,
-      bodytype: bodytypeFilter,
-      seats: [],
-      fuel: fuelFilter,
-      transmission: transmissionFilter,
-      owners: ownersFilter,
-      modelyear: modelyearFilter,
-      drivenkm: kmsDrivenFilter,
-      budget: budgetFilter,
-    );
+        brand: brandFilter,
+        model: modelFilter,
+        bodytype: bodytypeFilter,
+        seats: [],
+        fuel: fuelFilter,
+        transmission: transmissionFilter,
+        owners: ownersFilter,
+        modelyear: modelyearFilter,
+        drivenkm: kmsDrivenFilter,
+        budget: budgetFilter,
+        type: "app");
     print("brand ${body.brand}");
     print("model ${body.model}");
     print("bodyType ${body.bodytype}");
@@ -211,6 +212,7 @@ class SearchService extends ChangeNotifier {
     print("modelYear ${body.modelyear}");
     print("driveKm ${body.drivenkm}");
     print("budget ${body.budget}");
+    print("type ${body.type}");
 
     var response = await http.post(
       url,
@@ -220,6 +222,7 @@ class SearchService extends ChangeNotifier {
       },
       body: json.encode(body),
     );
+    print("function called");
     var data = json.decode(response.body);
 
     var allData = data["data"] as List;
@@ -229,6 +232,7 @@ class SearchService extends ChangeNotifier {
       // BuyerCar car = BuyerCar.fromJson(allData[i]);
       // print(car.registrationYear);
     }
+    searchedCarList = allCars;
     notifyListeners();
     print("car list length ${allCars.length}");
   }
@@ -250,17 +254,17 @@ class SearchService extends ChangeNotifier {
     var url =
         Uri.parse('http://webservice.flikcar.com:8000/api/cars/search-car');
     SearchReqModel body = SearchReqModel(
-      brand: brandFilter,
-      model: modelFilter,
-      bodytype: bodytypeFilter,
-      seats: [],
-      fuel: fuelFilter,
-      transmission: transmissionFilter,
-      owners: ownersFilter,
-      modelyear: modelyearFilter,
-      drivenkm: kmsDrivenFilter,
-      budget: budgetFilter,
-    );
+        brand: brandFilter,
+        model: modelFilter,
+        bodytype: bodytypeFilter,
+        seats: [],
+        fuel: fuelFilter,
+        transmission: transmissionFilter,
+        owners: ownersFilter,
+        modelyear: modelyearFilter,
+        drivenkm: kmsDrivenFilter,
+        budget: budgetFilter,
+        type: "app");
 
     var response = await http.post(
       url,
@@ -276,9 +280,10 @@ class SearchService extends ChangeNotifier {
 
     for (var i = 0; i < allData.length; i++) {
       allCars.add(BuyerCar.fromJson(allData[i]));
-      BuyerCar car = BuyerCar.fromJson(allData[i]);
-      print(car.registrationYear);
+      // BuyerCar car = BuyerCar.fromJson(allData[i]);
+      // print(car.registrationYear);
     }
+    searchedCarList = allCars;
     notifyListeners();
     print("car list length ${allCars.length}");
   }
@@ -352,17 +357,17 @@ class SearchService extends ChangeNotifier {
         Uri.parse('http://webservice.flikcar.com:8000/api/cars/search-car');
 
     SearchReqModel body = SearchReqModel(
-      brand: brandFilter,
-      model: modelFilter,
-      bodytype: bodytypeFilter,
-      seats: [],
-      fuel: fuelFilter,
-      transmission: transmissionFilter,
-      owners: ownersFilter,
-      modelyear: modelyearFilter,
-      drivenkm: kmsDrivenFilter,
-      budget: budgetFilter,
-    );
+        brand: brandFilter,
+        model: modelFilter,
+        bodytype: bodytypeFilter,
+        seats: [],
+        fuel: fuelFilter,
+        transmission: transmissionFilter,
+        owners: ownersFilter,
+        modelyear: modelyearFilter,
+        drivenkm: kmsDrivenFilter,
+        budget: budgetFilter,
+        type: "app");
 
     var response = await http.post(
       url,
@@ -381,9 +386,17 @@ class SearchService extends ChangeNotifier {
       // BuyerCar car = BuyerCar.fromJson(allData[i]);
       // print(car.registrationYear);
     }
-    notifyListeners();
+    searchedCarList = allCars;
     print("car list length ${allCars.length}");
 
+    notifyListeners();
+  }
+
+  searchFunction(String query) {
+    searchedCarList = allCars;
+    searchedCarList = allCars
+        .where((item) => item.model.toLowerCase().contains(query.toLowerCase()))
+        .toList();
     notifyListeners();
   }
 }

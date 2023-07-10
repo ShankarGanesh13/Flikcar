@@ -9,12 +9,15 @@ class DropDownTextField extends StatelessWidget {
   final String selectedValue;
   final List<String> items;
   final String title;
+
+  final ValueChanged<dynamic> onchanged;
   const DropDownTextField(
       {super.key,
       required this.title,
       required this.hint,
       required this.error,
       required this.items,
+      required this.onchanged,
       required this.selectedValue});
 
   @override
@@ -44,6 +47,7 @@ class DropDownTextField extends StatelessWidget {
             hint,
             style: AppFonts.w500dark214,
           ),
+          value: selectedValue,
           items: items
               .map((item) => DropdownMenuItem<String>(
                     value: item,
@@ -57,10 +61,7 @@ class DropDownTextField extends StatelessWidget {
             return null;
           },
           onChanged: (value) {
-            //Do something when selected item is changed.
-          },
-          onSaved: (value) {
-            //    selectedValue = value.toString();
+            onchanged(value!);
           },
           buttonStyleData: const ButtonStyleData(
             padding: EdgeInsets.only(left: 10, right: 10),

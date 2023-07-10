@@ -58,16 +58,20 @@ class HomeScreenCard extends StatelessWidget {
               )
             : const SizedBox(),
         SizedBox(height: filterButton == true ? 12 : 0),
+        const SizedBox(
+          height: 5,
+        ),
         Container(
             padding: const EdgeInsets.only(bottom: 15),
-            height: 380,
+            height: 345,
             child: FutureBuilder<List<BuyerCar>>(
                 future: cars,
                 builder: (context, snapshot) {
                   if (snapshot.data != null) {
+                    snapshot.data!.shuffle();
                     return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data!.length,
+                        itemCount: 8,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           List<String> features = [
@@ -90,14 +94,20 @@ class HomeScreenCard extends StatelessWidget {
                               height: 361,
                               width: 268,
                               margin: const EdgeInsets.only(
-                                  right: 15, bottom: 20, top: 5, left: 15),
+                                  right: 15, bottom: 20, top: 0, left: 15),
                               decoration: BoxDecoration(
                                 boxShadow: const [
+                                  // BoxShadow(
+                                  //   color: Color.fromRGBO(0, 0, 0, 0.25),
+                                  //   offset: Offset(2, 12),
+                                  //   blurRadius: 18,
+                                  //   spreadRadius: -8,
+                                  // ),
                                   BoxShadow(
                                     color: Color.fromRGBO(0, 0, 0, 0.25),
-                                    offset: Offset(2, 12),
-                                    blurRadius: 18,
-                                    spreadRadius: -8,
+                                    offset: Offset(1, 1),
+                                    blurRadius: 12,
+                                    spreadRadius: 0,
                                   ),
                                 ],
                                 color: const Color(0xffF2F2F2),
@@ -106,15 +116,17 @@ class HomeScreenCard extends StatelessWidget {
                               child: Column(
                                 children: [
                                   SizedBox(
-                                    height: 181,
+                                    height: 170,
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.only(
                                         topLeft: Radius.circular(10),
                                         topRight: Radius.circular(10),
                                       ),
                                       child: FastCachedImage(
-                                        url:
-                                            "https://admin.flikcar.com/${snapshot.data![index].carImages[0]}",
+                                        url: snapshot.data![index].carImages
+                                                .isNotEmpty
+                                            ? "https://admin.flikcar.com/${snapshot.data![index].carImages[0]}"
+                                            : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                         fit: BoxFit.cover,
                                         fadeInDuration:
                                             const Duration(seconds: 1),
@@ -145,7 +157,8 @@ class HomeScreenCard extends StatelessWidget {
                                     ),
                                   ),
                                   Padding(
-                                    padding: const EdgeInsets.all(10.0),
+                                    padding: const EdgeInsets.only(
+                                        left: 10.0, right: 10),
                                     child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -159,6 +172,7 @@ class HomeScreenCard extends StatelessWidget {
                                                 child: Text(
                                                     snapshot
                                                         .data![index].carName,
+                                                    maxLines: 1,
                                                     style: AppFonts.w700s140),
                                               ),
                                               const Spacer(),
@@ -169,7 +183,6 @@ class HomeScreenCard extends StatelessWidget {
                                             ],
                                           ),
                                         ),
-                                        const SizedBox(height: 4),
                                         Text(snapshot.data![index].brand,
                                             style: AppFonts.w500dark214),
                                         const SizedBox(height: 4),
@@ -198,7 +211,7 @@ class HomeScreenCard extends StatelessWidget {
                                       ],
                                     ),
                                   ),
-                                  const SizedBox(height: 5),
+                                  const SizedBox(height: 10),
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 10.0, right: 10),

@@ -2,19 +2,36 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/dropDownTextField.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/listing_text_field.dart';
+import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
-class DealerListingScreen extends StatelessWidget {
+class DealerListingScreen extends StatefulWidget {
   DealerListingScreen({super.key});
 
+  @override
+  State<DealerListingScreen> createState() => _DealerListingScreenState();
+}
+
+class _DealerListingScreenState extends State<DealerListingScreen> {
   String? selectedValue;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    super.initState();
+  }
 
   final _formKey = GlobalKey<FormState>();
+
+  BrandModelVarient? selectedBrand;
+  Model? selectedModel;
+  Varient? selectedVariant;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,17 +95,34 @@ class DealerListingScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(height: 15),
-                    const ListingTextField(
-                      hint: "Eg. Honda",
-                      maxlength: 20,
-                      title: "Make",
-                    ),
+                    FutureBuilder<List<BrandModelVarient>>(
+                        future: GetBrandModelVarient().getAllBrands(),
+                        builder: (context, snapshot) {
+                          print(snapshot.data);
+                          if (snapshot.data != null) {
+                            return DropDownTextField(
+                                title: "Brand",
+                                hint: "Select a brand",
+                                error: "Select a brand",
+                                selectedValue: snapshot.data![0].name,
+                                onchanged: (value) {
+                                  selectedBrand = value;
+                                },
+                                items:
+                                    snapshot.data!.map((e) => e.name).toList());
+                          } else {
+                            return SizedBox();
+                          }
+                        }),
                     const SizedBox(height: 20),
-                    const ListingTextField(
-                      hint: "Eg. Civic",
-                      maxlength: 20,
-                      title: "Model",
-                    ),
+                    DropDownTextField(
+                        title: "Model",
+                        hint: "Eg. Innova",
+                        onchanged: (value) {},
+                        error: "Select car body type",
+                        selectedValue: "",
+                        items: []),
+
                     const SizedBox(height: 20),
                     const ListingTextField(
                       hint: "Eg. VX CVT",
@@ -102,39 +136,43 @@ class DealerListingScreen extends StatelessWidget {
                       title: "Make Year",
                     ),
                     const SizedBox(height: 20),
-                    const DropDownTextField(
-                        title: "Body Type",
-                        hint: "Eg. Sedan",
-                        error: "Select car body type",
-                        selectedValue: "suzuki",
-                        items: ["Sedan", "Hatchback", "SUV", "MUV", "LUV"]),
+                    // DropDownTextField(
+                    //     title: "Body Type",
+                    //     hint: "Eg. Sedan",
+                    //     error: "Select car body type",
+                    //     selectedValue: "suzki",
+                    //     onchanged: (value) {},
+                    //     items: ["Sedan", "Hatchback", "SUV", "MUV", "LUV"]),
                     const SizedBox(height: 20),
-                    const DropDownTextField(
-                        title: "Fuel Type",
-                        hint: "Eg. Petrol",
-                        error: "Select car fuel type",
-                        selectedValue: "suzuki",
-                        items: [
-                          "Petrol",
-                          "Diesel",
-                          "Electric",
-                          "LPG",
-                          "Others"
-                        ]),
+                    // DropDownTextField(
+                    //     title: "Fuel Type",
+                    //     hint: "Eg. Petrol",
+                    //     error: "Select car fuel type",
+                    //     selectedValue: "suzki",
+                    //     onchanged: (value) {},
+                    //     items: [
+                    //       "Petrol",
+                    //       "Diesel",
+                    //       "Electric",
+                    //       "LPG",
+                    //       "Others"
+                    //     ]),
                     const SizedBox(height: 20),
-                    const DropDownTextField(
-                        title: "Transmisson",
-                        hint: "Eg. HONDA",
-                        error: "Select car transmisson",
-                        selectedValue: "suzuki",
-                        items: ["Automatic", "Manual"]),
+                    // DropDownTextField(
+                    //     title: "Transmisson",
+                    //     hint: "Eg. HONDA",
+                    //     error: "Select car transmisson",
+                    //     selectedValue: "szki",
+                    //     onchanged: (value) {},
+                    //     items: ["Automatic", "Manual"]),
                     const SizedBox(height: 20),
-                    const DropDownTextField(
-                        title: "Ownership",
-                        hint: "Eg. 1st Owner",
-                        error: "Select car ownership",
-                        selectedValue: "suzuki",
-                        items: ["1st Owner", "2nd Owner", "3rd Owner"]),
+                    // DropDownTextField(
+                    //     title: "Ownership",
+                    //     hint: "Eg. 1st Owner",
+                    //     error: "Select car ownership",
+                    //     selectedValue: "suzi",
+                    //     onchanged: (value) {},
+                    //     items: ["1st Owner", "2nd Owner", "3rd Owner"]),
                     const SizedBox(height: 20),
 
                     //
@@ -199,4 +237,33 @@ class DealerListingScreen extends StatelessWidget {
       ),
     );
   }
+
+  // List<String> getBrand(List<BrandModelVarient> list) {
+  //   brand = [];
+
+  //   for (var i = 0; i < list.length; i++) {
+  //     brand.add(list[i].name);
+  //   }
+
+  //   return brand.toSet().toList();
+  // }
+
+  // Future<List<String>> getModel(String brand) async {
+  //   print(brand);
+  //   models = ["Select a brand"];
+  //   List<BrandModelVarient> bvm =
+  //       await GetBrandModelVarient().getBrandModelVarient();
+
+  //   models = [];
+  //   print(models);
+  //   BrandModelVarient selectedbrand =
+  //       bvm.firstWhere((element) => element.name.toLowerCase() == brand);
+  //   selectedbrand.model.forEach((element) {
+  //     models.add(element.name);
+  //   });
+
+  //   setState(() {});
+  //   print(models);
+  //   return models;
+  // }
 }

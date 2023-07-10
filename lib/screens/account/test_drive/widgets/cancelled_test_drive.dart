@@ -43,9 +43,12 @@ class CancelledTestDrive extends StatelessWidget {
                   const SizedBox(
                     width: 5,
                   ),
-                  Text(
-                    "Your Location at 47 Lenin Sarani Kolkata 700013",
-                    style: AppFonts.w500dark214,
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.4,
+                    child: Text(
+                      "Your Location at 47 Lenin Sarani Kolkata 700013",
+                      style: AppFonts.w500dark214,
+                    ),
                   )
                 ],
               ),

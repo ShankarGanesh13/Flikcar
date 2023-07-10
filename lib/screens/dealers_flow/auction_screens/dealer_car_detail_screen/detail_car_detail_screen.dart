@@ -6,6 +6,7 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_s
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_image_viewer.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/inspection_report.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_car_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -18,8 +19,16 @@ class DealerCarDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBarWithSearch(
-            context: context, function: () {}, back: true),
+        appBar: CustomAppBar.getAppBarWithContainerSearch(
+            context: context,
+            function: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const DealerCarListScreen(),
+                  ));
+            },
+            back: true),
         bottomNavigationBar: Container(
           height: 63,
           width: MediaQuery.of(context).size.width,
