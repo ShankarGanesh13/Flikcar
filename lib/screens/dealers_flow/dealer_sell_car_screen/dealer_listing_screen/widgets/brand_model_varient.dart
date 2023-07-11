@@ -39,69 +39,76 @@ class _BrandModelVarientDropDownState extends State<BrandModelVarientDropDown> {
         height: 100,
       ),
       FutureBuilder<List<BrandModelVarient>>(
-          future: GetBrandModelVarient().getAllBrands(),
+          future: GetBrandModelVarient().getBrandModelVarient(),
           builder: (context, snapshot) {
-            brands = snapshot.data!;
-            return DropdownButtonFormField2<int>(
-              isExpanded: true,
-              decoration: InputDecoration(
-                contentPadding: const EdgeInsets.all(3),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
+            if (snapshot.data != null) {
+              brands = snapshot.data!;
+              return DropdownButtonFormField2<int>(
+                isExpanded: true,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.all(3),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius:
+                          const BorderRadius.all(Radius.circular(5.0)),
+                      borderSide: BorderSide(color: AppColors.p1)),
                 ),
-                focusedBorder: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-                    borderSide: BorderSide(color: AppColors.p1)),
-              ),
-              hint: Text(
-                "select a brand",
-                style: AppFonts.w500dark214,
-              ),
-              items: snapshot.data!
-                  .map((item) => DropdownMenuItem<int>(
-                        value: item.id,
-                        child: Text(item.name, style: AppFonts.w500black14),
-                      ))
-                  .toList(),
-              validator: (value) {
-                if (value == null) {
-                  return "error";
-                }
-                return null;
-              },
-              onChanged: (value) {
-                setState(() {
-                  models = [];
-                  selectedBrandId = null;
-                  selectedBrandId = null;
-                  selectedModelId = null;
-                  selectedBrandId = value;
+                hint: Text(
+                  "select a brand",
+                  style: AppFonts.w500dark214,
+                ),
+                items: brands
+                    .map((item) => DropdownMenuItem<int>(
+                          value: item.id,
+                          child: Text(item.name, style: AppFonts.w500black14),
+                        ))
+                    .toList(),
+                validator: (value) {
+                  if (value == null) {
+                    return "error";
+                  }
+                  return null;
+                },
+                onChanged: (value) {
+                  setState(() {
+                    models = [];
+                    selectedBrandId = null;
 
-                  getDropDown();
-                });
-                print(selectedBrandId);
-              },
-              value: selectedBrandId,
-              buttonStyleData: const ButtonStyleData(
-                padding: EdgeInsets.only(left: 10, right: 10),
-                height: 40,
-              ),
-              iconStyleData: const IconStyleData(
-                icon: Icon(
-                  Icons.arrow_drop_down,
-                  color: Colors.black45,
+                    selectedModelId = null;
+                    selectedBrandId = value;
+                    models = snapshot.data!
+                        .firstWhere((element) => element.id == selectedBrandId)
+                        .models;
+                    print(models);
+                  });
+                  print(selectedBrandId);
+                },
+                value: selectedBrandId,
+                buttonStyleData: const ButtonStyleData(
+                  padding: EdgeInsets.only(left: 10, right: 10),
+                  height: 40,
                 ),
-                iconSize: 20,
-              ),
-              dropdownStyleData: DropdownStyleData(
-                padding: const EdgeInsets.only(left: 10, right: 10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5),
+                iconStyleData: const IconStyleData(
+                  icon: Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.black45,
+                  ),
+                  iconSize: 20,
                 ),
-              ),
-              menuItemStyleData:
-                  const MenuItemStyleData(padding: EdgeInsets.all(0)),
-            );
+                dropdownStyleData: DropdownStyleData(
+                  padding: const EdgeInsets.only(left: 10, right: 10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                ),
+                menuItemStyleData:
+                    const MenuItemStyleData(padding: EdgeInsets.all(0)),
+              );
+            } else {
+              return SizedBox();
+            }
           }),
       DropdownButtonFormField2<int>(
         isExpanded: true,
@@ -156,15 +163,6 @@ class _BrandModelVarientDropDownState extends State<BrandModelVarientDropDown> {
     ]));
   }
 
-  getDropDown() async {
-    models =
-        await GetBrandModelVarient().getAllModel(brandId: selectedBrandId!);
-    print("function");
-    models.forEach((element) {
-      print(element.name);
-    });
-    setState(() {});
-  }
 // //   getModelList(int id) {
 // //  Li  Model model= brands.firstWhere((element) => element.id == id).model;
 // //   }

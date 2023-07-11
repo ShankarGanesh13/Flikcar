@@ -96,7 +96,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                   children: [
                     const SizedBox(height: 15),
                     FutureBuilder<List<BrandModelVarient>>(
-                        future: GetBrandModelVarient().getAllBrands(),
+                        future: GetBrandModelVarient().getBrandModelVarient(),
                         builder: (context, snapshot) {
                           print(snapshot.data);
                           if (snapshot.data != null) {

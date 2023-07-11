@@ -5,10 +5,58 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class GetBrandModelVarient {
-  Future<List<BrandModelVarient>> getAllBrands() async {
+  // Future<List<BrandModelVarient>> getAllBrands() async {
+  //   final SharedPreferences sp = await SharedPreferences.getInstance();
+  //   Uri url =
+  //       Uri.parse('http://webservice.flikcar.com:8000/api/dealer/car/brand');
+  //   String? dealerToken = sp.getString('dealerToken');
+
+  //   var response = await http.get(url, headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer $dealerToken',
+  //   });
+  //   var body = jsonDecode(response.body);
+  //   var data = body["data"] as List;
+  //   List<BrandModelVarient> brand = [];
+
+  //   data.forEach((element) {
+  //     brand.add(BrandModelVarient.fromJson(element));
+  //   });
+
+  //   return brand;
+  // }
+
+  // Future<List<Model>> getAllModel({required int brandId}) async {
+  //   final SharedPreferences sp = await SharedPreferences.getInstance();
+  //   var param = {"brandId": "$brandId"};
+  //   Uri url = Uri.parse(
+  //     'http://webservice.flikcar.com:8000/api/dealer/car/model-by-brand',
+  //   );
+  //   final finalUri = url.replace(queryParameters: param);
+
+  //   String? dealerToken = sp.getString('dealerToken');
+
+  //   var response = await http.get(finalUri, headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer $dealerToken',
+  //   });
+  //   var body = jsonDecode(response.body);
+  //   var data = body["data"] as List;
+  //   List<Model> model = [];
+
+  //   data.forEach((element) {
+  //     model.add(Model.fromJson(element));
+  //   });
+  //   print(model);
+  //   return model;
+  // }
+  Future<List<BrandModelVarient>> getBrandModelVarient() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url =
-        Uri.parse('http://webservice.flikcar.com:8000/api/dealer/car/brand');
+    List<BrandModelVarient> brands = [];
+    Uri url = Uri.parse(
+      'http://webservice.flikcar.com:8000/api/dealer/car/brand-model-variant',
+    );
+
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -17,37 +65,11 @@ class GetBrandModelVarient {
     });
     var body = jsonDecode(response.body);
     var data = body["data"] as List;
-    List<BrandModelVarient> brand = [];
-
+    brands = [];
     data.forEach((element) {
-      brand.add(BrandModelVarient.fromJson(element));
+      brands.add(BrandModelVarient.fromJson(element));
     });
-
-    return brand;
-  }
-
-  Future<List<Model>> getAllModel({required int brandId}) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    var param = {"brandId": "$brandId"};
-    Uri url = Uri.parse(
-      'http://webservice.flikcar.com:8000/api/dealer/car/model-by-brand',
-    );
-    final finalUri = url.replace(queryParameters: param);
-
-    String? dealerToken = sp.getString('dealerToken');
-
-    var response = await http.get(finalUri, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
-    List<Model> model = [];
-
-    data.forEach((element) {
-      model.add(Model.fromJson(element));
-    });
-    print(model);
-    return model;
+    print(brands);
+    return brands;
   }
 }
