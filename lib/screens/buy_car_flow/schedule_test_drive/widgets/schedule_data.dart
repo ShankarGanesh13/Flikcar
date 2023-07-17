@@ -7,7 +7,9 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleDate extends StatelessWidget {
-  const ScheduleDate({super.key});
+  const ScheduleDate({
+    super.key,
+  });
 
   static final date = DateTime.now();
 

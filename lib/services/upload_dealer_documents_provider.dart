@@ -212,7 +212,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => const DealerFlow(),
+          builder: (context) => const DealerFlow(index: 0),
         ),
         (route) => false,
       );

@@ -33,8 +33,8 @@ class CarDetailedView extends StatelessWidget {
         },
       ),
       bottomNavigationBar: Container(
-        height: 63,
         width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.only(bottom: 10, top: 5),
         color: AppColors.s1,
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           BuyNavButton(
@@ -52,7 +52,9 @@ class CarDetailedView extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ScheduleTestDrive(),
+                    builder: (context) => ScheduleTestDrive(
+                      car: car,
+                    ),
                   ));
             },
           )

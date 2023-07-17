@@ -77,7 +77,7 @@ class _FuelTypeFilterState extends State<FuelTypeFilter> {
                           ),
                           const SizedBox(width: 10),
                           SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.3,
+                            width: MediaQuery.of(context).size.width / 2.4,
                             child: Text(
                               fuelType[index].fuelType,
                               maxLines: 1,

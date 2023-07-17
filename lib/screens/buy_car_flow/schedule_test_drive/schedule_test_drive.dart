@@ -1,18 +1,24 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
 import 'package:flikcar/screens/buy_car_flow/confirm_test_drive/confirm_test_drive.dart';
+import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/car_location.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_car_details.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_data.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_time_slot.dart';
+import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/view_dealer_details.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/book_evaluation/widgets/car_details.dart';
+import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ScheduleTestDrive extends StatelessWidget {
-  const ScheduleTestDrive({super.key});
+  final BuyerCar car;
+  const ScheduleTestDrive({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -51,19 +57,28 @@ class ScheduleTestDrive extends StatelessWidget {
               children: [
                 const ScheduleCarDetails(),
                 const SizedBox(height: 20),
-                const CarLocation(),
+                //  const CarLocation(),
+                ViewDealerDeatils(
+                  car: car,
+                ),
                 const SizedBox(height: 20),
-                const ScheduleDate(),
+                ScheduleDate(),
                 const SizedBox(height: 20),
-                const ScheduleTimeSlot(),
-                const SizedBox(height: 50),
+                //  const ScheduleTimeSlot(),
+                const SizedBox(height: 30),
                 PrimaryButton(
                     title: "Confirm Test Drive",
                     function: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ConfirmTestDrive()));
+                      Provider.of<BuyCarProvider>(context, listen: false)
+                          .bookTestDrive(
+                        vehicleId: car.id,
+                        dealerId: int.parse(car.dealerId),
+                      );
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //       builder: (context) => const ConfirmTestDrive(),
+                      //     ));
                     },
                     borderColor: Colors.transparent,
                     backgroundColor: AppColors.p2,

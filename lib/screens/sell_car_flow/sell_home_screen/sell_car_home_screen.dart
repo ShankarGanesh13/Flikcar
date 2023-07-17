@@ -90,22 +90,22 @@ class SellCarHomeScreen extends StatelessWidget {
                       padding:
                           const EdgeInsets.only(top: 30, left: 15.0, right: 15),
                       child: Column(children: [
-                        const CarNoTextField(),
-                        PrimaryButton(
-                          backgroundColor: AppColors.p2,
-                          borderColor: Colors.transparent,
-                          textStyle: AppFonts.w500white14,
-                          title: "Get Car Price",
-                          function: () {},
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.all(6.0),
-                          child: Text("or,",
-                              style: TextStyle(
-                                  color: Color(0xff606060),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500)),
-                        ),
+                        // const CarNoTextField(),
+                        // PrimaryButton(
+                        //   backgroundColor: AppColors.p2,
+                        //   borderColor: Colors.transparent,
+                        //   textStyle: AppFonts.w500white14,
+                        //   title: "Get Car Price",
+                        //   function: () {},
+                        // ),
+                        // const Padding(
+                        //   padding: EdgeInsets.all(6.0),
+                        //   child: Text("or,",
+                        //       style: TextStyle(
+                        //           color: Color(0xff606060),
+                        //           fontSize: 14,
+                        //           fontWeight: FontWeight.w500)),
+                        // ),
                         const SelectBrand(),
                         const SizedBox(height: 20),
                         SecondaryButton(

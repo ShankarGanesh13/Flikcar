@@ -13,7 +13,7 @@ class OwnersFilter extends StatefulWidget {
 }
 
 class _OwnersFilterState extends State<OwnersFilter> {
-  int selectedIndex = 0;
+  int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
     List<OwnerTypeModel> owners = context.watch<SearchService>().ownership;
@@ -28,7 +28,9 @@ class _OwnersFilterState extends State<OwnersFilter> {
           ),
           const SizedBox(height: 10),
           Text(
-            owners[selectedIndex].ownerType,
+            selectedIndex == -1
+                ? "Not selected"
+                : owners[selectedIndex].ownerType,
             style: AppFonts.w700black14,
           ),
           const SizedBox(height: 30),

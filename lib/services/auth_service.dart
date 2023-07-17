@@ -46,11 +46,17 @@ class AuthService {
       await sp.setString('userToken', data["data"]["access_token"]);
       await sp.setBool('isLoggedIn', true);
       if (context.mounted) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomeScreen(index: 0),
-            ));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const HomeScreen(
+              index: 0,
+            ),
+          ),
+          (route) => false,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+            MySnackbar.showSnackBar(context, "Logged in successfully"));
       }
 
       print("OTP verification successful");
@@ -68,7 +74,8 @@ class AuthService {
   static signout(context) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     await sp.setBool('isLoggedIn', false);
+    await sp.setString("userToken", "logged out");
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => StartScreen()));
+        context, MaterialPageRoute(builder: (context) => const StartScreen()));
   }
 }

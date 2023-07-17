@@ -8,7 +8,9 @@ import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart'
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/detail_car_detail_screen.dart';
+import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_features.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/dealer_auction_home_screen.dart';
@@ -28,7 +30,9 @@ import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
+import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/get_car_details.dart';
+import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/services/wishlist_service.dart';
@@ -43,19 +47,21 @@ import 'screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  GetCarDetails();
   await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 15));
+  GetCarDetails();
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => SellingProcessProvider()),
+        ChangeNotifierProvider(create: (context) => DealerUploadCar()),
         ChangeNotifierProvider(create: (context) => EvaluationProvider()),
         ChangeNotifierProvider(create: (context) => BuyCarProvider()),
         ChangeNotifierProvider(create: (context) => DealerProvider()),
         ChangeNotifierProvider(create: (context) => CheckInternetProvider()),
         ChangeNotifierProvider(create: (context) => WishlistService()),
         ChangeNotifierProvider(create: (context) => SearchService()),
+        ChangeNotifierProvider(create: (context) => GetDealerUploadCars()),
         ChangeNotifierProvider(
             create: (context) => UploadDealerDocumentsProvider()),
       ],
@@ -66,7 +72,7 @@ void main() async {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
           useMaterial3: true,
         ),
-        home: BrandModelVarientDropDown(),
+        home: const StartScreen(),
       ),
     ),
   );
@@ -106,22 +112,3 @@ class _MyAppState extends State<MyApp> {
     }
   }
 }
-//  Navigator.pushAndRemoveUntil(
-//                     context,
-//                     MaterialPageRoute(
-//                       builder: (context) => const CommonHomeScreen(),
-//                     ),
-//                     (route) => false,
-//                   );
-
-
-
-// FutureBuilder<bool>(
-//         future: isLoggedIn(context),
-//         builder: (context, snapshot) {
-//           if (snapshot.data == true) {
-//             return const StartScreen();
-//           } else {
-//             return PhoneNumber();
-//           }
-//         });

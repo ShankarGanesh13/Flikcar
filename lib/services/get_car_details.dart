@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/models/car_brand_model.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,12 +41,11 @@ class GetCarDetails {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     });
+    print(token);
     var data = jsonDecode(response.body);
     List result = data["data"] as List;
 
     result.forEach((e) async {
-      BuyerCar car = BuyerCar.fromJson(e);
-      print(car.bodytype);
       await isar.writeTxn(() async {
         await isar.buyerCars.put(BuyerCar.fromJson(e));
       });
@@ -58,7 +56,8 @@ class GetCarDetails {
   static Future<List<BuyerCar>> getAllCarDetails() async {
     final isar = await localDB;
     final allCars = await isar.buyerCars.where().findAll();
-    print(allCars);
     return allCars;
   }
+
+  
 }

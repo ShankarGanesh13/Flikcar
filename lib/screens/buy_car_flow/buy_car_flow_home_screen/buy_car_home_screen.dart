@@ -133,18 +133,7 @@ class BuyCarHomeScreen extends StatelessWidget {
                   filters: const ["Hatchback", "Sedan", "SUV", "MUV"],
                   cars: GetCarDetails.getAllCarDetails(),
                 ),
-                // HomeScreenCard(
-                //   title: "Cars by budget",
-                //   filterButton: true,
-                //   filters: const [
-                //     "1-5 lakh",
-                //     "5-10 lakh",
-                //     "10-15 lakh",
-                //     "15-20 lakh",
-                //     "20-25 lakh"
-                //   ],
-                //   cars: GetCarDetails.getAllCarDetails(),
-                // ),
+
                 Image.asset(
                   "assets/confused_banner.png",
                   fit: BoxFit.fill,

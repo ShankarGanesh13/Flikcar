@@ -102,26 +102,26 @@ class _FilterAppliedState extends State<FilterApplied> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    GestureDetector(
-                      onTap: () {
-                        Provider.of<BuyCarProvider>(context, listen: false)
-                            .compareCars();
-                      },
-                      child: menu(
-                          image: "assets/car_details_icon/car_compare.png",
-                          title: "Compare",
-                          color: compare == true
-                              ? const Color(0xff45C08D)
-                              : const Color(0xff161F31),
-                          style: compare == true
-                              ? AppFonts.w700p216
-                              : AppFonts.w700s116),
-                    ),
-                    Container(
-                      width: 2,
-                      height: 20,
-                      color: const Color(0xffE0E0E0),
-                    ),
+                    // GestureDetector(
+                    //   onTap: () {
+                    //     Provider.of<BuyCarProvider>(context, listen: false)
+                    //         .compareCars();
+                    //   },
+                    //   child: menu(
+                    //       image: "assets/car_details_icon/car_compare.png",
+                    //       title: "Compare",
+                    //       color: compare == true
+                    //           ? const Color(0xff45C08D)
+                    //           : const Color(0xff161F31),
+                    //       style: compare == true
+                    //           ? AppFonts.w700p216
+                    //           : AppFonts.w700s116),
+                    // ),
+                    // Container(
+                    //   width: 2,
+                    //   height: 20,
+                    //   color: const Color(0xffE0E0E0),
+                    // ),
                     GestureDetector(
                       onTap: () {
                         Navigator.push(

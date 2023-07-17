@@ -4,12 +4,16 @@ import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/brand_model_varient.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/details_dropdown.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/dropDownTextField.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/listing_text_field.dart';
+import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DealerListingScreen extends StatefulWidget {
   DealerListingScreen({super.key});
@@ -20,13 +24,10 @@ class DealerListingScreen extends StatefulWidget {
 
 class _DealerListingScreenState extends State<DealerListingScreen> {
   String? selectedValue;
-  @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
-
+  TextEditingController yearController = TextEditingController();
+  TextEditingController kmsController = TextEditingController();
+  TextEditingController sellingPriceController = TextEditingController();
+  TextEditingController descController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   BrandModelVarient? selectedBrand;
@@ -51,11 +52,13 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
             backgroundColor: AppColors.s1,
             borderColor: Colors.transparent,
             function: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ListingCarSpecification(),
-                  ));
+              if (_formKey.currentState!.validate()) {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ListingCarSpecification(),
+                    ));
+              }
             },
             textStyle: AppFonts.w500white14,
             title: "Next"),
@@ -95,113 +98,58 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const SizedBox(height: 15),
-                    FutureBuilder<List<BrandModelVarient>>(
-                        future: GetBrandModelVarient().getBrandModelVarient(),
-                        builder: (context, snapshot) {
-                          print(snapshot.data);
-                          if (snapshot.data != null) {
-                            return DropDownTextField(
-                                title: "Brand",
-                                hint: "Select a brand",
-                                error: "Select a brand",
-                                selectedValue: snapshot.data![0].name,
-                                onchanged: (value) {
-                                  selectedBrand = value;
-                                },
-                                items:
-                                    snapshot.data!.map((e) => e.name).toList());
-                          } else {
-                            return SizedBox();
-                          }
-                        }),
+                    const BrandVarientModelDropDown(),
                     const SizedBox(height: 20),
-                    DropDownTextField(
-                        title: "Model",
-                        hint: "Eg. Innova",
-                        onchanged: (value) {},
-                        error: "Select car body type",
-                        selectedValue: "",
-                        items: []),
-
-                    const SizedBox(height: 20),
-                    const ListingTextField(
-                      hint: "Eg. VX CVT",
-                      maxlength: 20,
-                      title: "Varient",
-                    ),
-                    const SizedBox(height: 20),
-                    const ListingTextField(
+                    ListingTextField(
                       hint: "Eg. 2018",
                       maxlength: 4,
+                      keyboardType: TextInputType.number,
                       title: "Make Year",
+                      controller: yearController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getYearId(year: int.parse(value));
+                      },
                     ),
                     const SizedBox(height: 20),
-                    // DropDownTextField(
-                    //     title: "Body Type",
-                    //     hint: "Eg. Sedan",
-                    //     error: "Select car body type",
-                    //     selectedValue: "suzki",
-                    //     onchanged: (value) {},
-                    //     items: ["Sedan", "Hatchback", "SUV", "MUV", "LUV"]),
+                    DetailsDropDown(),
                     const SizedBox(height: 20),
-                    // DropDownTextField(
-                    //     title: "Fuel Type",
-                    //     hint: "Eg. Petrol",
-                    //     error: "Select car fuel type",
-                    //     selectedValue: "suzki",
-                    //     onchanged: (value) {},
-                    //     items: [
-                    //       "Petrol",
-                    //       "Diesel",
-                    //       "Electric",
-                    //       "LPG",
-                    //       "Others"
-                    //     ]),
-                    const SizedBox(height: 20),
-                    // DropDownTextField(
-                    //     title: "Transmisson",
-                    //     hint: "Eg. HONDA",
-                    //     error: "Select car transmisson",
-                    //     selectedValue: "szki",
-                    //     onchanged: (value) {},
-                    //     items: ["Automatic", "Manual"]),
-                    const SizedBox(height: 20),
-                    // DropDownTextField(
-                    //     title: "Ownership",
-                    //     hint: "Eg. 1st Owner",
-                    //     error: "Select car ownership",
-                    //     selectedValue: "suzi",
-                    //     onchanged: (value) {},
-                    //     items: ["1st Owner", "2nd Owner", "3rd Owner"]),
-                    const SizedBox(height: 20),
-
-                    //
-                    //
-                    const ListingTextField(
-                      hint: "Eg. Red",
-                      maxlength: 20,
-                      title: "Color",
-                    ),
-                    const SizedBox(height: 20),
-
-                    const ListingTextField(
+                    ListingTextField(
                       hint: "Eg. 130015",
                       maxlength: 6,
+                      keyboardType: TextInputType.number,
                       title: "Kilometers Driven",
+                      controller: kmsController,
+                      onChanged: (value) {
+                        print(value);
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getKilometerDriven(kms: int.parse(value));
+                      },
                     ),
                     const SizedBox(height: 20),
-                    const ListingTextField(
+                    ListingTextField(
                       hint: "430000",
                       maxlength: 8,
                       title: "Selling Price",
+                      keyboardType: TextInputType.number,
+                      controller: sellingPriceController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getSellingPrice(price: int.parse(value));
+                      },
                     ),
                     const SizedBox(height: 20),
-                    const ListingTextField(
+                    ListingTextField(
                       hint: "Description about car",
                       maxlength: 200,
                       title: "Description",
+                      keyboardType: TextInputType.text,
+                      controller: descController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getDescription(des: value);
+                      },
                     ),
-
                     Container(
                       width: MediaQuery.of(context).size.width,
                       padding: const EdgeInsets.all(12),

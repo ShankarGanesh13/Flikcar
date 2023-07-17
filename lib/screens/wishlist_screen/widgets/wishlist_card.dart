@@ -54,7 +54,9 @@ class WishlistCard extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(5),
                       child: Image.network(
-                        "https://admin.flikcar.com/${car.carImages[0]}",
+                        car.carImages.isEmpty
+                            ? "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png"
+                            : "https://admin.flikcar.com/${car.carImages[0]}",
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -69,7 +71,7 @@ class WishlistCard extends StatelessWidget {
                             SizedBox(
                               width: MediaQuery.of(context).size.width / 2.5,
                               child: Text(
-                                car.carName,
+                                car.model,
                                 maxLines: 1,
                                 style: AppFonts.w700black16,
                               ),
@@ -131,7 +133,10 @@ class WishlistCard extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ScheduleTestDrive()));
+                          builder: (context) => ScheduleTestDrive(
+                            car: car,
+                          ),
+                        ));
                   },
                   borderColor: Colors.transparent,
                   backgroundColor: AppColors.p2,

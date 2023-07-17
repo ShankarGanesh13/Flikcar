@@ -1,6 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
+import 'package:flikcar/services/dealer_auth_service.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -92,7 +93,31 @@ class DealerDetails extends StatelessWidget {
                       },
                       borderColor: Colors.transparent,
                       backgroundColor: AppColors.s1,
-                      textStyle: AppFonts.w500white14)
+                      textStyle: AppFonts.w500white14),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      DealerAuthService.dealerLogout(context);
+                    },
+                    child: Row(
+                      children: [
+                        const Spacer(),
+                        const Icon(Icons.logout),
+                        const SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          "Logout",
+                          style: AppFonts.w500black12,
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
                 ],
               ),
             ),

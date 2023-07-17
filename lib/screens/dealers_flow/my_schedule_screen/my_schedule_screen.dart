@@ -1,8 +1,14 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/models/dealer_testdrive.dart';
+import 'package:flikcar/screens/dealers_flow/my_schedule_screen/new_testdrive_card.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/schedule_screen_card/schedule_screen_card.dart';
+import 'package:flikcar/services/dealer_upload_car.dart';
+import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyScheduleScreen extends StatefulWidget {
   const MyScheduleScreen({super.key});
@@ -12,10 +18,19 @@ class MyScheduleScreen extends StatefulWidget {
 }
 
 class _MyScheduleScreenState extends State<MyScheduleScreen> {
-  List<String> items = ["Today", "Tomorrow", "Cancelled", "All"];
+  List<String> items = ["Today", "Tomorrow", "All"];
   String? selectedValue;
   @override
+  void initState() {
+    Provider.of<GetDealerUploadCars>(context, listen: false)
+        .getDealerScheduledTestDrive();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    List<DealerTestDrive> testdrive =
+        context.watch<GetDealerUploadCars>().filteredDealerTestDrive;
     return Scaffold(
       appBar: CustomAppBar.getAppBar(),
       body: SingleChildScrollView(
@@ -47,7 +62,7 @@ class _MyScheduleScreenState extends State<MyScheduleScreen> {
                     DropdownButtonHideUnderline(
                       child: DropdownButton2<String>(
                         isExpanded: true,
-                        hint: Text('All cars', style: AppFonts.w700black14),
+                        hint: Text('All', style: AppFonts.w700black14),
                         items: items
                             .map((String item) => DropdownMenuItem<String>(
                                   value: item,
@@ -59,6 +74,9 @@ class _MyScheduleScreenState extends State<MyScheduleScreen> {
                         onChanged: (String? value) {
                           setState(() {
                             selectedValue = value;
+                            Provider.of<GetDealerUploadCars>(context,
+                                    listen: false)
+                                .filterTestDrive(filter: value!);
                           });
                         },
                         buttonStyleData: const ButtonStyleData(
@@ -78,7 +96,21 @@ class _MyScheduleScreenState extends State<MyScheduleScreen> {
                 const SizedBox(
                   height: 15,
                 ),
-                const ScheduleScreenCard()
+                testdrive.length != 0
+                    ? ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: testdrive.length,
+                        itemBuilder: (context, index) => NewTestDriveCard(
+                              testDrive: testdrive[index],
+                            ))
+                    : Padding(
+                        padding: const EdgeInsets.only(top: 60.0),
+                        child: Text(
+                          "No Scheduled Test Drives",
+                          style: AppFonts.w700black16,
+                        ),
+                      )
               ]),
             ),
           ],

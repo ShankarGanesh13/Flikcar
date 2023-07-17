@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 class BoolDropdownTextField extends StatelessWidget {
   final String selectedValue;
   final String title;
+  final ValueChanged onChanged;
   const BoolDropdownTextField(
-      {super.key, required this.title, required this.selectedValue});
+      {super.key,
+      required this.title,
+      required this.selectedValue,
+      required this.onChanged});
 
   static final List<String> items = ["Yes", "No"];
   final String hint = "Select a value";
@@ -48,10 +52,7 @@ class BoolDropdownTextField extends StatelessWidget {
             return null;
           },
           onChanged: (value) {
-            //Do something when selected item is changed.
-          },
-          onSaved: (value) {
-            //    selectedValue = value.toString();
+            onChanged(value);
           },
           buttonStyleData: const ButtonStyleData(
             padding: EdgeInsets.only(

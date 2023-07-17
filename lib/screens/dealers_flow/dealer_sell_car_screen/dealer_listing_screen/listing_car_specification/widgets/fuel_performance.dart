@@ -1,9 +1,14 @@
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/specification_text_field.dart';
+import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FuelPerformance extends StatelessWidget {
-  const FuelPerformance({super.key});
+  FuelPerformance({super.key});
+  final TextEditingController powerController = TextEditingController();
+  final TextEditingController torqueController = TextEditingController();
+  final TextEditingController mileageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -17,14 +22,40 @@ class FuelPerformance extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const SpecificationTextField(maxLength: 5, title: "Max power (in bhp)"),
-        const SpecificationTextField(maxLength: 5, title: "Max torque (in nm)"),
-        const SpecificationTextField(
-            maxLength: 5, title: "Mileage (ARAI) in kmpl"),
-        const SpecificationTextField(
-            maxLength: 5, title: "Max power (bhp @ rpm)"),
-        const SpecificationTextField(
-            maxLength: 5, title: "Max power (nm @ rpm)")
+        SpecificationTextField(
+          maxLength: 5,
+          title: "Max power (in bhp)",
+          keyboardType: TextInputType.number,
+          controller: powerController,
+          onChanged: (value) {
+            Provider.of<DealerUploadCar>(context, listen: false)
+                .getPowerDetails(power: int.parse(value));
+          },
+        ),
+        SpecificationTextField(
+          maxLength: 5,
+          title: "Max torque (in nm)",
+          keyboardType: TextInputType.number,
+          controller: torqueController,
+          onChanged: (value) {
+            Provider.of<DealerUploadCar>(context, listen: false)
+                .getTorqueDetails(torque: int.parse(value));
+          },
+        ),
+        SpecificationTextField(
+          maxLength: 5,
+          title: "Mileage (ARAI) in kmpl",
+          keyboardType: TextInputType.number,
+          controller: mileageController,
+          onChanged: (value) {
+            Provider.of<DealerUploadCar>(context, listen: false)
+                .getMileage(kmpl: int.parse(value));
+          },
+        ),
+        // const SpecificationTextField(
+        //     maxLength: 5, title: "Max power (bhp @ rpm)"),
+        // const SpecificationTextField(
+        //     maxLength: 5, title: "Max power (nm @ rpm)")
       ],
     );
   }

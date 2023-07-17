@@ -9,13 +9,21 @@ import 'package:flutter/material.dart';
 import 'dealer_account_screen/dealer_account_screen.dart';
 
 class DealerFlow extends StatefulWidget {
-  const DealerFlow({super.key});
+  final int index;
+  const DealerFlow({super.key, required this.index});
 
   @override
   State<DealerFlow> createState() => _DealerFlowState();
 }
 
 class _DealerFlowState extends State<DealerFlow> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    _currentIndex = widget.index;
+    super.initState();
+  }
+
   int _currentIndex = 0;
 
   List<Widget> pages = [

@@ -43,7 +43,6 @@ class Selfie extends StatelessWidget {
                   ),
                   GestureDetector(
                       onTap: () {
-                        //pickFile(context: context);
                         Provider.of<UploadDealerDocumentsProvider>(context,
                                 listen: false)
                             .pickFile(

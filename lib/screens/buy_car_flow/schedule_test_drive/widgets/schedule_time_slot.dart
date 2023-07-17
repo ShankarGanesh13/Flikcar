@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleTimeSlot extends StatelessWidget {
+  
   const ScheduleTimeSlot({super.key});
 
   @override

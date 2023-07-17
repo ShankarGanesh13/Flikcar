@@ -2,12 +2,14 @@ import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class UpcomingTestDriveCard extends StatelessWidget {
   final List<BuyerCar> cars;
@@ -72,7 +74,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                             ),
                             child: FastCachedImage(
                               url: cars[index].carImages.isNotEmpty
-                                  ? "https://admin.flikcar.com/${cars[index].carImages[0]}"
+                                  ? "http://webservice.flikcar.com:8000/public/${cars[index].carImages[0]}"
                                   : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                               fit: BoxFit.cover,
                               fadeInDuration: const Duration(seconds: 1),
@@ -179,7 +181,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                 height: 35,
                                 child: PrimaryButton(
                                   title: "Contact Dealer",
-                                  function: () {},
+                                  function: () async {},
                                   borderColor: AppColors.s1,
                                   textStyle: AppFonts.w500s114,
                                   backgroundColor: Colors.white,

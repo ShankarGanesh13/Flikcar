@@ -1,3 +1,4 @@
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
@@ -16,17 +17,34 @@ class DealerImageViewer extends StatefulWidget {
 
 class _DealerImageViewerState extends State<DealerImageViewer> {
   int selectedIndex = 0;
-
+  final List<ImageProvider> _imageProviders = [
+    Image.network("https://picsum.photos/id/1001/4912/3264").image,
+    Image.network("https://picsum.photos/id/1003/1181/1772").image,
+    Image.network("https://picsum.photos/id/1004/4912/3264").image,
+    Image.network("https://picsum.photos/id/1005/4912/3264").image
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 4,
-          width: MediaQuery.of(context).size.width,
-          child: Image.asset(
-            DealerImageViewer.images[selectedIndex],
-            fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {
+            MultiImageProvider multiImageProvider =
+                MultiImageProvider(_imageProviders);
+            showImageViewerPager(context, multiImageProvider,
+                backgroundColor: Colors.white,
+                closeButtonColor: Colors.black,
+                swipeDismissible: true,
+                useSafeArea: true,
+                doubleTapZoomable: true);
+          },
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height / 4,
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset(
+              DealerImageViewer.images[selectedIndex],
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         const SizedBox(

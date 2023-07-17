@@ -1,11 +1,14 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/widgets/dealer_listed_cars.dart';
+import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DealerSellCarScreen extends StatefulWidget {
   const DealerSellCarScreen({super.key});
@@ -15,15 +18,23 @@ class DealerSellCarScreen extends StatefulWidget {
 }
 
 class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<GetDealerUploadCars>(context, listen: false)
+        .getDealerUploadedCars();
+    super.initState();
+  }
+
   final List<String> items = [
     'All Cars',
-    'Available in stock',
-    'Out of stock/sold',
-    'Saved cars',
+    'Available',
+    'Sold Out',
   ];
   String? selectedValue;
   @override
   Widget build(BuildContext context) {
+    List<BuyerCar> cars = context.watch<GetDealerUploadCars>().filteredCars;
     return Scaffold(
       appBar: CustomAppBar.getAppBar(),
       body: SingleChildScrollView(
@@ -39,10 +50,10 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
                     "Your Listings",
                     style: AppFonts.w700black16,
                   ),
-                  const Spacer(),
-                  const Icon(
-                    Icons.share,
-                  )
+                  // const Spacer(),
+                  // const Icon(
+                  //   Icons.share,
+                  // )
                 ],
               ),
             ),
@@ -99,19 +110,24 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
                     onChanged: (String? value) {
                       setState(() {
                         selectedValue = value;
+
+                        Provider.of<GetDealerUploadCars>(context, listen: false)
+                            .filterDealerCars(status: selectedValue!);
                       });
                     },
                     buttonStyleData: const ButtonStyleData(
                       padding: EdgeInsets.symmetric(horizontal: 0),
                       height: 40,
-                      width: 160,
+                      width: 120,
                     ),
                     menuItemStyleData: const MenuItemStyleData(
                       height: 40,
                     ),
                   ),
                 ),
-                const DealerListedCars(),
+                DealerListedCars(
+                  cars: cars,
+                ),
               ],
             ),
           ),

@@ -1,7 +1,11 @@
+import 'package:flikcar/common_widgets/loading_widget.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/start_screen/widgets/option_card.dart';
+import 'package:flikcar/services/get_car_details.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -60,6 +64,7 @@ class StartScreen extends StatelessWidget {
                   child: Column(children: [
                     GestureDetector(
                       onTap: () {
+                        GetCarDetails.saveCarDetails();
                         Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -82,10 +87,19 @@ class StartScreen extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: () {
+                        print("pressed");
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DealerDetails(),
+                              builder: (context) => FutureBuilder<Widget>(
+                                  future: dealerIsLoggedIn(context),
+                                  builder: (context, snapshot) {
+                                    if (snapshot.data != null) {
+                                      return snapshot.data!;
+                                    } else {
+                                      return SizedBox();
+                                    }
+                                  }),
                             ));
                       },
                       child: OptionCard(
@@ -112,6 +126,25 @@ class StartScreen extends StatelessWidget {
       return true;
     } else {
       return false;
+    }
+  }
+
+  Future<Widget> dealerIsLoggedIn(context) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final bool? dealerLoggedIn = sp.getBool("dealerIsLoggedIn");
+    final String? dealerStatus = sp.getString("dealerStatus");
+    print(dealerLoggedIn);
+    print(dealerStatus);
+    if (dealerLoggedIn == true) {
+      if (dealerStatus == "Pending") {
+        return DealerDetails();
+      }
+      if (dealerStatus == "Submitted") {
+        return const DealerFlow(index: 0);
+      }
+      return SizedBox();
+    } else {
+      return DealerPhoneNumber();
     }
   }
 }

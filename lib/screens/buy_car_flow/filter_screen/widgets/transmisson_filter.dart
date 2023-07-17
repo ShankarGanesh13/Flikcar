@@ -13,7 +13,7 @@ class TransmissionFilter extends StatefulWidget {
 
 class _TransmissionFilterState extends State<TransmissionFilter> {
   List<String> transmisson = ["Automatic", "Manual"];
-  int selectedIndex = 0;
+  int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +27,7 @@ class _TransmissionFilterState extends State<TransmissionFilter> {
           ),
           const SizedBox(height: 10),
           Text(
-            transmisson[selectedIndex],
+            selectedIndex == -1 ? "Not selected" : transmisson[selectedIndex],
             style: AppFonts.w700black14,
           ),
           const SizedBox(height: 30),

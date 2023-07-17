@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_features.dart';
@@ -30,9 +31,9 @@ class DealerCarDetailScreen extends StatelessWidget {
             },
             back: true),
         bottomNavigationBar: Container(
-          height: 63,
           width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.only(left: 15, right: 15),
+          padding:
+              const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 5),
           color: AppColors.s1,
           child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             bidButton(
@@ -104,6 +105,18 @@ class DealerCarDetailScreen extends StatelessWidget {
                 height: 15,
               ),
               const DealerCarSpecification(),
+              const SizedBox(
+                height: 15,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: PrimaryButton(
+                    title: "View all specifications",
+                    function: () {},
+                    borderColor: Colors.white,
+                    backgroundColor: AppColors.p2,
+                    textStyle: AppFonts.w500white14),
+              ),
               const SizedBox(
                 height: 25,
               ),

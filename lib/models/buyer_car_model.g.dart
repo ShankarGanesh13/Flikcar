@@ -67,243 +67,268 @@ const BuyerCarSchema = CollectionSchema(
       name: r'comfortDetails',
       type: IsarType.stringList,
     ),
-    r'displacement': PropertySchema(
+    r'dealerAddress': PropertySchema(
       id: 10,
+      name: r'dealerAddress',
+      type: IsarType.string,
+    ),
+    r'dealerId': PropertySchema(
+      id: 11,
+      name: r'dealerId',
+      type: IsarType.string,
+    ),
+    r'dealerName': PropertySchema(
+      id: 12,
+      name: r'dealerName',
+      type: IsarType.string,
+    ),
+    r'dealerPhoneNumber': PropertySchema(
+      id: 13,
+      name: r'dealerPhoneNumber',
+      type: IsarType.string,
+    ),
+    r'displacement': PropertySchema(
+      id: 14,
       name: r'displacement',
       type: IsarType.string,
     ),
     r'driveKms': PropertySchema(
-      id: 11,
+      id: 15,
       name: r'driveKms',
       type: IsarType.string,
     ),
     r'drivetrain': PropertySchema(
-      id: 12,
+      id: 16,
       name: r'drivetrain',
       type: IsarType.string,
     ),
     r'engine': PropertySchema(
-      id: 13,
+      id: 17,
       name: r'engine',
       type: IsarType.string,
     ),
     r'entertainmentDetails': PropertySchema(
-      id: 14,
+      id: 18,
       name: r'entertainmentDetails',
       type: IsarType.stringList,
     ),
     r'exteriorDetails': PropertySchema(
-      id: 15,
+      id: 19,
       name: r'exteriorDetails',
       type: IsarType.stringList,
     ),
     r'featureDetails': PropertySchema(
-      id: 16,
+      id: 20,
       name: r'featureDetails',
       type: IsarType.stringList,
     ),
     r'frontBrakeType': PropertySchema(
-      id: 17,
+      id: 21,
       name: r'frontBrakeType',
       type: IsarType.string,
     ),
     r'frontTyres': PropertySchema(
-      id: 18,
+      id: 22,
       name: r'frontTyres',
       type: IsarType.string,
     ),
     r'fuel': PropertySchema(
-      id: 19,
+      id: 23,
       name: r'fuel',
       type: IsarType.string,
     ),
     r'fuelTankCapacity': PropertySchema(
-      id: 20,
+      id: 24,
       name: r'fuelTankCapacity',
       type: IsarType.string,
     ),
     r'gearBox': PropertySchema(
-      id: 21,
+      id: 25,
       name: r'gearBox',
       type: IsarType.string,
     ),
     r'groundClearance': PropertySchema(
-      id: 22,
+      id: 26,
       name: r'groundClearance',
       type: IsarType.string,
     ),
     r'height': PropertySchema(
-      id: 23,
+      id: 27,
       name: r'height',
       type: IsarType.string,
     ),
     r'interiorDetails': PropertySchema(
-      id: 24,
+      id: 28,
       name: r'interiorDetails',
       type: IsarType.stringList,
     ),
     r'length': PropertySchema(
-      id: 25,
+      id: 29,
       name: r'length',
       type: IsarType.string,
     ),
     r'limitedSlipDiffe': PropertySchema(
-      id: 26,
+      id: 30,
       name: r'limitedSlipDiffe',
       type: IsarType.string,
     ),
     r'mStringurningRadius': PropertySchema(
-      id: 27,
+      id: 31,
       name: r'mStringurningRadius',
       type: IsarType.string,
     ),
     r'maxPower': PropertySchema(
-      id: 28,
+      id: 32,
       name: r'maxPower',
       type: IsarType.string,
     ),
     r'maxTorque': PropertySchema(
-      id: 29,
+      id: 33,
       name: r'maxTorque',
       type: IsarType.string,
     ),
     r'mileage': PropertySchema(
-      id: 30,
+      id: 34,
       name: r'mileage',
       type: IsarType.string,
     ),
     r'model': PropertySchema(
-      id: 31,
+      id: 35,
       name: r'model',
       type: IsarType.string,
     ),
     r'noOfCylinders': PropertySchema(
-      id: 32,
+      id: 36,
       name: r'noOfCylinders',
       type: IsarType.string,
     ),
     r'noOfDoors': PropertySchema(
-      id: 33,
+      id: 37,
       name: r'noOfDoors',
       type: IsarType.string,
     ),
     r'noOfSeatsRow': PropertySchema(
-      id: 34,
+      id: 38,
       name: r'noOfSeatsRow',
       type: IsarType.string,
     ),
     r'ownertype': PropertySchema(
-      id: 35,
+      id: 39,
       name: r'ownertype',
       type: IsarType.string,
     ),
     r'rearBrakeType': PropertySchema(
-      id: 36,
+      id: 40,
       name: r'rearBrakeType',
       type: IsarType.string,
     ),
     r'rearTyres': PropertySchema(
-      id: 37,
+      id: 41,
       name: r'rearTyres',
       type: IsarType.string,
     ),
     r'registrationYear': PropertySchema(
-      id: 38,
+      id: 42,
       name: r'registrationYear',
       type: IsarType.string,
     ),
     r'safetyDetails': PropertySchema(
-      id: 39,
+      id: 43,
       name: r'safetyDetails',
       type: IsarType.stringList,
     ),
     r'saleAt': PropertySchema(
-      id: 40,
+      id: 44,
       name: r'saleAt',
       type: IsarType.string,
     ),
     r'salePrice': PropertySchema(
-      id: 41,
+      id: 45,
       name: r'salePrice',
       type: IsarType.string,
     ),
     r'saleStatus': PropertySchema(
-      id: 42,
+      id: 46,
       name: r'saleStatus',
       type: IsarType.string,
     ),
     r'seat': PropertySchema(
-      id: 43,
+      id: 47,
       name: r'seat',
       type: IsarType.string,
     ),
     r'soldTo': PropertySchema(
-      id: 44,
+      id: 48,
       name: r'soldTo',
       type: IsarType.string,
     ),
     r'spareWheel': PropertySchema(
-      id: 45,
+      id: 49,
       name: r'spareWheel',
       type: IsarType.string,
     ),
     r'status': PropertySchema(
-      id: 46,
+      id: 50,
       name: r'status',
       type: IsarType.string,
     ),
     r'steeringType': PropertySchema(
-      id: 47,
+      id: 51,
       name: r'steeringType',
       type: IsarType.string,
     ),
     r'suspensionFront': PropertySchema(
-      id: 48,
+      id: 52,
       name: r'suspensionFront',
       type: IsarType.string,
     ),
     r'suspensionRear': PropertySchema(
-      id: 49,
+      id: 53,
       name: r'suspensionRear',
       type: IsarType.string,
     ),
     r'torque': PropertySchema(
-      id: 50,
+      id: 54,
       name: r'torque',
       type: IsarType.string,
     ),
     r'transmission': PropertySchema(
-      id: 51,
+      id: 55,
       name: r'transmission',
       type: IsarType.string,
     ),
     r'turbocharger': PropertySchema(
-      id: 52,
+      id: 56,
       name: r'turbocharger',
       type: IsarType.string,
     ),
+    r'updatedAt': PropertySchema(
+      id: 57,
+      name: r'updatedAt',
+      type: IsarType.string,
+    ),
     r'valveCylinders': PropertySchema(
-      id: 53,
+      id: 58,
       name: r'valveCylinders',
       type: IsarType.string,
     ),
     r'variant': PropertySchema(
-      id: 54,
+      id: 59,
       name: r'variant',
       type: IsarType.string,
     ),
     r'wheelCover': PropertySchema(
-      id: 55,
+      id: 60,
       name: r'wheelCover',
       type: IsarType.string,
     ),
     r'wheelbase': PropertySchema(
-      id: 56,
+      id: 61,
       name: r'wheelbase',
       type: IsarType.string,
     ),
     r'width': PropertySchema(
-      id: 57,
+      id: 62,
       name: r'width',
       type: IsarType.string,
     )
@@ -348,6 +373,25 @@ int _buyerCarEstimateSize(
     for (var i = 0; i < object.comfortDetails.length; i++) {
       final value = object.comfortDetails[i];
       bytesCount += value.length * 3;
+    }
+  }
+  {
+    final value = object.dealerAddress;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  bytesCount += 3 + object.dealerId.length * 3;
+  {
+    final value = object.dealerName;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
+    }
+  }
+  {
+    final value = object.dealerPhoneNumber;
+    if (value != null) {
+      bytesCount += 3 + value.length * 3;
     }
   }
   bytesCount += 3 + object.displacement.length * 3;
@@ -438,6 +482,7 @@ int _buyerCarEstimateSize(
   bytesCount += 3 + object.torque.length * 3;
   bytesCount += 3 + object.transmission.length * 3;
   bytesCount += 3 + object.turbocharger.length * 3;
+  bytesCount += 3 + object.updatedAt.length * 3;
   bytesCount += 3 + object.valveCylinders.length * 3;
   bytesCount += 3 + object.variant.length * 3;
   bytesCount += 3 + object.wheelCover.length * 3;
@@ -462,54 +507,59 @@ void _buyerCarSerialize(
   writer.writeString(offsets[7], object.carPrice);
   writer.writeString(offsets[8], object.color);
   writer.writeStringList(offsets[9], object.comfortDetails);
-  writer.writeString(offsets[10], object.displacement);
-  writer.writeString(offsets[11], object.driveKms);
-  writer.writeString(offsets[12], object.drivetrain);
-  writer.writeString(offsets[13], object.engine);
-  writer.writeStringList(offsets[14], object.entertainmentDetails);
-  writer.writeStringList(offsets[15], object.exteriorDetails);
-  writer.writeStringList(offsets[16], object.featureDetails);
-  writer.writeString(offsets[17], object.frontBrakeType);
-  writer.writeString(offsets[18], object.frontTyres);
-  writer.writeString(offsets[19], object.fuel);
-  writer.writeString(offsets[20], object.fuelTankCapacity);
-  writer.writeString(offsets[21], object.gearBox);
-  writer.writeString(offsets[22], object.groundClearance);
-  writer.writeString(offsets[23], object.height);
-  writer.writeStringList(offsets[24], object.interiorDetails);
-  writer.writeString(offsets[25], object.length);
-  writer.writeString(offsets[26], object.limitedSlipDiffe);
-  writer.writeString(offsets[27], object.mStringurningRadius);
-  writer.writeString(offsets[28], object.maxPower);
-  writer.writeString(offsets[29], object.maxTorque);
-  writer.writeString(offsets[30], object.mileage);
-  writer.writeString(offsets[31], object.model);
-  writer.writeString(offsets[32], object.noOfCylinders);
-  writer.writeString(offsets[33], object.noOfDoors);
-  writer.writeString(offsets[34], object.noOfSeatsRow);
-  writer.writeString(offsets[35], object.ownertype);
-  writer.writeString(offsets[36], object.rearBrakeType);
-  writer.writeString(offsets[37], object.rearTyres);
-  writer.writeString(offsets[38], object.registrationYear);
-  writer.writeStringList(offsets[39], object.safetyDetails);
-  writer.writeString(offsets[40], object.saleAt);
-  writer.writeString(offsets[41], object.salePrice);
-  writer.writeString(offsets[42], object.saleStatus);
-  writer.writeString(offsets[43], object.seat);
-  writer.writeString(offsets[44], object.soldTo);
-  writer.writeString(offsets[45], object.spareWheel);
-  writer.writeString(offsets[46], object.status);
-  writer.writeString(offsets[47], object.steeringType);
-  writer.writeString(offsets[48], object.suspensionFront);
-  writer.writeString(offsets[49], object.suspensionRear);
-  writer.writeString(offsets[50], object.torque);
-  writer.writeString(offsets[51], object.transmission);
-  writer.writeString(offsets[52], object.turbocharger);
-  writer.writeString(offsets[53], object.valveCylinders);
-  writer.writeString(offsets[54], object.variant);
-  writer.writeString(offsets[55], object.wheelCover);
-  writer.writeString(offsets[56], object.wheelbase);
-  writer.writeString(offsets[57], object.width);
+  writer.writeString(offsets[10], object.dealerAddress);
+  writer.writeString(offsets[11], object.dealerId);
+  writer.writeString(offsets[12], object.dealerName);
+  writer.writeString(offsets[13], object.dealerPhoneNumber);
+  writer.writeString(offsets[14], object.displacement);
+  writer.writeString(offsets[15], object.driveKms);
+  writer.writeString(offsets[16], object.drivetrain);
+  writer.writeString(offsets[17], object.engine);
+  writer.writeStringList(offsets[18], object.entertainmentDetails);
+  writer.writeStringList(offsets[19], object.exteriorDetails);
+  writer.writeStringList(offsets[20], object.featureDetails);
+  writer.writeString(offsets[21], object.frontBrakeType);
+  writer.writeString(offsets[22], object.frontTyres);
+  writer.writeString(offsets[23], object.fuel);
+  writer.writeString(offsets[24], object.fuelTankCapacity);
+  writer.writeString(offsets[25], object.gearBox);
+  writer.writeString(offsets[26], object.groundClearance);
+  writer.writeString(offsets[27], object.height);
+  writer.writeStringList(offsets[28], object.interiorDetails);
+  writer.writeString(offsets[29], object.length);
+  writer.writeString(offsets[30], object.limitedSlipDiffe);
+  writer.writeString(offsets[31], object.mStringurningRadius);
+  writer.writeString(offsets[32], object.maxPower);
+  writer.writeString(offsets[33], object.maxTorque);
+  writer.writeString(offsets[34], object.mileage);
+  writer.writeString(offsets[35], object.model);
+  writer.writeString(offsets[36], object.noOfCylinders);
+  writer.writeString(offsets[37], object.noOfDoors);
+  writer.writeString(offsets[38], object.noOfSeatsRow);
+  writer.writeString(offsets[39], object.ownertype);
+  writer.writeString(offsets[40], object.rearBrakeType);
+  writer.writeString(offsets[41], object.rearTyres);
+  writer.writeString(offsets[42], object.registrationYear);
+  writer.writeStringList(offsets[43], object.safetyDetails);
+  writer.writeString(offsets[44], object.saleAt);
+  writer.writeString(offsets[45], object.salePrice);
+  writer.writeString(offsets[46], object.saleStatus);
+  writer.writeString(offsets[47], object.seat);
+  writer.writeString(offsets[48], object.soldTo);
+  writer.writeString(offsets[49], object.spareWheel);
+  writer.writeString(offsets[50], object.status);
+  writer.writeString(offsets[51], object.steeringType);
+  writer.writeString(offsets[52], object.suspensionFront);
+  writer.writeString(offsets[53], object.suspensionRear);
+  writer.writeString(offsets[54], object.torque);
+  writer.writeString(offsets[55], object.transmission);
+  writer.writeString(offsets[56], object.turbocharger);
+  writer.writeString(offsets[57], object.updatedAt);
+  writer.writeString(offsets[58], object.valveCylinders);
+  writer.writeString(offsets[59], object.variant);
+  writer.writeString(offsets[60], object.wheelCover);
+  writer.writeString(offsets[61], object.wheelbase);
+  writer.writeString(offsets[62], object.width);
 }
 
 BuyerCar _buyerCarDeserialize(
@@ -529,55 +579,60 @@ BuyerCar _buyerCarDeserialize(
     carPrice: reader.readString(offsets[7]),
     color: reader.readString(offsets[8]),
     comfortDetails: reader.readStringList(offsets[9]) ?? [],
-    displacement: reader.readString(offsets[10]),
-    driveKms: reader.readString(offsets[11]),
-    drivetrain: reader.readString(offsets[12]),
-    engine: reader.readString(offsets[13]),
-    entertainmentDetails: reader.readStringList(offsets[14]) ?? [],
-    exteriorDetails: reader.readStringList(offsets[15]) ?? [],
-    featureDetails: reader.readStringList(offsets[16]) ?? [],
-    frontBrakeType: reader.readString(offsets[17]),
-    frontTyres: reader.readString(offsets[18]),
-    fuel: reader.readString(offsets[19]),
-    fuelTankCapacity: reader.readString(offsets[20]),
-    gearBox: reader.readString(offsets[21]),
-    groundClearance: reader.readString(offsets[22]),
-    height: reader.readString(offsets[23]),
+    dealerAddress: reader.readStringOrNull(offsets[10]),
+    dealerId: reader.readString(offsets[11]),
+    dealerName: reader.readStringOrNull(offsets[12]),
+    dealerPhoneNumber: reader.readStringOrNull(offsets[13]),
+    displacement: reader.readString(offsets[14]),
+    driveKms: reader.readString(offsets[15]),
+    drivetrain: reader.readString(offsets[16]),
+    engine: reader.readString(offsets[17]),
+    entertainmentDetails: reader.readStringList(offsets[18]) ?? [],
+    exteriorDetails: reader.readStringList(offsets[19]) ?? [],
+    featureDetails: reader.readStringList(offsets[20]) ?? [],
+    frontBrakeType: reader.readString(offsets[21]),
+    frontTyres: reader.readString(offsets[22]),
+    fuel: reader.readString(offsets[23]),
+    fuelTankCapacity: reader.readString(offsets[24]),
+    gearBox: reader.readString(offsets[25]),
+    groundClearance: reader.readString(offsets[26]),
+    height: reader.readString(offsets[27]),
     id: id,
-    interiorDetails: reader.readStringList(offsets[24]) ?? [],
-    length: reader.readString(offsets[25]),
-    limitedSlipDiffe: reader.readString(offsets[26]),
-    mStringurningRadius: reader.readString(offsets[27]),
-    maxPower: reader.readString(offsets[28]),
-    maxTorque: reader.readString(offsets[29]),
-    mileage: reader.readString(offsets[30]),
-    model: reader.readString(offsets[31]),
-    noOfCylinders: reader.readString(offsets[32]),
-    noOfDoors: reader.readString(offsets[33]),
-    noOfSeatsRow: reader.readString(offsets[34]),
-    ownertype: reader.readString(offsets[35]),
-    rearBrakeType: reader.readString(offsets[36]),
-    rearTyres: reader.readString(offsets[37]),
-    registrationYear: reader.readString(offsets[38]),
-    safetyDetails: reader.readStringList(offsets[39]) ?? [],
-    saleAt: reader.readStringOrNull(offsets[40]),
-    salePrice: reader.readStringOrNull(offsets[41]),
-    saleStatus: reader.readString(offsets[42]),
-    seat: reader.readString(offsets[43]),
-    soldTo: reader.readStringOrNull(offsets[44]),
-    spareWheel: reader.readString(offsets[45]),
-    status: reader.readString(offsets[46]),
-    steeringType: reader.readString(offsets[47]),
-    suspensionFront: reader.readString(offsets[48]),
-    suspensionRear: reader.readString(offsets[49]),
-    torque: reader.readString(offsets[50]),
-    transmission: reader.readString(offsets[51]),
-    turbocharger: reader.readString(offsets[52]),
-    valveCylinders: reader.readString(offsets[53]),
-    variant: reader.readString(offsets[54]),
-    wheelCover: reader.readString(offsets[55]),
-    wheelbase: reader.readString(offsets[56]),
-    width: reader.readString(offsets[57]),
+    interiorDetails: reader.readStringList(offsets[28]) ?? [],
+    length: reader.readString(offsets[29]),
+    limitedSlipDiffe: reader.readString(offsets[30]),
+    mStringurningRadius: reader.readString(offsets[31]),
+    maxPower: reader.readString(offsets[32]),
+    maxTorque: reader.readString(offsets[33]),
+    mileage: reader.readString(offsets[34]),
+    model: reader.readString(offsets[35]),
+    noOfCylinders: reader.readString(offsets[36]),
+    noOfDoors: reader.readString(offsets[37]),
+    noOfSeatsRow: reader.readString(offsets[38]),
+    ownertype: reader.readString(offsets[39]),
+    rearBrakeType: reader.readString(offsets[40]),
+    rearTyres: reader.readString(offsets[41]),
+    registrationYear: reader.readString(offsets[42]),
+    safetyDetails: reader.readStringList(offsets[43]) ?? [],
+    saleAt: reader.readStringOrNull(offsets[44]),
+    salePrice: reader.readStringOrNull(offsets[45]),
+    saleStatus: reader.readString(offsets[46]),
+    seat: reader.readString(offsets[47]),
+    soldTo: reader.readStringOrNull(offsets[48]),
+    spareWheel: reader.readString(offsets[49]),
+    status: reader.readString(offsets[50]),
+    steeringType: reader.readString(offsets[51]),
+    suspensionFront: reader.readString(offsets[52]),
+    suspensionRear: reader.readString(offsets[53]),
+    torque: reader.readString(offsets[54]),
+    transmission: reader.readString(offsets[55]),
+    turbocharger: reader.readString(offsets[56]),
+    updatedAt: reader.readString(offsets[57]),
+    valveCylinders: reader.readString(offsets[58]),
+    variant: reader.readString(offsets[59]),
+    wheelCover: reader.readString(offsets[60]),
+    wheelbase: reader.readString(offsets[61]),
+    width: reader.readString(offsets[62]),
   );
   return object;
 }
@@ -610,27 +665,27 @@ P _buyerCarDeserializeProp<P>(
     case 9:
       return (reader.readStringList(offset) ?? []) as P;
     case 10:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 11:
       return (reader.readString(offset)) as P;
     case 12:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 13:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 14:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readString(offset)) as P;
     case 15:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readString(offset)) as P;
     case 16:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readString(offset)) as P;
     case 17:
       return (reader.readString(offset)) as P;
     case 18:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringList(offset) ?? []) as P;
     case 19:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringList(offset) ?? []) as P;
     case 20:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringList(offset) ?? []) as P;
     case 21:
       return (reader.readString(offset)) as P;
     case 22:
@@ -638,7 +693,7 @@ P _buyerCarDeserializeProp<P>(
     case 23:
       return (reader.readString(offset)) as P;
     case 24:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readString(offset)) as P;
     case 25:
       return (reader.readString(offset)) as P;
     case 26:
@@ -646,7 +701,7 @@ P _buyerCarDeserializeProp<P>(
     case 27:
       return (reader.readString(offset)) as P;
     case 28:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringList(offset) ?? []) as P;
     case 29:
       return (reader.readString(offset)) as P;
     case 30:
@@ -668,25 +723,25 @@ P _buyerCarDeserializeProp<P>(
     case 38:
       return (reader.readString(offset)) as P;
     case 39:
-      return (reader.readStringList(offset) ?? []) as P;
+      return (reader.readString(offset)) as P;
     case 40:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 41:
-      return (reader.readStringOrNull(offset)) as P;
+      return (reader.readString(offset)) as P;
     case 42:
       return (reader.readString(offset)) as P;
     case 43:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringList(offset) ?? []) as P;
     case 44:
       return (reader.readStringOrNull(offset)) as P;
     case 45:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 46:
       return (reader.readString(offset)) as P;
     case 47:
       return (reader.readString(offset)) as P;
     case 48:
-      return (reader.readString(offset)) as P;
+      return (reader.readStringOrNull(offset)) as P;
     case 49:
       return (reader.readString(offset)) as P;
     case 50:
@@ -704,6 +759,16 @@ P _buyerCarDeserializeProp<P>(
     case 56:
       return (reader.readString(offset)) as P;
     case 57:
+      return (reader.readString(offset)) as P;
+    case 58:
+      return (reader.readString(offset)) as P;
+    case 59:
+      return (reader.readString(offset)) as P;
+    case 60:
+      return (reader.readString(offset)) as P;
+    case 61:
+      return (reader.readString(offset)) as P;
+    case 62:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -2294,6 +2359,590 @@ extension BuyerCarQueryFilter
         upper,
         includeUpper,
       );
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerAddressIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'dealerAddress',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerAddressIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'dealerAddress',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerAddressEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dealerAddress',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerAddressGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dealerAddress',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerAddressLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dealerAddress',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerAddressBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dealerAddress',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerAddressStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'dealerAddress',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerAddressEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'dealerAddress',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerAddressContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'dealerAddress',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerAddressMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'dealerAddress',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerAddressIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dealerAddress',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerAddressIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'dealerAddress',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dealerId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dealerId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dealerId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dealerId',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'dealerId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'dealerId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'dealerId',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'dealerId',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dealerId',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerIdIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'dealerId',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'dealerName',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerNameIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'dealerName',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dealerName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dealerName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dealerName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dealerName',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'dealerName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'dealerName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'dealerName',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'dealerName',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> dealerNameIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dealerName',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerNameIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'dealerName',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberIsNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNull(
+        property: r'dealerPhoneNumber',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberIsNotNull() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(const FilterCondition.isNotNull(
+        property: r'dealerPhoneNumber',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberEqualTo(
+    String? value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dealerPhoneNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberGreaterThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dealerPhoneNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberLessThan(
+    String? value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dealerPhoneNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberBetween(
+    String? lower,
+    String? upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dealerPhoneNumber',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'dealerPhoneNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'dealerPhoneNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'dealerPhoneNumber',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'dealerPhoneNumber',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dealerPhoneNumber',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      dealerPhoneNumberIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'dealerPhoneNumber',
+        value: '',
+      ));
     });
   }
 
@@ -8552,6 +9201,137 @@ extension BuyerCarQueryFilter
     });
   }
 
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'updatedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'updatedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'updatedAt',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'updatedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'updatedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'updatedAt',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'updatedAt',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> updatedAtIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'updatedAt',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition>
+      updatedAtIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'updatedAt',
+        value: '',
+      ));
+    });
+  }
+
   QueryBuilder<BuyerCar, BuyerCar, QAfterFilterCondition> valveCylindersEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -9313,6 +10093,54 @@ extension BuyerCarQuerySortBy on QueryBuilder<BuyerCar, BuyerCar, QSortBy> {
     });
   }
 
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDealerAddress() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerAddress', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDealerAddressDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerAddress', Sort.desc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDealerId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDealerIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerId', Sort.desc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDealerName() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerName', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDealerNameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerName', Sort.desc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDealerPhoneNumber() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerPhoneNumber', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDealerPhoneNumberDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerPhoneNumber', Sort.desc);
+    });
+  }
+
   QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByDisplacement() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'displacement', Sort.asc);
@@ -9770,6 +10598,18 @@ extension BuyerCarQuerySortBy on QueryBuilder<BuyerCar, BuyerCar, QSortBy> {
     });
   }
 
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> sortByValveCylinders() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'valveCylinders', Sort.asc);
@@ -9926,6 +10766,54 @@ extension BuyerCarQuerySortThenBy
   QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByColorDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'color', Sort.desc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByDealerAddress() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerAddress', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByDealerAddressDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerAddress', Sort.desc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByDealerId() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerId', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByDealerIdDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerId', Sort.desc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByDealerName() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerName', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByDealerNameDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerName', Sort.desc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByDealerPhoneNumber() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerPhoneNumber', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByDealerPhoneNumberDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dealerPhoneNumber', Sort.desc);
     });
   }
 
@@ -10398,6 +11286,18 @@ extension BuyerCarQuerySortThenBy
     });
   }
 
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByUpdatedAt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByUpdatedAtDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'updatedAt', Sort.desc);
+    });
+  }
+
   QueryBuilder<BuyerCar, BuyerCar, QAfterSortBy> thenByValveCylinders() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'valveCylinders', Sort.asc);
@@ -10527,6 +11427,36 @@ extension BuyerCarQueryWhereDistinct
   QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByComfortDetails() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'comfortDetails');
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByDealerAddress(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dealerAddress',
+          caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByDealerId(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dealerId', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByDealerName(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dealerName', caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByDealerPhoneNumber(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dealerPhoneNumber',
+          caseSensitive: caseSensitive);
     });
   }
 
@@ -10836,6 +11766,13 @@ extension BuyerCarQueryWhereDistinct
     });
   }
 
+  QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByUpdatedAt(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'updatedAt', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<BuyerCar, BuyerCar, QDistinct> distinctByValveCylinders(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -10939,6 +11876,31 @@ extension BuyerCarQueryProperty
       comfortDetailsProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'comfortDetails');
+    });
+  }
+
+  QueryBuilder<BuyerCar, String?, QQueryOperations> dealerAddressProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dealerAddress');
+    });
+  }
+
+  QueryBuilder<BuyerCar, String, QQueryOperations> dealerIdProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dealerId');
+    });
+  }
+
+  QueryBuilder<BuyerCar, String?, QQueryOperations> dealerNameProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dealerName');
+    });
+  }
+
+  QueryBuilder<BuyerCar, String?, QQueryOperations>
+      dealerPhoneNumberProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dealerPhoneNumber');
     });
   }
 
@@ -11203,6 +12165,12 @@ extension BuyerCarQueryProperty
   QueryBuilder<BuyerCar, String, QQueryOperations> turbochargerProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'turbocharger');
+    });
+  }
+
+  QueryBuilder<BuyerCar, String, QQueryOperations> updatedAtProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'updatedAt');
     });
   }
 

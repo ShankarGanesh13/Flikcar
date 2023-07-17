@@ -1,21 +1,31 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/widgets/edit_listing_bottom_sheet.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class DealerListedCars extends StatelessWidget {
-  const DealerListedCars({super.key});
+  final List<BuyerCar> cars;
+  DealerListedCars({super.key, required this.cars});
   static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
+  final DateFormat formatter = DateFormat('MMMd');
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
-        itemCount: 4,
+        itemCount: cars.length,
         itemBuilder: (context, index) {
+          features = [
+            cars[index].fuel,
+            "${cars[index].driveKms}km",
+            cars[index].transmission,
+            cars[index].registrationYear,
+          ];
           return Container(
             height: 137,
             margin: const EdgeInsets.only(bottom: 30),
@@ -35,9 +45,14 @@ class DealerListedCars extends StatelessWidget {
               SizedBox(
                 width: MediaQuery.of(context).size.width / 2.45,
                 height: 137,
-                child: Image.asset(
-                  "assets/sample_car/tigor1.png",
-                  fit: BoxFit.fill,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(5),
+                  child: Image.network(
+                    cars[index].carImages.isNotEmpty
+                        ? "http://webservice.flikcar.com:8000/public/${cars[index].carImages[0]}"
+                        : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
               Padding(
@@ -49,12 +64,14 @@ class DealerListedCars extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Car Name",
-                          style: AppFonts.w700black16,
-                        ),
                         SizedBox(
-                            width: MediaQuery.of(context).size.width / 4.6),
+                          width: MediaQuery.of(context).size.width / 2.5,
+                          child: Text(
+                            cars[index].model,
+                            style: AppFonts.w700black16,
+                            maxLines: 1,
+                          ),
+                        ),
                         GestureDetector(
                           onTap: () {
                             showModalBottomSheet<void>(
@@ -73,30 +90,31 @@ class DealerListedCars extends StatelessWidget {
                       ],
                     ),
                     Text(
-                      "Varient Name",
+                      cars[index].brand,
                       style: AppFonts.w500dark214,
                     ),
                     const SizedBox(height: 4),
                     Wrap(
-                      spacing: 7,
+                      spacing: 5,
                       children: List.generate(
                         4,
                         (index) => Container(
-                          padding: const EdgeInsets.only(
-                              left: 0, right: 0, top: 0, bottom: 0),
+                          height: 10,
+                          width: index == 0 ? 40 : null,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20)),
                           child: Text(
                             features[index],
                             style: AppFonts.w500black10,
+                            maxLines: 1,
                           ),
                         ),
                       ),
                     ),
                     const SizedBox(height: 6),
                     Text(
-                      "₹ 326000 ",
+                      "₹ ${cars[index].carPrice} ",
                       style: AppFonts.w700black20,
                     ),
                     const SizedBox(height: 4),
@@ -118,9 +136,10 @@ class DealerListedCars extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text("Available", style: AppFonts.w500green14),
+                            Text(cars[index].saleStatus,
+                                style: AppFonts.w500green14),
                             Text(
-                              "Listed on 25/36",
+                              "Listed on ${formatter.format(DateTime.parse(cars[index].updatedAt))}",
                               style: AppFonts.w500black10,
                             )
                           ],

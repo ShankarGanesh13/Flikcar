@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/sell_request/sell_request.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
 import 'package:flikcar/services/auth_service.dart';
+import 'package:flikcar/services/dealer_auth_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -47,7 +48,7 @@ class DealerAccountScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                AuthService.signout(context);
+                DealerAuthService.dealerLogout(context);
               },
               child: Row(
                 children: [

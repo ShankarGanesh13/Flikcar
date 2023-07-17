@@ -125,7 +125,7 @@ class HomeScreenCard extends StatelessWidget {
                                       child: FastCachedImage(
                                         url: snapshot.data![index].carImages
                                                 .isNotEmpty
-                                            ? "https://admin.flikcar.com/${snapshot.data![index].carImages[0]}"
+                                            ? "http://webservice.flikcar.com:8000/public/${snapshot.data![index].carImages[0]}"
                                             : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                         fit: BoxFit.cover,
                                         fadeInDuration:
@@ -170,8 +170,7 @@ class HomeScreenCard extends StatelessWidget {
                                               SizedBox(
                                                 width: 160,
                                                 child: Text(
-                                                    snapshot
-                                                        .data![index].carName,
+                                                    snapshot.data![index].model,
                                                     maxLines: 1,
                                                     style: AppFonts.w700s140),
                                               ),
@@ -222,13 +221,7 @@ class HomeScreenCard extends StatelessWidget {
                                           height: 35,
                                           child: PrimaryButton(
                                             title: "Contact Dealer",
-                                            function: () {
-                                              Provider.of<WishlistService>(
-                                                      context,
-                                                      listen: false)
-                                                  .getWishlistCars(
-                                                      context: context);
-                                            },
+                                            function: () {},
                                             borderColor: AppColors.s1,
                                             textStyle: AppFonts.w500s114,
                                             backgroundColor: Colors.white,

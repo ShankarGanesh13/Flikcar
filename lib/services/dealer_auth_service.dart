@@ -41,16 +41,32 @@ class DealerAuthService {
     var response = await http.post(url, body: requestBody);
 
     var data = json.decode(response.body);
+
     if (data["status"] == 200) {
+      print(data["data"]["profileStatus"]);
       await sp.setString('dealerToken', data["data"]["access_token"]);
       await sp.setBool('dealerIsLoggedIn', true);
       await sp.setString('dealerStatus', data["data"]["profileStatus"]);
       if (context.mounted) {
-        Navigator.push(
+        if (data["data"]["profileStatus"] == "Submitted") {
+          Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => DealerDetails(),
-            ));
+              builder: (context) => const DealerFlow(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(
+              MySnackbar.showSnackBar(context, "Logged in successfully"));
+        } else {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => DealerDetails(),
+              ));
+        }
       }
 
       print("OTP verification successful");
@@ -65,11 +81,14 @@ class DealerAuthService {
     }
   }
 
-  static signout(context) async {
+  static dealerLogout(context) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    await sp.setBool('isLoggedIn', false);
-
+    await sp.setBool('dealerIsLoggedIn', false);
+    await sp.setString("dealerToken", "logged out");
+    await sp.setString("dealerStatus", "logged out");
+    ScaffoldMessenger.of(context).showSnackBar(
+        MySnackbar.showSnackBar(context, "Logged out successfully"));
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => StartScreen()));
+        context, MaterialPageRoute(builder: (context) => const StartScreen()));
   }
 }

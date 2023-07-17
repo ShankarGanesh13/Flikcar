@@ -57,6 +57,7 @@ class BuyerCar {
   String color;
   String seat;
   String ownertype;
+  String updatedAt;
   List<String> carImages;
   List<String> featureDetails;
   List<String> exteriorDetails;
@@ -64,6 +65,11 @@ class BuyerCar {
   List<String> entertainmentDetails;
   List<String> interiorDetails;
   List<String> safetyDetails;
+  String dealerId;
+  String? dealerPhoneNumber;
+  String? dealerName;
+  String? dealerAddress;
+
   BuyerCar(
       {required this.id,
       required this.carName,
@@ -117,13 +123,18 @@ class BuyerCar {
       required this.color,
       required this.seat,
       required this.ownertype,
+      required this.updatedAt,
       required this.featureDetails,
       required this.exteriorDetails,
       required this.comfortDetails,
       required this.carImages,
       required this.entertainmentDetails,
       required this.interiorDetails,
-      required this.safetyDetails});
+      required this.safetyDetails,
+      required this.dealerId,
+      this.dealerName,
+      this.dealerPhoneNumber,
+      this.dealerAddress});
 
   factory BuyerCar.fromJson(Map<String, dynamic> json) {
     return BuyerCar(
@@ -167,10 +178,13 @@ class BuyerCar {
       mStringurningRadius: json['min_turning_radius'].toString() ?? "No data",
       carPrice: json['car_price'].toString() ?? "No data",
       salePrice: json['sale_price'].toString() ?? "Na data",
-      soldTo: json['sold_to'] ?? "No data",
-      saleAt: json['sale_at'] ?? "No data",
+      soldTo: json['sold_to'].toString() ?? "No data",
+      saleAt: json['sale_at'].toString() ?? "No data",
+      //status= Active/Inactive
       status: json['status'] ?? "No data",
+      //sale status=Available/Sold Out
       saleStatus: json['sale_status'] ?? "No data",
+      updatedAt: json["updatedAt"] ?? "No data",
 
       ///
       brand: json['vehicleBrand']["name"] ?? "No data",
@@ -183,16 +197,30 @@ class BuyerCar {
       ownertype: json['vehicleOwnerType']["type"] ?? "No data",
       //
       carImages: List<String>.from(myfunc("path", json["vehicleImages"])),
-      featureDetails: List<String>.from(myfunc("name", json['vehicleFeature'])),
-      exteriorDetails:
-          List<String>.from(myfunc("name", json['vehicleExterior'])),
-      comfortDetails:
-          List<String>.from(myfunc("name", json['vehicleComfortConvenience'])),
-      entertainmentDetails: List<String>.from(
-          myfunc("name", json['vehicleEntertainmentCommunications'])),
-      interiorDetails:
-          List<String>.from(myfunc("name", json['vehicleInterior'])),
-      safetyDetails: List<String>.from(myfunc("name", json['vehicleSafety'])),
+      featureDetails: json['vehicleFeature'] != null
+          ? List<String>.from(myfunc("name", json['vehicleFeature']))
+          : [],
+      exteriorDetails: json['vehicleExterior'] != null
+          ? List<String>.from(myfunc("name", json['vehicleExterior']))
+          : [],
+      comfortDetails: json['vehicleComfortConvenience'] != null
+          ? List<String>.from(myfunc("name", json['vehicleComfortConvenience']))
+          : [],
+      entertainmentDetails: json['vehicleEntertainmentCommunications'] != null
+          ? List<String>.from(
+              myfunc("name", json['vehicleEntertainmentCommunications']))
+          : [],
+      interiorDetails: json['vehicleInterior'] != null
+          ? List<String>.from(myfunc("name", json['vehicleInterior']))
+          : [],
+      safetyDetails: json['vehicleSafety'] != null
+          ? List<String>.from(myfunc("name", json['vehicleSafety']))
+          : [],
+      dealerId: json["dealer_id"].toString(),
+      dealerName: json["dealer"] != null ? json["dealer"]["name"] : "",
+      dealerPhoneNumber:
+          json["dealer"] != null ? json["dealer"]["phone"].toString() : "",
+      dealerAddress: json["dealer"] != null ? json["address_one"] : "",
     );
   }
   static List<String> myfunc(key, List list) {

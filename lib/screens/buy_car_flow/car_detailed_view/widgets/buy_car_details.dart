@@ -56,13 +56,13 @@ class BuyCarDetails extends StatelessWidget {
             child: Wrap(
               runAlignment: WrapAlignment.spaceEvenly,
               alignment: WrapAlignment.spaceEvenly,
-              spacing: 15,
+              spacing: 8,
               runSpacing: 15,
               crossAxisAlignment: WrapCrossAlignment.start,
               children: List.generate(
                   6,
                   (index) => SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.3,
+                        width: MediaQuery.of(context).size.width / 2.25,
                         child: Row(
                           children: [
                             Container(
@@ -83,9 +83,12 @@ class BuyCarDetails extends StatelessWidget {
                             const SizedBox(
                               width: 8,
                             ),
-                            Text(
-                              data[index],
-                              style: AppFonts.w500black10,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 3.15,
+                              child: Text(
+                                data[index],
+                                style: AppFonts.w500black10,
+                              ),
                             )
                           ],
                         ),

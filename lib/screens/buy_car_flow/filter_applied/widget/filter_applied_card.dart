@@ -1,8 +1,10 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FilterAppliedCard extends StatefulWidget {
   final bool compare;
@@ -50,7 +52,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                 borderRadius: BorderRadius.circular(5),
                 child: Image.network(
                   widget.car.carImages.isNotEmpty
-                      ? "https://admin.flikcar.com/${widget.car.carImages[0]}"
+                      ? "http://webservice.flikcar.com:8000/public/${widget.car.carImages[0]}"
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.fill,
                 ),
@@ -66,7 +68,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width / 2.5,
                         child: Text(
-                          widget.car.carName,
+                          widget.car.model,
                           maxLines: 1,
                           style: AppFonts.w700black16,
                         ),
@@ -78,7 +80,11 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                         height: 20,
                         width: 20,
                         child: FavoriteButton(
-                          valueChanged: () {},
+                          valueChanged: (_) {
+                            Provider.of<WishlistService>(context, listen: false)
+                                .addToWishlist(
+                                    carId: widget.car.id, context: context);
+                          },
                           iconSize: 20,
                         ),
                       ),
@@ -90,18 +96,18 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                   ),
                   const SizedBox(height: 5),
                   Wrap(
-                    spacing: 6,
+                    spacing: 4,
                     children: List.generate(
                       4,
                       (index) => Container(
-                        padding: const EdgeInsets.only(
-                            left: 0, right: 0, top: 0, bottom: 0),
+                        width: index == 0 ? 38 : null,
                         decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20)),
                         child: Text(
                           features[index],
                           style: AppFonts.w500black10,
+                          maxLines: 1,
                         ),
                       ),
                     ),

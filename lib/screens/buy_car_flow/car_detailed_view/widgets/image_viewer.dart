@@ -1,3 +1,4 @@
+import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -11,22 +12,41 @@ class ImageViewer extends StatefulWidget {
 }
 
 class _ImageViewerState extends State<ImageViewer> {
-  int selectedIndex = 0;
+  @override
+  void initState() {
+    getImages();
+    print(_imageProviders);
+    // TODO: implement initState
+    super.initState();
+  }
 
+  int selectedIndex = 0;
+  List<ImageProvider> _imageProviders = [];
   @override
   Widget build(BuildContext context) {
     List<String> images = widget.car.carImages;
 
     return Column(
       children: [
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 4,
-          width: MediaQuery.of(context).size.width,
-          child: Image.network(
-            images.isNotEmpty
-                ? "https://admin.flikcar.com/${images[selectedIndex]}"
-                : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
-            fit: BoxFit.cover,
+        GestureDetector(
+          onTap: () {
+            MultiImageProvider multiImageProvider =
+                MultiImageProvider(_imageProviders);
+            showImageViewerPager(context, multiImageProvider,
+                backgroundColor: Colors.white,
+                closeButtonColor: Colors.black,
+                swipeDismissible: true,
+                doubleTapZoomable: true);
+          },
+          child: SizedBox(
+            height: MediaQuery.of(context).size.height / 4,
+            width: MediaQuery.of(context).size.width,
+            child: Image.network(
+              images.isNotEmpty
+                  ? "http://webservice.flikcar.com:8000/public/${images[selectedIndex]}"
+                  : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         const SizedBox(
@@ -62,7 +82,7 @@ class _ImageViewerState extends State<ImageViewer> {
                         });
                       },
                       child: Image.network(
-                        "https://admin.flikcar.com/${images[index]}",
+                        "http://webservice.flikcar.com:8000/public/${images[index]}",
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -72,5 +92,14 @@ class _ImageViewerState extends State<ImageViewer> {
         )
       ],
     );
+  }
+
+  getImages() {
+    _imageProviders = [];
+    widget.car.carImages.forEach((element) {
+      _imageProviders.add(
+          Image.network("http://webservice.flikcar.com:8000/public/${element}")
+              .image);
+    });
   }
 }

@@ -68,29 +68,29 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
                           ? AppFonts.w700p216
                           : AppFonts.w700s116),
                 ),
-                Container(
-                  width: 2,
-                  height: 20,
-                  color: const Color(0xffE0E0E0),
-                ),
-                GestureDetector(
-                  onTap: () {
-                    showModalBottomSheet<void>(
-                        context: context,
-                        isScrollControlled: true,
-                        builder: (BuildContext context) {
-                          return MediaQuery(
-                              data: MediaQueryData.fromView(
-                                  WidgetsBinding.instance.window),
-                              child: const DealerFilterScreen());
-                        });
-                  },
-                  child: menu(
-                      image: "assets/car_details_icon/filter.png",
-                      title: "Filters",
-                      color: const Color(0xff161F31),
-                      style: AppFonts.w700s116),
-                ),
+                // Container(
+                //   width: 2,
+                //   height: 20,
+                //   color: const Color(0xffE0E0E0),
+                // ),
+                // GestureDetector(
+                //   onTap: () {
+                //     showModalBottomSheet<void>(
+                //         context: context,
+                //         isScrollControlled: true,
+                //         builder: (BuildContext context) {
+                //           return MediaQuery(
+                //               data: MediaQueryData.fromView(
+                //                   WidgetsBinding.instance.window),
+                //               child: const DealerFilterScreen());
+                //         });
+                //   },
+                //   child: menu(
+                //       image: "assets/car_details_icon/filter.png",
+                //       title: "Filters",
+                //       color: const Color(0xff161F31),
+                //       style: AppFonts.w700s116),
+                // ),
               ],
             ),
           ),
