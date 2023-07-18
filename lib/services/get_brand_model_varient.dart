@@ -95,6 +95,31 @@ class GetBrandModelVarient {
     return fuelType;
   }
 
+  static Future<List<BrandModelVarient>> getBrandModelVarientCust() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    List<BrandModelVarient> brands = [];
+    Uri url = Uri.parse(
+      'http://webservice.flikcar.com:8000/api/dealer/car/brand-model-variant',
+    );
+
+    String? userToken = sp.getString('userToken');
+
+    var response = await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $userToken',
+    });
+
+    var body = jsonDecode(response.body);
+    var data = body["data"] as List;
+
+    brands = [];
+    data.forEach((element) {
+      brands.add(BrandModelVarient.fromJson(element));
+    });
+
+    return brands;
+  }
+
   static Future<List<BrandModelVarient>> getBrandModelVarient() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     List<BrandModelVarient> brands = [];

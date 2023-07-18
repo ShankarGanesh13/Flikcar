@@ -1,11 +1,19 @@
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class ScheduleCarDetails extends StatelessWidget {
-  const ScheduleCarDetails({super.key});
+  final BuyerCar car;
+  const ScheduleCarDetails({super.key, required this.car});
   static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
   @override
   Widget build(BuildContext context) {
+    features = [
+      car.fuel,
+      "${car.driveKms}km",
+      car.registrationYear,
+      car.transmission
+    ];
     return Row(
       children: [
         Container(
@@ -16,8 +24,10 @@ class ScheduleCarDetails extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                "assets/sample_car/tigor1.png",
+              child: Image.network(
+                car.carImages.isNotEmpty
+                    ? "http://webservice.flikcar.com:8000/public/${car.carImages[0]}"
+                    : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                 fit: BoxFit.cover,
               ),
             )),
@@ -27,7 +37,7 @@ class ScheduleCarDetails extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Car Name",
+              car.model,
               style: AppFonts.w700black16,
             ),
             Wrap(
@@ -35,8 +45,9 @@ class ScheduleCarDetails extends StatelessWidget {
               children: List.generate(
                 4,
                 (index) => Container(
+                  width: index == 0 ? 45 : null,
                   padding: const EdgeInsets.only(
-                      left: 3, right: 3, top: 10, bottom: 10),
+                      left: 0, right: 3, top: 10, bottom: 10),
                   decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(20)),

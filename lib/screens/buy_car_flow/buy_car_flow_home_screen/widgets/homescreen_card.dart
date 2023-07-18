@@ -3,14 +3,17 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreenCard extends StatelessWidget {
   final String title;
@@ -42,16 +45,24 @@ class HomeScreenCard extends StatelessWidget {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: filters.length,
-                  itemBuilder: (context, index) => Container(
-                    margin: const EdgeInsets.only(left: 15),
-                    padding: const EdgeInsets.only(
-                        top: 5, bottom: 5, left: 10, right: 10),
-                    decoration: BoxDecoration(
-                        color: AppColors.p2,
-                        borderRadius: BorderRadius.circular(4)),
-                    child: Text(
-                      filters[index],
-                      style: AppFonts.w500white14,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const FilterApplied()));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(left: 15),
+                      padding: const EdgeInsets.only(
+                          top: 5, bottom: 5, left: 10, right: 10),
+                      decoration: BoxDecoration(
+                          color: AppColors.p2,
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Text(
+                        filters[index],
+                        style: AppFonts.w500white14,
+                      ),
                     ),
                   ),
                 ),
@@ -71,7 +82,9 @@ class HomeScreenCard extends StatelessWidget {
                     snapshot.data!.shuffle();
                     return ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: 8,
+                        itemCount: snapshot.data!.length > 8
+                            ? 8
+                            : snapshot.data!.length,
                         shrinkWrap: true,
                         itemBuilder: (context, index) {
                           List<String> features = [
@@ -190,6 +203,7 @@ class HomeScreenCard extends StatelessWidget {
                                           children: List.generate(
                                             4,
                                             (index) => Container(
+                                              width: index == 0 ? 45 : null,
                                               padding: const EdgeInsets.only(
                                                   left: 0,
                                                   right: 5,
@@ -203,6 +217,7 @@ class HomeScreenCard extends StatelessWidget {
                                               child: Text(
                                                 features[index],
                                                 style: AppFonts.w500black12,
+                                                maxLines: 1,
                                               ),
                                             ),
                                           ),
@@ -221,7 +236,22 @@ class HomeScreenCard extends StatelessWidget {
                                           height: 35,
                                           child: PrimaryButton(
                                             title: "Contact Dealer",
-                                            function: () {},
+                                            function: () async {
+                                              Uri phoneno = Uri(
+                                                scheme: 'tel',
+                                                path:
+                                                    '+91${snapshot.data![index].dealerPhoneNumber}',
+                                              );
+                                              if (await launchUrl(phoneno)) {
+                                              } else {
+                                                if (context.mounted) {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(MySnackbar
+                                                          .showSnackBar(context,
+                                                              "Unable to open dailer"));
+                                                }
+                                              }
+                                            },
                                             borderColor: AppColors.s1,
                                             textStyle: AppFonts.w500s114,
                                             backgroundColor: Colors.white,

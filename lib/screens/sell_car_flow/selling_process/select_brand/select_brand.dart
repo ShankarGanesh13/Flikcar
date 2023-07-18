@@ -1,6 +1,9 @@
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/secondary_button.dart';
+import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
+import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -18,48 +21,63 @@ class SelectBrandCard extends StatelessWidget {
         children: [
           const Heading1(title1: "Select your car brand", title2: ""),
           const SizedBox(height: 15),
-          Wrap(
-            spacing: 40,
-            runSpacing: 15,
-            children: List.generate(
-              9,
-              (index) => InkWell(
-                onTap: () {
-                  Provider.of<SellingProcessProvider>(context, listen: false)
-                      .setBrand(brand: "BMW", selectedIndex: index);
+          FutureBuilder<List<BrandModelVarient>>(
+              future: GetBrandModelVarient.getBrandModelVarientCust(),
+              builder: (context, snapshot) {
+                if (snapshot.data != null) {
+                  return Wrap(
+                    spacing: 40,
+                    runSpacing: 15,
+                    children: List.generate(
+                      snapshot.data!.length,
+                      (index) => InkWell(
+                        onTap: () {
+                          Provider.of<SellingProcessProvider>(context,
+                                  listen: false)
+                              .setBrand(
+                                  brandId: snapshot.data![index].id.toString(),
+                                  index: index,
+                                  brand: snapshot.data![index].name,
+                                  models: snapshot.data![index].models);
 
-                  print(index);
-                },
-                child: Container(
-                    padding: const EdgeInsets.only(top: 5, bottom: 5),
-                    height: 62,
-                    width: 86,
-                    decoration: BoxDecoration(
-                      color:
-                          selectedIndex == index ? AppColors.p2 : Colors.white,
-                      border: Border.all(color: const Color(0xffCDCDCD)),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 30,
-                            width: 30,
-                            child: Image.asset("assets/bmw_logo.png"),
-                          ),
-                          const SizedBox(height: 4),
-                          Text("BMW",
-                              style: selectedIndex == index
-                                  ? AppFonts.w500white10
-                                  : AppFonts.w500black10),
-                        ],
+                          print(index);
+                        },
+                        child: Container(
+                            padding: const EdgeInsets.only(top: 5, bottom: 5),
+                            height: 62,
+                            width: 86,
+                            decoration: BoxDecoration(
+                              color: selectedIndex == index
+                                  ? AppColors.p2
+                                  : Colors.white,
+                              border:
+                                  Border.all(color: const Color(0xffCDCDCD)),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SizedBox(
+                                    height: 30,
+                                    width: 30,
+                                    child: Image.asset("assets/bmw_logo.png"),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(snapshot.data![index].name,
+                                      style: selectedIndex == index
+                                          ? AppFonts.w500white10
+                                          : AppFonts.w500black10),
+                                ],
+                              ),
+                            )),
                       ),
-                    )),
-              ),
-            ),
-          ),
+                    ),
+                  );
+                } else {
+                  return const LoadingWidget();
+                }
+              }),
           const SizedBox(
             height: 20,
           ),

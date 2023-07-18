@@ -72,8 +72,14 @@ class NewTestDriveCard extends StatelessWidget {
                     height: 30,
                     child: Row(
                       children: [
-                        Text(testDrive.car.model, style: AppFonts.w700s116),
-                        Spacer(),
+                        SizedBox(
+                            width: MediaQuery.of(context).size.width / 2,
+                            child: Text(
+                              testDrive.car.model,
+                              style: AppFonts.w700s116,
+                              maxLines: 1,
+                            )),
+                        const Spacer(),
                         SizedBox(
                           width: 130,
                           height: 30,
@@ -117,6 +123,7 @@ class NewTestDriveCard extends StatelessWidget {
                             borderRadius: BorderRadius.circular(0)),
                         child: Text(
                           features[index],
+                          maxLines: 1,
                           style: AppFonts.w500black12,
                         ),
                       ),

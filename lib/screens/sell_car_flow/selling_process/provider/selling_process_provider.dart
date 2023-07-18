@@ -1,115 +1,83 @@
+import 'dart:async';
+import 'dart:convert';
+
 import 'package:flikcar/common_widgets/snackbar.dart';
+import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/car_condition.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/splash_screen.dart/splash_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SellingProcessProvider extends ChangeNotifier {
+  late BrandModelVarient selectedbrand;
+  List<Model> selecedModels = [];
   int counter = 1;
-  late String selectedBrand;
-  late String selectedLocation;
-  late String manufacturingYear;
-  late String carModel;
-  late String fuelType;
-  late String transmissonType;
-  late String varient;
-  late String carOwnership;
-  late String kilometersDriven;
-  late String sellingTime;
-  late String carCondition;
-  String minExpectedPrice = "";
-  String maxExpectedPrice = "";
-  int sellingTimeIndex = -1;
-  int kilometersDrivenIndex = -1;
-  int carOwnershipIndex = -1;
-  int fuelTypeIndex = -1;
-  int transmissonTypeIndex = -1;
-  int varientIndex = -1;
+
+  String contactNumber = "";
+  String selectedBrandId = "";
+  String selectedModelId = "";
+  String registerationYear = "";
+
   int brandIndex = -1;
-  int locationIndex = -1;
-  int manufacturingYearIndex = -1;
   int modelIndex = -1;
-  int carConditionIndex = -1;
+  // late String selectedLocation;
+  // late String fuelType;
+  // late String transmissonType;
+  // late String varient;
+  // late String carOwnership;
+  // late String kilometersDriven;
+  // late String sellingTime;
+  // late String carCondition;
+  // String minExpectedPrice = "";
+  // String maxExpectedPrice = "";
+  // int sellingTimeIndex = -1;
+  // int kilometersDrivenIndex = -1;
+  // int carOwnershipIndex = -1;
+  // int fuelTypeIndex = -1;
+  // int transmissonTypeIndex = -1;
+  // int varientIndex = -1;
+  // int locationIndex = -1;
+  // int carConditionIndex = -1;
 
   List<String> list = ["", "", "", "", "", "", "", "", "", ""];
 
-  setBrand({required String brand, required int selectedIndex}) {
-    selectedBrand = brand;
+  setBrand(
+      {required String brandId,
+      required List<Model> models,
+      required String brand,
+      required int index}) {
+    selectedBrandId = brandId;
+    brandIndex = index;
     list[0] = brand;
-    brandIndex = selectedIndex;
+    selecedModels = models;
     notifyListeners();
   }
 
-  setlocation({required String location, required int selectedIndex}) {
-    selectedLocation = location;
-    list[1] = location;
-    locationIndex = selectedIndex;
-    notifyListeners();
-  }
-
-  setManufacturingYear({required String year, required int selectedIndex}) {
-    manufacturingYear = year;
+  setManufacturingYear({required String year}) {
+    registerationYear = year;
+    print(registerationYear);
     list[2] = year;
-    manufacturingYearIndex = selectedIndex;
+    //manufacturingYearIndex = selectedIndex;
     notifyListeners();
   }
 
-  setCarModel({required String model, required int selectedIndex}) {
-    carModel = model;
-    list[3] = carModel;
-    modelIndex = selectedIndex;
+  setContactNumber({required String phone}) {
+    contactNumber = phone;
+    list[3] = phone;
+    //manufacturingYearIndex = selectedIndex;
     notifyListeners();
   }
 
-  setFuelType({required String fuel, required int selectedIndex}) {
-    fuelType = fuel;
-    list[4] = fuel;
-    fuelTypeIndex = selectedIndex;
-    notifyListeners();
-  }
+  setCarModel(
+      {required String modelid, required int index, required String model}) {
+    selectedModelId = modelid;
+    modelIndex = index;
+    list[1] = model;
 
-  setTransmissonType(
-      {required String transmisson, required int selectedIndex}) {
-    transmissonType = transmisson;
-    list[5] = transmisson;
-    transmissonTypeIndex = selectedIndex;
-    notifyListeners();
-  }
-
-  setCarVarient({required String varient, required int selectedIndex}) {
-    fuelType = varient;
-    list[6] = varient;
-    varientIndex = selectedIndex;
-    notifyListeners();
-  }
-
-  setCarOwnership({required String ownership, required int selectedIndex}) {
-    carOwnership = ownership;
-    list[7] = ownership;
-    carOwnershipIndex = selectedIndex;
-    notifyListeners();
-  }
-
-  setKilometersDriven(
-      {required String kilometers, required int selectedIndex}) {
-    kilometersDriven = kilometers;
-    list[8] = kilometers;
-    kilometersDrivenIndex = selectedIndex;
-    notifyListeners();
-  }
-
-  setSellingTime({required String time, required int selectedIndex}) {
-    sellingTime = time;
-    list[9] = time;
-    sellingTimeIndex = selectedIndex;
-    notifyListeners();
-  }
-
-  setCarCondition({required String condition, required int selectedIndex}) {
-    carCondition = condition;
-
-    carConditionIndex = selectedIndex;
     notifyListeners();
   }
 
@@ -129,6 +97,7 @@ class SellingProcessProvider extends ChangeNotifier {
             ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
                 context, "Please select your car brand "));
           }
+          print("nc1");
         }
         break;
 
@@ -142,92 +111,27 @@ class SellingProcessProvider extends ChangeNotifier {
             notifyListeners();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please select your RTO location"));
+                context, "Please select your car brand"));
           }
+          print("nc2");
         }
         break;
 
       case 3:
         {
-          if (list[2] != "") {
+          if (list[2] != "" && list[3] != "") {
             controller.animateToPage(3,
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.bounceInOut);
-            counter = 4;
-            notifyListeners();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please select your car manufacturing year"));
-          }
-        }
-        break;
+            //counter = 4;
+            bookInspection(context: context);
 
-      case 4:
-        {
-          if (list[3] != "") {
-            controller.animateToPage(4,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.bounceInOut);
-            counter = 5;
             notifyListeners();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please select your car model"));
+                context, "Please enter manufacturing year and phone number"));
           }
-        }
-        break;
-      case 5:
-        {
-          if (list[4] != "" && list[5] != "" && list[6] != "") {
-            controller.animateToPage(5,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.bounceInOut);
-            counter = 6;
-            notifyListeners();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please select all the required properties"));
-          }
-        }
-        break;
-      case 6:
-        {
-          if (list[7] != "") {
-            controller.animateToPage(6,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.bounceInOut);
-            counter = 7;
-            notifyListeners();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please select the ownership history"));
-          }
-        }
-        break;
-      case 7:
-        {
-          if (list[8] != "") {
-            controller.animateToPage(7,
-                duration: const Duration(milliseconds: 200),
-                curve: Curves.bounceInOut);
-            counter = 8;
-            notifyListeners();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please select the kilometers driven"));
-          }
-        }
-        break;
-      case 8:
-        {
-          if (list[9] != "") {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CarCondition()));
-            // clearData();
-          } else {
-            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please select the time period"));
-          }
+          print("nc3");
         }
         break;
 
@@ -249,6 +153,11 @@ class SellingProcessProvider extends ChangeNotifier {
               context,
               MaterialPageRoute(
                   builder: (context) => const HomeScreen(index: 1)));
+          print("pc1");
+          list = ["", "", "", "", "", "", "", "", "", ""];
+          modelIndex = -1;
+          brandIndex = -1;
+          notifyListeners();
         }
         break;
 
@@ -257,9 +166,11 @@ class SellingProcessProvider extends ChangeNotifier {
           controller.animateToPage(0,
               duration: const Duration(milliseconds: 200),
               curve: Curves.bounceInOut);
-
+          modelIndex = -1;
+          list[1] = "";
           counter = 1;
           notifyListeners();
+          print("pc2");
         }
         break;
 
@@ -270,55 +181,21 @@ class SellingProcessProvider extends ChangeNotifier {
               curve: Curves.bounceInOut);
           counter = 2;
           notifyListeners();
+          print("pc3");
         }
         break;
 
-      case 4:
-        {
-          controller.animateToPage(2,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.bounceInOut);
+      // case 4:
+      //   {
+      //     controller.animateToPage(2,
+      //         duration: const Duration(milliseconds: 200),
+      //         curve: Curves.bounceInOut);
 
-          counter = 3;
-          notifyListeners();
-        }
-        break;
-      case 5:
-        {
-          controller.animateToPage(3,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.bounceInOut);
-          counter = 4;
-          notifyListeners();
-        }
-        break;
-      case 6:
-        {
-          controller.animateToPage(4,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.bounceInOut);
-          counter = 5;
-          notifyListeners();
-        }
-        break;
-      case 7:
-        {
-          controller.animateToPage(5,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.bounceInOut);
-          counter = 6;
-          notifyListeners();
-        }
-        break;
-      case 8:
-        {
-          controller.animateToPage(6,
-              duration: const Duration(milliseconds: 200),
-              curve: Curves.bounceInOut);
-          counter = 7;
-          notifyListeners();
-        }
-        break;
+      //     counter = 3;
+      //     notifyListeners();
+      //     print("pc4");
+      //   }
+      //   break;
 
       default:
         {
@@ -328,40 +205,87 @@ class SellingProcessProvider extends ChangeNotifier {
     }
   }
 
-  uploadCarDetails({required BuildContext context}) {
-    if (maxExpectedPrice != "" &&
-        minExpectedPrice != "" &&
-        carConditionIndex != -1) {
-      print(maxExpectedPrice);
+  bookInspection({required BuildContext context}) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final String? token = sp.getString('userToken');
+
+    var url = Uri.parse(
+        'http://webservice.flikcar.com:8000/api/web/sale-car/cars/add-sale');
+
+    var requestBody = {
+      "brand": "$selectedBrandId",
+      "model": "$selectedModelId",
+      "year": "$registerationYear",
+      "contact": "$contactNumber",
+    };
+
+    var response = await http.post(url,
+        headers: {'Authorization': 'Bearer $token'}, body: requestBody);
+    print(response.body);
+    var data = json.decode(response.body);
+    print(data);
+
+    if (data["status"] == 201 || data["status"] == 200) {
+      if (context.mounted) {
+        clearData();
+        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+            context, "Car details uploaded successfully"));
+        Timer(Duration(seconds: 1), () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(
+                index: 1,
+              ),
+            ),
+            (route) => false,
+          );
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Thank you for registering with us'),
+              content: const Text('Our team will contact you shortly'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Ok'),
+                ),
+              ],
+            ),
+          );
+        });
+      }
+      print("Added to wishlist");
+    } else {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+            context, "Falied to upload car try again later"));
+      }
+      print('Request failed with status: ${response.statusCode}');
     }
-    Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => SplashScreen(),
-        ));
   }
 
   clearData() {
     counter = 1;
-    selectedBrand = "";
-    selectedLocation = "";
-    manufacturingYear = "";
-    carModel = "";
-    fuelType = "";
-    carOwnership = "";
-    kilometersDriven = "";
-    sellingTime = "";
-    varientIndex = -1;
+    selectedBrandId = "";
+    registerationYear = "";
+    selectedModelId = "";
+    // selectedLocation = "";
+    // fuelType = "";
+    // carOwnership = "";
+    // kilometersDriven = "";
+    // sellingTime = "";
+    // varientIndex = -1;
+    //  locationIndex = -1;
     brandIndex = -1;
-    locationIndex = -1;
-    manufacturingYearIndex = -1;
+
     modelIndex = -1;
-    sellingTimeIndex = -1;
-    kilometersDrivenIndex = -1;
-    carOwnershipIndex = -1;
-    fuelTypeIndex = -1;
-    transmissonTypeIndex = -1;
-    varientIndex = -1;
+    // sellingTimeIndex = -1;
+    // kilometersDrivenIndex = -1;
+    // carOwnershipIndex = -1;
+    // fuelTypeIndex = -1;
+    // transmissonTypeIndex = -1;
+    // varientIndex = -1;
 
     list = ["", "", "", "", "", "", "", "", "", ""];
     notifyListeners();

@@ -48,7 +48,7 @@ class BookingCancelled extends StatelessWidget {
           padding: const EdgeInsets.all(15.0),
           child: Column(
             children: [
-              const ScheduleCarDetails(),
+              //  const ScheduleCarDetails(),
               const SizedBox(
                 height: 30,
               ),

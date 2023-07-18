@@ -16,7 +16,7 @@ class NavButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 33,
-      width: 91,
+      width: 95,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.p2,
@@ -41,8 +41,8 @@ class NavButton extends StatelessWidget {
               style: AppFonts.w500white14,
             ),
             backIcon == false
-                ? const Icon(
-                    Icons.arrow_forward,
+                ? Icon(
+                    title == "Finish" ? Icons.check : Icons.arrow_forward,
                     color: Colors.white,
                   )
                 : const SizedBox(),

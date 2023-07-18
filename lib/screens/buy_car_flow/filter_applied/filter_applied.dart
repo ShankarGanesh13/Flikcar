@@ -4,6 +4,7 @@ import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/sort_pop_up.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/services/get_car_details.dart';
@@ -141,11 +142,40 @@ class _FilterAppliedState extends State<FilterApplied> {
                       height: 20,
                       color: const Color(0xffE0E0E0),
                     ),
-                    menu(
-                        image: "assets/car_details_icon/sort.png",
-                        title: "Sort",
-                        color: const Color(0xff161F31),
-                        style: AppFonts.w700s116),
+
+                    GestureDetector(
+                      onTap: () {
+                        print("pressed");
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Sort By'),
+                            content: const SortPopUp(),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () =>
+                                    Navigator.pop(context, 'Cancel'),
+                                child: const Text('Close'),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  Provider.of<SearchService>(context,
+                                          listen: false)
+                                      .sortList();
+                                  Navigator.pop(context);
+                                },
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: menu(
+                          image: "assets/car_details_icon/sort.png",
+                          title: "Sort",
+                          color: const Color(0xff161F31),
+                          style: AppFonts.w700s116),
+                    ),
                   ],
                 ),
               ),
@@ -162,9 +192,16 @@ class _FilterAppliedState extends State<FilterApplied> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           Center(
-                            child: Text(
-                              "Clear All",
-                              style: AppFonts.w700green16,
+                            child: GestureDetector(
+                              onTap: () {
+                                Provider.of<SearchService>(context,
+                                        listen: false)
+                                    .clearAllFilter();
+                              },
+                              child: Text(
+                                "Clear All",
+                                style: AppFonts.w700green16,
+                              ),
                             ),
                           ),
                           const SizedBox(

@@ -44,6 +44,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:path_provider/path_provider.dart';
 import 'screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/listing_car_features.dart';
 import 'screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -76,6 +77,8 @@ void main() async {
       ),
     ),
   );
+  await Future.delayed((const Duration(seconds: 5)));
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatefulWidget {
@@ -89,7 +92,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     // TODO: implement initState
-    GetCarDetails.saveCarDetails();
+
     super.initState();
   }
 

@@ -13,54 +13,66 @@ class ManufacturingYear extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    int selectedIndex =
-        context.watch<SellingProcessProvider>().manufacturingYearIndex;
     return SizedBox(
       child: SingleChildScrollView(
         child: Column(
           children: [
             const Heading1(
-                title1: "Select your car", title2: "Manufacturing Year"),
+                title1: "Enter your car", title2: "Registeration Year"),
             const SizedBox(height: 20),
-            const MyTextField(hint: "Enter manufacturing year", maxlength: 4),
-            const SizedBox(height: 10),
-            Wrap(
-              spacing: 40,
-              runSpacing: 15,
-              children: List.generate(
-                  7,
-                  (index) => InkWell(
-                        onTap: () {
-                          Provider.of<SellingProcessProvider>(context,
-                                  listen: false)
-                              .setManufacturingYear(
-                                  year: "2023", selectedIndex: index);
-
-                          print(index);
-                        },
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 47,
-                          decoration: BoxDecoration(
-                              color: selectedIndex != index
-                                  ? Colors.white
-                                  : AppColors.p2,
-                              borderRadius: BorderRadius.circular(5),
-                              border: Border.all(
-                                color: AppColors.grey,
-                              )),
-                          child: Center(
-                              child: Text(
-                            "2023",
-                            style: selectedIndex == index
-                                ? AppFonts.w500white14
-                                : AppFonts.w500black14,
-                          )),
-                        ),
-                      )),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(
+                      left: 12, right: 12, top: 6, bottom: 6),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  counterText: "",
+                  counterStyle: const TextStyle(color: Colors.transparent),
+                  hintText: "Eg. 2020",
+                  prefixIcon: const Icon(Icons.calendar_month),
+                ),
+                maxLength: 4,
+                onChanged: (value) {
+                  Provider.of<SellingProcessProvider>(context, listen: false)
+                      .setManufacturingYear(
+                    year: value,
+                  );
+                },
+              ),
             ),
+            const SizedBox(height: 10),
             const SizedBox(
               height: 30,
+            ),
+            const Heading1(title1: "Enter your contact", title2: "number"),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: MediaQuery.of(context).size.width,
+              child: TextFormField(
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  contentPadding: const EdgeInsets.only(
+                      left: 12, right: 12, top: 6, bottom: 6),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  counterText: "",
+                  counterStyle: const TextStyle(color: Colors.transparent),
+                  hintText: "Eg. 9845264120",
+                  prefixIcon: const Icon(Icons.phone_android_rounded),
+                ),
+                maxLength: 10,
+                onChanged: (value) {
+                  Provider.of<SellingProcessProvider>(context, listen: false)
+                      .setContactNumber(
+                    phone: value,
+                  );
+                },
+              ),
             ),
           ],
         ),
@@ -68,3 +80,38 @@ class ManufacturingYear extends StatelessWidget {
     );
   }
 }
+//  Wrap(
+//               spacing: 40,
+//               runSpacing: 15,
+//               children: List.generate(
+//                   year.length,
+//                   (index) => InkWell(
+//                         onTap: () {
+//                           Provider.of<SellingProcessProvider>(context,
+//                                   listen: false)
+//                               .setManufacturingYear(
+//                                   year: "2023", selectedIndex: index);
+
+//                           print(index);
+//                         },
+//                         child: Container(
+//                           width: MediaQuery.of(context).size.width,
+//                           height: 47,
+//                           decoration: BoxDecoration(
+//                               color: selectedIndex != index
+//                                   ? Colors.white
+//                                   : AppColors.p2,
+//                               borderRadius: BorderRadius.circular(5),
+//                               border: Border.all(
+//                                 color: AppColors.grey,
+//                               )),
+//                           child: Center(
+//                               child: Text(
+//                             "",
+//                             style: selectedIndex == index
+//                                 ? AppFonts.w500white14
+//                                 : AppFonts.w500black14,
+//                           )),
+//                         ),
+//                       )),
+//             ),

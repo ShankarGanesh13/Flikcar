@@ -17,8 +17,9 @@ class SelectBrand extends StatelessWidget {
         const Heading1(title1: "Start with your car brand", title2: ""),
         const SizedBox(height: 15),
         FutureBuilder<List<BrandModelVarient>>(
-            future: GetBrandModelVarient.getBrandModelVarient(),
+            future: GetBrandModelVarient.getBrandModelVarientCust(),
             builder: (context, snaphot) {
+              print(snaphot.data);
               if (snaphot.data != null) {
                 return GridView.count(
                   shrinkWrap: true,

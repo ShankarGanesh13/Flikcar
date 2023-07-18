@@ -1,9 +1,9 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/car_specifications.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/address.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_features.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/image_viewer.dart';
@@ -14,7 +14,7 @@ import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_d
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
-
+import 'package:url_launcher/url_launcher.dart';
 import '../../../services/get_car_details.dart';
 
 class CarDetailedView extends StatelessWidget {
@@ -39,8 +39,21 @@ class CarDetailedView extends StatelessWidget {
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           BuyNavButton(
             icon: Icons.phone,
-            title: "Contact Seller",
-            function: () {},
+            title: "Contact Dealer",
+            function: () async {
+              Uri phoneno = Uri(
+                scheme: 'tel',
+                path: '+91${car.dealerPhoneNumber}',
+              );
+              if (await launchUrl(phoneno)) {
+              } else {
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      MySnackbar.showSnackBar(
+                          context, "Unable to open dailer"));
+                }
+              }
+            },
           ),
           const SizedBox(
             width: 15,

@@ -27,8 +27,31 @@ class SearchService extends ChangeNotifier {
   List<BuyerCar> allCars = [];
   List<String> appliedFilters = [];
   List<BuyerCar> searchedCarList = [];
+  int sort = -1;
 
   //////////
+  ///
+  ///
+  getSortId({required int sortId}) {
+    sort = sortId;
+    notifyListeners();
+  }
+
+  sortList() {
+    if (sort == 0) {
+      searchedCarList.sort(
+          (a, b) => int.parse(a.carPrice).compareTo(int.parse(b.carPrice)));
+
+      searchedCarList.forEach((element) {});
+    }
+    if (sort == 1) {
+      searchedCarList.sort(
+          (a, b) => int.parse(b.carPrice).compareTo(int.parse(a.carPrice)));
+    }
+    notifyListeners();
+  }
+
+  ///
   getBrandAndModels() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
@@ -248,7 +271,7 @@ class SearchService extends ChangeNotifier {
     modelyearFilter = [];
     kmsDrivenFilter = [];
     budgetFilter = [];
-
+    appliedFilters = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
     var url =

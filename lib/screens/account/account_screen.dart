@@ -41,10 +41,10 @@ class AccountScreen extends StatelessWidget {
                   subtitle: "View, track  and manage your sell orders",
                   icon: Icons.chevron_right),
             ),
-            profileDetails(
-                title: "Your Cars",
-                subtitle: "View all your cars and schedule inspection",
-                icon: Icons.chevron_right),
+            // profileDetails(
+            //     title: "Your Cars",
+            //     subtitle: "View all your cars and schedule inspection",
+            //     icon: Icons.chevron_right),
             profileDetails(
                 title: "Help and Support",
                 subtitle: "Need help? Chat with us.",

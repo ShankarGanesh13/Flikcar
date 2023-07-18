@@ -46,6 +46,7 @@ class DealerAuthService {
       print(data["data"]["profileStatus"]);
       await sp.setString('dealerToken', data["data"]["access_token"]);
       await sp.setBool('dealerIsLoggedIn', true);
+
       await sp.setString('dealerStatus', data["data"]["profileStatus"]);
       if (context.mounted) {
         if (data["data"]["profileStatus"] == "Submitted") {
@@ -77,7 +78,7 @@ class DealerAuthService {
             .showSnackBar(MySnackbar.showSnackBar(context, "Invalid OTP"));
       }
 
-      await sp.setBool('isLoggedIn', false);
+      await sp.setBool('dealerIsLoggedIn', false);
     }
   }
 

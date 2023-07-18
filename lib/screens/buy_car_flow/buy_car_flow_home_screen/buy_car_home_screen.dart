@@ -6,19 +6,33 @@ import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/bu
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/upcoming_test_drive_card.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
+import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class BuyCarHomeScreen extends StatelessWidget {
+class BuyCarHomeScreen extends StatefulWidget {
   const BuyCarHomeScreen({super.key});
+
+  @override
+  State<BuyCarHomeScreen> createState() => _BuyCarHomeScreenState();
+}
+
+class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<BuyCarProvider>(context, listen: false).getCustomerTestdrive();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.p2,
+      backgroundColor: AppColors.p1,
       appBar: CustomAppBar.getAppBarWithContainerSearch(
           back: false,
           context: context,
@@ -109,24 +123,14 @@ class BuyCarHomeScreen extends StatelessWidget {
                     const SizedBox(height: 20),
                   ]),
                 ),
-                FutureBuilder<List<BuyerCar>>(
-                    future: GetCarDetails.getAllCarDetails(),
-                    builder: (context, snapshot) {
-                      if (snapshot.data != null) {
-                        return UpcomingTestDriveCard(
-                          cars: snapshot.data!,
-                        );
-                      } else {
-                        return const SizedBox();
-                      }
-                    }),
+                UpcomingTestDriveCard(),
                 const SizedBox(height: 20),
-                HomeScreenCard(
-                  title: "Featured Cars",
-                  filterButton: false,
-                  filters: [],
-                  cars: GetCarDetails.getAllCarDetails(),
-                ),
+                // HomeScreenCard(
+                //   title: "Featured Cars",
+                //   filterButton: false,
+                //   filters: [],
+                //   cars: GetCarDetails.getAllCarDetails(),
+                // ),
                 HomeScreenCard(
                   title: "Cars by body type",
                   filterButton: true,

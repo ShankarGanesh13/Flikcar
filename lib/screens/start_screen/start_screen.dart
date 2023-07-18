@@ -142,7 +142,7 @@ class StartScreen extends StatelessWidget {
       if (dealerStatus == "Submitted") {
         return const DealerFlow(index: 0);
       }
-      return SizedBox();
+      return const SizedBox();
     } else {
       return DealerPhoneNumber();
     }

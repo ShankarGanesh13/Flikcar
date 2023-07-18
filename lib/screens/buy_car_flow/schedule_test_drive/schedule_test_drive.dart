@@ -55,14 +55,16 @@ class ScheduleTestDrive extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const ScheduleCarDetails(),
+                ScheduleCarDetails(
+                  car: car,
+                ),
                 const SizedBox(height: 20),
                 //  const CarLocation(),
                 ViewDealerDeatils(
                   car: car,
                 ),
                 const SizedBox(height: 20),
-                ScheduleDate(),
+                const ScheduleDate(),
                 const SizedBox(height: 20),
                 //  const ScheduleTimeSlot(),
                 const SizedBox(height: 30),
@@ -72,13 +74,9 @@ class ScheduleTestDrive extends StatelessWidget {
                       Provider.of<BuyCarProvider>(context, listen: false)
                           .bookTestDrive(
                         vehicleId: car.id,
+                        context: context,
                         dealerId: int.parse(car.dealerId),
                       );
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //       builder: (context) => const ConfirmTestDrive(),
-                      //     ));
                     },
                     borderColor: Colors.transparent,
                     backgroundColor: AppColors.p2,

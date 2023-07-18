@@ -1,13 +1,13 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
+//import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/manufacturing_year/manufacturing_year.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/select_brand/select_brand.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/select_car_model/select_car_model.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/select_location/select_location.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/select_ownership/select_ownership.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/select_varient/select_varient.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/selling_time/selling_time.dart';
+// import 'package:flikcar/screens/sell_car_flow/selling_process/select_location/select_location.dart';
+// import 'package:flikcar/screens/sell_car_flow/selling_process/select_ownership/select_ownership.dart';
+// import 'package:flikcar/screens/sell_car_flow/selling_process/select_varient/select_varient.dart';
+// import 'package:flikcar/screens/sell_car_flow/selling_process/selling_time/selling_time.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/nav_button.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/position_buttton.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -39,9 +39,11 @@ class SellingProcess extends StatelessWidget {
                         .previousStep(controller: controller, context: context);
                   },
                 ),
-                SizedBox(width: 20),
+                const SizedBox(width: 20),
                 NavButton(
-                  title: "Next",
+                  title: context.watch<SellingProcessProvider>().counter == 3
+                      ? "Finish"
+                      : "Next",
                   backIcon: false,
                   function: () {
                     Provider.of<SellingProcessProvider>(context, listen: false)
@@ -62,7 +64,7 @@ class SellingProcess extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    "${context.watch<SellingProcessProvider>().counter}/8",
+                    "${context.watch<SellingProcessProvider>().counter}/3",
                     style: AppFonts.w500dark214,
                   ),
                 ],
@@ -104,29 +106,30 @@ class SellingProcess extends StatelessWidget {
                 padding: const EdgeInsets.all(15),
                 width: MediaQuery.of(context).size.width,
                 child: PageView(
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: const NeverScrollableScrollPhysics(),
                   controller: controller,
                   children: [
                     SelectBrandCard(
                       controller: controller,
                     ),
-                    SelectLocation(
+                    // SelectLocation(
+                    //   controller: controller,
+                    // ),
+                    SelectCarModel(
                       controller: controller,
                     ),
                     ManufacturingYear(
                       controller: controller,
                     ),
-                    SelectCarModel(
-                      controller: controller,
-                    ),
-                    SelectVarient(
-                      controller: controller,
-                    ),
-                    SelectOwnership(
-                      controller: controller,
-                    ),
-                    KilometersDriven(controller: controller),
-                    SellingTime(controller: controller),
+
+                    // SelectVarient(
+                    //   controller: controller,
+                    // ),
+                    // SelectOwnership(
+                    //   controller: controller,
+                    // ),
+                    // KilometersDriven(controller: controller),
+                    // SellingTime(controller: controller),
                   ],
                 ),
               ),

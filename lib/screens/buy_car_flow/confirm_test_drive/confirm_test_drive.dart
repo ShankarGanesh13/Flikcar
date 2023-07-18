@@ -37,7 +37,7 @@ class ConfirmTestDrive extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 15),
-              const ScheduleCarDetails(),
+              //  const ScheduleCarDetails(),
               const SizedBox(height: 50),
               testDriveDetails(
                   title: "Location",

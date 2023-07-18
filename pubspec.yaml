@@ -62,6 +62,14 @@ dependencies:
   otp_timer_button: ^1.1.0
   easy_image_viewer: ^1.2.1
   url_launcher: ^6.1.12
+  flutter_native_splash: ^2.3.1
+
+flutter_native_splash:
+  android: true
+  ios: true
+  web: false
+  background_image: assets/sample_car/splash_screen.jpg
+  image: assets/flikcar_logo.png
 
 dev_dependencies:
   flutter_test:

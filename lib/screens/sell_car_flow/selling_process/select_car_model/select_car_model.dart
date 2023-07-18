@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/secondary_button.dart';
+import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/my_text_field.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -9,11 +10,16 @@ import 'package:provider/provider.dart';
 
 class SelectCarModel extends StatelessWidget {
   final PageController controller;
-  const SelectCarModel({super.key, required this.controller});
+
+  SelectCarModel({
+    super.key,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
     int selectedIndex = context.watch<SellingProcessProvider>().modelIndex;
+    List<Model> models = context.watch<SellingProcessProvider>().selecedModels;
     return SingleChildScrollView(
       child: SizedBox(
         child: Column(
@@ -30,19 +36,21 @@ class SelectCarModel extends StatelessWidget {
               spacing: 20,
               runSpacing: 15,
               children: List.generate(
-                4,
+                models.length,
                 (index) => InkWell(
                   onTap: () {
                     Provider.of<SellingProcessProvider>(context, listen: false)
-                        .setCarModel(model: "2 series", selectedIndex: index);
+                        .setCarModel(
+                            modelid: models[index].modelId.toString(),
+                            index: index,
+                            model: models[index].name);
 
                     print(index);
                   },
                   child: Container(
                     padding: const EdgeInsets.only(
-                      top: 8,
-                      bottom: 8,
-                    ),
+                        top: 8, bottom: 8, left: 4, right: 4),
+                    height: 40,
                     width: MediaQuery.of(context).size.width / 2.3,
                     decoration: BoxDecoration(
                       color:
@@ -54,10 +62,11 @@ class SelectCarModel extends StatelessWidget {
                     ),
                     child: Center(
                       child: Text(
-                        "2 Series",
+                        models[index].name,
                         style: selectedIndex == index
                             ? AppFonts.w500white14
                             : AppFonts.w500black14,
+                        maxLines: 1,
                       ),
                     ),
                   ),
@@ -67,12 +76,12 @@ class SelectCarModel extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            Text(
-              "Popular Models",
-              style: AppFonts.w500dark214,
-            ),
+            // Text(
+            //   "Popular Models",
+            //   style: AppFonts.w500dark214,
+            // ),
             const SizedBox(height: 10),
-            const MyTextField(hint: "Search your car model", maxlength: 20),
+            // const MyTextField(hint: "Search your car model", maxlength: 20),
             const SizedBox(height: 10),
           ],
         ),
