@@ -5,8 +5,10 @@ import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_detai
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/start_screen/widgets/option_card.dart';
+import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StartScreen extends StatelessWidget {
@@ -101,6 +103,8 @@ class StartScreen extends StatelessWidget {
                                     }
                                   }),
                             ));
+                        Provider.of<AuctionService>(context, listen: false)
+                            .connectToSocket();
                       },
                       child: OptionCard(
                         title: "Dealers'\nPortal",

@@ -52,7 +52,11 @@ class UpcomingAuctionDealerCard extends StatelessWidget {
                     children: [
                       Text("Car Name", style: AppFonts.w700s116),
                       const Spacer(),
-                      FavoriteButton(iconSize: 24, valueChanged: () {})
+                      FavoriteButton(
+                          iconColor: const Color(0xffE0E0E0),
+                          iconDisabledColor: const Color(0xffE0E0E0),
+                          iconSize: 24,
+                          valueChanged: () {})
                     ],
                   ),
                 ),
@@ -90,7 +94,7 @@ class UpcomingAuctionDealerCard extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 Text(
-                  "Fair market value ₹250000 ",
+                  "Base Price ₹250000 ",
                   style: AppFonts.w500black14,
                 ),
               ],
@@ -123,6 +127,5 @@ class UpcomingAuctionDealerCard extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

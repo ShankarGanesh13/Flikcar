@@ -155,7 +155,10 @@ class _FilterAppliedState extends State<FilterApplied> {
                               TextButton(
                                 onPressed: () =>
                                     Navigator.pop(context, 'Cancel'),
-                                child: const Text('Close'),
+                                child: Text(
+                                  'Close',
+                                  style: AppFonts.w500p215,
+                                ),
                               ),
                               TextButton(
                                 onPressed: () {
@@ -164,7 +167,10 @@ class _FilterAppliedState extends State<FilterApplied> {
                                       .sortList();
                                   Navigator.pop(context);
                                 },
-                                child: const Text('OK'),
+                                child: Text(
+                                  'OK',
+                                  style: AppFonts.w500p215,
+                                ),
                               ),
                             ],
                           ),

@@ -61,11 +61,11 @@ class DealerCarCard extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const DealerCarDetailScreen()));
+                      // Navigator.push(
+                      //     context,
+                      //     MaterialPageRoute(
+                      //         builder: (context) =>
+                      //             const DealerCarDetailScreen()));
                     },
                     child: Container(
                       height: 400,
@@ -159,7 +159,7 @@ class DealerCarCard extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 5),
                                 Text(
-                                  "Fair market value ₹250000 ",
+                                  "Base Price ₹250000 ",
                                   style: AppFonts.w500black14,
                                 ),
                               ],

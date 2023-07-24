@@ -20,8 +20,8 @@ class GetDealerUploadCars extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('dealerToken');
 
-    var url =
-        Uri.parse('http://webservice.flikcar.com:8000/api/dealer/car/list-car');
+    var url = Uri.parse(
+        'https://webservice.flikcar.com:8000/api/dealer/car/list-car');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -29,6 +29,7 @@ class GetDealerUploadCars extends ChangeNotifier {
     });
     var data = jsonDecode(response.body);
     List result = data["data"] as List;
+    print(result);
     allCars = [];
     result.forEach(
       (element) {
@@ -37,7 +38,6 @@ class GetDealerUploadCars extends ChangeNotifier {
     );
     filteredCars = allCars;
     notifyListeners();
-    print(allCars);
   }
 
   filterDealerCars({required String status}) {
@@ -56,7 +56,7 @@ class GetDealerUploadCars extends ChangeNotifier {
     final String? token = sp.getString('dealerToken');
     dealerTestDrive = [];
     var url =
-        Uri.parse('http://webservice.flikcar.com:8000/api/dealer/test-drive');
+        Uri.parse('https://webservice.flikcar.com:8000/api/dealer/test-drive');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',

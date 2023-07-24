@@ -11,8 +11,8 @@ import 'package:http/http.dart' as http;
 
 class DealerAuthService {
   static sendOtp({required String phoneNumber}) async {
-    var url =
-        Uri.parse('http://webservice.flikcar.com:8000/api/dealer/auth/get-otp');
+    var url = Uri.parse(
+        'https://webservice.flikcar.com:8000/api/dealer/auth/get-otp');
 
     var requestBody = {
       'contact': phoneNumber,
@@ -31,8 +31,8 @@ class DealerAuthService {
       required BuildContext context}) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
-    var url =
-        Uri.parse('http://webservice.flikcar.com:8000/api/dealer/auth/sign-in');
+    var url = Uri.parse(
+        'https://webservice.flikcar.com:8000/api/dealer/auth/sign-in');
 
     var requestBody = {
       'contact': phoneNumber,
@@ -46,6 +46,7 @@ class DealerAuthService {
       print(data["data"]["profileStatus"]);
       await sp.setString('dealerToken', data["data"]["access_token"]);
       await sp.setBool('dealerIsLoggedIn', true);
+      await sp.setString("dealerPhone", phoneNumber);
 
       await sp.setString('dealerStatus', data["data"]["profileStatus"]);
       if (context.mounted) {

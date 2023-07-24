@@ -1,18 +1,39 @@
+import 'dart:async';
+
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/timer_text.dart';
+import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DealerCarListCard extends StatelessWidget {
-  const DealerCarListCard({super.key});
+  final AuctionCar car;
+  const DealerCarListCard({super.key, required this.car});
   static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
+
   @override
   Widget build(BuildContext context) {
+    features = [
+      car.fuel,
+      "${car.driveKms}kms",
+      car.registrationYear,
+      car.transmission
+    ];
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DealerCarDetailScreen()));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DealerCarDetailScreen(
+                      carr: car,
+                    )));
+
+        Provider.of<AuctionService>(context, listen: false).joinAuctionRoom(
+            carId: car.id.toString(), car: car, context: context);
       },
       child: Container(
         height: 400,
@@ -41,8 +62,10 @@ class DealerCarListCard extends StatelessWidget {
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
                 height: 181,
-                child: Image.asset(
-                  "assets/sample_car.png",
+                child: Image.network(
+                  car.carImages.isNotEmpty
+                      ? 'http://webservice.flikcar.com:8000/public/${car.carImages[0]}'
+                      : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.cover,
                 ),
               ),
@@ -56,14 +79,18 @@ class DealerCarListCard extends StatelessWidget {
                     height: 23,
                     child: Row(
                       children: [
-                        Text("Car Name", style: AppFonts.w700s116),
+                        Text(car.model, style: AppFonts.w700s116),
                         const Spacer(),
-                        FavoriteButton(iconSize: 24, valueChanged: () {})
+                        FavoriteButton(
+                            iconColor: const Color(0xffE0E0E0),
+                            iconDisabledColor: const Color(0xffE0E0E0),
+                            iconSize: 24,
+                            valueChanged: () {})
                       ],
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text("Varient Name", style: AppFonts.w500dark214),
+                  Text(car.brand, style: AppFonts.w500dark214),
                   const SizedBox(height: 10),
                   Wrap(
                     spacing: 6,
@@ -91,12 +118,14 @@ class DealerCarListCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Current Bid ₹105897",
+                    car.currentBidPrice == "no data"
+                        ? "Curreny Bid ₹${car.carPrice}"
+                        : "Current Bid ₹${car.currentBidPrice}",
                     style: AppFonts.w700black20,
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    "Fair market value ₹250000 ",
+                    "Base price ₹${car.carPrice}",
                     style: AppFonts.w500black14,
                   ),
                 ],
@@ -107,9 +136,9 @@ class DealerCarListCard extends StatelessWidget {
               padding: const EdgeInsets.only(left: 15.0, right: 15),
               child: Row(
                 children: [
-                  Text(
-                    "Auction ends in:\n3d 11h 23m 13s",
-                    style: AppFonts.w500red14,
+                  TimerText(
+                    text: "Auction ends in :\n",
+                    car: car,
                   ),
                   const Spacer(),
                   SizedBox(
@@ -117,7 +146,9 @@ class DealerCarListCard extends StatelessWidget {
                     height: 40,
                     child: PrimaryButton(
                       title: "Place Bid",
-                      function: () {},
+                      function: () {
+                        print(car.endAuction);
+                      },
                       borderColor: Colors.black,
                       textStyle: AppFonts.w500black14,
                       backgroundColor: Colors.white,

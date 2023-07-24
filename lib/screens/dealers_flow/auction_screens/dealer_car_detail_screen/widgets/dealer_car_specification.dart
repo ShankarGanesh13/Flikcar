@@ -1,9 +1,11 @@
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class DealerCarSpecification extends StatelessWidget {
-  const DealerCarSpecification({super.key});
+  final AuctionCar car;
+  const DealerCarSpecification({super.key, required this.car});
   static List<String> specifications = [
     "Mileage",
     "Engine",
@@ -12,16 +14,18 @@ class DealerCarSpecification extends StatelessWidget {
     "Seats",
     "Color"
   ];
-  static List<String> carSpec = [
-    "25.4 kmpl",
-    "999 CC",
-    "69.4 BHP",
-    "72 Nm",
-    "5",
-    "Blue"
-  ];
+  static List<String> carSpec = [];
+
   @override
   Widget build(BuildContext context) {
+    carSpec = [
+      "${car.mileage}kmpl",
+      "${car.engine}CC",
+      '${car.maxPower}BHP',
+      '${car.maxTorque}Nm',
+      car.seat,
+      car.color
+    ];
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(

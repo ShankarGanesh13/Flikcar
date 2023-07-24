@@ -35,7 +35,7 @@ class GetCarDetails {
     final String? token = sp.getString('userToken');
 
     var url =
-        Uri.parse('http://webservice.flikcar.com:8000/api/buy-car/get-car');
+        Uri.parse('https://webservice.flikcar.com:8000/api/buy-car/get-car');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -58,6 +58,4 @@ class GetCarDetails {
     final allCars = await isar.buyerCars.where().findAll();
     return allCars;
   }
-
-  
 }

@@ -4,6 +4,7 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/widgets/dealer_listed_cars.dart';
+import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -23,6 +24,7 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
     // TODO: implement initState
     Provider.of<GetDealerUploadCars>(context, listen: false)
         .getDealerUploadedCars();
+
     super.initState();
   }
 

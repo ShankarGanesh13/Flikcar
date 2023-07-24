@@ -1,13 +1,21 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/screens/account/edit_profile/edit_profile.dart';
 import 'package:flikcar/screens/account/sell_request/sell_request.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
 import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class AccountScreen extends StatelessWidget {
+class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});
 
+  @override
+  State<AccountScreen> createState() => _AccountScreenState();
+}
+
+class _AccountScreenState extends State<AccountScreen> {
+  String? name = "";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,8 +23,34 @@ class AccountScreen extends StatelessWidget {
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            profileDetails(
-                title: "Flikcar", subtitle: "+91 9842129106", icon: Icons.edit),
+            FutureBuilder(
+                future: getCustomerPhone(),
+                builder: (context, snapshot) {
+                  if (snapshot.data != null) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => EditProfile(
+                                phoneNumber: snapshot.data!,
+                              ),
+                            ));
+                      },
+                      child: profileDetails(
+                          title: name == "" || name == null
+                              ? "Flikcar"
+                              : name.toString(),
+                          subtitle: snapshot.data!,
+                          icon: Icons.edit),
+                    );
+                  } else {
+                    return profileDetails(
+                        title: "Flikcar",
+                        subtitle: "454545454",
+                        icon: Icons.edit);
+                  }
+                }),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -115,4 +149,12 @@ class AccountScreen extends StatelessWidget {
       ],
     );
   }
+
+  Future<String> getCustomerPhone() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    final String? phone = sp.getString('custPhone');
+    name = sp.getString("userName");
+    return phone!;
+  }
 }
+//final String? phone = sp.getString('custPhone');

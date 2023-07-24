@@ -38,7 +38,7 @@ class _SortPopUpState extends State<SortPopUp> {
                     child: Icon(
                       Icons.check,
                       size: 14,
-                      color: sort == 0 ? AppColors.s1 : Colors.transparent,
+                      color: sort == 0 ? AppColors.p2 : Colors.transparent,
                       weight: 2,
                     ),
                   ),
@@ -72,7 +72,7 @@ class _SortPopUpState extends State<SortPopUp> {
                     child: Icon(
                       Icons.check,
                       size: 14,
-                      color: sort == 1 ? AppColors.s1 : Colors.transparent,
+                      color: sort == 1 ? AppColors.p2 : Colors.transparent,
                       weight: 2,
                     ),
                   ),

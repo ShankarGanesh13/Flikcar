@@ -1,9 +1,11 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_auction_dealer_card.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_filter_screen/dealer_filter_screen.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
+import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +21,11 @@ class DealerCarListScreen extends StatefulWidget {
 class _DealerCarListScreenState extends State<DealerCarListScreen> {
   @override
   Widget build(BuildContext context) {
+    List<AuctionCar> liveAuctionCars =
+        context.watch<AuctionService>().liveAuctionCars;
+    List<AuctionCar> upcomingAuctionCars =
+        context.watch<AuctionService>().upcomingAuctionCars;
+
     bool live = context.watch<DealerProvider>().live;
     return Scaffold(
       appBar: CustomAppBar.getAppBarWithSearch(
@@ -95,20 +102,44 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
             ),
           ),
           live == true
-              ? ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return const DealerCarListCard();
-                  })
-              : ListView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return const UpcomingAuctionDealerCard();
-                  }),
+              ? liveAuctionCars.isNotEmpty
+                  ? ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: liveAuctionCars.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return DealerCarListCard(
+                          car: liveAuctionCars[index],
+                        );
+                      })
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 200.0),
+                      child: Center(
+                        child: Text(
+                          "No cars to show",
+                          style: AppFonts.w700black16,
+                        ),
+                      ),
+                    )
+              : upcomingAuctionCars.isNotEmpty
+                  ? ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: upcomingAuctionCars.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return DealerCarListCard(
+                          car: upcomingAuctionCars[index],
+                        );
+                      })
+                  : Padding(
+                      padding: const EdgeInsets.only(top: 200.0),
+                      child: Center(
+                        child: Text(
+                          "No cars to show",
+                          style: AppFonts.w700black16,
+                        ),
+                      ),
+                    ),
         ]),
       ),
     );

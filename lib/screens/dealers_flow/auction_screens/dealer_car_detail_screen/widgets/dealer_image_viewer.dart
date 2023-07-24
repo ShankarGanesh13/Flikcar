@@ -1,30 +1,32 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
+import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class DealerImageViewer extends StatefulWidget {
-  DealerImageViewer({super.key});
-  static const List<String> images = [
-    "assets/sample_car/tigor1.png",
-    "assets/sample_car/tigor2.png",
-    "assets/sample_car/tigor3.png",
-    "assets/sample_car/tigor4.png"
-  ];
+  AuctionCar car;
+  DealerImageViewer({super.key, required this.car});
 
   @override
   State<DealerImageViewer> createState() => _DealerImageViewerState();
 }
 
 class _DealerImageViewerState extends State<DealerImageViewer> {
+  @override
+  void initState() {
+    getImages();
+    print(_imageProviders);
+    // TODO: implement initState
+    super.initState();
+  }
+
   int selectedIndex = 0;
-  final List<ImageProvider> _imageProviders = [
-    Image.network("https://picsum.photos/id/1001/4912/3264").image,
-    Image.network("https://picsum.photos/id/1003/1181/1772").image,
-    Image.network("https://picsum.photos/id/1004/4912/3264").image,
-    Image.network("https://picsum.photos/id/1005/4912/3264").image
-  ];
+  List<ImageProvider> _imageProviders = [];
+
   @override
   Widget build(BuildContext context) {
+    List<String> images = widget.car.carImages;
+
     return Column(
       children: [
         GestureDetector(
@@ -41,8 +43,10 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
           child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,
             width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              DealerImageViewer.images[selectedIndex],
+            child: Image.network(
+              images.isNotEmpty
+                  ? 'http://webservice.flikcar.com:8000/public/${images[selectedIndex]}'
+                  : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
               fit: BoxFit.cover,
             ),
           ),
@@ -53,7 +57,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
         SizedBox(
           height: 85,
           child: ListView.builder(
-              itemCount: DealerImageViewer.images.length,
+              itemCount: images.length,
               scrollDirection: Axis.horizontal,
               shrinkWrap: false,
               itemBuilder: (context, index) {
@@ -79,8 +83,8 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
                           selectedIndex = index;
                         });
                       },
-                      child: Image.asset(
-                        DealerImageViewer.images[index],
+                      child: Image.network(
+                        'http://webservice.flikcar.com:8000/public/${images[index]}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -90,5 +94,14 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
         )
       ],
     );
+  }
+
+  getImages() {
+    _imageProviders = [];
+    widget.car.carImages.forEach((element) {
+      _imageProviders.add(
+          Image.network("http://webservice.flikcar.com:8000/public/${element}")
+              .image);
+    });
   }
 }

@@ -1,11 +1,14 @@
 import 'package:expansion_tile_group/expansion_tile_group.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/models/auction_car_model.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class DealerCarFeatures extends StatelessWidget {
-  const DealerCarFeatures({super.key});
+  final AuctionCar car;
+  const DealerCarFeatures({super.key, required this.car});
   static final List<String> features = [
     "Safety",
     "Interior",
@@ -30,6 +33,12 @@ class DealerCarFeatures extends StatelessWidget {
   }
 
   List<ExpansionTileItem> questions() {
+    List<List> allFeatures = [
+      car.safetyDetails,
+      car.interiorDetails,
+      car.exteriorDetails,
+      car.entertainmentDetails
+    ];
     return List.generate(
       4,
       (index) => ExpansionTileItem(
@@ -57,8 +66,8 @@ class DealerCarFeatures extends StatelessWidget {
         childrenPadding:
             const EdgeInsets.only(top: 0, left: 15, right: 15, bottom: 15),
         children: List.generate(
-          5,
-          (index) => Padding(
+          allFeatures[index].length,
+          (index2) => Padding(
             padding: const EdgeInsets.only(bottom: 8.0),
             child: Row(
               children: [
@@ -70,7 +79,7 @@ class DealerCarFeatures extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text("Feature", style: AppFonts.w500dark214),
+                Text(allFeatures[index][index2], style: AppFonts.w500dark214),
               ],
             ),
           ),

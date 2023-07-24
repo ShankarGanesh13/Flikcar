@@ -56,7 +56,7 @@ class BuyCarProvider extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
     var url =
-        Uri.parse('http://webservice.flikcar.com:8000/api/test-drive/create');
+        Uri.parse('https://webservice.flikcar.com:8000/api/test-drive/create');
 
     var requestBody = {
       "vehicleId": "$vehicleId",
@@ -93,7 +93,7 @@ class BuyCarProvider extends ChangeNotifier {
     final String? token = sp.getString('userToken');
     testDriveCars = [];
 
-    var url = Uri.parse('http://webservice.flikcar.com:8000/api/test-drive');
+    var url = Uri.parse('https://webservice.flikcar.com:8000/api/test-drive');
     var response = await http.get(
       url,
       headers: {

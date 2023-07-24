@@ -25,8 +25,8 @@ class NewTestDriveCard extends StatelessWidget {
     ];
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => DealerCarDetailScreen()));
+        // Navigator.push(context,
+        //     MaterialPageRoute(builder: (context) => DealerCarDetailScreen()));
       },
       child: Container(
         height: 400,

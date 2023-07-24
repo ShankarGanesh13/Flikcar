@@ -24,7 +24,7 @@ class MyBidsScreen extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const DealerCarListCard()
+        //   const DealerCarListCard()
       ]),
     );
   }

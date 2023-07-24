@@ -15,7 +15,7 @@ class _ImageViewerState extends State<ImageViewer> {
   @override
   void initState() {
     getImages();
-    print(_imageProviders);
+
     // TODO: implement initState
     super.initState();
   }
@@ -96,6 +96,7 @@ class _ImageViewerState extends State<ImageViewer> {
 
   getImages() {
     _imageProviders = [];
+
     widget.car.carImages.forEach((element) {
       _imageProviders.add(
           Image.network("http://webservice.flikcar.com:8000/public/${element}")

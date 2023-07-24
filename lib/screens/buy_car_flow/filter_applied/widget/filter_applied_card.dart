@@ -80,6 +80,8 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                         height: 20,
                         width: 20,
                         child: FavoriteButton(
+                          iconColor: const Color(0xffE0E0E0),
+                          iconDisabledColor: const Color(0xffE0E0E0),
                           valueChanged: (_) {
                             Provider.of<WishlistService>(context, listen: false)
                                 .addToWishlist(

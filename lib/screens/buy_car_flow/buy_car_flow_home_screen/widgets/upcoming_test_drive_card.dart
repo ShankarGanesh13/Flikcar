@@ -67,7 +67,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                               ),
                             ],
                             color: const Color(0xffF2F2F2),
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                           child: Column(
                             children: [
@@ -75,8 +75,8 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                 height: 175,
                                 child: ClipRRect(
                                   borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(10),
-                                    topRight: Radius.circular(10),
+                                    topLeft: Radius.circular(15),
+                                    topRight: Radius.circular(15),
                                   ),
                                   child: FastCachedImage(
                                     url: testdrive[index]
@@ -86,6 +86,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                         ? "http://webservice.flikcar.com:8000/public/${testdrive[index].car.carImages[0]}"
                                         : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                     fit: BoxFit.cover,
+                                    width: MediaQuery.of(context).size.width,
                                     fadeInDuration: const Duration(seconds: 1),
                                     errorBuilder:
                                         (context, exception, stacktrace) {

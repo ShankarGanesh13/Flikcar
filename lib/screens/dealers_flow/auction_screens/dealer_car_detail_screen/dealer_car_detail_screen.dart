@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_features.dart';
@@ -9,16 +10,37 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_s
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_car_card.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
+import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DealerCarDetailScreen extends StatelessWidget {
-  const DealerCarDetailScreen({super.key});
+class DealerCarDetailScreen extends StatefulWidget {
+  final AuctionCar carr;
+  const DealerCarDetailScreen({super.key, required this.carr});
 
   @override
+  State<DealerCarDetailScreen> createState() => _DealerCarDetailScreenState();
+}
+
+class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
+  AuctionCar? car;
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    Provider.of<AuctionService>(context, listen: false)
+        .getBidPrice(currentPrice: widget.carr.currentBidPrice);
+    super.initState();
+  }
+
+  String currentBid = "0";
+  @override
   Widget build(BuildContext context) {
+    car = context.watch<AuctionService>().updatedCarData;
+    currentBid = context.watch<AuctionService>().bidAmount;
+
     return Scaffold(
         appBar: CustomAppBar.getAppBarWithContainerSearch(
             context: context,
@@ -39,24 +61,30 @@ class DealerCarDetailScreen extends StatelessWidget {
             bidButton(
                 icon: Icons.remove,
                 function: () {
-                  Provider.of<DealerProvider>(context, listen: false)
-                      .reduceBidAmount();
+                  Provider.of<AuctionService>(context, listen: false)
+                      .reduceBidAmount(widget.carr.currentBidPrice);
                 }),
             Text(
-              "  ₹ ${context.watch<DealerProvider>().bidAmount}  ",
+              "  ₹ ${currentBid}  ",
               style: AppFonts.w700white16,
             ),
             bidButton(
                 icon: Icons.add,
                 function: () {
-                  Provider.of<DealerProvider>(context, listen: false)
+                  Provider.of<AuctionService>(context, listen: false)
                       .increaseBidAmount();
                 }),
             const Spacer(),
             BuyNavButton(
               icon: Icons.chevron_right,
               title: "Place Bid",
-              function: () {},
+              function: () {
+                Provider.of<AuctionService>(context, listen: false).placeBid(
+                    carId: widget.carr.id.toString(),
+                    amount: currentBid,
+                    car: widget.carr,
+                    context: context);
+              },
             )
           ]),
         ),
@@ -74,11 +102,11 @@ class DealerCarDetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Car Name",
+                            widget.carr.model,
                             style: AppFonts.w700black16,
                           ),
                           Text(
-                            "Varient Name",
+                            widget.carr.brand,
                             style: AppFonts.w500dark214,
                           ),
                         ],
@@ -91,8 +119,12 @@ class DealerCarDetailScreen extends StatelessWidget {
                       const Icon(Icons.flag),
                     ],
                   )),
-              DealerImageViewer(),
-              const DealerCarDetails(),
+              DealerImageViewer(
+                car: widget.carr,
+              ),
+              DealerCarDetails(
+                car: car ?? widget.carr,
+              ),
               const SizedBox(
                 height: 10,
               ),
@@ -100,11 +132,15 @@ class DealerCarDetailScreen extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const DealerCarFeatures(),
+              DealerCarFeatures(
+                car: widget.carr,
+              ),
               const SizedBox(
                 height: 15,
               ),
-              const DealerCarSpecification(),
+              DealerCarSpecification(
+                car: widget.carr,
+              ),
               const SizedBox(
                 height: 15,
               ),

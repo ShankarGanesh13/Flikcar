@@ -36,9 +36,12 @@ class ScheduleCarDetails extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              car.model,
-              style: AppFonts.w700black16,
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              child: Text(
+                car.model,
+                style: AppFonts.w700black16,
+              ),
             ),
             Wrap(
               spacing: 2,
@@ -54,6 +57,7 @@ class ScheduleCarDetails extends StatelessWidget {
                   child: Text(
                     features[index],
                     style: AppFonts.w500black12,
+                    maxLines: 1,
                   ),
                 ),
               ),

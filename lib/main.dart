@@ -30,6 +30,7 @@ import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
+import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
@@ -62,6 +63,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => CheckInternetProvider()),
         ChangeNotifierProvider(create: (context) => WishlistService()),
         ChangeNotifierProvider(create: (context) => SearchService()),
+        ChangeNotifierProvider(create: (context) => AuctionService()),
         ChangeNotifierProvider(create: (context) => GetDealerUploadCars()),
         ChangeNotifierProvider(
             create: (context) => UploadDealerDocumentsProvider()),

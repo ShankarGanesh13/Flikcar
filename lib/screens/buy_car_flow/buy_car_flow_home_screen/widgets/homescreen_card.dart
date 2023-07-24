@@ -124,7 +124,7 @@ class HomeScreenCard extends StatelessWidget {
                                   ),
                                 ],
                                 color: const Color(0xffF2F2F2),
-                                borderRadius: BorderRadius.circular(20),
+                                borderRadius: BorderRadius.circular(15),
                               ),
                               child: Column(
                                 children: [
@@ -132,8 +132,8 @@ class HomeScreenCard extends StatelessWidget {
                                     height: 170,
                                     child: ClipRRect(
                                       borderRadius: const BorderRadius.only(
-                                        topLeft: Radius.circular(10),
-                                        topRight: Radius.circular(10),
+                                        topLeft: Radius.circular(15),
+                                        topRight: Radius.circular(15),
                                       ),
                                       child: FastCachedImage(
                                         url: snapshot.data![index].carImages
@@ -141,11 +141,16 @@ class HomeScreenCard extends StatelessWidget {
                                             ? "http://webservice.flikcar.com:8000/public/${snapshot.data![index].carImages[0]}"
                                             : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                         fit: BoxFit.cover,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         fadeInDuration:
                                             const Duration(seconds: 1),
                                         errorBuilder:
                                             (context, exception, stacktrace) {
-                                          return Text(stacktrace.toString());
+                                          return const Center(
+                                            child:
+                                                Text("Image cannot be loaded"),
+                                          );
                                         },
                                         loadingBuilder: (context, progress) {
                                           return SizedBox(
@@ -260,6 +265,9 @@ class HomeScreenCard extends StatelessWidget {
                                         const Spacer(),
                                         FavoriteButton(
                                           iconSize: 30,
+                                          iconColor: const Color(0xffE0E0E0),
+                                          iconDisabledColor:
+                                              const Color(0xffE0E0E0),
                                           valueChanged: (_) {
                                             Provider.of<WishlistService>(
                                                     context,

@@ -1,7 +1,9 @@
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
+import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CustomAppBar {
   static PreferredSizeWidget getAppBar() {
@@ -256,6 +258,8 @@ class CustomAppBar {
                     ? IconButton(
                         onPressed: () {
                           Navigator.pop(context);
+                          Provider.of<AuctionService>(context, listen: false)
+                              .clearAuctionCar();
                         },
                         icon: const Icon(Icons.chevron_left),
                         color: Colors.white,
