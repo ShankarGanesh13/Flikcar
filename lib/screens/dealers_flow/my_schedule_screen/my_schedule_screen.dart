@@ -6,6 +6,7 @@ import 'package:flikcar/screens/dealers_flow/my_schedule_screen/new_testdrive_ca
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/schedule_screen_card/schedule_screen_card.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
+import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,7 +41,8 @@ class _MyScheduleScreenState extends State<MyScheduleScreen> {
               height: 50,
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(16),
-              color: const Color.fromARGB(255, 234, 255, 235),
+              // color: const Color.fromARGB(255, 234, 255, 235),
+              decoration: BoxDecoration(gradient: AppColors.gradient),
               child: Text(
                 "My Schedules",
                 textAlign: TextAlign.start,

@@ -44,7 +44,7 @@ class ListingCarImages extends StatelessWidget {
               }
             },
             textStyle: AppFonts.w500white14,
-            title: "Next"),
+            title: "Upload Car"),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -138,6 +138,90 @@ class ListingCarImages extends StatelessWidget {
                             child: const UploadImage()),
                       ],
                     )),
+                Container(
+                  height: 124,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(15),
+                  margin: const EdgeInsets.only(top: 30),
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Color.fromRGBO(190, 190, 190, 0.239),
+                            spreadRadius: 15,
+                            blurRadius: 10,
+                            offset: Offset(5, 5)),
+                      ],
+                      borderRadius: BorderRadius.circular(10)),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Please Note:",
+                          style: AppFonts.w700black16,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          children: [
+                            const SizedBox(width: 20),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "\u2022",
+                                      style: AppFonts.w700black16,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          1.4,
+                                      child: Text(
+                                        "Upload car images from all sides",
+                                        style: AppFonts.w500black14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "\u2022",
+                                      style: AppFonts.w700black16,
+                                    ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width /
+                                          1.4,
+                                      child: Text(
+                                        "Add car interior images for better reach",
+                                        style: AppFonts.w500black14,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                              ],
+                            )
+                          ],
+                        )
+                      ]),
+                ),
                 const SizedBox(
                   height: 15,
                 ),

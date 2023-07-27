@@ -2,7 +2,9 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listed_car_details_screen/dealer_listed_car_deatils_screen.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/edit_dealer_uploaded_car/edit_dealer_uploaded_car.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/widgets/edit_listing_bottom_sheet.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -59,7 +61,7 @@ class DealerListedCars extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         child: Image.network(
                           cars[index].carImages.isNotEmpty
-                              ? "http://webservice.flikcar.com:8000/public/${cars[index].carImages[0]}"
+                              ? "https://webservice.flikcar.com:8000/public/${cars[index].carImages[0]}"
                               : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                           fit: BoxFit.fill,
                         ),
@@ -82,21 +84,21 @@ class DealerListedCars extends StatelessWidget {
                                   maxLines: 1,
                                 ),
                               ),
-                              GestureDetector(
-                                onTap: () {
-                                  showModalBottomSheet<void>(
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return const EditListingBottomSheet();
-                                    },
-                                  );
-                                },
-                                child: const Icon(
-                                  Icons.more_horiz,
-                                  size: 22,
-                                ),
-                              )
+                              // GestureDetector(
+                              //   onTap: () {
+                              //     showModalBottomSheet<void>(
+                              //       isScrollControlled: true,
+                              //       context: context,
+                              //       builder: (BuildContext context) {
+                              //         return const EditListingBottomSheet();
+                              //       },
+                              //     );
+                              //   },
+                              //   child: const Icon(
+                              //     Icons.more_horiz,
+                              //     size: 22,
+                              //   ),
+                              // )
                             ],
                           ),
                           Text(
@@ -135,7 +137,15 @@ class DealerListedCars extends StatelessWidget {
                                 height: 30,
                                 child: PrimaryButton(
                                     title: "Mark as Sold",
-                                    function: () {},
+                                    function: () {
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             EditDealerUploadedCar(
+                                      //               car: cars[index],
+                                      //             )));
+                                    },
                                     borderColor: AppColors.s1,
                                     backgroundColor: Colors.white,
                                     textStyle: AppFonts.w500s110),

@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/car_specifications/car_specifications.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_features.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_specification.dart';
@@ -65,7 +66,7 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                       .reduceBidAmount(widget.carr.currentBidPrice);
                 }),
             Text(
-              "  ₹ ${currentBid}  ",
+              "  ₹ ${context.watch<AuctionService>().bidAmount}  ",
               style: AppFonts.w700white16,
             ),
             bidButton(
@@ -73,6 +74,8 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                 function: () {
                   Provider.of<AuctionService>(context, listen: false)
                       .increaseBidAmount();
+                  print("__________");
+                  print(currentBid);
                 }),
             const Spacer(),
             BuyNavButton(
@@ -94,7 +97,8 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
               Container(
                   padding: const EdgeInsets.all(12),
                   width: MediaQuery.of(context).size.width,
-                  color: const Color.fromARGB(255, 240, 255, 249),
+                  // color: const Color.fromARGB(255, 240, 255, 249),
+                  decoration: BoxDecoration(gradient: AppColors.gradient),
                   child: Row(
                     children: [
                       const SizedBox(width: 10),
@@ -111,12 +115,12 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                           ),
                         ],
                       ),
-                      const Spacer(),
-                      const Icon(Icons.share),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      const Icon(Icons.flag),
+                      // const Spacer(),
+                      // const Icon(Icons.share),
+                      // const SizedBox(
+                      //   width: 12,
+                      // ),
+                      // const Icon(Icons.flag),
                     ],
                   )),
               DealerImageViewer(
@@ -148,7 +152,15 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                 padding: const EdgeInsets.all(15.0),
                 child: PrimaryButton(
                     title: "View all specifications",
-                    function: () {},
+                    function: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  DealerCarSpecificationScreen(
+                                    car: widget.carr,
+                                  )));
+                    },
                     borderColor: Colors.white,
                     backgroundColor: AppColors.p2,
                     textStyle: AppFonts.w500white14),
@@ -156,14 +168,14 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
               const SizedBox(
                 height: 25,
               ),
-              const DealerCarCard(
-                filters: [],
-                title: "Auctions ending soon",
-                filterButton: false,
-              ),
-              const SizedBox(
-                height: 30,
-              ),
+              // const DealerCarCard(
+              //   filters: [],
+              //   title: "Auctions ending soon",
+              //   filterButton: false,
+              // ),
+              // const SizedBox(
+              //   height: 30,
+              // ),
             ],
           ),
         ));

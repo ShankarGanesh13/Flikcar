@@ -27,7 +27,7 @@ class SuspensionBrakes extends StatelessWidget {
         const SizedBox(height: 20),
         SpecificationTextField(
           maxLength: 20,
-          title: "Suspension front",
+          title: "Suspension front type (Eg. Dual Beam)",
           controller: frontSuspensionController,
           keyboardType: TextInputType.text,
           onChanged: (value) {
@@ -37,7 +37,7 @@ class SuspensionBrakes extends StatelessWidget {
         ),
         SpecificationTextField(
           maxLength: 20,
-          title: "Suspension rear",
+          title: "Suspension rear (Eg. Dual Beam)",
           controller: rearSuspensionController,
           keyboardType: TextInputType.text,
           onChanged: (value) {
@@ -61,7 +61,7 @@ class SuspensionBrakes extends StatelessWidget {
             }),
         SpecificationTextField(
           maxLength: 30,
-          title: "Steering type",
+          title: "Steering type (Eg. power steering)",
           controller: steeringController,
           keyboardType: TextInputType.text,
           onChanged: (value) {

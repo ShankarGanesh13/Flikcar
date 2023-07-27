@@ -48,10 +48,13 @@ class SelectBrandCard extends StatelessWidget {
                             width: 86,
                             decoration: BoxDecoration(
                               color: selectedIndex == index
-                                  ? AppColors.p2
+                                  ? Colors.white
                                   : Colors.white,
-                              border:
-                                  Border.all(color: const Color(0xffCDCDCD)),
+                              border: Border.all(
+                                color: selectedIndex == index
+                                    ? AppColors.p2
+                                    : AppColors.grey,
+                              ),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             child: Center(
@@ -59,14 +62,16 @@ class SelectBrandCard extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   SizedBox(
-                                    height: 30,
-                                    width: 30,
-                                    child: Image.asset("assets/bmw_logo.png"),
+                                    height: 35,
+                                    child: Image.network(
+                                      "https://webservice.flikcar.com:8000/public/${snapshot.data![index].image}",
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                   const SizedBox(height: 4),
                                   Text(snapshot.data![index].name,
                                       style: selectedIndex == index
-                                          ? AppFonts.w500white10
+                                          ? AppFonts.w500black10
                                           : AppFonts.w500black10),
                                 ],
                               ),

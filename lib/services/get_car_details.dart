@@ -58,4 +58,9 @@ class GetCarDetails {
     final allCars = await isar.buyerCars.where().findAll();
     return allCars;
   }
+
+  isarClean() async {
+    final isar = await localDB;
+    await isar.clear();
+  }
 }

@@ -36,14 +36,16 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
   String? selectedValue;
   @override
   Widget build(BuildContext context) {
-    List<BuyerCar> cars = context.watch<GetDealerUploadCars>().filteredCars;
+    List<BuyerCar> cars = context.watch<GetDealerUploadCars>().searchCars;
+    print(cars);
     return Scaffold(
       appBar: CustomAppBar.getAppBar(),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(
             height: 51,
-            color: const Color.fromARGB(255, 227, 255, 228),
+            // color: const Color.fromARGB(255, 227, 255, 228),
+            decoration: BoxDecoration(gradient: AppColors.gradient),
             child: Padding(
               padding: const EdgeInsets.all(15.0),
               child: Row(
@@ -80,6 +82,10 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
                     prefixIcon: const Icon(Icons.search),
                   ),
                   maxLength: 30,
+                  onChanged: (value) {
+                    Provider.of<GetDealerUploadCars>(context, listen: false)
+                        .searchDealerUploadCars(query: value);
+                  },
                 ),
                 const SizedBox(
                   height: 20,

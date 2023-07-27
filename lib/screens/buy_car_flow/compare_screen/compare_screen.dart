@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/compare_details_card.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/condition_list.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/overview_details.dart';
@@ -7,7 +8,9 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class CompareScreen extends StatefulWidget {
-  const CompareScreen({super.key});
+  final BuyerCar car1;
+  final BuyerCar car2;
+  const CompareScreen({super.key, required this.car1, required this.car2});
 
   @override
   State<CompareScreen> createState() => _CompareScreenState();
@@ -98,7 +101,15 @@ class _CompareScreenState extends State<CompareScreen> {
                 )
               ],
             ),
-            selectedIndex == 0 ? const OverviewList() : const ConditionList()
+            selectedIndex == 0
+                ? OverviewList(
+                    car1: widget.car1,
+                    car2: widget.car2,
+                  )
+                : ConditionList(
+                    car1: widget.car1,
+                    car2: widget.car2,
+                  )
           ],
         ));
   }

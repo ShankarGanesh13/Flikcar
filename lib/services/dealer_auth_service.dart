@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
@@ -49,8 +50,10 @@ class DealerAuthService {
       await sp.setString("dealerPhone", phoneNumber);
 
       await sp.setString('dealerStatus', data["data"]["profileStatus"]);
+      print("dealer profile status ${data["data"]["profileStatus"]}");
       if (context.mounted) {
-        if (data["data"]["profileStatus"] == "Submitted") {
+        if (data["data"]["profileStatus"] == "Submitted" ||
+            data["data"]["profileStatus"] == "Complete") {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(

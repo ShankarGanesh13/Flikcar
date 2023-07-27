@@ -56,7 +56,7 @@ class WishlistCard extends StatelessWidget {
                       child: Image.network(
                         car.carImages.isEmpty
                             ? "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png"
-                            : "https://admin.flikcar.com/${car.carImages[0]}",
+                            : "https://webservice.flikcar.com:8000/public/${car.carImages[0]}",
                         fit: BoxFit.fill,
                       ),
                     ),
@@ -117,7 +117,7 @@ class WishlistCard extends StatelessWidget {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          "₹326000 ",
+                          "₹ ${car.carPrice} ",
                           style: AppFonts.w700black20,
                         )
                       ],
@@ -126,7 +126,7 @@ class WishlistCard extends StatelessWidget {
                 ]),
             Padding(
               padding: const EdgeInsets.only(
-                  top: 10.0, bottom: 8, left: 20, right: 20),
+                  top: 9.0, bottom: 10, left: 20, right: 20),
               child: PrimaryButton(
                   title: "Contact Dealer",
                   function: () {

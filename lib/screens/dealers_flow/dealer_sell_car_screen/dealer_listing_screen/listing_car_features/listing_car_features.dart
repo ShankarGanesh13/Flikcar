@@ -87,7 +87,7 @@ class _ListingCarFaturesState extends State<ListingCarFatures> {
                   height: 50,
                   padding: const EdgeInsets.all(15),
                   width: MediaQuery.of(context).size.width,
-                  color: const Color.fromARGB(255, 241, 255, 249),
+                  decoration: BoxDecoration(gradient: AppColors.gradient),
                   child: Row(
                     children: [
                       GestureDetector(

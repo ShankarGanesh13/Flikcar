@@ -156,11 +156,11 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     request.headers["Authorization"] = "Bearer $dealerToken";
     request.headers["Content-Type"] =
         "application/x-www-form-urlencoded; charset=UTF-8";
-    request.fields["name"] = "shankar";
-    request.fields["email"] = "shankar@gmail.com";
-    request.fields["shopName"] = "shankar cars";
-    request.fields["gstNo"] = "1234567890";
-    request.fields["shopAddress"] = "Sector 5 Kolkata";
+    request.fields["name"] = dealerName;
+    request.fields["email"] = dealerEmail;
+    request.fields["shopName"] = dealerShopName;
+    request.fields["gstNo"] = dealerGstNumber;
+    request.fields["shopAddress"] = dealerShopAddress;
     request.fields["state"] = "24";
     request.fields["city"] = "595";
     request.fields["pincode"] = "123456";

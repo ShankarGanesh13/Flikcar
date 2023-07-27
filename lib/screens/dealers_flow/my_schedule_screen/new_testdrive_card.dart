@@ -36,9 +36,9 @@ class NewTestDriveCard extends StatelessWidget {
           boxShadow: const [
             BoxShadow(
               color: Color.fromRGBO(0, 0, 0, 0.25),
-              offset: Offset(2, 12),
-              blurRadius: 18,
-              spreadRadius: -8,
+              offset: Offset(1, 1),
+              blurRadius: 12,
+              spreadRadius: 0,
             ),
           ],
           color: const Color(0xffF2F2F2),
@@ -57,7 +57,7 @@ class NewTestDriveCard extends StatelessWidget {
                 height: 181,
                 child: Image.network(
                   testDrive.car.carImages.isNotEmpty
-                      ? "http://webservice.flikcar.com:8000/public/${testDrive.car.carImages[0]}"
+                      ? "https://webservice.flikcar.com:8000/public/${testDrive.car.carImages[0]}"
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.cover,
                 ),

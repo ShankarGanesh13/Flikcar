@@ -29,6 +29,8 @@ class SelectBrand extends StatelessWidget {
                   childAspectRatio: 1.9 / 1.3,
                   physics: const NeverScrollableScrollPhysics(),
                   children: List.generate(snaphot.data!.length, (index) {
+                    print(snaphot.data![index].image);
+
                     return Container(
                         padding: const EdgeInsets.only(top: 5, bottom: 5),
                         height: 62,
@@ -44,10 +46,11 @@ class SelectBrand extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: 30,
-                                width: 30,
+                                height: 35,
                                 child: Image.network(
-                                    "http://webservice.flikcar.com:8000/public/${snaphot.data![index].image}"),
+                                  "https://webservice.flikcar.com:8000/public/${snaphot.data![index].image}",
+                                  fit: BoxFit.fill,
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Text(

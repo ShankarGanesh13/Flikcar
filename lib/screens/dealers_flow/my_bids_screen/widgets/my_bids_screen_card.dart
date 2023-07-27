@@ -10,9 +10,9 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DealerCarListCard extends StatelessWidget {
+class MyBidsScreenCard extends StatelessWidget {
   final AuctionCar car;
-  const DealerCarListCard({super.key, required this.car});
+  const MyBidsScreenCard({super.key, required this.car});
   static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
 
   @override
@@ -72,7 +72,8 @@ class DealerCarListCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(
+                  top: 10.0, left: 15, right: 15, bottom: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -92,7 +93,7 @@ class DealerCarListCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(car.brand, style: AppFonts.w500dark214),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 5),
                   Wrap(
                     spacing: 6,
                     children: List.generate(
@@ -129,10 +130,15 @@ class DealerCarListCard extends StatelessWidget {
                     "Base price ₹${car.carPrice}",
                     style: AppFonts.w500black14,
                   ),
+                  const SizedBox(height: 2),
+                  Text(
+                    "Your last bid price ₹${car.yourLastBid}",
+                    style: AppFonts.w500green14,
+                  ),
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15),
               child: Row(

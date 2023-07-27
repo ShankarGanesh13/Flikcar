@@ -8,16 +8,6 @@ import 'package:flutter/material.dart';
 
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/body_type_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/colors_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/fuel_type_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/kilometers_driven_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/make_model_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/owners_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/price_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/transmisson_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/year_filter.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter_xlider/flutter_xlider.dart';
@@ -90,7 +80,7 @@ class _ListingCarSpecificationState extends State<ListingCarSpecification> {
                     height: 52,
                     padding: const EdgeInsets.all(15),
                     width: MediaQuery.of(context).size.width,
-                    color: const Color.fromARGB(255, 241, 255, 249),
+                    decoration: BoxDecoration(gradient: AppColors.gradient),
                     child: Row(
                       children: [
                         GestureDetector(

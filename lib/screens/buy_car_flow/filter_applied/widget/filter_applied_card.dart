@@ -52,7 +52,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                 borderRadius: BorderRadius.circular(5),
                 child: Image.network(
                   widget.car.carImages.isNotEmpty
-                      ? "http://webservice.flikcar.com:8000/public/${widget.car.carImages[0]}"
+                      ? "https://webservice.flikcar.com:8000/public/${widget.car.carImages[0]}"
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.fill,
                 ),

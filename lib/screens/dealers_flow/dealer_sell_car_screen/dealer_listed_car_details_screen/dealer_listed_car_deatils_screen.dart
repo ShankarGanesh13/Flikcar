@@ -102,12 +102,12 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  const Icon(Icons.share),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  const Icon(Icons.flag),
+                  // const Spacer(),
+                  // const Icon(Icons.share),
+                  // const SizedBox(
+                  //   width: 12,
+                  // ),
+                  // const Icon(Icons.flag),
                 ],
               )),
           ImageViewer(

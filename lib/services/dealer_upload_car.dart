@@ -42,7 +42,7 @@ class DealerUploadCar extends ChangeNotifier {
   int height = 100;
   int width = 100;
   String alloyWheels = "yes";
-  int driveTrain = 14;
+  String driveTrain = "";
   int gearBox = 11;
   int displacement = 20;
   int noOfCylinder = 4;
@@ -179,7 +179,7 @@ class DealerUploadCar extends ChangeNotifier {
     spareWheel = sparewheel;
   }
 
-  getDriveTrain({required int drivetrain}) {
+  getDriveTrain({required String drivetrain}) {
     driveTrain = drivetrain;
   }
 
@@ -563,6 +563,25 @@ class DealerUploadCar extends ChangeNotifier {
     if (data["success"] == true) {
       ScaffoldMessenger.of(context).showSnackBar(
           MySnackbar.showSnackBar(context, "Car uploaded successfully"));
+      showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+          title: const Text('Car uploaded successfully'),
+          content: const Text(
+              'Our team will verify the uploaded details and list the car for the buyers.'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DealerFlow(index: 1)),
+                (route) => false,
+              ),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(

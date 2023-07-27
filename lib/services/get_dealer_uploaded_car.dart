@@ -10,6 +10,7 @@ import 'package:http/http.dart' as http;
 class GetDealerUploadCars extends ChangeNotifier {
   List<BuyerCar> allCars = [];
   List<BuyerCar> filteredCars = [];
+  List<BuyerCar> searchCars = [];
 
   List<DealerTestDrive> dealerTestDrive = [];
   List<DealerTestDrive> filteredDealerTestDrive = [];
@@ -29,7 +30,7 @@ class GetDealerUploadCars extends ChangeNotifier {
     });
     var data = jsonDecode(response.body);
     List result = data["data"] as List;
-    print(result);
+
     allCars = [];
     result.forEach(
       (element) {
@@ -37,17 +38,20 @@ class GetDealerUploadCars extends ChangeNotifier {
       },
     );
     filteredCars = allCars;
+    searchCars = allCars;
     notifyListeners();
   }
 
   filterDealerCars({required String status}) {
     filteredCars = allCars;
+    print(status);
 
     filteredCars =
         allCars.where((element) => element.saleStatus == status).toList();
     if (status == "All Cars") {
       filteredCars = allCars;
     }
+    searchCars = filteredCars;
     notifyListeners();
   }
 
@@ -63,14 +67,16 @@ class GetDealerUploadCars extends ChangeNotifier {
       'Authorization': 'Bearer $token',
     });
     var data = jsonDecode(response.body);
-    List result = data["data"] as List;
+    if (data["data"] != null) {
+      List result = data["data"] as List;
 
-    result.forEach((element) {
-      dealerTestDrive.add(DealerTestDrive.fromJson(element));
-    });
-    filteredDealerTestDrive = dealerTestDrive;
-    notifyListeners();
-    print(filteredDealerTestDrive);
+      result.forEach((element) {
+        dealerTestDrive.add(DealerTestDrive.fromJson(element));
+      });
+      filteredDealerTestDrive = dealerTestDrive;
+      notifyListeners();
+      print(filteredDealerTestDrive);
+    }
   }
 
   filterTestDrive({required String filter}) {
@@ -89,6 +95,14 @@ class GetDealerUploadCars extends ChangeNotifier {
     if (filter == "All") {
       filteredDealerTestDrive = dealerTestDrive;
     }
+    notifyListeners();
+  }
+
+  searchDealerUploadCars({required String query}) {
+    searchCars = filteredCars;
+    searchCars = filteredCars
+        .where((element) => element.model.toLowerCase().contains(query))
+        .toList();
     notifyListeners();
   }
 }

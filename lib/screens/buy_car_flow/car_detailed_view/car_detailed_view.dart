@@ -78,7 +78,8 @@ class CarDetailedView extends StatelessWidget {
           Container(
               padding: const EdgeInsets.all(12),
               width: MediaQuery.of(context).size.width,
-              color: const Color.fromARGB(255, 240, 255, 249),
+              //color: const Color.fromARGB(255, 240, 255, 249),
+              decoration: BoxDecoration(gradient: AppColors.gradient),
               child: Row(
                 children: [
                   // GestureDetector(
@@ -105,12 +106,12 @@ class CarDetailedView extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const Spacer(),
-                  const Icon(Icons.share),
-                  const SizedBox(
-                    width: 12,
-                  ),
-                  const Icon(Icons.flag),
+                  // const Spacer(),
+                  // const Icon(Icons.share),
+                  // const SizedBox(
+                  //   width: 12,
+                  // ),
+                  // const Icon(Icons.flag),
                 ],
               )),
           ImageViewer(

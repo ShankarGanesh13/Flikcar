@@ -143,7 +143,7 @@ class StartScreen extends StatelessWidget {
       if (dealerStatus == "Pending") {
         return DealerDetails();
       }
-      if (dealerStatus == "Submitted") {
+      if (dealerStatus == "Complete") {
         return const DealerFlow(index: 0);
       }
       return const SizedBox();

@@ -143,7 +143,9 @@ class DealerOtpScreen extends StatelessWidget {
                   child: OtpTimerButton(
                     controller: resendOtpController,
                     onPressed: () {
-                      AuthService.sendOtp(phoneNumber: phoneNumber);
+                      DealerAuthService.sendOtp(
+                        phoneNumber: phoneNumber,
+                      );
                     },
                     text: Text(
                       'Resend OTP ',

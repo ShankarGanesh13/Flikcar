@@ -2,8 +2,6 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_auction_dealer_card.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_filter_screen/dealer_filter_screen.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -20,22 +18,32 @@ class DealerCarListScreen extends StatefulWidget {
 
 class _DealerCarListScreenState extends State<DealerCarListScreen> {
   @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<AuctionService>(context, listen: false).setAuctionCarList();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     List<AuctionCar> liveAuctionCars =
-        context.watch<AuctionService>().liveAuctionCars;
+        context.watch<AuctionService>().searchLiveAuctionCars;
     List<AuctionCar> upcomingAuctionCars =
-        context.watch<AuctionService>().upcomingAuctionCars;
+        context.watch<AuctionService>().searchUpcomingAuctionCars;
 
-    bool live = context.watch<DealerProvider>().live;
+    bool live = context.watch<AuctionService>().live;
     return Scaffold(
       appBar: CustomAppBar.getAppBarWithSearch(
         context: context,
         back: true,
         function: () {},
-        onchange: (value) {},
+        onchange: (value) {
+          Provider.of<AuctionService>(context, listen: false)
+              .searchAuctionCarList(query: value);
+        },
       ),
       body: SingleChildScrollView(
-        child: Column(children: [
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
             padding: const EdgeInsets.all(15.0),
             child: Row(
@@ -43,7 +51,7 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Provider.of<DealerProvider>(context, listen: false)
+                    Provider.of<AuctionService>(context, listen: false)
                         .changeSection(isLive: true);
                   },
                   child: menu(
@@ -62,7 +70,7 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Provider.of<DealerProvider>(context, listen: false)
+                    Provider.of<AuctionService>(context, listen: false)
                         .changeSection(isLive: false);
                   },
                   child: menu(
@@ -100,6 +108,26 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
                 // ),
               ],
             ),
+          ),
+          Row(
+            children: [
+              const SizedBox(
+                width: 12,
+              ),
+              Text(
+                live == true
+                    ? "${liveAuctionCars.length}"
+                    : "${upcomingAuctionCars.length}",
+                style: AppFonts.w700black14,
+              ),
+              Text(
+                " Flikcar Certified Cars Found",
+                style: AppFonts.w500black14,
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 12,
           ),
           live == true
               ? liveAuctionCars.isNotEmpty

@@ -12,6 +12,7 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DealerPhoneNumber extends StatelessWidget {
   DealerPhoneNumber({super.key});
@@ -90,17 +91,35 @@ class DealerPhoneNumber extends StatelessWidget {
                           "By logging in, I agree to ",
                           style: AppFonts.w500dark212,
                         ),
-                        Text(
-                          "terms ",
-                          style: AppFonts.w500green12,
+                        GestureDetector(
+                          onTap: () async {
+                            final Uri _url = Uri.parse(
+                                "https://www.flikcar.com/terms-conditions/");
+                            if (!await launchUrl(_url)) {
+                              throw Exception('Could not launch $_url');
+                            }
+                          },
+                          child: Text(
+                            "terms ",
+                            style: AppFonts.w500green12,
+                          ),
                         ),
                         Text(
                           "and",
                           style: AppFonts.w500dark212,
                         ),
-                        Text(
-                          " privacy policy",
-                          style: AppFonts.w500green12,
+                        GestureDetector(
+                          onTap: () async {
+                            final Uri _url = Uri.parse(
+                                "https://www.flikcar.com/privacy-policy/");
+                            if (!await launchUrl(_url)) {
+                              throw Exception('Could not launch $_url');
+                            }
+                          },
+                          child: Text(
+                            " privacy policy",
+                            style: AppFonts.w500green12,
+                          ),
                         )
                       ],
                     ),
@@ -113,7 +132,8 @@ class DealerPhoneNumber extends StatelessWidget {
                       function: () {
                         if (_formKey.currentState!.validate()) {
                           DealerAuthService.sendOtp(
-                              phoneNumber: controller.text);
+                            phoneNumber: controller.text,
+                          );
                           Navigator.push(
                               context,
                               MaterialPageRoute(

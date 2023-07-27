@@ -102,8 +102,10 @@ class BuyCarProvider extends ChangeNotifier {
       },
     );
     var body = jsonDecode(response.body);
+    print(body);
     var data = body["data"] as List;
     data.forEach((element) {
+      print(element);
       testDriveCars.add(
         CustomerTestDrive.fromJson(element),
       );

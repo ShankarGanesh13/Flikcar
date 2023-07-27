@@ -76,6 +76,7 @@ class _FilterAppliedState extends State<FilterApplied> {
                           textStyle: AppFonts.w500white14),
                     ),
                     const SizedBox(width: 20),
+                    /////////////////
                     SizedBox(
                       width: MediaQuery.of(context).size.width / 3,
                       child: PrimaryButton(
@@ -83,14 +84,15 @@ class _FilterAppliedState extends State<FilterApplied> {
                           backgroundColor: AppColors.p2,
                           borderColor: Colors.transparent,
                           function: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const CompareScreen(),
-                                ));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //       builder: (context) => const CompareScreen(car1: ,),
+                            //     ));
                           },
                           textStyle: AppFonts.w500white14),
                     ),
+                    //////////////////
                   ],
                 ),
               )

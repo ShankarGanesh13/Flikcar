@@ -8,6 +8,7 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PhoneNumber extends StatefulWidget {
   PhoneNumber({super.key});
@@ -60,8 +61,14 @@ class _PhoneNumberState extends State<PhoneNumber> {
                           errorBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          prefix: const Text("+91 - "),
-                          prefixStyle: AppFonts.w500black14,
+                          prefixIcon: Padding(
+                            padding: const EdgeInsets.only(
+                                top: 14.0, bottom: 12, left: 8),
+                            child: Text(
+                              "+91 - ",
+                              style: AppFonts.w500black14,
+                            ),
+                          ),
                           counterText: "",
                           counterStyle:
                               const TextStyle(color: Colors.transparent),
@@ -84,17 +91,35 @@ class _PhoneNumberState extends State<PhoneNumber> {
                           "By logging in, I agree to ",
                           style: AppFonts.w500dark212,
                         ),
-                        Text(
-                          "terms ",
-                          style: AppFonts.w500green12,
+                        GestureDetector(
+                          onTap: () async {
+                            final Uri _url = Uri.parse(
+                                "https://www.flikcar.com/terms-conditions/");
+                            if (!await launchUrl(_url)) {
+                              throw Exception('Could not launch $_url');
+                            }
+                          },
+                          child: Text(
+                            "terms ",
+                            style: AppFonts.w500green12,
+                          ),
                         ),
                         Text(
                           "and",
                           style: AppFonts.w500dark212,
                         ),
-                        Text(
-                          " privacy policy",
-                          style: AppFonts.w500green12,
+                        GestureDetector(
+                          onTap: () async {
+                            final Uri _url = Uri.parse(
+                                "https://www.flikcar.com/privacy-policy/");
+                            if (!await launchUrl(_url)) {
+                              throw Exception('Could not launch $_url');
+                            }
+                          },
+                          child: Text(
+                            " privacy policy",
+                            style: AppFonts.w500green12,
+                          ),
                         )
                       ],
                     ),

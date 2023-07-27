@@ -1,10 +1,9 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
-import 'package:flikcar/screens/account/sell_request/sell_request.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
-import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/services/dealer_auth_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DealerAccountScreen extends StatelessWidget {
   const DealerAccountScreen({super.key});
@@ -17,7 +16,9 @@ class DealerAccountScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             profileDetails(
-                title: "Flikcar", subtitle: "+91 9842129106", icon: Icons.edit),
+              title: "Your Phone Number",
+              subtitle: "+91 9842129106",
+            ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -33,14 +34,29 @@ class DealerAccountScreen extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const AccountSellRequest()));
+                openUrl(url: "", context: context);
               },
               child: profileDetails(
-                  title: "Help and Support",
-                  subtitle: "Need help? Chat with us.",
+                  title: "About Us",
+                  subtitle: "About the company",
+                  icon: Icons.chevron_right),
+            ),
+            GestureDetector(
+              onTap: () {
+                openUrl(url: "", context: context);
+              },
+              child: profileDetails(
+                  title: "Privacy Policy",
+                  subtitle: "View our privacy policy",
+                  icon: Icons.chevron_right),
+            ),
+            GestureDetector(
+              onTap: () {
+                openUrl(url: "", context: context);
+              },
+              child: profileDetails(
+                  title: "Terms and Conditions",
+                  subtitle: "View our terms and conditions",
                   icon: Icons.chevron_right),
             ),
             const SizedBox(
@@ -71,7 +87,7 @@ class DealerAccountScreen extends StatelessWidget {
   Widget profileDetails({
     required String title,
     required String subtitle,
-    required IconData icon,
+    IconData? icon,
   }) {
     return Column(
       children: [
@@ -95,10 +111,12 @@ class DealerAccountScreen extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              Icon(
-                icon,
-                weight: 700,
-              )
+              icon != null
+                  ? Icon(
+                      icon,
+                      weight: 700,
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),
@@ -108,5 +126,12 @@ class DealerAccountScreen extends StatelessWidget {
         )
       ],
     );
+  }
+
+  openUrl({required String url, required BuildContext context}) async {
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }

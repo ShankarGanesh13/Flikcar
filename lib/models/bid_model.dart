@@ -11,7 +11,7 @@ class BidModel {
   factory BidModel.fromJson(Map<String, dynamic> bid) {
     return BidModel(
         createdAt: bid["createdAt"].toString(),
-        dealerName: bid["dealer"]["name"],
+        dealerName: bid["dealer"]["name"].toString(),
         id: bid["id"].toString(),
         price: bid["price"].toString());
   }

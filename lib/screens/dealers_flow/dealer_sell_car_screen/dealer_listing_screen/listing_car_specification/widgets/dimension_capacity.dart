@@ -90,7 +90,7 @@ class DimensionCapacity extends StatelessWidget {
           ),
           SpecificationTextField(
             maxLength: 5,
-            title: "Front tyres",
+            title: "Front tyres size",
             controller: frontTyresController,
             keyboardType: TextInputType.number,
             onChanged: (value) {
@@ -101,7 +101,7 @@ class DimensionCapacity extends StatelessWidget {
           SpecificationTextField(
             maxLength: 5,
             controller: rearTyresController,
-            title: "Rear tyres",
+            title: "Rear tyres size",
             keyboardType: TextInputType.number,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)

@@ -72,7 +72,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                 height: 70,
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.all(15),
-                color: const Color.fromRGBO(237, 255, 238, 1),
+                decoration: BoxDecoration(gradient: AppColors.gradient),
                 child: Row(children: [
                   GestureDetector(
                     onTap: () {
@@ -128,7 +128,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
-                      hint: "430000",
+                      hint: "Eg. 430000",
                       maxlength: 8,
                       title: "Selling Price",
                       keyboardType: TextInputType.number,

@@ -15,14 +15,25 @@ class AuctionService extends ChangeNotifier {
   AuctionCar? updatedCarData;
   String bidAmount = "0";
   bool socketConnected = false;
-  IO.Socket socket = io('http://webservice.flikcar.com:8000',
+  bool live = true;
+
+  IO.Socket socket = io('https://webservice.flikcar.com:8000',
       OptionBuilder().setTransports(['websocket']).build());
   List<AuctionCar> auctionCars = [];
+  List<AuctionCar> myBidCars = [];
   List<AuctionCar> liveAuctionCars = [];
   List<AuctionCar> upcomingAuctionCars = [];
+  List<AuctionCar> searchLiveAuctionCars = [];
+  List<AuctionCar> searchUpcomingAuctionCars = [];
 
   getCurrentBidPrice(String currentBid) {
     currentbidPrice = currentBid;
+    notifyListeners();
+  }
+
+  changeSection({required bool isLive}) {
+    live = isLive;
+
     notifyListeners();
   }
 
@@ -38,6 +49,8 @@ class AuctionService extends ChangeNotifier {
         upcomingAuctionCars.add(element);
       }
     });
+    searchLiveAuctionCars = liveAuctionCars;
+    searchUpcomingAuctionCars = upcomingAuctionCars;
     notifyListeners();
   }
 
@@ -70,25 +83,40 @@ class AuctionService extends ChangeNotifier {
 
       updatedCarData = AuctionCar.fromJson2(data);
 
-      print("++++++++++++++++++++");
       print(updatedCarData);
       print(updatedCarData!.lastBid!.dealerName);
       print("++++++++++++++++++++");
       notifyListeners();
     });
 
-    socket.on("updateBid", (data) {
-      print(data);
+    socket.on("updateBidApp", (data) {
+      // print("auction cars $data");
       auctionCars = [];
       print("new bid price updated");
       var response = data as List;
       response.forEach((element) {
         print("this is the bid");
-        print(element["bid"]);
+        //  print(element["bid"]);
+
         print("current bid price  ${element["current_bid_price"]}");
         auctionCars.add(AuctionCar.fromJson(element));
       });
       filterData();
+      notifyListeners();
+    });
+    socket.on('getMyBidToken', (z) {
+      getMyBid();
+    });
+    socket.on('updateMyBidApp', (myBid) {
+      myBidCars = [];
+      myBid.forEach((element) {
+        print("this is the my bid data");
+        //  print(element["bid"]);
+        print("++++++++++++++++++++");
+        print(element["Vehicle"]["yourLastBid"]);
+        myBidCars.add(AuctionCar.fromJson(element["Vehicle"]));
+      });
+      print(myBidCars);
       notifyListeners();
     });
   }
@@ -127,11 +155,18 @@ class AuctionService extends ChangeNotifier {
     }
   }
 
+  getMyBid() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+
+    String? dealerToken = sp.getString('dealerToken');
+    socket.emit('listMyBid', dealerToken);
+  }
+
   getAuctionCars() {
     print("get auction cars called");
     socket.emit('listAuction');
 
-    notifyListeners();
+    //  notifyListeners();
   }
 
   clearAuctionCar() {
@@ -139,21 +174,20 @@ class AuctionService extends ChangeNotifier {
     notifyListeners();
   }
 
-  // filterList() {
-  //   auctionCars = LinkedHashSet<AuctionCar>.from(auctionCars).toList();
-  //   print("unique list$auctionCars");
-  //   print(auctionCars.map((user) => user.id).toList());
-
-  //   notifyListeners();
-  // }
-
   getBidPrice({required String currentPrice}) {
     bidAmount = currentPrice;
-    notifyListeners();
+    //  notifyListeners();
+  }
+
+  disconnectSocket() {
+    socket.disconnect();
+    print("socket disconnected");
   }
 
   increaseBidAmount() {
     bidAmount = (int.parse(bidAmount) + 500).toString();
+    print("increase bid called");
+    print(bidAmount);
     notifyListeners();
   }
 
@@ -163,4 +197,47 @@ class AuctionService extends ChangeNotifier {
     }
     notifyListeners();
   }
+
+  setAuctionCarList() {
+    searchLiveAuctionCars = liveAuctionCars;
+    searchUpcomingAuctionCars = upcomingAuctionCars;
+  }
+
+  searchAuctionCarList({required String query}) {
+    searchLiveAuctionCars = liveAuctionCars;
+    searchUpcomingAuctionCars = upcomingAuctionCars;
+    if (live == true) {
+      searchLiveAuctionCars = searchLiveAuctionCars
+          .where((element) =>
+              element.model.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    if (live == false) {
+      searchUpcomingAuctionCars = searchUpcomingAuctionCars
+          .where((element) =>
+              element.model.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+    }
+    notifyListeners();
+  }
 }
+// searchFunction(String query) {
+//     searchedCarList = allCars;
+//     searchedCarList = allCars
+//         .where((item) => item.model.toLowerCase().contains(query.toLowerCase()))
+//         .toList();
+//     notifyListeners();
+//   }
+/////////
+// const getMyBid = async () => {
+//     if (localStorage.getItem('token') && localStorage.getItem('role') === 'dealer') {
+//       socket.emit('listMyBid', localStorage.getItem('token'));
+//     }
+//   };
+//   socket.on('getMyBidToken', () => {
+//     socket.emit('listMyBid', localStorage.getItem('token'));
+//   });
+
+//   socket.on('updateMyBid', (myBid) => {
+//     setListMyBid(myBid);
+//   });

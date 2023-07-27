@@ -7,7 +7,7 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DealerCarDetails extends StatefulWidget {
+class DealerCarDetails extends StatelessWidget {
   final AuctionCar car;
   DealerCarDetails({super.key, required this.car});
   static List<String> icondata = [
@@ -19,31 +19,20 @@ class DealerCarDetails extends StatefulWidget {
     "assets/car_details_icon/transmisson.png"
   ];
 
-  @override
-  State<DealerCarDetails> createState() => _DealerCarDetailsState();
-}
-
-class _DealerCarDetailsState extends State<DealerCarDetails> {
   List<String> data = [];
-  @override
-  void initState() {
-    // Provider.of<AuctionService>(context, listen: false)
-    //     .getCurrentBidPrice(currentBid = widget.car.currentBidPrice);
-    // TODO: implement initState
-    super.initState();
-  }
 
   String currentBid = "0";
+
   @override
   Widget build(BuildContext context) {
     currentBid = context.watch<AuctionService>().currentbidPrice;
     data = [
       "City: Kolkata",
-      "Km Driven: ${widget.car.driveKms}",
-      "Owners: ${widget.car.ownertype}",
-      "Fuel Type: ${widget.car.fuel}",
-      "Engine: ${widget.car.engine}cc",
-      "Transmission: ${widget.car.transmission}"
+      "Km Driven: ${car.driveKms}",
+      "Owners: ${car.ownertype}",
+      "Fuel Type: ${car.fuel}",
+      "Engine: ${car.engine}cc",
+      "Transmission: ${car.transmission}"
     ];
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -54,7 +43,7 @@ class _DealerCarDetailsState extends State<DealerCarDetails> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Current Bid\n${widget.car.currentBidPrice} ₹",
+                "Current Bid\n${car.currentBidPrice} ₹",
                 style: AppFonts.w700black20,
               ),
               const Spacer(),
@@ -72,14 +61,11 @@ class _DealerCarDetailsState extends State<DealerCarDetails> {
             ],
           ),
           const SizedBox(height: 10),
-          TimerText2(
-            car: widget.car,
-            text: "Auction ends in :",
-          ),
+          checkTime(),
           const SizedBox(height: 10),
-          widget.car.lastBid != null
+          car.lastBid != null
               ? Text(
-                  "Last bid placed by ${widget.car.lastBid!.dealerName}",
+                  "Last bid placed by ${car.lastBid!.dealerName}",
                   style: AppFonts.w500green14,
                 )
               : Text(
@@ -88,7 +74,7 @@ class _DealerCarDetailsState extends State<DealerCarDetails> {
                 ),
           const SizedBox(height: 10),
           Text(
-            " Base Price ${widget.car.carPrice} ₹",
+            " Base Price ${car.carPrice} ₹",
             style: AppFonts.w500black14,
           ),
           const SizedBox(height: 20),
@@ -119,7 +105,7 @@ class _DealerCarDetailsState extends State<DealerCarDetails> {
                                   ),
                                 ),
                                 child: Image.asset(
-                                  DealerCarDetails.icondata[index],
+                                  icondata[index],
                                 )),
                             const SizedBox(
                               width: 6,
@@ -136,5 +122,19 @@ class _DealerCarDetailsState extends State<DealerCarDetails> {
         ],
       ),
     );
+  }
+
+  Widget checkTime() {
+    if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
+      return Text(
+        "Auction has ended",
+        style: AppFonts.w500red14,
+      );
+    } else {
+      return TimerText2(
+        text: "Auction ends in :\n",
+        car: car,
+      );
+    }
   }
 }

@@ -54,7 +54,7 @@ class GetBrandModelVarient {
   static Future<List<ColorModel>> getColors() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     Uri url =
-        Uri.parse('http://webservice.flikcar.com:8000/api/dealer/car/color');
+        Uri.parse('https://webservice.flikcar.com:8000/api/dealer/car/color');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -75,7 +75,7 @@ class GetBrandModelVarient {
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
     Uri url = Uri.parse(
-      'http://webservice.flikcar.com:8000/api/dealer/car/fuel-type',
+      'https://webservice.flikcar.com:8000/api/dealer/car/fuel-type',
     );
 
     String? dealerToken = sp.getString('dealerToken');

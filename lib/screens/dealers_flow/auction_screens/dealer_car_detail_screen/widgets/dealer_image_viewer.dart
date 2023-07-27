@@ -45,7 +45,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
             width: MediaQuery.of(context).size.width,
             child: Image.network(
               images.isNotEmpty
-                  ? 'http://webservice.flikcar.com:8000/public/${images[selectedIndex]}'
+                  ? 'https://webservice.flikcar.com:8000/public/${images[selectedIndex]}'
                   : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
               fit: BoxFit.cover,
             ),
@@ -84,7 +84,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
                         });
                       },
                       child: Image.network(
-                        'http://webservice.flikcar.com:8000/public/${images[index]}',
+                        'https://webservice.flikcar.com:8000/public/${images[index]}',
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -100,7 +100,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
     _imageProviders = [];
     widget.car.carImages.forEach((element) {
       _imageProviders.add(
-          Image.network("http://webservice.flikcar.com:8000/public/${element}")
+          Image.network("https://webservice.flikcar.com:8000/public/${element}")
               .image);
     });
   }

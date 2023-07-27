@@ -30,17 +30,17 @@ class EngineTransmisson extends StatelessWidget {
           ),
           SpecificationTextField(
             maxLength: 30,
-            title: "Drivetrain",
+            title: "Drivetrain (eg. front wheel drive)",
             controller: driveTrainController,
-            keyboardType: TextInputType.number,
+            keyboardType: TextInputType.text,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
-                  .getDriveTrain(drivetrain: int.parse(value));
+                  .getDriveTrain(drivetrain: value);
             },
           ),
           SpecificationTextField(
             maxLength: 30,
-            title: "Gear box",
+            title: "Number of gear",
             controller: gearboxController,
             keyboardType: TextInputType.number,
             onChanged: (value) {

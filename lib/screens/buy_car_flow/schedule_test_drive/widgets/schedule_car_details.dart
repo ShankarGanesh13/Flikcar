@@ -26,7 +26,7 @@ class ScheduleCarDetails extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
                 car.carImages.isNotEmpty
-                    ? "http://webservice.flikcar.com:8000/public/${car.carImages[0]}"
+                    ? "https://webservice.flikcar.com:8000/public/${car.carImages[0]}"
                     : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                 fit: BoxFit.cover,
               ),
