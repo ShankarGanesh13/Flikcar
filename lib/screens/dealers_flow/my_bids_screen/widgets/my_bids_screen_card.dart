@@ -21,7 +21,8 @@ class MyBidsScreenCard extends StatelessWidget {
       car.fuel,
       "${car.driveKms}kms",
       car.registrationYear,
-      car.transmission
+      car.transmission,
+      car.ownertype
     ];
     return GestureDetector(
       onTap: () {
@@ -97,7 +98,7 @@ class MyBidsScreenCard extends StatelessWidget {
                   Wrap(
                     spacing: 6,
                     children: List.generate(
-                      4,
+                      5,
                       (index) => Container(
                         padding: const EdgeInsets.only(
                             left: 0, right: 7, top: 5, bottom: 0),
@@ -119,12 +120,13 @@ class MyBidsScreenCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    car.currentBidPrice == "no data"
-                        ? "Curreny Bid ₹${car.carPrice}"
-                        : "Current Bid ₹${car.currentBidPrice}",
-                    style: AppFonts.w700black20,
-                  ),
+                  // Text(
+                  //   car.currentBidPrice == "no data"
+                  //       ? "Curreny Bid ₹${car.carPrice}"
+                  //       : "Current Bid ₹${car.currentBidPrice}",
+                  //   style: AppFonts.w700black20,
+                  // ),
+                  checkAuctionEnded(),
                   const SizedBox(height: 5),
                   Text(
                     "Base price ₹${car.carPrice}",
@@ -181,6 +183,22 @@ class MyBidsScreenCard extends StatelessWidget {
       return TimerText(
         text: "Auction ends in :\n",
         car: car,
+      );
+    }
+  }
+
+  Widget checkAuctionEnded() {
+    if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
+      return Text(
+        "Final Bid ₹${car.currentBidPrice}",
+        style: AppFonts.w700black20,
+      );
+    } else {
+      return Text(
+        car.currentBidPrice == "no data"
+            ? "Curreny Bid ₹${car.carPrice}"
+            : "Current Bid ₹${car.currentBidPrice}",
+        style: AppFonts.w700black20,
       );
     }
   }

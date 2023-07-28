@@ -12,75 +12,77 @@ class DealerAccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar.getAppBar(),
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            profileDetails(
-              title: "Your Phone Number",
-              subtitle: "+91 9842129106",
-            ),
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AccountTestDrive(),
-                    ));
-              },
-              child: profileDetails(
-                  title: "Wishlisted Vehicles",
-                  subtitle: "View your shortlisted vehicles",
-                  icon: Icons.chevron_right),
-            ),
-            GestureDetector(
-              onTap: () {
-                openUrl(url: "", context: context);
-              },
-              child: profileDetails(
-                  title: "About Us",
-                  subtitle: "About the company",
-                  icon: Icons.chevron_right),
-            ),
-            GestureDetector(
-              onTap: () {
-                openUrl(url: "", context: context);
-              },
-              child: profileDetails(
-                  title: "Privacy Policy",
-                  subtitle: "View our privacy policy",
-                  icon: Icons.chevron_right),
-            ),
-            GestureDetector(
-              onTap: () {
-                openUrl(url: "", context: context);
-              },
-              child: profileDetails(
-                  title: "Terms and Conditions",
-                  subtitle: "View our terms and conditions",
-                  icon: Icons.chevron_right),
-            ),
-            const SizedBox(
-              height: 20,
-            ),
-            GestureDetector(
-              onTap: () {
-                DealerAuthService.dealerLogout(context);
-              },
-              child: Row(
-                children: [
-                  const Spacer(),
-                  const Icon(
-                    Icons.logout,
-                    color: Colors.black,
-                  ),
-                  Text(
-                    "  Logout    ",
-                    style: AppFonts.w700black16,
-                  )
-                ],
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              profileDetails(
+                title: "Your Phone Number",
+                subtitle: "+91 9842129106",
               ),
-            )
-          ],
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //           builder: (context) => const AccountTestDrive(),
+              //         ));
+              //   },
+              //   child: profileDetails(
+              //       title: "Wishlisted Vehicles",
+              //       subtitle: "View your shortlisted vehicles",
+              //       icon: Icons.chevron_right),
+              // ),
+              GestureDetector(
+                onTap: () {
+                  openUrl(url: "", context: context);
+                },
+                child: profileDetails(
+                    title: "About Us",
+                    subtitle: "About the company",
+                    icon: Icons.chevron_right),
+              ),
+              GestureDetector(
+                onTap: () {
+                  openUrl(url: "", context: context);
+                },
+                child: profileDetails(
+                    title: "Privacy Policy",
+                    subtitle: "View our privacy policy",
+                    icon: Icons.chevron_right),
+              ),
+              GestureDetector(
+                onTap: () {
+                  openUrl(url: "", context: context);
+                },
+                child: profileDetails(
+                    title: "Terms and Conditions",
+                    subtitle: "View our terms and conditions",
+                    icon: Icons.chevron_right),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              GestureDetector(
+                onTap: () {
+                  DealerAuthService.dealerLogout(context);
+                },
+                child: Row(
+                  children: [
+                    const Spacer(),
+                    const Icon(
+                      Icons.logout,
+                      color: Colors.black,
+                    ),
+                    Text(
+                      "  Logout    ",
+                      style: AppFonts.w700black16,
+                    )
+                  ],
+                ),
+              )
+            ],
+          ),
         ));
   }
 

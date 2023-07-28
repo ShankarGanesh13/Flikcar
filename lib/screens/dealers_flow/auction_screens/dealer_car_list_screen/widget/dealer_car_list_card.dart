@@ -21,7 +21,8 @@ class DealerCarListCard extends StatelessWidget {
       car.fuel,
       "${car.driveKms}kms",
       car.registrationYear,
-      car.transmission
+      car.transmission,
+      car.ownertype
     ];
     return GestureDetector(
       onTap: () {
@@ -96,7 +97,7 @@ class DealerCarListCard extends StatelessWidget {
                   Wrap(
                     spacing: 6,
                     children: List.generate(
-                      4,
+                      5,
                       (index) => Container(
                         padding: const EdgeInsets.only(
                             left: 0, right: 7, top: 5, bottom: 0),

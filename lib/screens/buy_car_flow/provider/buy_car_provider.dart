@@ -8,6 +8,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class BuyCarProvider extends ChangeNotifier {
@@ -16,7 +17,7 @@ class BuyCarProvider extends ChangeNotifier {
   late String testDriveTimeSlot;
 
   bool compare = false;
-
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
   int testDriveCancellingReasonIndex = -1;
   int testDriveDateIndex = 0;
   int testDriveTimeSlotIndex = -1;
@@ -115,16 +116,18 @@ class BuyCarProvider extends ChangeNotifier {
   }
 
   customerUpcomingTestdrive() {
+    final String formatted = formatter.format(now);
     upcomingTestDriveCars = [];
     testDriveCars.forEach((element) {
       if (DateTime.parse(element.testDriveDate).isAfter(now) ||
-          DateTime.parse(element.testDriveDate) == (now)) {
+          DateTime.parse(element.testDriveDate) == DateTime.parse(formatted)) {
         upcomingTestDriveCars.add(element);
       }
     });
-    upcomingTestDriveCars.forEach((element) {
-      print(element.testDriveDate);
+    upcomingTestDriveCars.sort((a, b) {
+      return a.testDriveDate.compareTo(b.testDriveDate);
     });
+
     notifyListeners();
   }
 

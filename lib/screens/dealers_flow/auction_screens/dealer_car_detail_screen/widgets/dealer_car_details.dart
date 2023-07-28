@@ -42,10 +42,11 @@ class DealerCarDetails extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Current Bid\n${car.currentBidPrice} ₹",
-                style: AppFonts.w700black20,
-              ),
+              // Text(
+              //   "Current Bid\n${car.currentBidPrice} ₹",
+              //   style: AppFonts.w700black20,
+              // ),
+              checkAuctionEnded(),
               const Spacer(),
               Text(
                 "Inspection Score:",
@@ -134,6 +135,22 @@ class DealerCarDetails extends StatelessWidget {
       return TimerText2(
         text: "Auction ends in :\n",
         car: car,
+      );
+    }
+  }
+
+  Widget checkAuctionEnded() {
+    if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
+      return Text(
+        "Final Bid\n₹${car.currentBidPrice}",
+        style: AppFonts.w700black20,
+      );
+    } else {
+      return Text(
+        car.currentBidPrice == "no data"
+            ? "Curreny Bid\n₹${car.carPrice}"
+            : "Current Bid\n₹${car.currentBidPrice}",
+        style: AppFonts.w700black20,
       );
     }
   }
