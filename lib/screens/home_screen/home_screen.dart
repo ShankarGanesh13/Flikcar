@@ -24,7 +24,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
-    GetCarDetails.saveCarDetails();
+    Provider.of<GetCarDetails>(context, listen: false).getAllCars();
     // TODO: implement initState
     super.initState();
   }

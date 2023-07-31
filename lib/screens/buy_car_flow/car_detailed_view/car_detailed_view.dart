@@ -144,12 +144,12 @@ class CarDetailedView extends StatelessWidget {
                 textStyle: AppFonts.w500white14),
           ),
           const SizedBox(height: 20),
-          HomeScreenCard(
-              title: "Similar Cars You Might Like",
-              filters: [],
-              cars: GetCarDetails.getAllCarDetails(),
-              filterButton: false),
-          const SizedBox(height: 100),
+          // HomeScreenCard(
+          //     title: "Similar Cars You Might Like",
+          //     filters: [],
+          //     cars: GetCarDetails.getAllCarDetails(),
+          //     filterButton: false),
+          // const SizedBox(height: 100),
         ]),
       ),
     );

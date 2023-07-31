@@ -10,6 +10,7 @@ class DealerCarFeatures extends StatelessWidget {
   final AuctionCar car;
   const DealerCarFeatures({super.key, required this.car});
   static final List<String> features = [
+    "Comfort",
     "Safety",
     "Interior",
     "Exterior",
@@ -26,21 +27,22 @@ class DealerCarFeatures extends StatelessWidget {
           const SizedBox(
             height: 15,
           ),
-          ExpansionTileGroup(spaceBetweenItem: 0, children: questions()),
+          ExpansionTileGroup(spaceBetweenItem: 0, children: questions(context)),
         ],
       ),
     );
   }
 
-  List<ExpansionTileItem> questions() {
+  List<ExpansionTileItem> questions(context) {
     List<List> allFeatures = [
+      car.comfortDetails,
       car.safetyDetails,
       car.interiorDetails,
       car.exteriorDetails,
       car.entertainmentDetails
     ];
     return List.generate(
-      4,
+      features.length,
       (index) => ExpansionTileItem(
         collapsedBackgroundColor: Colors.white,
         backgroundColor: Colors.transparent,
@@ -79,7 +81,10 @@ class DealerCarFeatures extends StatelessWidget {
                 const SizedBox(
                   width: 5,
                 ),
-                Text(allFeatures[index][index2], style: AppFonts.w500dark214),
+                SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.3,
+                    child: Text(allFeatures[index][index2],
+                        style: AppFonts.w500dark214)),
               ],
             ),
           ),

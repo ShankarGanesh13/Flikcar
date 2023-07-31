@@ -66,7 +66,6 @@ class StartScreen extends StatelessWidget {
                   child: Column(children: [
                     GestureDetector(
                       onTap: () {
-                        GetCarDetails.saveCarDetails();
                         Navigator.push(
                           context,
                           MaterialPageRoute(

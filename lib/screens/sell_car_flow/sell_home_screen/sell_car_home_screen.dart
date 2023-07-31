@@ -16,7 +16,7 @@ class SellCarHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff9A2870),
+      backgroundColor: const Color(0xff171717),
       appBar: CustomAppBar.getAppBar(),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -44,8 +44,8 @@ class SellCarHomeScreen extends StatelessWidget {
                             begin: Alignment.topRight,
                             end: Alignment.bottomLeft,
                             colors: [
-                              const Color(0xff100049).withOpacity(0.8),
-                              const Color(0xffB70050).withOpacity(0.8)
+                              const Color(0xff171717).withOpacity(0.8),
+                              const Color(0xff171717).withOpacity(0.8)
                             ],
                           ),
                         ),
@@ -108,8 +108,11 @@ class SellCarHomeScreen extends StatelessWidget {
                         // ),
                         const SelectBrand(),
                         const SizedBox(height: 20),
-                        SecondaryButton(
-                          title: "Start",
+                        PrimaryButton(
+                          title: "Sell your car",
+                          backgroundColor: AppColors.s1,
+                          borderColor: Colors.transparent,
+                          textStyle: AppFonts.w500white14,
                           function: () {
                             Navigator.push(
                               context,

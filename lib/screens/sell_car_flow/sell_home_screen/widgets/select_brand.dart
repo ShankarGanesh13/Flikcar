@@ -14,7 +14,7 @@ class SelectBrand extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Heading1(title1: "Start with your car brand", title2: ""),
+        const Heading1(title1: "Our popular brands", title2: ""),
         const SizedBox(height: 15),
         FutureBuilder<List<BrandModelVarient>>(
             future: GetBrandModelVarient.getBrandModelVarientCust(),

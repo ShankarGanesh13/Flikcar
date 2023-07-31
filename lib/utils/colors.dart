@@ -10,6 +10,9 @@ class AppColors {
   static LinearGradient gradient = const LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
-    colors: [Color.fromRGBO(16, 0, 73, 0.10), Color.fromRGBO(183, 0, 80, 0.10)],
+    colors: [
+      Color.fromRGBO(22, 31, 49, 0.10),
+      Color.fromRGBO(69, 192, 141, 0.10)
+    ],
   );
 }

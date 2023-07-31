@@ -12,13 +12,13 @@ class FrequentQuestions extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topRight,
           end: Alignment.bottomLeft,
           colors: [
-            Color(0xff100049).withOpacity(0.1),
-            Color(0xffB70050).withOpacity(0.1)
+            Color.fromRGBO(22, 31, 49, 0.10),
+            Color.fromRGBO(69, 192, 141, 0.10)
           ],
         ),
       ),

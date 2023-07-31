@@ -91,6 +91,7 @@ class DealerAuthService {
     await sp.setBool('dealerIsLoggedIn', false);
     await sp.setString("dealerToken", "logged out");
     await sp.setString("dealerStatus", "logged out");
+    await sp.setString("dealerPhone", "");
     ScaffoldMessenger.of(context).showSnackBar(
         MySnackbar.showSnackBar(context, "Logged out successfully"));
     Navigator.push(

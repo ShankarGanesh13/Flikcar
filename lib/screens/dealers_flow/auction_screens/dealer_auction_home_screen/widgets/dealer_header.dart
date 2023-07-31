@@ -27,8 +27,8 @@ class DealerHeader extends StatelessWidget {
                   begin: Alignment.topRight,
                   end: Alignment.bottomLeft,
                   colors: [
-                    const Color(0xff100049).withOpacity(0.5),
-                    const Color(0xffB70050).withOpacity(0.5)
+                    const Color(0xff171717).withOpacity(0.6),
+                    const Color(0xff171717).withOpacity(0.6)
                   ],
                 ),
               ),

@@ -63,6 +63,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => DealerProvider()),
         ChangeNotifierProvider(create: (context) => CheckInternetProvider()),
         ChangeNotifierProvider(create: (context) => WishlistService()),
+        ChangeNotifierProvider(create: (context) => GetCarDetails()),
         ChangeNotifierProvider(create: (context) => SearchService()),
         ChangeNotifierProvider(create: (context) => AuctionService()),
         ChangeNotifierProvider(create: (context) => GetDealerUploadCars()),
@@ -118,3 +119,4 @@ class _MyAppState extends State<MyApp> {
     }
   }
 }
+//keytool -genkey -v -keystore %userprofile%\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload

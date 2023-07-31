@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/dealer_testdrive.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -104,5 +106,34 @@ class GetDealerUploadCars extends ChangeNotifier {
         .where((element) => element.model.toLowerCase().contains(query))
         .toList();
     notifyListeners();
+  }
+
+  markAsSold({required BuildContext context, required String carId}) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    Uri url = Uri.parse(
+        'https://webservice.flikcar.com:8000/api/dealer/car/mark-as-sold');
+    String? dealerToken = sp.getString('dealerToken');
+    var body = {
+      "carId": carId,
+    };
+    var response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": 'Bearer $dealerToken',
+      },
+      body: json.encode(body),
+    );
+    var data = json.decode(response.body);
+    if (data["status"] == 200) {
+      if (context.mounted) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const DealerFlow(index: 1)));
+        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+            context, "Car status changed successfully"));
+      }
+    }
   }
 }

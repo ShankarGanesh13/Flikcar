@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:file_picker/file_picker.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/features_model.dart';
@@ -561,8 +560,6 @@ class DealerUploadCar extends ChangeNotifier {
           context, "Something went wrong try again later"));
     }
     if (data["success"] == true) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          MySnackbar.showSnackBar(context, "Car uploaded successfully"));
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(

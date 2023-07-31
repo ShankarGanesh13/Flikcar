@@ -14,7 +14,7 @@ class SecondaryButton extends StatelessWidget {
       height: 27,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            backgroundColor: AppColors.p2,
+            backgroundColor: AppColors.s1,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
             ),

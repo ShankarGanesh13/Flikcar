@@ -6,10 +6,12 @@ import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listed_car_details_screen/dealer_listed_car_deatils_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/edit_dealer_uploaded_car/edit_dealer_uploaded_car.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/widgets/edit_listing_bottom_sheet.dart';
+import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class DealerListedCars extends StatelessWidget {
   final List<BuyerCar> cars;
@@ -136,15 +138,15 @@ class DealerListedCars extends StatelessWidget {
                                 width: 100,
                                 height: 30,
                                 child: PrimaryButton(
-                                    title: "Mark as Sold",
+                                    title: cars[index].saleStatus == "Available"
+                                        ? "Mark as Sold"
+                                        : "Mark Available",
                                     function: () {
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             EditDealerUploadedCar(
-                                      //               car: cars[index],
-                                      //             )));
+                                      Provider.of<GetDealerUploadCars>(context,
+                                              listen: false)
+                                          .markAsSold(
+                                              context: context,
+                                              carId: cars[index].id.toString());
                                     },
                                     borderColor: AppColors.s1,
                                     backgroundColor: Colors.white,

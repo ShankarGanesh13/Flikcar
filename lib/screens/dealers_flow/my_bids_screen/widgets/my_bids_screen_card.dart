@@ -83,12 +83,12 @@ class MyBidsScreenCard extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(car.model, style: AppFonts.w700s116),
-                        const Spacer(),
-                        FavoriteButton(
-                            iconColor: const Color(0xffE0E0E0),
-                            iconDisabledColor: const Color(0xffE0E0E0),
-                            iconSize: 24,
-                            valueChanged: () {})
+                        // const Spacer(),
+                        // FavoriteButton(
+                        //     iconColor: const Color(0xffE0E0E0),
+                        //     iconDisabledColor: const Color(0xffE0E0E0),
+                        //     iconSize: 24,
+                        //     valueChanged: () {})
                       ],
                     ),
                   ),

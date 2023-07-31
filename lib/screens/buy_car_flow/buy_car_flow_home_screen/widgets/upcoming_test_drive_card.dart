@@ -26,11 +26,11 @@ class UpcomingTestDriveCard extends StatelessWidget {
         ? Column(
             children: [
               const Padding(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.only(left: 15.0, right: 15, top: 15),
                 child: Heading1(title1: "Upcoming Test Drive", title2: ""),
               ),
               SizedBox(
-                height: 370,
+                height: 380,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: testdrive.length,
@@ -56,7 +56,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                           height: 361,
                           width: 268,
                           margin: const EdgeInsets.only(
-                              right: 15, bottom: 20, top: 5, left: 15),
+                              right: 15, bottom: 20, top: 15, left: 15),
                           decoration: BoxDecoration(
                             boxShadow: const [
                               BoxShadow(

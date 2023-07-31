@@ -63,11 +63,11 @@ class BookingCancelled extends StatelessWidget {
             ],
           ),
         ),
-        HomeScreenCard(
-            title: "Similar cars you may like",
-            filters: [],
-            cars: GetCarDetails.getAllCarDetails(),
-            filterButton: false)
+        // HomeScreenCard(
+        //     title: "Similar cars you may like",
+        //     filters: [],
+        //     cars: GetCarDetails.getAllCarDetails(),
+        //     filterButton: false)
       ]),
     );
   }

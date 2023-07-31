@@ -51,7 +51,7 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
           back: false),
       body: SingleChildScrollView(
         child: SizedBox(
-          height: (800 + (auctionCars.length * 400)).toDouble(),
+          height: (800 + (auctionCars.length * 410)).toDouble(),
           child: Stack(
             children: [
               const DealerHeader(),

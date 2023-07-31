@@ -3,6 +3,7 @@ import 'package:flikcar/screens/account/test_drive/test_drive.dart';
 import 'package:flikcar/services/dealer_auth_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DealerAccountScreen extends StatelessWidget {
@@ -16,10 +17,22 @@ class DealerAccountScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              profileDetails(
-                title: "Your Phone Number",
-                subtitle: "+91 9842129106",
-              ),
+              FutureBuilder(
+                  future: getDealerPhone(),
+                  builder: (context, snapshot) {
+                    if (snapshot.data != null) {
+                      return profileDetails(
+                        title: "Your Phone Number",
+                        subtitle: "+91 ${snapshot.data}",
+                      );
+                    } else {
+                      return profileDetails(
+                        title: "Your Phone Number",
+                        subtitle: "+91 987461230",
+                      );
+                    }
+                  }),
+
               // GestureDetector(
               //   onTap: () {
               //     Navigator.push(
@@ -35,7 +48,9 @@ class DealerAccountScreen extends StatelessWidget {
               // ),
               GestureDetector(
                 onTap: () {
-                  openUrl(url: "", context: context);
+                  openUrl(
+                      url: "https://www.flikcar.com/about-us/",
+                      context: context);
                 },
                 child: profileDetails(
                     title: "About Us",
@@ -44,7 +59,9 @@ class DealerAccountScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  openUrl(url: "", context: context);
+                  openUrl(
+                      url: "https://www.flikcar.com/privacy-policy/",
+                      context: context);
                 },
                 child: profileDetails(
                     title: "Privacy Policy",
@@ -53,7 +70,9 @@ class DealerAccountScreen extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  openUrl(url: "", context: context);
+                  openUrl(
+                      url: "https://www.flikcar.com/terms-conditions/",
+                      context: context);
                 },
                 child: profileDetails(
                     title: "Terms and Conditions",
@@ -135,5 +154,12 @@ class DealerAccountScreen extends StatelessWidget {
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  Future<String> getDealerPhone() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    final String? phone = sp.getString('dealerPhone');
+
+    return phone!;
   }
 }

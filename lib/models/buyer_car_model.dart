@@ -1,11 +1,7 @@
 import 'package:isar/isar.dart';
 
-part "buyer_car_model.g.dart";
-
-@collection
 class BuyerCar {
-  @Index(unique: true, replace: true)
-  Id id;
+  int id;
   String carName;
   String carDescription;
   String mileage;

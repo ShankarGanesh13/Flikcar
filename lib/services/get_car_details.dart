@@ -1,36 +1,20 @@
 import 'dart:convert';
 
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-class GetCarDetails {
-  static late Future<Isar> localDB;
+class GetCarDetails extends ChangeNotifier {
+  List<BuyerCar> allCars = [];
+  List<BuyerCar> fuelFilter = [];
+  List<BuyerCar> transmissonFilter = [];
+  List<BuyerCar> bodyTypeFilter = [];
 
-  GetCarDetails() {
-    localDB = openIsar();
-  }
-
-  Future<Isar> openIsar() async {
-    if (Isar.instanceNames.isEmpty) {
-      final dir = await getApplicationDocumentsDirectory();
-      return await Isar.open(
-        [
-          BuyerCarSchema,
-        ],
-        directory: dir.path,
-        inspector: true,
-      );
-    }
-    print("ISAR initialised");
-    return Future.value(Isar.getInstance());
-  }
-
-  static saveCarDetails() async {
-    final isar = await localDB;
-
+  getAllCars() async {
+    allCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
@@ -45,22 +29,33 @@ class GetCarDetails {
     var data = jsonDecode(response.body);
     List result = data["data"] as List;
 
-    result.forEach((e) async {
-      await isar.writeTxn(() async {
-        await isar.buyerCars.put(BuyerCar.fromJson(e));
-      });
+    result.forEach((e) {
+      allCars.add(BuyerCar.fromJson(e));
     });
+    notifyListeners();
     print("car details saved");
   }
 
-  static Future<List<BuyerCar>> getAllCarDetails() async {
-    final isar = await localDB;
-    final allCars = await isar.buyerCars.where().findAll();
-    return allCars;
+  filterByFuelType({required String filter}) {
+    fuelFilter = allCars
+        .where((element) => element.fuel.toLowerCase() == filter.toLowerCase())
+        .toList();
+    notifyListeners();
   }
 
-  isarClean() async {
-    final isar = await localDB;
-    await isar.clear();
+  filterByBodyType({required String filter}) {
+    bodyTypeFilter = allCars
+        .where(
+            (element) => element.bodytype.toLowerCase() == filter.toLowerCase())
+        .toList();
+    notifyListeners();
+  }
+
+  filterByTransmissonType({required String filter}) {
+    transmissonFilter = allCars
+        .where((element) =>
+            element.transmission.toLowerCase() == filter.toLowerCase())
+        .toList();
+    notifyListeners();
   }
 }

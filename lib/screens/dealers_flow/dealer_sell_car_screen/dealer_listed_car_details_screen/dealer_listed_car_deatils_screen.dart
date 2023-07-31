@@ -10,9 +10,11 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifica
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listed_car_details_screen/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/edit_dealer_uploaded_car/edit_dealer_uploaded_car.dart';
+import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DealerListedCarDetailsScreen extends StatelessWidget {
   final BuyerCar car;
@@ -60,12 +62,14 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
             icon: Icons.check,
             title: "Mark as Sold",
             function: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => EditDealerUploadedCar(
-                            car: car,
-                          )));
+              Provider.of<GetDealerUploadCars>(context, listen: false)
+                  .markAsSold(context: context, carId: car.id.toString());
+              // Navigator.push(
+              //     context,
+              //     MaterialPageRoute(
+              //         builder: (context) => EditDealerUploadedCar(
+              //               car: car,
+              //             )));
             },
           )
         ]),

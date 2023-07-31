@@ -31,8 +31,9 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    List<BuyerCar> allCars = context.watch<GetCarDetails>().allCars;
     return Scaffold(
-      backgroundColor: AppColors.p1,
+      backgroundColor: const Color(0xff171717),
       appBar: CustomAppBar.getAppBarWithContainerSearch(
           back: false,
           context: context,
@@ -61,8 +62,8 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                       begin: Alignment.topRight,
                       end: Alignment.bottomLeft,
                       colors: [
-                        const Color(0xff100049).withOpacity(0.4),
-                        const Color(0xffB70050).withOpacity(0.8)
+                        const Color(0xff171717).withOpacity(0.8),
+                        const Color(0xff171717).withOpacity(0.8)
                       ],
                     ),
                   ),
@@ -116,7 +117,7 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                             MaterialPageRoute(
                                 builder: (context) => const FilterApplied()));
                       },
-                      backgroundColor: AppColors.p2,
+                      backgroundColor: AppColors.s1,
                       borderColor: Colors.transparent,
                       textStyle: AppFonts.w500white14,
                     ),
@@ -125,19 +126,12 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                 ),
                 UpcomingTestDriveCard(),
                 const SizedBox(height: 20),
-                // HomeScreenCard(
-                //   title: "Featured Cars",
-                //   filterButton: false,
-                //   filters: [],
-                //   cars: GetCarDetails.getAllCarDetails(),
-                // ),
                 HomeScreenCard(
                   title: "Cars by body type",
                   filterButton: true,
                   filters: const ["Hatchback", "Sedan", "SUV", "MUV"],
-                  cars: GetCarDetails.getAllCarDetails(),
+                  cars: allCars,
                 ),
-
                 Image.asset(
                   "assets/confused_banner.png",
                   fit: BoxFit.fill,
@@ -154,10 +148,8 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                     "Petrol",
                     "Diesel",
                     "Electric",
-                    "CNG",
-                    "CNG+Petrol"
                   ],
-                  cars: GetCarDetails.getAllCarDetails(),
+                  cars: allCars,
                 ),
                 HomeScreenCard(
                   title: "Cars by transmisson",
@@ -166,20 +158,8 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                     "Manual",
                     "Automatic",
                   ],
-                  cars: GetCarDetails.getAllCarDetails(),
+                  cars: allCars,
                 ),
-                // HomeScreenCard(
-                //   title: "Cars by year",
-                //   filterButton: true,
-                //   filters: const [
-                //     "2012 & above",
-                //     "2014 & above",
-                //     "2016 & above",
-                //     "2018 & above",
-                //     "2020 & above"
-                //   ],
-                //   cars: GetCarDetails.getAllCarDetails(),
-                // ),
                 BuyerTestimonials(),
                 FrequentQuestions(),
               ],
