@@ -50,6 +50,7 @@ class DealerAuthService {
       await sp.setString("dealerPhone", phoneNumber);
 
       await sp.setString('dealerStatus', data["data"]["profileStatus"]);
+      print("|||||||||||||||||||||||||");
       print("dealer profile status ${data["data"]["profileStatus"]}");
       if (context.mounted) {
         if (data["data"]["profileStatus"] == "Submitted" ||
@@ -91,6 +92,7 @@ class DealerAuthService {
     await sp.setBool('dealerIsLoggedIn', false);
     await sp.setString("dealerToken", "logged out");
     await sp.setString("dealerStatus", "logged out");
+    await sp.setString("profileStatus", "");
     await sp.setString("dealerPhone", "");
     ScaffoldMessenger.of(context).showSnackBar(
         MySnackbar.showSnackBar(context, "Logged out successfully"));

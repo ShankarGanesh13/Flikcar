@@ -272,6 +272,7 @@ class SearchService extends ChangeNotifier {
     kmsDrivenFilter = [];
     budgetFilter = [];
     appliedFilters = [];
+    getBrandAndModels();
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
     var url =

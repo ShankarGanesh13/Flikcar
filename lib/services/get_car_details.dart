@@ -12,6 +12,9 @@ class GetCarDetails extends ChangeNotifier {
   List<BuyerCar> fuelFilter = [];
   List<BuyerCar> transmissonFilter = [];
   List<BuyerCar> bodyTypeFilter = [];
+  int fuelIndex = -1;
+  int transmissonIndex = -1;
+  int bodyIndex = -1;
 
   getAllCars() async {
     allCars = [];
@@ -36,26 +39,67 @@ class GetCarDetails extends ChangeNotifier {
     print("car details saved");
   }
 
-  filterByFuelType({required String filter}) {
-    fuelFilter = allCars
-        .where((element) => element.fuel.toLowerCase() == filter.toLowerCase())
-        .toList();
-    notifyListeners();
-  }
-
-  filterByBodyType({required String filter}) {
-    bodyTypeFilter = allCars
-        .where(
-            (element) => element.bodytype.toLowerCase() == filter.toLowerCase())
-        .toList();
-    notifyListeners();
-  }
-
-  filterByTransmissonType({required String filter}) {
-    transmissonFilter = allCars
-        .where((element) =>
-            element.transmission.toLowerCase() == filter.toLowerCase())
-        .toList();
-    notifyListeners();
+  filterCars(
+      {required String filterType,
+      required String filter,
+      required int index}) {
+    switch (filterType) {
+      case "fuel":
+        {
+          print("fuel");
+          print(filter);
+          fuelFilter = allCars
+              .where((element) =>
+                  element.fuel.toLowerCase() == filter.toLowerCase())
+              .toList();
+          fuelIndex = index;
+          notifyListeners();
+        }
+      case "transmisson":
+        {
+          print("transmisson");
+          print(filter);
+          transmissonFilter = allCars
+              .where((element) =>
+                  element.transmission.toLowerCase() == filter.toLowerCase())
+              .toList();
+          print(transmissonFilter);
+          transmissonIndex = index;
+          notifyListeners();
+        }
+      case "bodyType":
+        {
+          print("bodyType");
+          print(filter);
+          bodyTypeFilter = allCars
+              .where((element) =>
+                  element.bodytype.toLowerCase() == filter.toLowerCase())
+              .toList();
+          bodyIndex = index;
+          notifyListeners();
+        }
+      case "all":
+        {
+          print("all");
+          print(filter);
+          bodyIndex = -1;
+          fuelIndex = -1;
+          transmissonIndex = -1;
+          bodyTypeFilter = allCars;
+          fuelFilter = allCars
+              .where(
+                  (element) => element.transmission.toLowerCase() == "manual")
+              .toList();
+          transmissonFilter = allCars;
+          // bodyTypeFilter.shuffle();
+          // fuelFilter.shuffle();
+        }
+      default:
+        {
+          print("Invalid choice");
+          print(filter);
+        }
+        break;
+    }
   }
 }

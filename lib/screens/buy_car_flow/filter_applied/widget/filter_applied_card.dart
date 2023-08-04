@@ -92,9 +92,20 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                       ),
                     ],
                   ),
-                  Text(
-                    widget.car.brand,
-                    style: AppFonts.w500dark214,
+                  Row(
+                    children: [
+                      SizedBox(
+                          width: MediaQuery.of(context).size.width / 3.2,
+                          child: Text(widget.car.brand,
+                              style: AppFonts.w500dark214)),
+                      Text(
+                        widget.car.saleStatus,
+                        style:
+                            (widget.car.saleStatus).toLowerCase() == "available"
+                                ? AppFonts.w500green12
+                                : AppFonts.w500red12,
+                      )
+                    ],
                   ),
                   const SizedBox(height: 5),
                   Wrap(

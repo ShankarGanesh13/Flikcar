@@ -4,7 +4,12 @@ import 'package:flutter/material.dart';
 class MyTextField extends StatelessWidget {
   final String hint;
   final int maxlength;
-  const MyTextField({super.key, required this.hint, required this.maxlength});
+
+  const MyTextField({
+    super.key,
+    required this.hint,
+    required this.maxlength,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,7 @@ class MyTextField extends StatelessWidget {
               prefixIcon: const Icon(Icons.search),
             ),
             maxLength: maxlength,
+            onChanged: (value) {},
           ),
         ),
         const SizedBox(

@@ -26,12 +26,22 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
   void initState() {
     // TODO: implement initState
     Provider.of<BuyCarProvider>(context, listen: false).getCustomerTestdrive();
+    Provider.of<GetCarDetails>(context, listen: false)
+        .filterCars(filterType: "all", filter: "all", index: 0);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<BuyerCar> allCars = context.watch<GetCarDetails>().allCars;
+    // List<BuyerCar> allCars = context.watch<GetCarDetails>().allCars;
+    List<BuyerCar> fuelCars = context.watch<GetCarDetails>().fuelFilter;
+    List<BuyerCar> transmissonCars =
+        context.watch<GetCarDetails>().transmissonFilter..shuffle();
+    List<BuyerCar> bodytypeCars = context.watch<GetCarDetails>().bodyTypeFilter;
+    int fuelIndex = context.watch<GetCarDetails>().fuelIndex;
+    int transmissonIndex = context.watch<GetCarDetails>().transmissonIndex;
+    int bodyIndex = context.watch<GetCarDetails>().bodyIndex;
+
     return Scaffold(
       backgroundColor: const Color(0xff171717),
       appBar: CustomAppBar.getAppBarWithContainerSearch(
@@ -73,6 +83,7 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                 top: 30,
                 left: 15,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       "Buy car at\nthe best price",
@@ -82,7 +93,7 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                           fontWeight: FontWeight.w700),
                     ),
                     Text(
-                      "Lorem ipsum dolor sit amet,\nconsectetur adipiscing elit. Nulla .",
+                      "Find your perfect match on Flikcar. We have \na wide range of fully inspected and certified\nused cars at the best prices.",
                       style: TextStyle(
                           color: Colors.white,
                           fontSize: 14,
@@ -130,7 +141,9 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                   title: "Cars by body type",
                   filterButton: true,
                   filters: const ["Hatchback", "Sedan", "SUV", "MUV"],
-                  cars: allCars,
+                  filter: "bodyType",
+                  cars: bodytypeCars,
+                  selectedindex: bodyIndex,
                 ),
                 Image.asset(
                   "assets/confused_banner.png",
@@ -144,21 +157,25 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                 HomeScreenCard(
                   title: "Cars by fuel type",
                   filterButton: true,
+                  filter: "fuel",
                   filters: const [
                     "Petrol",
                     "Diesel",
                     "Electric",
                   ],
-                  cars: allCars,
+                  selectedindex: fuelIndex,
+                  cars: fuelCars,
                 ),
                 HomeScreenCard(
                   title: "Cars by transmisson",
                   filterButton: true,
+                  filter: "transmisson",
                   filters: const [
                     "Manual",
                     "Automatic",
                   ],
-                  cars: allCars,
+                  selectedindex: transmissonIndex,
+                  cars: transmissonCars,
                 ),
                 BuyerTestimonials(),
                 FrequentQuestions(),

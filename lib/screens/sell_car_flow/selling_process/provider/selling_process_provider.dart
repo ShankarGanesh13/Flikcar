@@ -111,7 +111,7 @@ class SellingProcessProvider extends ChangeNotifier {
             notifyListeners();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please select your car brand"));
+                context, "Please select your car model"));
           }
           print("nc2");
         }
@@ -149,10 +149,12 @@ class SellingProcessProvider extends ChangeNotifier {
     switch (counter) {
       case 1:
         {
-          Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const HomeScreen(index: 1)));
+          print("previous step called");
+          // Navigator.push(
+          //     context,
+          //     MaterialPageRoute(
+          //         builder: (context) => const HomeScreen(index: 1)));
+          Navigator.pop(context);
           print("pc1");
           list = ["", "", "", "", "", "", "", "", "", ""];
           modelIndex = -1;

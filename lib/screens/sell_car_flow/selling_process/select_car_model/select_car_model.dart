@@ -27,11 +27,11 @@ class SelectCarModel extends StatelessWidget {
           children: [
             const Heading1(title1: "Select the car Model", title2: ""),
             const SizedBox(height: 15),
-            Text(
-              "Popular Models",
-              style: AppFonts.w500dark214,
-            ),
-            const SizedBox(height: 10),
+            // Text(
+            //   "Popular Models",
+            //   style: AppFonts.w500dark214,
+            // ),
+            //   const SizedBox(height: 10),
             Wrap(
               spacing: 20,
               runSpacing: 15,

@@ -103,16 +103,18 @@ class BuyCarProvider extends ChangeNotifier {
       },
     );
     var body = jsonDecode(response.body);
-    print(body);
-    var data = body["data"] as List;
-    data.forEach((element) {
-      print(element);
-      testDriveCars.add(
-        CustomerTestDrive.fromJson(element),
-      );
-    });
+    //  print(body);
+    if (body["data"] != null) {
+      var data = body["data"] as List;
+      data.forEach((element) {
+        //   print(element);
+        testDriveCars.add(
+          CustomerTestDrive.fromJson(element),
+        );
+      });
+    }
     customerUpcomingTestdrive();
-    print(testDriveCars);
+    // print(testDriveCars);
   }
 
   customerUpcomingTestdrive() {
@@ -153,7 +155,7 @@ class BuyCarProvider extends ChangeNotifier {
         }
       });
     }
-    print(filterTestDriveCars);
+    // print(filterTestDriveCars);
     notifyListeners();
   }
 }

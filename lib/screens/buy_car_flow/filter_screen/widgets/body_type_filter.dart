@@ -13,6 +13,7 @@ class BodyTypeFilter extends StatefulWidget {
 }
 
 class _BodyTypeFilterState extends State<BodyTypeFilter> {
+  @override
   int selectedIndex = -1;
   @override
   Widget build(BuildContext context) {

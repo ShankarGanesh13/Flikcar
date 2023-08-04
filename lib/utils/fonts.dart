@@ -35,6 +35,12 @@ class AppFonts {
     color: const Color(0xff45C08D),
     height: 1.2,
   );
+  static final w500red12 = getAppFont(
+    fontWeight: FontWeight.w500,
+    fontSize: 12,
+    color: const Color(0xffFF0000),
+    height: 1.2,
+  );
   static final w500dark212 = getAppFont(
     fontWeight: FontWeight.w500,
     fontSize: 12,

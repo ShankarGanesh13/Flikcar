@@ -28,7 +28,9 @@ class SelectBrand extends StatelessWidget {
                   crossAxisSpacing: 30,
                   childAspectRatio: 1.9 / 1.3,
                   physics: const NeverScrollableScrollPhysics(),
-                  children: List.generate(snaphot.data!.length, (index) {
+                  children: List.generate(
+                      snaphot.data!.length < 9 ? snaphot.data!.length : 9,
+                      (index) {
                     print(snaphot.data![index].image);
 
                     return Container(
