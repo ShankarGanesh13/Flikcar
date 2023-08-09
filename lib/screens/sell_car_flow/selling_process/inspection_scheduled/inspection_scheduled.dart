@@ -14,7 +14,7 @@ class InspectionScheduled extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar.getAppBar(),
-      bottomNavigationBar: const CustomBottomNav(),
+      bottomNavigationBar: const SafeArea(child: CustomBottomNav()),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

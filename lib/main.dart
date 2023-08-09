@@ -33,6 +33,7 @@ import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_p
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
+import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
@@ -47,12 +48,17 @@ import 'package:path_provider/path_provider.dart';
 import 'screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/listing_car_features.dart';
 import 'screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:facebook_app_events/facebook_app_events.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await FastCachedImageConfig.init(clearCacheAfter: const Duration(days: 15));
-  GetCarDetails();
+  FacebookAppEvents();
 
+  await Firebase.initializeApp();
+  FacebookEvents();
+  GetCarDetails();
   runApp(
     MultiProvider(
       providers: [
@@ -77,7 +83,7 @@ void main() async {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
           useMaterial3: true,
         ),
-        home: const StartScreen(),
+        home: StartScreen(),
       ),
     ),
   );

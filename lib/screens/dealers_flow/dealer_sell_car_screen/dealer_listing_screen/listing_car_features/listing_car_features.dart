@@ -54,30 +54,32 @@ class _ListingCarFaturesState extends State<ListingCarFatures> {
     int selectedIndex = context.watch<DealerUploadCar>().featuresIndex;
     return Scaffold(
         appBar: CustomAppBar.getAppBar(),
-        bottomNavigationBar: Container(
-          height: 55,
-          width: MediaQuery.of(context).size.width,
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 8),
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.25),
-              offset: Offset(0, -10),
-              blurRadius: 18,
-            )
-          ]),
-          child: PrimaryButton(
-              backgroundColor: AppColors.s1,
-              borderColor: Colors.transparent,
-              function: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const ListingCarImages(),
-                    ));
-              },
-              textStyle: AppFonts.w500white14,
-              title: "Next"),
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            height: 55,
+            width: MediaQuery.of(context).size.width,
+            padding:
+                const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 8),
+            decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.25),
+                offset: Offset(0, -10),
+                blurRadius: 18,
+              )
+            ]),
+            child: PrimaryButton(
+                backgroundColor: AppColors.s1,
+                borderColor: Colors.transparent,
+                function: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ListingCarImages(),
+                      ));
+                },
+                textStyle: AppFonts.w500white14,
+                title: "Next"),
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(

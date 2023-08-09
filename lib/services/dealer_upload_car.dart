@@ -5,6 +5,8 @@ import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/features_model.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -568,12 +570,17 @@ class DealerUploadCar extends ChangeNotifier {
               'Our team will verify the uploaded details and list the car for the buyers.'),
           actions: <Widget>[
             TextButton(
-              onPressed: () => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const DealerFlow(index: 1)),
-                (route) => false,
-              ),
+              onPressed: () {
+                FirebaseEvents().dealerUploadCar(dealerNumber: "dealer number");
+                FacebookEvents().dealerUploadCar(dealerNumber: "dealer number");
+
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const DealerFlow(index: 1)),
+                  (route) => false,
+                );
+              },
               child: const Text('OK'),
             ),
           ],

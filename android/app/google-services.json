@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "859756564205",
+    "project_id": "flikcar-mobile",
+    "storage_bucket": "flikcar-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:859756564205:android:709403e6bb246240a186e4",
+        "android_client_info": {
+          "package_name": "com.flikcar.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "859756564205-0k2vi5iqemvdmj3uebvumi12jdutap6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRWP8RmA9NWXsgs74wGO6hQdpPFD7NMJU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "859756564205-0k2vi5iqemvdmj3uebvumi12jdutap6r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

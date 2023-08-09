@@ -19,32 +19,35 @@ class ListingCarImages extends StatelessWidget {
     List<File> images = context.watch<DealerUploadCar>().fileToDisplay;
     return Scaffold(
       appBar: CustomAppBar.getAppBar(),
-      bottomNavigationBar: Container(
-        height: 55,
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 8),
-        decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-          BoxShadow(
-            color: Color.fromRGBO(0, 0, 0, 0.25),
-            offset: Offset(0, -10),
-            blurRadius: 18,
-          )
-        ]),
-        child: PrimaryButton(
-            backgroundColor: AppColors.s1,
-            borderColor: Colors.transparent,
-            function: () {
-              if (images.length < 5) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                    MySnackbar.showSnackBar(
-                        context, "Please upload atleast 5 images"));
-              } else {
-                Provider.of<DealerUploadCar>(context, listen: false)
-                    .uploadCar(context);
-              }
-            },
-            textStyle: AppFonts.w500white14,
-            title: "Upload Car"),
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          height: 55,
+          width: MediaQuery.of(context).size.width,
+          padding:
+              const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 8),
+          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.25),
+              offset: Offset(0, -10),
+              blurRadius: 18,
+            )
+          ]),
+          child: PrimaryButton(
+              backgroundColor: AppColors.s1,
+              borderColor: Colors.transparent,
+              function: () {
+                if (images.length < 5) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      MySnackbar.showSnackBar(
+                          context, "Please upload atleast 5 images"));
+                } else {
+                  Provider.of<DealerUploadCar>(context, listen: false)
+                      .uploadCar(context);
+                }
+              },
+              textStyle: AppFonts.w500white14,
+              title: "Upload Car"),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(

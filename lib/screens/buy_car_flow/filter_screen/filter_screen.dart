@@ -52,50 +52,52 @@ class _FilterScreenState extends State<FilterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar.getAppBar(),
-        bottomNavigationBar: Container(
-          height: 60,
-          decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.25),
-              offset: Offset(-1, 12),
-              blurRadius: 15,
-              spreadRadius: 15,
-            ),
-          ]),
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              // Column(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   crossAxisAlignment: CrossAxisAlignment.start,
-              //   children: [
-              //     Text(
-              //       "130",
-              //       style: AppFonts.w700black16,
-              //     ),
-              //     Text(
-              //       "cars found",
-              //       style: AppFonts.w500dark214,
-              //     )
-              //   ],
-              // ),
-              //  const Spacer(),
-              SizedBox(
-                width: 150,
-                child: PrimaryButton(
-                    title: "Show Result",
-                    function: () {
-                      Provider.of<SearchService>(context, listen: false)
-                          .showFilterResult();
-                      Provider.of<SearchService>(context, listen: false)
-                          .getAppliedFilters();
-                      Navigator.pop(context);
-                    },
-                    borderColor: Colors.transparent,
-                    backgroundColor: AppColors.p2,
-                    textStyle: AppFonts.w500white14),
-              )
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            height: 60,
+            decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+              BoxShadow(
+                color: Color.fromRGBO(0, 0, 0, 0.25),
+                offset: Offset(-1, 12),
+                blurRadius: 15,
+                spreadRadius: 15,
+              ),
             ]),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                // Column(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   crossAxisAlignment: CrossAxisAlignment.start,
+                //   children: [
+                //     Text(
+                //       "130",
+                //       style: AppFonts.w700black16,
+                //     ),
+                //     Text(
+                //       "cars found",
+                //       style: AppFonts.w500dark214,
+                //     )
+                //   ],
+                // ),
+                //  const Spacer(),
+                SizedBox(
+                  width: 150,
+                  child: PrimaryButton(
+                      title: "Show Result",
+                      function: () {
+                        Provider.of<SearchService>(context, listen: false)
+                            .showFilterResult();
+                        Provider.of<SearchService>(context, listen: false)
+                            .getAppliedFilters();
+                        Navigator.pop(context);
+                      },
+                      borderColor: Colors.transparent,
+                      backgroundColor: AppColors.p2,
+                      textStyle: AppFonts.w500white14),
+                )
+              ]),
+            ),
           ),
         ),
         body: SingleChildScrollView(

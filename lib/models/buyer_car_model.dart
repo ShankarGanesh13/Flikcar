@@ -65,6 +65,7 @@ class BuyerCar {
   String? dealerPhoneNumber;
   String? dealerName;
   String? dealerAddress;
+  String technicianRating;
 
   BuyerCar(
       {required this.id,
@@ -128,6 +129,7 @@ class BuyerCar {
       required this.interiorDetails,
       required this.safetyDetails,
       required this.dealerId,
+      required this.technicianRating,
       this.dealerName,
       this.dealerPhoneNumber,
       this.dealerAddress});
@@ -217,6 +219,7 @@ class BuyerCar {
       dealerPhoneNumber:
           json["dealer"] != null ? json["dealer"]["phone"].toString() : "",
       dealerAddress: json["dealer"] != null ? json["address_one"] : "",
+      technicianRating: json["technician_rating"].toString(),
     );
   }
   static List<String> myfunc(key, List list) {

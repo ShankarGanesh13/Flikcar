@@ -4,6 +4,8 @@ import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/customer_testdrive.dart';
 import 'package:flikcar/models/dealer_testdrive.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/foundation.dart';
 
@@ -73,6 +75,10 @@ class BuyCarProvider extends ChangeNotifier {
     var data = json.decode(response.body);
     print(data);
     if (data["status"] == 200 || data["status"] == 201) {
+      FirebaseEvents()
+          .customerConfirmTestdrive(customerPhone: "customer phone");
+      FacebookEvents()
+          .customerConfirmTestdrive(customerPhone: "customer phone");
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
             MySnackbar.showSnackBar(context, "Test drive book succeessfully"));

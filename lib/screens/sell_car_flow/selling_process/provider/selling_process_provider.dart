@@ -6,6 +6,8 @@ import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/car_condition.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/splash_screen.dart/splash_screen.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -232,7 +234,7 @@ class SellingProcessProvider extends ChangeNotifier {
         clearData();
         ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
             context, "Car details uploaded successfully"));
-        Timer(Duration(seconds: 1), () {
+        Timer(const Duration(seconds: 1), () {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -249,7 +251,11 @@ class SellingProcessProvider extends ChangeNotifier {
               content: const Text('Our team will contact you shortly'),
               actions: <Widget>[
                 TextButton(
-                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  onPressed: () {
+                    Navigator.pop(context, 'Cancel');
+                    FirebaseEvents().customerCarSellRequest(customerNumber: "");
+                    FacebookEvents().customerCarSellRequest(customerNumber: "");
+                  },
                   child: const Text('Ok'),
                 ),
               ],

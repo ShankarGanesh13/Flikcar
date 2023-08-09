@@ -75,20 +75,21 @@ class AuctionService extends ChangeNotifier {
     print("socket connected----${socket.connected}");
     socketConnected = socket.connected;
     print(socketConnected);
-    print("************");
     socket.on('newBid', (data) {
       print("Received newBid data:");
-      print("new bid ${data["vehicle"]["current_bid_price"]}");
-      print(data["bid"]);
+      //  print("new bid ${data["vehicle"]["current_bid_price"]}");
+      print("************");
+
+//print(data["bid"]);
 
       updatedCarData = AuctionCar.fromJson2(data);
 
       print(updatedCarData);
-      print(updatedCarData!.lastBid!.dealerName);
-      print("++++++++++++++++++++");
+      //  print(updatedCarData!.lastBid!.dealerName);
+      //   print("++++++++++++++++++++");
       notifyListeners();
     });
-
+//////////////////
     socket.on("updateBidApp", (data) {
       // print("auction cars $data");
       auctionCars = [];
@@ -104,9 +105,11 @@ class AuctionService extends ChangeNotifier {
       filterData();
       notifyListeners();
     });
+    /////////////
     socket.on('getMyBidToken', (z) {
       getMyBid();
     });
+    ////////////
     socket.on('updateMyBidApp', (myBid) {
       myBidCars = [];
       myBid.forEach((element) {

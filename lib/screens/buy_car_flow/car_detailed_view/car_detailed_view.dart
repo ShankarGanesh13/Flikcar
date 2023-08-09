@@ -1,3 +1,4 @@
+import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
@@ -11,9 +12,13 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_butto
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
+import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../services/get_car_details.dart';
 
@@ -32,46 +37,55 @@ class CarDetailedView extends StatelessWidget {
               MaterialPageRoute(builder: (context) => const FilterApplied()));
         },
       ),
-      bottomNavigationBar: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(bottom: 10, top: 5),
-        color: AppColors.s1,
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          BuyNavButton(
-            icon: Icons.phone,
-            title: "Contact Dealer",
-            function: () async {
-              Uri phoneno = Uri(
-                scheme: 'tel',
-                path: '+91${car.dealerPhoneNumber}',
-              );
-              if (await launchUrl(phoneno)) {
-              } else {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      MySnackbar.showSnackBar(
-                          context, "Unable to open dailer"));
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          color: AppColors.s1,
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            BuyNavButton(
+              icon: Icons.phone,
+              title: "Contact Dealer",
+              function: () async {
+                FirebaseEvents().customerCallDealer(
+                    customerPhone: "customer",
+                    dealerPhone: car.dealerPhoneNumber!);
+                FacebookEvents().customerCallDealer(
+                    customerPhone: "customer",
+                    dealerPhone: car.dealerPhoneNumber!);
+
+                Uri phoneno = Uri(
+                  scheme: 'tel',
+                  path: '+91${car.dealerPhoneNumber}',
+                );
+                if (await launchUrl(phoneno)) {
+                } else {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        MySnackbar.showSnackBar(
+                            context, "Unable to open dailer"));
+                  }
                 }
-              }
-            },
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          BuyNavButton(
-            icon: Icons.watch_later,
-            title: "Schedule Test Drive",
-            function: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ScheduleTestDrive(
-                      car: car,
-                    ),
-                  ));
-            },
-          )
-        ]),
+              },
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+            BuyNavButton(
+              icon: Icons.watch_later,
+              title: "Schedule Test Drive",
+              function: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScheduleTestDrive(
+                        car: car,
+                      ),
+                    ));
+              },
+            )
+          ]),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(children: [
@@ -93,24 +107,33 @@ class CarDetailedView extends StatelessWidget {
                   //   ),
                   // ),
                   const SizedBox(width: 10),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        car.brand,
-                        style: AppFonts.w700black16,
-                      ),
-                      Text(
-                        car.model,
-                        style: AppFonts.w500dark214,
-                      ),
-                    ],
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          car.brand,
+                          style: AppFonts.w500dark214,
+                        ),
+                        Text(
+                          "${car.model} ${car.variant}",
+                          style: AppFonts.w700black16,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
                   ),
-                  // const Spacer(),
-                  // const Icon(Icons.share),
-                  // const SizedBox(
-                  //   width: 12,
-                  // ),
+                  const Spacer(),
+                  FavoriteButton(
+                    iconSize: 30,
+                    iconColor: const Color.fromARGB(255, 255, 0, 0),
+                    iconDisabledColor: const Color.fromARGB(255, 138, 138, 138),
+                    valueChanged: (_) {
+                      Provider.of<WishlistService>(context, listen: false)
+                          .addToWishlist(carId: car.id, context: context);
+                    },
+                  ),
                   // const Icon(Icons.flag),
                 ],
               )),

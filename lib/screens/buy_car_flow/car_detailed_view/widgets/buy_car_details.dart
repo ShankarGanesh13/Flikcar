@@ -33,7 +33,7 @@ class BuyCarDetails extends StatelessWidget {
           Row(
             children: [
               Text(
-                "1200000 ₹",
+                "${car.carPrice} ₹",
                 style: AppFonts.w700black20,
               ),
               const Spacer(),
@@ -45,7 +45,7 @@ class BuyCarDetails extends StatelessWidget {
               const Icon(Icons.star),
               const SizedBox(width: 3),
               Text(
-                "9",
+                car.technicianRating,
                 style: AppFonts.w700black20,
               )
             ],

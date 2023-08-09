@@ -8,6 +8,8 @@ import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -265,6 +267,15 @@ class HomeScreenCard extends StatelessWidget {
                                     child: PrimaryButton(
                                       title: "Contact Dealer",
                                       function: () async {
+                                        FirebaseEvents().customerCallDealer(
+                                            customerPhone: "customer",
+                                            dealerPhone:
+                                                cars[index].dealerPhoneNumber!);
+                                        FacebookEvents().customerCallDealer(
+                                            customerPhone: "customer",
+                                            dealerPhone:
+                                                cars[index].dealerPhoneNumber!);
+
                                         Uri phoneno = Uri(
                                           scheme: 'tel',
                                           path:

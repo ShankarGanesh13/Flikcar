@@ -73,6 +73,9 @@ class AuctionCar {
   String purchasedPrice;
   BidModel? lastBid;
   String? yourLastBid;
+  String technicianRating;
+  String technicianRemarks;
+
   //  "current_bid_price": 1300000,
   //           "start_auction": "2023-07-19T05:27:39.000Z",
   //           "end_auction": "2023-07-19T15:27:47.000Z",
@@ -151,6 +154,8 @@ class AuctionCar {
       required this.purchasedBy,
       required this.purchasedPrice,
       required this.startAuction,
+      required this.technicianRating,
+      required this.technicianRemarks,
       this.yourLastBid,
       this.lastBid});
   @override
@@ -266,6 +271,8 @@ class AuctionCar {
         startAuction: json["start_auction"] != null
             ? json["start_auction"].toString()
             : "no data",
+        technicianRemarks: json["technician_remarks"] ?? "",
+        technicianRating: json["technician_rating"].toString() ?? "",
         lastBid:
             json["bid"].isNotEmpty ? BidModel.fromJson(json["bid"][0]) : null,
         yourLastBid: json["yourLastBid"].toString() ?? "No Data");
@@ -403,6 +410,8 @@ class AuctionCar {
           ? json["vehicle"]["start_auction"].toString()
           : "no data",
       lastBid: json["bid"] != null ? BidModel.fromJson(json["bid"][0]) : null,
+      technicianRemarks: json["vehicle"]["technician_remarks"] ?? "",
+      technicianRating: json["vechicle"]["technician_rating"].toString() ?? "",
     );
   }
 }

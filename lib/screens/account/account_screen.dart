@@ -54,18 +54,18 @@ class _AccountScreenState extends State<AccountScreen> {
                           icon: Icons.edit);
                     }
                   }),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AccountTestDrive()));
-                },
-                child: profileDetails(
-                    title: "Test Drives",
-                    subtitle: "View and manage your test drives",
-                    icon: Icons.chevron_right),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const AccountTestDrive()));
+              //   },
+              //   child: profileDetails(
+              //       title: "Test Drives",
+              //       subtitle: "View and manage your test drives",
+              //       icon: Icons.chevron_right),
+              // ),
 
               GestureDetector(
                 onTap: () {

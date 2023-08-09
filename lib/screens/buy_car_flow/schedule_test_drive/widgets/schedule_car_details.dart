@@ -17,7 +17,7 @@ class ScheduleCarDetails extends StatelessWidget {
     return Row(
       children: [
         Container(
-            width: MediaQuery.of(context).size.width / 2.5,
+            width: MediaQuery.of(context).size.width / 2.6,
             height: 94,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
@@ -63,7 +63,7 @@ class ScheduleCarDetails extends StatelessWidget {
               ),
             ),
             Text(
-              "₹105897",
+              "₹${car.carPrice}",
               style: AppFonts.w700black20,
             ),
           ],

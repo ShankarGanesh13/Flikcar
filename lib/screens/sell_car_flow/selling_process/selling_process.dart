@@ -10,6 +10,7 @@ import 'package:flikcar/screens/sell_car_flow/selling_process/select_car_model/s
 // import 'package:flikcar/screens/sell_car_flow/selling_process/selling_time/selling_time.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/nav_button.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/position_buttton.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -25,33 +26,38 @@ class SellingProcess extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar.getAppBar(),
-        bottomNavigationBar: Container(
-            height: 60,
-            color: AppColors.s1,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                NavButton(
-                  title: "Back",
-                  backIcon: true,
-                  function: () {
-                    Provider.of<SellingProcessProvider>(context, listen: false)
-                        .previousStep(controller: controller, context: context);
-                  },
-                ),
-                const SizedBox(width: 20),
-                NavButton(
-                  title: context.watch<SellingProcessProvider>().counter == 3
-                      ? "Finish"
-                      : "Next",
-                  backIcon: false,
-                  function: () {
-                    Provider.of<SellingProcessProvider>(context, listen: false)
-                        .nextStep(controller: controller, context: context);
-                  },
-                )
-              ],
-            )),
+        bottomNavigationBar: SafeArea(
+          child: Container(
+              height: 60,
+              color: AppColors.s1,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  NavButton(
+                    title: "Back",
+                    backIcon: true,
+                    function: () {
+                      Provider.of<SellingProcessProvider>(context,
+                              listen: false)
+                          .previousStep(
+                              controller: controller, context: context);
+                    },
+                  ),
+                  const SizedBox(width: 20),
+                  NavButton(
+                    title: context.watch<SellingProcessProvider>().counter == 3
+                        ? "Finish"
+                        : "Next",
+                    backIcon: false,
+                    function: () {
+                      Provider.of<SellingProcessProvider>(context,
+                              listen: false)
+                          .nextStep(controller: controller, context: context);
+                    },
+                  )
+                ],
+              )),
+        ),
         body: Column(
           children: [
             Padding(

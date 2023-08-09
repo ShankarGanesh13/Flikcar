@@ -54,48 +54,50 @@ class _FilterAppliedState extends State<FilterApplied> {
               print("mmbro");
             }),
         bottomNavigationBar: compare
-            ? Container(
-                padding: const EdgeInsets.only(
-                    top: 8, bottom: 8, left: 20, right: 20),
-                height: 52,
-                width: MediaQuery.of(context).size.width,
-                color: const Color(0xff161F31),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 3,
-                      child: PrimaryButton(
-                          title: "Back",
-                          backgroundColor: AppColors.p2,
-                          borderColor: Colors.transparent,
-                          function: () {
-                            Provider.of<BuyCarProvider>(context, listen: false)
-                                .compareCars();
-                          },
-                          textStyle: AppFonts.w500white14),
-                    ),
-                    const SizedBox(width: 20),
-                    /////////////////
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width / 3,
-                      child: PrimaryButton(
-                          title: "Compare",
-                          backgroundColor: AppColors.p2,
-                          borderColor: Colors.transparent,
-                          function: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //       builder: (context) => const CompareScreen(car1: ,),
-                            //     ));
-                          },
-                          textStyle: AppFonts.w500white14),
-                    ),
-                    //////////////////
-                  ],
+            ? SafeArea(
+              child: Container(
+                  padding: const EdgeInsets.only(
+                      top: 8, bottom: 8, left: 20, right: 20),
+                  height: 52,
+                  width: MediaQuery.of(context).size.width,
+                  color: const Color(0xff161F31),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 3,
+                        child: PrimaryButton(
+                            title: "Back",
+                            backgroundColor: AppColors.p2,
+                            borderColor: Colors.transparent,
+                            function: () {
+                              Provider.of<BuyCarProvider>(context, listen: false)
+                                  .compareCars();
+                            },
+                            textStyle: AppFonts.w500white14),
+                      ),
+                      const SizedBox(width: 20),
+                      /////////////////
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 3,
+                        child: PrimaryButton(
+                            title: "Compare",
+                            backgroundColor: AppColors.p2,
+                            borderColor: Colors.transparent,
+                            function: () {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //       builder: (context) => const CompareScreen(car1: ,),
+                              //     ));
+                            },
+                            textStyle: AppFonts.w500white14),
+                      ),
+                      //////////////////
+                    ],
+                  ),
                 ),
-              )
+            )
             : const SizedBox(),
         body: SingleChildScrollView(
           child: Column(

@@ -97,6 +97,6 @@ class DealerAuthService {
     ScaffoldMessenger.of(context).showSnackBar(
         MySnackbar.showSnackBar(context, "Logged out successfully"));
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const StartScreen()));
+        context, MaterialPageRoute(builder: (context) => StartScreen()));
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -91,6 +93,12 @@ class ViewDealerDeatils extends StatelessWidget {
         PrimaryButton(
             title: "Contact Dealer",
             function: () async {
+              FirebaseEvents().customerCallDealer(
+                  customerPhone: "customer",
+                  dealerPhone: car.dealerPhoneNumber!);
+              FacebookEvents().customerCallDealer(
+                  customerPhone: "customer",
+                  dealerPhone: car.dealerPhoneNumber!);
               Uri phoneno = Uri(
                 scheme: 'tel',
                 path: '+91${car.dealerPhoneNumber}',

@@ -1,9 +1,13 @@
+import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/services/auction_services.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar {
   static PreferredSizeWidget getAppBar() {
@@ -32,7 +36,15 @@ class CustomAppBar {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 padding: EdgeInsets.only(left: 10, right: 10)),
-            onPressed: () {},
+            onPressed: () async {
+              FirebaseEvents().contactSupport(customerPhone: "customer phone");
+              Uri phoneno = Uri(
+                scheme: 'tel',
+                path: '+91 9830527529',
+              );
+              if (await launchUrl(phoneno)) {
+              } else {}
+            },
             child: Row(
               children: [
                 const Icon(
@@ -91,7 +103,24 @@ class CustomAppBar {
                     ),
                     padding: const EdgeInsets.only(left: 10, right: 10),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    FirebaseEvents()
+                        .contactSupport(customerPhone: "customer phone");
+                    FacebookEvents()
+                        .contactSupport(customerPhone: "customer phone");
+                    Uri phoneno = Uri(
+                      scheme: 'tel',
+                      path: '+91 9830527529',
+                    );
+                    if (await launchUrl(phoneno)) {
+                    } else {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            MySnackbar.showSnackBar(
+                                context, "Unable to open dailer"));
+                      }
+                    }
+                  },
                   child: Row(
                     children: [
                       const Icon(
@@ -225,7 +254,24 @@ class CustomAppBar {
                     ),
                     padding: const EdgeInsets.only(left: 10, right: 10),
                   ),
-                  onPressed: () {},
+                  onPressed: () async {
+                    FirebaseEvents()
+                        .contactSupport(customerPhone: "customer phone");
+                    FacebookEvents()
+                        .contactSupport(customerPhone: "customer phone");
+                    Uri phoneno = Uri(
+                      scheme: 'tel',
+                      path: '+91 9830527529',
+                    );
+                    if (await launchUrl(phoneno)) {
+                    } else {
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            MySnackbar.showSnackBar(
+                                context, "Unable to open dailer"));
+                      }
+                    }
+                  },
                   child: Row(
                     children: [
                       const Icon(

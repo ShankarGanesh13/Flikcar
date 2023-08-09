@@ -41,13 +41,13 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
                 doubleTapZoomable: true);
           },
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 4,
+            height: MediaQuery.of(context).size.height / 3.8,
             width: MediaQuery.of(context).size.width,
             child: Image.network(
               images.isNotEmpty
                   ? 'https://webservice.flikcar.com:8000/public/${images[selectedIndex]}'
                   : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
-              fit: BoxFit.cover,
+              fit: BoxFit.fill,
             ),
           ),
         ),
@@ -68,14 +68,14 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(6),
                     border: Border.all(
-                        width: 1.5,
+                        width: 2,
                         color: selectedIndex == index
                             ? AppColors.p2
                             : Colors.transparent),
                   ),
                   child: ClipRRect(
                     borderRadius: const BorderRadius.all(
-                      Radius.circular(6),
+                      Radius.circular(5),
                     ),
                     child: GestureDetector(
                       onTap: () {

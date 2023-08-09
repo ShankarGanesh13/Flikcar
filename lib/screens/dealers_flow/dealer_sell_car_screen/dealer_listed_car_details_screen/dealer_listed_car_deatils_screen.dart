@@ -24,55 +24,57 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar.getAppBar(),
-      bottomNavigationBar: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(bottom: 10, top: 5),
-        color: AppColors.s1,
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.p2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5),
+      bottomNavigationBar: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          color: AppColors.s1,
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.p2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                padding: const EdgeInsets.only(left: 10, right: 10),
               ),
-              padding: const EdgeInsets.only(left: 10, right: 10),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Row(
+                children: [
+                  const Icon(
+                    Icons.arrow_back,
+                    color: Colors.white,
+                    size: 18,
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    "Back",
+                    style: AppFonts.w500white14,
+                  ),
+                ],
+              ),
             ),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.arrow_back,
-                  color: Colors.white,
-                  size: 18,
-                ),
-                const SizedBox(width: 4),
-                Text(
-                  "Back",
-                  style: AppFonts.w500white14,
-                ),
-              ],
+            const SizedBox(
+              width: 15,
             ),
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          BuyNavButton(
-            icon: Icons.check,
-            title: "Mark as Sold",
-            function: () {
-              Provider.of<GetDealerUploadCars>(context, listen: false)
-                  .markAsSold(context: context, carId: car.id.toString());
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => EditDealerUploadedCar(
-              //               car: car,
-              //             )));
-            },
-          )
-        ]),
+            BuyNavButton(
+              icon: Icons.check,
+              title: "Mark as Sold",
+              function: () {
+                Provider.of<GetDealerUploadCars>(context, listen: false)
+                    .markAsSold(context: context, carId: car.id.toString());
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) => EditDealerUploadedCar(
+                //               car: car,
+                //             )));
+              },
+            )
+          ]),
+        ),
       ),
       body: SingleChildScrollView(
         child: Column(children: [

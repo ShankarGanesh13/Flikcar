@@ -47,40 +47,42 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: CustomNavigationBar(
-        iconSize: 24.0,
-        selectedColor: const Color(0xff9A2870),
-        strokeColor: const Color(0x30040307),
-        unSelectedColor: Colors.white,
-        backgroundColor: AppColors.s1,
-        items: [
-          navBarItems(
-            imagePath: "assets/buy_car_icon.png",
-            title: "Buy Car",
-            index: 0,
-          ),
-          navBarItems(
-            imagePath: "assets/sell_car_icon.png",
-            title: "Sell Car",
-            index: 1,
-          ),
-          navBarItems(
-            imagePath: "assets/wishlist_icon.png",
-            title: "Wishlist",
-            index: 2,
-          ),
-          navBarItems(
-            imagePath: "assets/account_icon.png",
-            title: "Account",
-            index: 3,
-          )
-        ],
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+      bottomNavigationBar: SafeArea(
+        child: CustomNavigationBar(
+          iconSize: 24.0,
+          selectedColor: const Color(0xff9A2870),
+          strokeColor: const Color(0x30040307),
+          unSelectedColor: Colors.white,
+          backgroundColor: AppColors.s1,
+          items: [
+            navBarItems(
+              imagePath: "assets/buy_car_icon.png",
+              title: "Buy Car",
+              index: 0,
+            ),
+            navBarItems(
+              imagePath: "assets/sell_car_icon.png",
+              title: "Sell Car",
+              index: 1,
+            ),
+            navBarItems(
+              imagePath: "assets/wishlist_icon.png",
+              title: "Wishlist",
+              index: 2,
+            ),
+            navBarItems(
+              imagePath: "assets/account_icon.png",
+              title: "Account",
+              index: 3,
+            )
+          ],
+          currentIndex: _currentIndex,
+          onTap: (index) {
+            setState(() {
+              _currentIndex = index;
+            });
+          },
+        ),
       ),
       body: pages.elementAt(_currentIndex),
     );

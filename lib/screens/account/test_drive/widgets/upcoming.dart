@@ -3,6 +3,8 @@ import 'package:flikcar/common_widgets/common_car_details.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/customer_testdrive.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -161,6 +163,14 @@ class UpcomingTestDrive extends StatelessWidget {
                                   textStyle: AppFonts.w500p215,
                                   title: "Contact Dealer",
                                   function: () async {
+                                    FirebaseEvents().customerCallDealer(
+                                        customerPhone: "customer",
+                                        dealerPhone:
+                                            testdrive[index].customerPhone);
+                                    FacebookEvents().customerCallDealer(
+                                        customerPhone: "customer",
+                                        dealerPhone:
+                                            testdrive[index].customerPhone);
                                     Uri phoneno = Uri(
                                       scheme: 'tel',
                                       path:

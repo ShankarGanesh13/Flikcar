@@ -79,6 +79,7 @@ class WishlistService extends ChangeNotifier {
     wishlistCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
+    print(token);
 
     var url = Uri.parse(
         'https://webservice.flikcar.com:8000/api/buy-car/get-favourites-car');
@@ -88,6 +89,7 @@ class WishlistService extends ChangeNotifier {
       'Authorization': 'Bearer $token',
     });
     var data = jsonDecode(response.body);
+    print(data);
 
     List result = data["data"] as List;
 

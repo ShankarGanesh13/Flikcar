@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
@@ -6,13 +7,16 @@ import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_phone
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/start_screen/widgets/option_card.dart';
 import 'package:flikcar/services/auction_services.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class StartScreen extends StatelessWidget {
-  const StartScreen({super.key});
+  StartScreen({super.key});
+  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +84,8 @@ class StartScreen extends StatelessWidget {
                                 }),
                           ),
                         );
+                        FirebaseEvents().customerPortalEvent();
+                        FacebookEvents().customerPortalEvent();
                       },
                       child: OptionCard(
                         title: "Buy Car &\nSell Car",
@@ -102,6 +108,8 @@ class StartScreen extends StatelessWidget {
                                     }
                                   }),
                             ));
+                        FirebaseEvents().dealerPortalEvent();
+                        FacebookEvents().dealerPortalEvent();
                         Provider.of<AuctionService>(context, listen: false)
                             .connectToSocket();
                       },
@@ -149,5 +157,13 @@ class StartScreen extends StatelessWidget {
     } else {
       return DealerPhoneNumber();
     }
+  }
+
+  logEvent() {
+    analytics.logEvent(
+      name: 'customer_portal',
+      parameters: {'button_id': 'login_button'},
+    );
+    print("event logged");
   }
 }

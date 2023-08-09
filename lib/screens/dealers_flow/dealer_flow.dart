@@ -43,45 +43,47 @@ class _DealerFlowState extends State<DealerFlow> {
         return true;
       },
       child: Scaffold(
-        bottomNavigationBar: CustomNavigationBar(
-          iconSize: 22.0,
-          selectedColor: const Color(0xff9A2870),
-          strokeColor: const Color(0x30040307),
-          unSelectedColor: Colors.white,
-          backgroundColor: AppColors.s1,
-          items: [
-            navBarItems(
-              imagePath: "assets/auction_icon.png",
-              title: "Auction House",
-              index: 0,
-            ),
-            navBarItems(
-              imagePath: "assets/sell_car_icon.png",
-              title: "Sell Car",
-              index: 1,
-            ),
-            navBarItems(
-              imagePath: "assets/car_details_icon/my_schedule.png",
-              title: "My Schedule",
-              index: 2,
-            ),
-            navBarItems(
-              imagePath: "assets/car_details_icon/Group.png",
-              title: "My Bids",
-              index: 3,
-            ),
-            navBarItems(
-              imagePath: "assets/account_icon.png",
-              title: "Account",
-              index: 4,
-            )
-          ],
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
+        bottomNavigationBar: SafeArea(
+          child: CustomNavigationBar(
+            iconSize: 22.0,
+            selectedColor: const Color(0xff9A2870),
+            strokeColor: const Color(0x30040307),
+            unSelectedColor: Colors.white,
+            backgroundColor: AppColors.s1,
+            items: [
+              navBarItems(
+                imagePath: "assets/auction_icon.png",
+                title: "Auction House",
+                index: 0,
+              ),
+              navBarItems(
+                imagePath: "assets/sell_car_icon.png",
+                title: "Sell Car",
+                index: 1,
+              ),
+              navBarItems(
+                imagePath: "assets/car_details_icon/my_schedule.png",
+                title: "My Schedule",
+                index: 2,
+              ),
+              navBarItems(
+                imagePath: "assets/car_details_icon/Group.png",
+                title: "My Bids",
+                index: 3,
+              ),
+              navBarItems(
+                imagePath: "assets/account_icon.png",
+                title: "Account",
+                index: 4,
+              )
+            ],
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
         ),
         body: pages.elementAt(_currentIndex),
       ),

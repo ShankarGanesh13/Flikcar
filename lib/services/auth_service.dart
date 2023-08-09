@@ -79,7 +79,7 @@ class AuthService {
     await sp.setString("userToken", "logged out");
     await sp.setString("userName", "");
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => const StartScreen()));
+        context, MaterialPageRoute(builder: (context) => StartScreen()));
   }
 
   static editProfile(

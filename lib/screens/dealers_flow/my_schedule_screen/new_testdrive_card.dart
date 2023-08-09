@@ -3,6 +3,8 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/dealer_testdrive.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -86,6 +88,12 @@ class NewTestDriveCard extends StatelessWidget {
                           child: PrimaryButton(
                             title: "Contact Customer",
                             function: () async {
+                              FirebaseEvents().dealerCallCustomer(
+                                  customerPhone: testDrive.customerPhone,
+                                  dealerPhone: "dealer");
+                              FacebookEvents().dealerCallCustomer(
+                                  customerPhone: testDrive.customerPhone,
+                                  dealerPhone: "dealer");
                               Uri phoneno = Uri(
                                 scheme: 'tel',
                                 path: '+91${testDrive.customerPhone}',

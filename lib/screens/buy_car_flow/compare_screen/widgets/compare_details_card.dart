@@ -41,7 +41,9 @@ class CompareDetailsCard extends StatelessWidget {
             const Spacer(),
             PrimaryButton(
                 title: "Contact Dealer",
-                function: () {},
+                function: () {
+                  
+                },
                 borderColor: AppColors.s1,
                 backgroundColor: Colors.white,
                 textStyle: AppFonts.w500s114),

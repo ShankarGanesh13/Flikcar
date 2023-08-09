@@ -53,43 +53,45 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                   ));
             },
             back: true),
-        bottomNavigationBar: Container(
-          width: MediaQuery.of(context).size.width,
-          padding:
-              const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 5),
-          color: AppColors.s1,
-          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            bidButton(
-                icon: Icons.remove,
+        bottomNavigationBar: SafeArea(
+          child: Container(
+            width: MediaQuery.of(context).size.width,
+            padding:
+                const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 5),
+            color: AppColors.s1,
+            child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              bidButton(
+                  icon: Icons.remove,
+                  function: () {
+                    Provider.of<AuctionService>(context, listen: false)
+                        .reduceBidAmount(widget.carr.currentBidPrice);
+                  }),
+              Text(
+                "  ₹ ${context.watch<AuctionService>().bidAmount}  ",
+                style: AppFonts.w700white16,
+              ),
+              bidButton(
+                  icon: Icons.add,
+                  function: () {
+                    Provider.of<AuctionService>(context, listen: false)
+                        .increaseBidAmount();
+                    print("__________");
+                    print(currentBid);
+                  }),
+              const Spacer(),
+              BuyNavButton(
+                icon: Icons.chevron_right,
+                title: "Place Bid",
                 function: () {
-                  Provider.of<AuctionService>(context, listen: false)
-                      .reduceBidAmount(widget.carr.currentBidPrice);
-                }),
-            Text(
-              "  ₹ ${context.watch<AuctionService>().bidAmount}  ",
-              style: AppFonts.w700white16,
-            ),
-            bidButton(
-                icon: Icons.add,
-                function: () {
-                  Provider.of<AuctionService>(context, listen: false)
-                      .increaseBidAmount();
-                  print("__________");
-                  print(currentBid);
-                }),
-            const Spacer(),
-            BuyNavButton(
-              icon: Icons.chevron_right,
-              title: "Place Bid",
-              function: () {
-                Provider.of<AuctionService>(context, listen: false).placeBid(
-                    carId: widget.carr.id.toString(),
-                    amount: currentBid,
-                    car: widget.carr,
-                    context: context);
-              },
-            )
-          ]),
+                  Provider.of<AuctionService>(context, listen: false).placeBid(
+                      carId: widget.carr.id.toString(),
+                      amount: currentBid,
+                      car: widget.carr,
+                      context: context);
+                },
+              )
+            ]),
+          ),
         ),
         body: SingleChildScrollView(
           child: Column(
@@ -102,18 +104,22 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                   child: Row(
                     children: [
                       const SizedBox(width: 10),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.carr.model,
-                            style: AppFonts.w700black16,
-                          ),
-                          Text(
-                            widget.carr.brand,
-                            style: AppFonts.w500dark214,
-                          ),
-                        ],
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 1.2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.carr.brand,
+                              style: AppFonts.w500dark214,
+                            ),
+                            Text(
+                              "${widget.carr.model} ${widget.carr.variant}",
+                              style: AppFonts.w700black16,
+                              maxLines: 1,
+                            ),
+                          ],
+                        ),
                       ),
                       // const Spacer(),
                       // const Icon(Icons.share),
@@ -132,7 +138,7 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
               const SizedBox(
                 height: 10,
               ),
-              const InspectionReport(),
+              InspectionReport(car: widget.carr),
               const SizedBox(
                 height: 10,
               ),
