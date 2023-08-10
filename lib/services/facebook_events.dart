@@ -76,4 +76,14 @@ class FacebookEvents {
     );
     print("ddddddd");
   }
+
+  addToWishlistEvent({required String customerNumber, required String carId}) {
+    facebookAppEvents.logEvent(
+      name: 'customer_add_to_wishlist',
+      parameters: {
+        'customer_phone_number': customerNumber,
+        'car_id': carId,
+      },
+    );
+  }
 }

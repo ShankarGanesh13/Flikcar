@@ -2,7 +2,11 @@ import 'dart:convert';
 
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_events.dart';
+import 'package:flikcar/services/get_car_details.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
@@ -23,6 +27,10 @@ class WishlistService extends ChangeNotifier {
     var data = json.decode(response.body);
 
     if (data["status"] == 201 || data["status"] == 200) {
+      FirebaseEvents().addToWishlistEvent(
+          customerNumber: "customerNumber", carId: "$carId");
+      FacebookEvents().addToWishlistEvent(
+          customerNumber: "customerNumber", carId: "$carId");
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
             MySnackbar.showSnackBar(context, "Added to wishlist"));

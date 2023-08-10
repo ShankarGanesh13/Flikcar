@@ -74,4 +74,14 @@ class FirebaseEvents {
     );
     print("ddddddd");
   }
+
+  addToWishlistEvent({required String customerNumber, required String carId}) {
+    analytics.logEvent(
+      name: 'customer_add_to_wishlist',
+      parameters: {
+        'customer_phone_number': customerNumber,
+        'car_id': carId,
+      },
+    );
+  }
 }

@@ -9,14 +9,17 @@ import 'package:http/http.dart' as http;
 
 class GetCarDetails extends ChangeNotifier {
   List<BuyerCar> allCars = [];
+
   List<BuyerCar> fuelFilter = [];
   List<BuyerCar> transmissonFilter = [];
   List<BuyerCar> bodyTypeFilter = [];
+  List<BuyerCar> wishlistCars = [];
   int fuelIndex = -1;
   int transmissonIndex = -1;
   int bodyIndex = -1;
 
   getAllCars() async {
+    print("get cars called");
     allCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
@@ -35,6 +38,9 @@ class GetCarDetails extends ChangeNotifier {
     result.forEach((e) {
       allCars.add(BuyerCar.fromJson(e));
     });
+    fuelFilter = allCars
+        .where((element) => element.transmission.toLowerCase() == "manual")
+        .toList();
     notifyListeners();
     print("car details saved");
   }
@@ -63,7 +69,6 @@ class GetCarDetails extends ChangeNotifier {
               .where((element) =>
                   element.transmission.toLowerCase() == filter.toLowerCase())
               .toList();
-          print(transmissonFilter);
           transmissonIndex = index;
           notifyListeners();
         }
@@ -86,11 +91,12 @@ class GetCarDetails extends ChangeNotifier {
           fuelIndex = -1;
           transmissonIndex = -1;
           bodyTypeFilter = allCars;
-          fuelFilter = allCars
-              .where(
-                  (element) => element.transmission.toLowerCase() == "manual")
-              .toList();
+          // fuelFilter = allCars
+          //     .where(
+          //         (element) => element.transmission.toLowerCase() == "manual")
+          //     .toList();
           transmissonFilter = allCars;
+
           // bodyTypeFilter.shuffle();
           // fuelFilter.shuffle();
         }

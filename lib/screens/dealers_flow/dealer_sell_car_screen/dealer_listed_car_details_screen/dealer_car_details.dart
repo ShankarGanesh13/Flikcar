@@ -49,7 +49,7 @@ class DealerUploadCarDetails extends StatelessWidget {
               ),
               Spacer(),
               Text(
-                "1200000 ₹",
+                "₹ ${car.carPrice}",
                 style: AppFonts.w700black20,
               ),
             ],

@@ -75,7 +75,7 @@ class DealerCarDetails extends StatelessWidget {
                 ),
           const SizedBox(height: 10),
           Text(
-            " Base Price ${car.carPrice} ₹",
+            "₹ Base Price ${car.carPrice} ",
             style: AppFonts.w500black14,
           ),
           const SizedBox(height: 20),

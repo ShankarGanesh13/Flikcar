@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Flikcar</string>
-    <string name="facebook_app_id">188957160851632</string>
-    <string name="fb_login_protocol_scheme">fb188957160851632</string>
-    <string name="facebook_client_token">46b148aca5113d072cf7bd06836ea0d6</string>    
+    <string name="facebook_app_id">291104556940816</string>
+    <string name="fb_login_protocol_scheme">fb291104556940816</string>
+    <string name="facebook_client_token">b14b03ad9196661fa56af50546ec0936</string>    
     <!-- Other string resources -->
 </resources>
+

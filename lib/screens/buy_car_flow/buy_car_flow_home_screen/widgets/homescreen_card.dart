@@ -301,6 +301,7 @@ class HomeScreenCard extends StatelessWidget {
                                   FavoriteButton(
                                     iconSize: 30,
                                     iconColor: Color.fromARGB(255, 255, 0, 0),
+                                    isFavorite: cars[index].isFavourite,
                                     iconDisabledColor: const Color(0xffE0E0E0),
                                     valueChanged: (_) {
                                       Provider.of<WishlistService>(context,

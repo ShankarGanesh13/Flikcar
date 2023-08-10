@@ -127,7 +127,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "${widget.car.carPrice} ₹",
+                    "₹ ${widget.car.carPrice}",
                     style: AppFonts.w700black20,
                   )
                 ],

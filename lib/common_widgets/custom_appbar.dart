@@ -153,6 +153,7 @@ class CustomAppBar {
                     ? IconButton(
                         onPressed: () {
                           Navigator.pop(context);
+                          function();
                         },
                         icon: const Icon(Icons.chevron_left),
                         color: Colors.white,

@@ -51,11 +51,12 @@ class _FilterAppliedState extends State<FilterApplied> {
                   .searchFunction(value);
             },
             function: () {
-              print("mmbro");
+              Provider.of<SearchService>(context, listen: false)
+                  .clearAllFilter();
             }),
         bottomNavigationBar: compare
             ? SafeArea(
-              child: Container(
+                child: Container(
                   padding: const EdgeInsets.only(
                       top: 8, bottom: 8, left: 20, right: 20),
                   height: 52,
@@ -71,7 +72,8 @@ class _FilterAppliedState extends State<FilterApplied> {
                             backgroundColor: AppColors.p2,
                             borderColor: Colors.transparent,
                             function: () {
-                              Provider.of<BuyCarProvider>(context, listen: false)
+                              Provider.of<BuyCarProvider>(context,
+                                      listen: false)
                                   .compareCars();
                             },
                             textStyle: AppFonts.w500white14),
@@ -97,7 +99,7 @@ class _FilterAppliedState extends State<FilterApplied> {
                     ],
                   ),
                 ),
-            )
+              )
             : const SizedBox(),
         body: SingleChildScrollView(
           child: Column(

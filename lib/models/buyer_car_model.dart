@@ -66,6 +66,7 @@ class BuyerCar {
   String? dealerName;
   String? dealerAddress;
   String technicianRating;
+  bool isFavourite;
 
   BuyerCar(
       {required this.id,
@@ -131,6 +132,7 @@ class BuyerCar {
       required this.dealerId,
       required this.technicianRating,
       this.dealerName,
+      this.isFavourite = false,
       this.dealerPhoneNumber,
       this.dealerAddress});
 
