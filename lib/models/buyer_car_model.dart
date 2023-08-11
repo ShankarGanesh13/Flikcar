@@ -132,7 +132,7 @@ class BuyerCar {
       required this.dealerId,
       required this.technicianRating,
       this.dealerName,
-      this.isFavourite = false,
+      required this.isFavourite,
       this.dealerPhoneNumber,
       this.dealerAddress});
 
@@ -185,6 +185,7 @@ class BuyerCar {
       //sale status=Available/Sold Out
       saleStatus: json['sale_status'] ?? "No data",
       updatedAt: json["updatedAt"] ?? "No data",
+      isFavourite: json["favourite_car"] == null ? false : true,
 
       ///
       brand: json['vehicleBrand']["name"] ?? "No data",

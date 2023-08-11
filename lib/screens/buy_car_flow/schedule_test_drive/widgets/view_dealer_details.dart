@@ -82,7 +82,7 @@ class ViewDealerDeatils extends StatelessWidget {
               style: AppFonts.w700s140,
             ),
             Text(
-              car.dealerAddress.toString(),
+              car.dealerAddress ?? "N.A",
               style: AppFonts.w500black14,
             ),
           ],

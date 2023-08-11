@@ -1,9 +1,6 @@
-import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
-import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/customer_testdrive.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
@@ -14,7 +11,6 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UpcomingTestDriveCard extends StatelessWidget {
@@ -32,7 +28,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                 child: Heading1(title1: "Upcoming Test Drive", title2: ""),
               ),
               SizedBox(
-                height: 380,
+                height: 365,
                 child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: testdrive.length,
@@ -55,7 +51,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                               ));
                         },
                         child: Container(
-                          height: 361,
+                          height: 351,
                           width: 268,
                           margin: const EdgeInsets.only(
                               right: 15, bottom: 20, top: 15, left: 15),
@@ -80,30 +76,12 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                     topLeft: Radius.circular(15),
                                     topRight: Radius.circular(15),
                                   ),
-                                  child: FastCachedImage(
-                                    url: testdrive[index]
-                                            .car
-                                            .carImages
-                                            .isNotEmpty
+                                  child: Image.network(
+                                    testdrive[index].car.carImages.isNotEmpty
                                         ? "https://webservice.flikcar.com:8000/public/${testdrive[index].car.carImages[0]}"
                                         : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                     fit: BoxFit.cover,
                                     width: MediaQuery.of(context).size.width,
-                                    fadeInDuration: const Duration(seconds: 1),
-                                    errorBuilder:
-                                        (context, exception, stacktrace) {
-                                      return Text(stacktrace.toString());
-                                    },
-                                    loadingBuilder: (context, progress) {
-                                      return SizedBox(
-                                        width: 175.0,
-                                        height: 100.0,
-                                        child: Shimmer.fromColors(
-                                            baseColor: Colors.black26,
-                                            highlightColor: Colors.black26,
-                                            child: const LoadingWidget()),
-                                      );
-                                    },
                                   ),
 
                                   // SizedBox(
@@ -118,31 +96,33 @@ class UpcomingTestDriveCard extends StatelessWidget {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(
-                                    left: 12.0, right: 10),
+                                    left: 12.0, right: 10, top: 8),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(
-                                      height: 35,
-                                      child: Row(
-                                        children: [
-                                          SizedBox(
-                                            width: 160,
-                                            child: Text(
-                                                testdrive[index].car.model,
-                                                maxLines: 1,
-                                                style: AppFonts.w700s140),
-                                          ),
-                                          const Spacer(),
-                                          Text(
-                                            "₹ ${testdrive[index].car.carPrice}",
-                                            style: AppFonts.w700s140,
-                                          ),
-                                        ],
-                                      ),
+                                    Row(
+                                      children: [
+                                        SizedBox(
+                                          width: 160,
+                                          child: Text(
+                                              testdrive[index].car.brand,
+                                              style: AppFonts.w500dark214),
+                                        ),
+                                        const Spacer(),
+                                        Text(
+                                          "₹ ${testdrive[index].car.carPrice}",
+                                          style: AppFonts.w700s140,
+                                        ),
+                                      ],
                                     ),
-                                    Text(testdrive[index].car.brand,
-                                        style: AppFonts.w500dark214),
+                                    const SizedBox(height: 4),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width,
+                                      child: Text(
+                                          "${testdrive[index].car.model} ${testdrive[index].car.variant}",
+                                          maxLines: 1,
+                                          style: AppFonts.w700s140),
+                                    ),
                                     const SizedBox(height: 4),
                                     Wrap(
                                       spacing: 6,
@@ -168,7 +148,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 8,
                                     ),
                                     Row(
                                       children: [
@@ -188,7 +168,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: 8,
                                     ),
                                   ],
                                 ),
@@ -199,7 +179,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                 child: Row(
                                   children: [
                                     SizedBox(
-                                      width: 180,
+                                      width: 160,
                                       height: 35,
                                       child: PrimaryButton(
                                         title: "Contact Dealer",
@@ -233,6 +213,15 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                         backgroundColor: Colors.white,
                                       ),
                                     ),
+                                    const Spacer(),
+                                    Text(
+                                      testdrive[index].car.saleStatus,
+                                      style: (testdrive[index].car.saleStatus)
+                                                  .toLowerCase() ==
+                                              "available"
+                                          ? AppFonts.w500green12
+                                          : AppFonts.w500red12,
+                                    )
                                   ],
                                 ),
                               )

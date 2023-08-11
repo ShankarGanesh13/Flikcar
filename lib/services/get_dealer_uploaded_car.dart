@@ -69,6 +69,7 @@ class GetDealerUploadCars extends ChangeNotifier {
       'Authorization': 'Bearer $token',
     });
     var data = jsonDecode(response.body);
+    print(data);
     if (data["data"] != null) {
       List result = data["data"] as List;
 

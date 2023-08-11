@@ -41,12 +41,15 @@ class BuyCarDetails extends StatelessWidget {
                 "Inspection Score:",
                 style: AppFonts.w500black14,
               ),
-              const SizedBox(width: 8),
-              const Icon(Icons.star),
+              const SizedBox(width: 5),
+              const Icon(
+                Icons.star,
+                size: 20,
+              ),
               const SizedBox(width: 3),
               Text(
-                car.technicianRating,
-                style: AppFonts.w700black20,
+                "${car.technicianRating} / 5",
+                style: AppFonts.w700black16,
               )
             ],
           ),

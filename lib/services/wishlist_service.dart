@@ -98,19 +98,57 @@ class WishlistService extends ChangeNotifier {
     });
     var data = jsonDecode(response.body);
     print(data);
+    if (data["data"] != null) {
+      List result = data["data"] as List;
 
-    List result = data["data"] as List;
+      if (data["status"] == 200) {
+        result.forEach((e) async {
+          BuyerCar car = BuyerCar.fromJson(e["dealerVehicle"]);
+          wishlistCars.add(car..isFavourite = true);
 
-    if (data["status"] == 200) {
-      result.forEach((e) async {
-        BuyerCar car = BuyerCar.fromJson(e["dealerVehicle"]);
-        wishlistCars.add(car);
-
-        print(wishlistCars);
-      });
-    } else {
-      print('Request failed with status: ${response.statusCode}');
+          print(wishlistCars);
+        });
+      } else {
+        print('Request failed with status: ${response.statusCode}');
+      }
     }
     notifyListeners();
+  }
+
+  addRemoveWishlist({required BuildContext context, required int carId}) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final String? token = sp.getString('userToken');
+
+    var url = Uri.parse(
+        'https://webservice.flikcar.com:8000/api/buy-car/add-remove-favourites-car');
+    var requestBody = {
+      "vehicleId": "$carId",
+    };
+
+    var response = await http.post(url,
+        headers: {'Authorization': 'Bearer $token'}, body: requestBody);
+
+    var data = json.decode(response.body);
+    print(data);
+    if (data["status"] == 200) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            MySnackbar.showSnackBar(context, "Removed from wishlist"));
+      }
+      print("Removed from wishlist");
+    }
+    if (data["status"] == 201) {
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            MySnackbar.showSnackBar(context, "Added to wishlist"));
+      }
+    }
+    //  else {
+    //   if (context.mounted) {
+    //     ScaffoldMessenger.of(context)
+    //         .showSnackBar(MySnackbar.showSnackBar(context, "Try again later"));
+    //   }
+    //   print('Request failed with status: ${response.statusCode}');
+    // }
   }
 }

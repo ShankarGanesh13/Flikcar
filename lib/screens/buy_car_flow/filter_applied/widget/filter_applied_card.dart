@@ -59,45 +59,34 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(7.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
                     children: [
                       SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.5,
-                        child: Text(
-                          widget.car.model,
-                          maxLines: 1,
-                          style: AppFonts.w700black16,
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: FavoriteButton(
-                          iconColor: const Color(0xffE0E0E0),
-                          iconDisabledColor: const Color(0xffE0E0E0),
-                          valueChanged: (_) {
-                            Provider.of<WishlistService>(context, listen: false)
-                                .addToWishlist(
-                                    carId: widget.car.id, context: context);
-                          },
-                          iconSize: 20,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
                           width: MediaQuery.of(context).size.width / 3.2,
                           child: Text(widget.car.brand,
                               style: AppFonts.w500dark214)),
+
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      // SizedBox(
+                      //   height: 20,
+                      //   width: 20,
+                      //   child: FavoriteButton(
+                      //     iconColor: const Color(0xffE0E0E0),
+                      //     iconDisabledColor: const Color(0xffE0E0E0),
+                      //     valueChanged: (_) {
+                      //       Provider.of<WishlistService>(context, listen: false)
+                      //           .addToWishlist(
+                      //               carId: widget.car.id, context: context);
+                      //     },
+                      //     iconSize: 20,
+                      //   ),
+                      // ),
                       Text(
                         widget.car.saleStatus,
                         style:
@@ -107,7 +96,22 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                       )
                     ],
                   ),
-                  const SizedBox(height: 5),
+                  const SizedBox(
+                    height: 2,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        child: Text(
+                          "${widget.car.model} ${widget.car.variant}",
+                          maxLines: 1,
+                          style: AppFonts.w700black14,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 7),
                   Wrap(
                     spacing: 4,
                     children: List.generate(
@@ -125,7 +129,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                       ),
                     ),
                   ),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 6),
                   Text(
                     "₹ ${widget.car.carPrice}",
                     style: AppFonts.w700black20,

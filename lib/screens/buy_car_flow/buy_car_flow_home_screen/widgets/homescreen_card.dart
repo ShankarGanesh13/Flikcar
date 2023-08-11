@@ -91,7 +91,7 @@ class HomeScreenCard extends StatelessWidget {
         ),
         Container(
           padding: const EdgeInsets.only(bottom: 15),
-          height: 355,
+          height: 350,
           child: cars.isNotEmpty
               ? ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -195,37 +195,39 @@ class HomeScreenCard extends StatelessWidget {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(
-                                    height: 35,
-                                    child: Row(
-                                      children: [
-                                        SizedBox(
-                                          width: 160,
-                                          child: Text(cars[index].model,
-                                              maxLines: 1,
-                                              style: AppFonts.w700s140),
-                                        ),
-                                        const Spacer(),
-                                        Text(
-                                          "₹ ${cars[index].carPrice}",
-                                          style: AppFonts.w700s140,
-                                        ),
-                                      ],
-                                    ),
+                                  const SizedBox(
+                                    height: 10,
+                                  ),
+                                  Row(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      SizedBox(
+                                        width: 160,
+                                        child: Text(cars[index].brand,
+                                            maxLines: 1,
+                                            style: AppFonts.w500dark214),
+                                      ),
+                                      const Spacer(),
+                                      Text(
+                                        "₹ ${cars[index].carPrice}",
+                                        style: AppFonts.w700s140,
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(
+                                    height: 5,
                                   ),
                                   Row(
                                     children: [
-                                      Text(cars[index].brand,
-                                          style: AppFonts.w500dark214),
+                                      SizedBox(
+                                        width: 170,
+                                        child: Text(
+                                            "${cars[index].model} ${cars[index].variant}",
+                                            maxLines: 1,
+                                            style: AppFonts.w700s140),
+                                      ),
                                       const Spacer(),
-                                      Text(
-                                        cars[index].saleStatus,
-                                        style: (cars[index].saleStatus)
-                                                    .toLowerCase() ==
-                                                "available"
-                                            ? AppFonts.w500green12
-                                            : AppFonts.w500red12,
-                                      )
                                     ],
                                   ),
                                   const SizedBox(height: 4),
@@ -262,7 +264,7 @@ class HomeScreenCard extends StatelessWidget {
                               child: Row(
                                 children: [
                                   SizedBox(
-                                    width: 180,
+                                    width: 160,
                                     height: 35,
                                     child: PrimaryButton(
                                       title: "Contact Dealer",
@@ -298,19 +300,37 @@ class HomeScreenCard extends StatelessWidget {
                                     ),
                                   ),
                                   const Spacer(),
-                                  FavoriteButton(
-                                    iconSize: 30,
-                                    iconColor: Color.fromARGB(255, 255, 0, 0),
-                                    isFavorite: cars[index].isFavourite,
-                                    iconDisabledColor: const Color(0xffE0E0E0),
-                                    valueChanged: (_) {
-                                      Provider.of<WishlistService>(context,
-                                              listen: false)
-                                          .addToWishlist(
-                                              carId: cars[index].id,
-                                              context: context);
-                                    },
-                                  ),
+                                  Text(
+                                    cars[index].saleStatus,
+                                    style: (cars[index].saleStatus)
+                                                .toLowerCase() ==
+                                            "available"
+                                        ? AppFonts.w500green12
+                                        : AppFonts.w500red12,
+                                  )
+                                  // FavoriteButton(
+                                  //     iconSize: 30,
+                                  //     iconColor: Color.fromARGB(255, 255, 0, 0),
+                                  //     isFavorite: cars[index].isFavourite,
+                                  //     iconDisabledColor:
+                                  //         const Color(0xffE0E0E0),
+                                  //     valueChanged: (_) {
+                                  //       if (cars[index].isFavourite == true) {
+                                  //         Provider.of<WishlistService>(context,
+                                  //                 listen: false)
+                                  //             .removeFromWishlist(
+                                  //                 carId: cars[index].id,
+                                  //                 context: context);
+                                  //         cars[index].isFavourite = true;
+                                  //       } else {
+                                  //         Provider.of<WishlistService>(context,
+                                  //                 listen: false)
+                                  //             .addToWishlist(
+                                  //                 carId: cars[index].id,
+                                  //                 context: context);
+                                  //         cars[index].isFavourite = false;
+                                  //       }
+                                  //     }),
                                 ],
                               ),
                             )

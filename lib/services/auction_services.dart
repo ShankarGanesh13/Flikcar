@@ -112,13 +112,15 @@ class AuctionService extends ChangeNotifier {
     ////////////
     socket.on('updateMyBidApp', (myBid) {
       myBidCars = [];
-      myBid.forEach((element) {
-        print("this is the my bid data");
-        //  print(element["bid"]);
-        print("++++++++++++++++++++");
-        print(element["Vehicle"]["yourLastBid"]);
-        myBidCars.add(AuctionCar.fromJson(element["Vehicle"]));
-      });
+      if (myBid != null) {
+        myBid.forEach((element) {
+          print("this is the my bid data");
+          //  print(element["bid"]);
+          print("++++++++++++++++++++");
+          print(element["Vehicle"]["yourLastBid"]);
+          myBidCars.add(AuctionCar.fromJson(element["Vehicle"]));
+        });
+      }
       print(myBidCars);
       notifyListeners();
     });

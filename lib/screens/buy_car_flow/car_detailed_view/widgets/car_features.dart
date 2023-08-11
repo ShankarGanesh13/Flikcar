@@ -44,7 +44,7 @@ class CarFeatures extends StatelessWidget {
       features.length,
       (index) => ExpansionTileItem(
         collapsedBackgroundColor: Colors.white,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         title: Text(
           features[index],
           style: AppFonts.w700black16,
@@ -59,8 +59,7 @@ class CarFeatures extends StatelessWidget {
         ),
         iconColor: AppColors.p2,
         themeData: ThemeData(
-            splashColor: Colors.transparent,
-            splashFactory: NoSplash.splashFactory),
+            splashColor: Colors.white, splashFactory: NoSplash.splashFactory),
         collapsedIconColor: AppColors.p2,
         expendedBorderColor: Colors.white,
         tilePadding: const EdgeInsets.only(left: 15, bottom: 0, right: 15),

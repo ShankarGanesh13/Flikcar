@@ -127,11 +127,14 @@ class CarDetailedView extends StatelessWidget {
                   const Spacer(),
                   FavoriteButton(
                     iconSize: 30,
+                    isFavorite: car.isFavourite,
                     iconColor: const Color.fromARGB(255, 255, 0, 0),
                     iconDisabledColor: const Color.fromARGB(255, 138, 138, 138),
                     valueChanged: (_) {
                       Provider.of<WishlistService>(context, listen: false)
-                          .addToWishlist(carId: car.id, context: context);
+                          .addRemoveWishlist(carId: car.id, context: context);
+                      // Provider.of<GetCarDetails>(context, listen: false)
+                      //     .changeWishlistStatus(carId: car.id);
                     },
                   ),
                   // const Icon(Icons.flag),

@@ -1,6 +1,7 @@
 import 'package:flikcar/models/auction_car_model.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer2.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/timer_text.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_timer_text.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_timer2.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -132,8 +133,19 @@ class DealerCarDetails extends StatelessWidget {
         style: AppFonts.w500red14,
       );
     } else {
-      return TimerText2(
-        text: "Auction ends in :\n",
+      return checkLive();
+    }
+  }
+
+  Widget checkLive() {
+    DateTime now = DateTime.now();
+    if (DateTime.parse(car.endAuction).isAfter(now) &&
+        DateTime.parse(car.startAuction).isBefore(now)) {
+      return OngoingTimer2(
+        car: car,
+      );
+    } else {
+      return UpcomingTimer2(
         car: car,
       );
     }

@@ -4,7 +4,9 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/timer_text.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_timer.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +39,7 @@ class DealerCarListCard extends StatelessWidget {
             carId: car.id.toString(), car: car, context: context);
       },
       child: Container(
-        height: 400,
+        height: 390,
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.only(bottom: 8),
         margin: const EdgeInsets.only(right: 15, bottom: 30, top: 5, left: 15),
@@ -73,7 +75,8 @@ class DealerCarListCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, top: 15, bottom: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -81,7 +84,7 @@ class DealerCarListCard extends StatelessWidget {
                     height: 23,
                     child: Row(
                       children: [
-                        Text(car.model, style: AppFonts.w700s116),
+                        Text(car.brand, style: AppFonts.w500dark214),
                         // const Spacer(),
                         // FavoriteButton(
                         //     iconColor: const Color(0xffE0E0E0),
@@ -92,10 +95,18 @@ class DealerCarListCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 4),
-                  Text(car.brand, style: AppFonts.w500dark214),
-                  const SizedBox(height: 10),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.2,
+                    child: Text(
+                      "${car.model} ${car.variant}",
+                      style: AppFonts.w700s116,
+                      maxLines: 1,
+                    ),
+                  ),
+                  const SizedBox(height: 5),
                   Wrap(
                     spacing: 6,
+                    runSpacing: 0,
                     children: List.generate(
                       5,
                       (index) => Container(
@@ -133,7 +144,7 @@ class DealerCarListCard extends StatelessWidget {
                 ],
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             Padding(
               padding: const EdgeInsets.only(left: 15.0, right: 15),
               child: Row(
@@ -173,8 +184,19 @@ class DealerCarListCard extends StatelessWidget {
         style: AppFonts.w500red14,
       );
     } else {
-      return TimerText(
-        text: "Auction ends in :\n",
+      return checkLive();
+    }
+  }
+
+  Widget checkLive() {
+    DateTime now = DateTime.now();
+    if (DateTime.parse(car.endAuction).isAfter(now) &&
+        DateTime.parse(car.startAuction).isBefore(now)) {
+      return OngoingTimer(
+        car: car,
+      );
+    } else {
+      return UpcomingTimer(
         car: car,
       );
     }

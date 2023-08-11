@@ -45,6 +45,30 @@ class GetCarDetails extends ChangeNotifier {
     print("car details saved");
   }
 
+  // changeWishlistStatus({required int carId}) {
+  //   allCars.map((e) {
+  //     if (e.id == carId) {
+  //       e.isFavourite = e.isFavourite == true ? false : true;
+  //     }
+  //   });
+  //   bodyTypeFilter.map((e) {
+  //     if (e.id == carId) {
+  //       e.isFavourite = e.isFavourite == true ? false : true;
+  //     }
+  //   });
+  //   fuelFilter.map((e) {
+  //     if (e.id == carId) {
+  //       e.isFavourite = e.isFavourite == true ? false : true;
+  //     }
+  //   });
+  //   bodyTypeFilter.forEach(
+  //     (element) {
+  //       print(element.isFavourite);
+  //     },
+  //   );
+  //   notifyListeners();
+  // }
+
   filterCars(
       {required String filterType,
       required String filter,

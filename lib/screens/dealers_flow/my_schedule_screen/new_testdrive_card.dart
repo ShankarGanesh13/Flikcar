@@ -181,7 +181,9 @@ class NewTestDriveCard extends StatelessWidget {
                             style: AppFonts.w700black14,
                           ),
                           Text(
-                            testDrive.customerName,
+                            testDrive.customerName == "null"
+                                ? "N.A"
+                                : testDrive.customerName,
                             style: AppFonts.w500black14,
                           ),
                         ],

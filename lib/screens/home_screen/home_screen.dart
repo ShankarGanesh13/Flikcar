@@ -27,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // Provider.of<GetCarDetails>(context, listen: false).getWishlistCars();
 
     Provider.of<GetCarDetails>(context, listen: false).getAllCars();
+    print("init state called");
     // TODO: implement initState
     super.initState();
   }

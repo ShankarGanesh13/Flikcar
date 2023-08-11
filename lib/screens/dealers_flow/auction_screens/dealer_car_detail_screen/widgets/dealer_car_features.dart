@@ -45,7 +45,7 @@ class DealerCarFeatures extends StatelessWidget {
       features.length,
       (index) => ExpansionTileItem(
         collapsedBackgroundColor: Colors.white,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         title: Text(
           features[index],
           style: AppFonts.w700black16,
