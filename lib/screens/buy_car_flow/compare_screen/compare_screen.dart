@@ -4,6 +4,7 @@ import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/compare_deta
 import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/condition_list.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/overview_details.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/widgets/overview_list.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +23,14 @@ class _CompareScreenState extends State<CompareScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen(index: 0)));
+          },
+        ),
         body: Column(
           children: [
             Container(

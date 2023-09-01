@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:favorite_button/favorite_button.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
@@ -69,6 +70,13 @@ class MyBidsScreenCard extends StatelessWidget {
                       ? 'https://webservice.flikcar.com:8000/public/${car.carImages[0]}'
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    } else {
+                      return const LoadingWidget();
+                    }
+                  },
                 ),
               ),
             ),
@@ -82,7 +90,8 @@ class MyBidsScreenCard extends StatelessWidget {
                     height: 23,
                     child: Row(
                       children: [
-                        Text(car.model, style: AppFonts.w700s116),
+                        Text(car.brand, style: AppFonts.w500dark214),
+
                         // const Spacer(),
                         // FavoriteButton(
                         //     iconColor: const Color(0xffE0E0E0),
@@ -92,9 +101,9 @@ class MyBidsScreenCard extends StatelessWidget {
                       ],
                     ),
                   ),
+                  const SizedBox(height: 3),
+                  Text("${car.model} ${car.variant}", style: AppFonts.w700s116),
                   const SizedBox(height: 4),
-                  Text(car.brand, style: AppFonts.w500dark214),
-                  const SizedBox(height: 5),
                   Wrap(
                     spacing: 6,
                     children: List.generate(
@@ -127,12 +136,12 @@ class MyBidsScreenCard extends StatelessWidget {
                   //   style: AppFonts.w700black20,
                   // ),
                   checkAuctionEnded(),
-                  const SizedBox(height: 5),
+                  const SizedBox(height: 4),
                   Text(
                     "Base price ₹${car.carPrice}",
                     style: AppFonts.w500black14,
                   ),
-                  const SizedBox(height: 2),
+                  const SizedBox(height: 4),
                   Text(
                     "Your last bid price ₹${car.yourLastBid}",
                     style: AppFonts.w500green14,

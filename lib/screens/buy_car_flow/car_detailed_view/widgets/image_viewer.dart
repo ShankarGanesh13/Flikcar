@@ -1,4 +1,5 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,14 @@ class _ImageViewerState extends State<ImageViewer> {
               images.isNotEmpty
                   ? "https://webservice.flikcar.com:8000/public/${images[selectedIndex]}"
                   : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
-              fit: BoxFit.fill,
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return const LoadingWidget();
+                }
+              },
             ),
           ),
         ),
@@ -84,6 +92,13 @@ class _ImageViewerState extends State<ImageViewer> {
                       child: Image.network(
                         "https://webservice.flikcar.com:8000/public/${images[index]}",
                         fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return const LoadingWidget();
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -96,7 +111,6 @@ class _ImageViewerState extends State<ImageViewer> {
 
   getImages() {
     _imageProviders = [];
-
     widget.car.carImages.forEach((element) {
       _imageProviders.add(
           Image.network("https://webservice.flikcar.com:8000/public/${element}")

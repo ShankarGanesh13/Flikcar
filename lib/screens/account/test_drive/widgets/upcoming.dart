@@ -1,5 +1,6 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/common_car_details.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/customer_testdrive.dart';
@@ -67,6 +68,14 @@ class UpcomingTestDrive extends StatelessWidget {
                                       ? "https://webservice.flikcar.com:8000/public/${testdrive[index].car.carImages[0]}"
                                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                   fit: BoxFit.fill,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return const LoadingWidget();
+                                    }
+                                  },
                                 ),
                               ),
                             ),

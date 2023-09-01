@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flutter/material.dart';
@@ -53,8 +54,7 @@ class DealerAuthService {
       print("|||||||||||||||||||||||||");
       print("dealer profile status ${data["data"]["profileStatus"]}");
       if (context.mounted) {
-        if (data["data"]["profileStatus"] == "Submitted" ||
-            data["data"]["profileStatus"] == "Complete") {
+        if (data["data"]["profileStatus"] == "Complete") {
           Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
@@ -66,7 +66,15 @@ class DealerAuthService {
           );
           ScaffoldMessenger.of(context).showSnackBar(
               MySnackbar.showSnackBar(context, "Logged in successfully"));
-        } else {
+        }
+        if (data["data"]["profileStatus"] == "Submitted") {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const NotVerifiedDealer()),
+            (route) => false,
+          );
+        }
+        if (data["data"]["profileStatus"] == "Pending") {
           Navigator.push(
               context,
               MaterialPageRoute(
@@ -96,7 +104,12 @@ class DealerAuthService {
     await sp.setString("dealerPhone", "");
     ScaffoldMessenger.of(context).showSnackBar(
         MySnackbar.showSnackBar(context, "Logged out successfully"));
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => StartScreen()));
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StartScreen(),
+      ),
+      (route) => false,
+    );
   }
 }

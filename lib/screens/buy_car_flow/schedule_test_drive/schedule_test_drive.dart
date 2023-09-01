@@ -9,6 +9,7 @@ import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedul
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_data.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_time_slot.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/view_dealer_details.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/book_evaluation/widgets/car_details.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -24,7 +25,14 @@ class ScheduleTestDrive extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomeScreen(index: 0)));
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(

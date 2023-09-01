@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 //import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/manufacturing_year/manufacturing_year.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
@@ -25,7 +26,14 @@ class SellingProcess extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen(index: 0)));
+          },
+        ),
         bottomNavigationBar: SafeArea(
           child: Container(
               height: 60,

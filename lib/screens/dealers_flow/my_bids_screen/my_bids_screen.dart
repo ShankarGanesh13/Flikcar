@@ -1,6 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/widgets/my_bids_screen_card.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -27,7 +28,19 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
   Widget build(BuildContext context) {
     List<AuctionCar> cars = context.watch<AuctionService>().myBidCars;
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(

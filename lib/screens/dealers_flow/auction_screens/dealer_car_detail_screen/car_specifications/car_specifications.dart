@@ -1,12 +1,15 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/models/auction_car_model.dart';
+import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/car_specifications/widgets/dimension_capacity.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/car_specifications/widgets/engine_transmisson_specification.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/car_specifications/widgets/fuel_performance_specification.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/car_specifications/widgets/suspension_brake_specification.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/widgets/dimension_capacity.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +50,19 @@ class _DealerCarSpecificationScreenState
       )
     ];
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DealerFlow(
+                  index: 0,
+                ),
+              ),
+              (route) => false,
+            );
+          },
+        ),
         body: Column(children: [
           Container(
             height: 50,

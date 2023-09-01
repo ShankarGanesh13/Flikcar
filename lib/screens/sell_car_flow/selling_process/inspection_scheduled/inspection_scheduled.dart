@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/inspection_scheduled/widgets/bottom_nav.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/inspection_scheduled/widgets/inspection_day.dart';
@@ -13,7 +14,14 @@ class InspectionScheduled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomeScreen(index: 0)));
+        },
+      ),
       bottomNavigationBar: const SafeArea(child: CustomBottomNav()),
       body: SingleChildScrollView(
         child: Column(

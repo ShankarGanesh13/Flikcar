@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/customer_testdrive.dart';
@@ -42,13 +43,13 @@ class UpcomingTestDriveCard extends StatelessWidget {
                       ];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CarDetailedView(
-                                  car: testdrive[index].car,
-                                ),
-                              ));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => CarDetailedView(
+                          //         car: testdrive[index].car,
+                          //       ),
+                          //     ));
                         },
                         child: Container(
                           height: 351,
@@ -82,6 +83,14 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                         : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                     fit: BoxFit.cover,
                                     width: MediaQuery.of(context).size.width,
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return const LoadingWidget();
+                                      }
+                                    },
                                   ),
 
                                   // SizedBox(

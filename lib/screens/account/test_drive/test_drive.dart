@@ -4,6 +4,7 @@ import 'package:flikcar/screens/account/test_drive/widgets/cancelled_test_drive.
 import 'package:flikcar/screens/account/test_drive/widgets/interested_test_drive.dart';
 import 'package:flikcar/screens/account/test_drive/widgets/upcoming.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,19 @@ class _AccountTestDriveState extends State<AccountTestDrive> {
     List<CustomerTestDrive> testDrive =
         context.watch<BuyCarProvider>().filterTestDriveCars;
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(

@@ -9,6 +9,8 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_filter_scree
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_filter_screen/widgets/dealer_price_filter.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_filter_screen/widgets/dealer_transmisson_filter.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_filter_screen/widgets/dealer_year_filter.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -50,7 +52,19 @@ class _DealerFilterScreenState extends State<DealerFilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DealerFlow(
+                  index: 0,
+                ),
+              ),
+              (route) => false,
+            );
+          },
+        ),
         bottomNavigationBar: SafeArea(
           child: Container(
             height: 60,

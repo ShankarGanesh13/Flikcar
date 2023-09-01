@@ -18,7 +18,19 @@ class ListingCarImages extends StatelessWidget {
   Widget build(BuildContext context) {
     List<File> images = context.watch<DealerUploadCar>().fileToDisplay;
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       bottomNavigationBar: SafeArea(
         child: Container(
           height: 55,
@@ -69,7 +81,7 @@ class ListingCarImages extends StatelessWidget {
                       "Upload Car Images",
                       style: AppFonts.w700black16,
                     ),
-                    Spacer(),
+                    const Spacer(),
                     GestureDetector(
                       onTap: () {
                         showDialog<String>(

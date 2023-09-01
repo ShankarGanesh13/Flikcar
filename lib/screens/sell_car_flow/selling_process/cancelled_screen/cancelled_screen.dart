@@ -11,7 +11,14 @@ class CancelledScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen(index: 0)));
+          },
+        ),
         body: Column(
           children: [
             Container(

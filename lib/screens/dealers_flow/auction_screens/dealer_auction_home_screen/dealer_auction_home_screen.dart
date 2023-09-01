@@ -7,6 +7,7 @@ import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_header.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -40,6 +41,12 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xff171717),
       appBar: CustomAppBar.getAppBarWithContainerSearch(
+          function2: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DealerFlow(index: 0)));
+          },
           back: false,
           context: context,
           function: () {

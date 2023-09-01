@@ -109,8 +109,7 @@ class BuyCarProvider extends ChangeNotifier {
       },
     );
     var body = jsonDecode(response.body);
-    //  print(body);
-    print(body);
+
     if (body["data"] != null) {
       var data = body["data"] as List;
       data.forEach((element) {

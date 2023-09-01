@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/widgets/my_text_field.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -11,7 +12,14 @@ class AddAddress extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen(index: 0)));
+          },
+        ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

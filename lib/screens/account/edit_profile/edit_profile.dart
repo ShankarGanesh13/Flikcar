@@ -1,6 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -15,7 +16,19 @@ class EditProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15.0),

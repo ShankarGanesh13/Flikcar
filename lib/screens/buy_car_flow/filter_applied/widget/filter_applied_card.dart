@@ -1,4 +1,6 @@
 import 'package:favorite_button/favorite_button.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
+import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -8,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class FilterAppliedCard extends StatefulWidget {
   final bool compare;
-  final BuyerCar car;
+  final BuyerCarDisplay car;
   const FilterAppliedCard(
       {super.key, required this.compare, required this.car});
 
@@ -21,9 +23,9 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
   @override
   Widget build(BuildContext context) {
     List<String> features = [
-      widget.car.fuel,
+      widget.car.fuelType,
       "${widget.car.driveKms}kms",
-      widget.car.registrationYear.toString(),
+      widget.car.registerationYear.toString(),
       widget.car.transmission
     ];
     return Column(
@@ -51,10 +53,17 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Image.network(
-                  widget.car.carImages.isNotEmpty
-                      ? "https://webservice.flikcar.com:8000/public/${widget.car.carImages[0]}"
+                  widget.car.images.isNotEmpty
+                      ? "https://webservice.flikcar.com:8000/public/${widget.car.images[0]}"
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.fill,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    } else {
+                      return const LoadingWidget();
+                    }
+                  },
                 ),
               ),
             ),
@@ -131,7 +140,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    "₹ ${widget.car.carPrice}",
+                    "₹ ${widget.car.price}",
                     style: AppFonts.w700black20,
                   )
                 ],

@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/sell_request/widgets/cancelled_request.dart';
 import 'package:flikcar/screens/account/sell_request/widgets/completed_request.dart';
 import 'package:flikcar/screens/account/sell_request/widgets/live_request.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,19 @@ class _AccountSellRequestState extends State<AccountSellRequest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(
+                  index: 0,
+                ),
+              ),
+              (route) => false,
+            );
+          },
+        ),
         body: Column(
           children: [
             Container(

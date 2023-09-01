@@ -3,6 +3,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/details_dropdown.dart';
@@ -36,7 +37,19 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       bottomNavigationBar: SafeArea(
         child: Container(
           height: 55,

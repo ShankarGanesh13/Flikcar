@@ -5,6 +5,7 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specification
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/widgets/fuel_performance_specification.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/widgets/suspension_brake_specification.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/widgets/dimension_capacity.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,19 @@ class _CarSpecificationScreenState extends State<CarSpecificationScreen> {
       )
     ];
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(
+                  index: 0,
+                ),
+              ),
+              (route) => false,
+            );
+          },
+        ),
         body: Column(children: [
           Container(
             height: 50,

@@ -1,6 +1,8 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
+import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class DealerImageViewer extends StatefulWidget {
@@ -15,7 +17,6 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
   @override
   void initState() {
     getImages();
-    print(_imageProviders);
     // TODO: implement initState
     super.initState();
   }
@@ -41,13 +42,20 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
                 doubleTapZoomable: true);
           },
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 3.8,
+            height: MediaQuery.of(context).size.height / 4,
             width: MediaQuery.of(context).size.width,
             child: Image.network(
               images.isNotEmpty
                   ? 'https://webservice.flikcar.com:8000/public/${images[selectedIndex]}'
                   : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
-              fit: BoxFit.fill,
+              fit: BoxFit.contain,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) {
+                  return child;
+                } else {
+                  return const LoadingWidget();
+                }
+              },
             ),
           ),
         ),
@@ -86,6 +94,26 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
                       child: Image.network(
                         'https://webservice.flikcar.com:8000/public/${images[index]}',
                         fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return Container(
+                              height: 82,
+                              width: 128,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(6),
+                                border:
+                                    Border.all(width: 1, color: AppColors.grey),
+                              ),
+                              child: Center(
+                                  child: CircularProgressIndicator(
+                                color: AppColors.s1,
+                                strokeWidth: 2,
+                              )),
+                            );
+                          }
+                        },
                       ),
                     ),
                   ),

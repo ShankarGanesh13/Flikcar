@@ -13,7 +13,6 @@ class GetDealerUploadCars extends ChangeNotifier {
   List<BuyerCar> allCars = [];
   List<BuyerCar> filteredCars = [];
   List<BuyerCar> searchCars = [];
-
   List<DealerTestDrive> dealerTestDrive = [];
   List<DealerTestDrive> filteredDealerTestDrive = [];
   final DateTime now = DateTime.now();
@@ -22,17 +21,14 @@ class GetDealerUploadCars extends ChangeNotifier {
   getDealerUploadedCars() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('dealerToken');
-
     var url = Uri.parse(
         'https://webservice.flikcar.com:8000/api/dealer/car/list-car');
-
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     });
     var data = jsonDecode(response.body);
     List result = data["data"] as List;
-
     allCars = [];
     result.forEach(
       (element) {
@@ -46,7 +42,7 @@ class GetDealerUploadCars extends ChangeNotifier {
 
   filterDealerCars({required String status}) {
     filteredCars = allCars;
-    print(status);
+    debugPrint(status);
 
     filteredCars =
         allCars.where((element) => element.saleStatus == status).toList();
@@ -69,16 +65,13 @@ class GetDealerUploadCars extends ChangeNotifier {
       'Authorization': 'Bearer $token',
     });
     var data = jsonDecode(response.body);
-    print(data);
     if (data["data"] != null) {
       List result = data["data"] as List;
-
       result.forEach((element) {
         dealerTestDrive.add(DealerTestDrive.fromJson(element));
       });
       filteredDealerTestDrive = dealerTestDrive;
       notifyListeners();
-      print(filteredDealerTestDrive);
     }
   }
 

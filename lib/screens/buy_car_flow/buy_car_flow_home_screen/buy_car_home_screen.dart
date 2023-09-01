@@ -7,12 +7,15 @@ import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/ho
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/upcoming_test_drive_card.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../../models/buyer_car_display.dart';
 
 class BuyCarHomeScreen extends StatefulWidget {
   const BuyCarHomeScreen({super.key});
@@ -34,10 +37,11 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
   @override
   Widget build(BuildContext context) {
     // List<BuyerCar> allCars = context.watch<GetCarDetails>().allCars;
-    List<BuyerCar> fuelCars = context.watch<GetCarDetails>().fuelFilter;
-    List<BuyerCar> transmissonCars =
+    List<BuyerCarDisplay> fuelCars = context.watch<GetCarDetails>().fuelFilter;
+    List<BuyerCarDisplay> transmissonCars =
         context.watch<GetCarDetails>().transmissonFilter..shuffle();
-    List<BuyerCar> bodytypeCars = context.watch<GetCarDetails>().bodyTypeFilter;
+    List<BuyerCarDisplay> bodytypeCars =
+        context.watch<GetCarDetails>().bodyTypeFilter;
     int fuelIndex = context.watch<GetCarDetails>().fuelIndex;
     int transmissonIndex = context.watch<GetCarDetails>().transmissonIndex;
     int bodyIndex = context.watch<GetCarDetails>().bodyIndex;
@@ -45,6 +49,17 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xff171717),
       appBar: CustomAppBar.getAppBarWithContainerSearch(
+          function2: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(
+                  index: 0,
+                ),
+              ),
+              (route) => false,
+            );
+          },
           back: false,
           context: context,
           function: () {

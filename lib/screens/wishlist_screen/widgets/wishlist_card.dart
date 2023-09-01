@@ -1,8 +1,10 @@
 import 'package:favorite_button/favorite_button.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';
+import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -23,8 +25,13 @@ class WishlistCard extends StatelessWidget {
     ];
     return GestureDetector(
       onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => CarDetailedView(car: car)));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => CarDetailedView(
+                      car: Provider.of<GetCarDetails>(context, listen: false)
+                          .getCarById(id: car.id.toString()),
+                    )));
       },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
@@ -58,6 +65,13 @@ class WishlistCard extends StatelessWidget {
                             ? "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png"
                             : "https://webservice.flikcar.com:8000/public/${car.carImages[0]}",
                         fit: BoxFit.fill,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) {
+                            return child;
+                          } else {
+                            return const LoadingWidget();
+                          }
+                        },
                       ),
                     ),
                   ),

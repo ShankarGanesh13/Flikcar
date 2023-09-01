@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart';
@@ -7,6 +8,7 @@ import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applie
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/sort_pop_up.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -34,7 +36,7 @@ class _FilterAppliedState extends State<FilterApplied> {
     super.initState();
   }
 
-  List<BuyerCar> allCars = [];
+  List<BuyerCarDisplay> allCars = [];
 
   @override
   Widget build(BuildContext context) {
@@ -44,6 +46,17 @@ class _FilterAppliedState extends State<FilterApplied> {
 
     return Scaffold(
         appBar: CustomAppBar.getAppBarWithSearch(
+            function2: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomeScreen(
+                    index: 0,
+                  ),
+                ),
+                (route) => false,
+              );
+            },
             context: context,
             back: true,
             onchange: (value) {
@@ -259,7 +272,13 @@ class _FilterAppliedState extends State<FilterApplied> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => CarDetailedView(
-                                          car: allCars[index],
+                                          car: Provider.of<GetCarDetails>(
+                                                  context,
+                                                  listen: false)
+                                              .getCarById(
+                                                  id: allCars[index]
+                                                      .id
+                                                      .toString()),
                                         )));
                           },
                           child: FilterAppliedCard(

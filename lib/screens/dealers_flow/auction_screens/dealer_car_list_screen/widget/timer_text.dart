@@ -17,7 +17,6 @@ class TimerText extends StatefulWidget {
 class _TimerTextState extends State<TimerText> {
   Duration? _remainingTime;
   Timer? _timer;
-  bool auctionLive = true;
   bool upcomingAuction = false;
 
   @override

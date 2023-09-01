@@ -9,6 +9,7 @@ import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/owners_filter
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/price_filter.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/transmisson_filter.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/year_filter.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/search_service.dart';
@@ -51,7 +52,14 @@ class _FilterScreenState extends State<FilterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen(index: 0)));
+          },
+        ),
         bottomNavigationBar: SafeArea(
           child: Container(
             height: 60,
@@ -65,7 +73,8 @@ class _FilterScreenState extends State<FilterScreen> {
             ]),
             child: Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
-              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 // Column(
                 //   mainAxisAlignment: MainAxisAlignment.center,
                 //   crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,6 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/secondary_button.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/car_no_textfield.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/select_brand.dart';
@@ -17,7 +18,14 @@ class SellCarHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff171717),
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomeScreen(index: 0)));
+        },
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(

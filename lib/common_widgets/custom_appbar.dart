@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
@@ -10,19 +11,24 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CustomAppBar {
-  static PreferredSizeWidget getAppBar() {
+  static PreferredSizeWidget getAppBar({required Function() function}) {
     return AppBar(
       automaticallyImplyLeading: false,
       shadowColor: Colors.transparent,
       backgroundColor: AppColors.s1,
-      title: Container(
-        margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
-        height: 37,
-        width: 59,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage("assets/flikcar_logo2.png"),
+      title: GestureDetector(
+        onTap: () {
+          function();
+        },
+        child: Container(
+          margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
+          height: 37,
+          width: 59,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.cover,
+              image: AssetImage("assets/flikcar_logo2.png"),
+            ),
           ),
         ),
       ),
@@ -71,6 +77,7 @@ class CustomAppBar {
   static PreferredSizeWidget getAppBarWithSearch(
       {required BuildContext context,
       required Function() function,
+      required Function() function2,
       required ValueChanged<String> onchange,
       required bool back}) {
     return PreferredSize(
@@ -81,14 +88,19 @@ class CustomAppBar {
             automaticallyImplyLeading: false,
             shadowColor: Colors.transparent,
             backgroundColor: AppColors.s1,
-            title: Container(
-              margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
-              height: 37,
-              width: 59,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/flikcar_logo2.png"),
+            title: GestureDetector(
+              onTap: () {
+                function2();
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
+                height: 37,
+                width: 59,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/flikcar_logo2.png"),
+                  ),
                 ),
               ),
             ),
@@ -224,6 +236,7 @@ class CustomAppBar {
   static PreferredSizeWidget getAppBarWithContainerSearch(
       {required BuildContext context,
       required Function() function,
+      required Function() function2,
       required bool back}) {
     return PreferredSize(
       preferredSize: const Size.fromHeight(123.0),
@@ -233,14 +246,19 @@ class CustomAppBar {
             automaticallyImplyLeading: false,
             shadowColor: Colors.transparent,
             backgroundColor: AppColors.s1,
-            title: Container(
-              margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
-              height: 37,
-              width: 59,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/flikcar_logo2.png"),
+            title: GestureDetector(
+              onTap: () {
+                function2();
+              },
+              child: Container(
+                margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
+                height: 37,
+                width: 59,
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/flikcar_logo2.png"),
+                  ),
                 ),
               ),
             ),

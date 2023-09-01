@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/cancelled_screen/cancelled_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -24,7 +25,14 @@ class CancelReason extends StatelessWidget {
         context.watch<EvaluationProvider>().reasonForCancellingIndex;
 
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const HomeScreen(index: 0)));
+        },
+      ),
       body: Column(
         children: [
           Container(

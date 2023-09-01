@@ -3,6 +3,7 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/buy_car_flow/booking_cancelled/booking_cancelled.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_car_details.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,14 @@ class CancelTestDrive extends StatelessWidget {
         context.watch<BuyCarProvider>().testDriveCancellingReasonIndex;
 
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen(index: 0)));
+          },
+        ),
         body: SingleChildScrollView(
           child: Column(
             children: [

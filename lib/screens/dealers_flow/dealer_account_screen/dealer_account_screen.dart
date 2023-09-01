@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/services/dealer_auth_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,19 @@ class DealerAccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DealerFlow(
+                  index: 0,
+                ),
+              ),
+              (route) => false,
+            );
+          },
+        ),
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,6 +91,32 @@ class DealerAccountScreen extends StatelessWidget {
                     title: "Terms and Conditions",
                     subtitle: "View our terms and conditions",
                     icon: Icons.chevron_right),
+              ),
+              Container(
+                color: Colors.transparent,
+                padding: const EdgeInsets.all(15.0),
+                child: Row(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "App Version",
+                          style: AppFonts.w700black16,
+                        ),
+                        const SizedBox(height: 6),
+                        Text(
+                          "1.3.2",
+                          style: AppFonts.w500dark214,
+                        )
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              const Divider(
+                height: 0,
+                color: Color.fromARGB(255, 177, 177, 177),
               ),
               const SizedBox(
                 height: 20,

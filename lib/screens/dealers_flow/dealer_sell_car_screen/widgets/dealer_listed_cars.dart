@@ -1,4 +1,5 @@
 import 'package:favorite_button/favorite_button.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
@@ -66,6 +67,13 @@ class DealerListedCars extends StatelessWidget {
                               ? "https://webservice.flikcar.com:8000/public/${cars[index].carImages[0]}"
                               : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                           fit: BoxFit.fill,
+                          loadingBuilder: (context, child, loadingProgress) {
+                            if (loadingProgress == null) {
+                              return child;
+                            } else {
+                              return const LoadingWidget();
+                            }
+                          },
                         ),
                       ),
                     ),

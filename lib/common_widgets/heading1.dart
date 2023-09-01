@@ -15,7 +15,7 @@ class Heading1 extends StatelessWidget {
     return Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(
         margin: const EdgeInsets.only(right: 10),
-        height: 19,
+        height: 22,
         width: 4,
         decoration: BoxDecoration(color: AppColors.p2
             // gradient: LinearGradient(

@@ -55,8 +55,8 @@ class _OngoingTimerState extends State<OngoingTimer> {
   Widget build(BuildContext context) {
     return Text(
       _remainingTime != null
-          ? "Auction Starts in :\n${_formatDuration(_remainingTime!)} hrs"
-          : "Auction Starts in : \nhrs",
+          ? "Auction Ends in :\n${_formatDuration(_remainingTime!)} hrs"
+          : "Auction Ends in : \nhrs",
       style: AppFonts.w500red14,
     );
   }

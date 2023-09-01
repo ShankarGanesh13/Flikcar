@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
 import 'package:flutter/material.dart';
 
 import 'package:path_provider/path_provider.dart' as path_provider;
@@ -212,7 +213,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
       Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => const DealerFlow(index: 0),
+          builder: (context) => const NotVerifiedDealer(),
         ),
         (route) => false,
       );

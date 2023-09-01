@@ -2,6 +2,7 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/wishlist_screen/widgets/wishlist_card.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -30,7 +31,19 @@ class _WishlistScreenState extends State<WishlistScreen> {
     List<BuyerCar> wishlistCars = context.watch<WishlistService>().wishlistCars;
     print(wishlistCars);
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(

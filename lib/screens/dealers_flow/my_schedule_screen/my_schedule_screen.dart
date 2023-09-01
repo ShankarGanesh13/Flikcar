@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/dealer_testdrive.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/new_testdrive_card.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/schedule_screen_card/schedule_screen_card.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
@@ -33,7 +34,19 @@ class _MyScheduleScreenState extends State<MyScheduleScreen> {
     List<DealerTestDrive> testdrive =
         context.watch<GetDealerUploadCars>().filteredDealerTestDrive;
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

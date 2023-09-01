@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/widgets/dealer_listed_cars.dart';
 import 'package:flikcar/services/auction_services.dart';
@@ -39,7 +40,19 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
     List<BuyerCar> cars = context.watch<GetDealerUploadCars>().searchCars;
     print(cars);
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(

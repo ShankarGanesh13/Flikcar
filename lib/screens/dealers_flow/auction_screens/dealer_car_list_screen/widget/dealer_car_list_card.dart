@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:favorite_button/favorite_button.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
@@ -71,6 +72,13 @@ class DealerCarListCard extends StatelessWidget {
                       ? 'https://webservice.flikcar.com:8000/public/${car.carImages[0]}'
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.cover,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) {
+                      return child;
+                    } else {
+                      return const LoadingWidget();
+                    }
+                  },
                 ),
               ),
             ),
@@ -111,7 +119,7 @@ class DealerCarListCard extends StatelessWidget {
                       5,
                       (index) => Container(
                         padding: const EdgeInsets.only(
-                            left: 0, right: 7, top: 5, bottom: 0),
+                            left: 0, right: 3, top: 5, bottom: 0),
                         decoration: BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(20)),

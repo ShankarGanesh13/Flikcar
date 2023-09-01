@@ -83,7 +83,7 @@ void main() async {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
           useMaterial3: true,
         ),
-        home: StartScreen(),
+        home: ListingCarImages(),
       ),
     ),
   );

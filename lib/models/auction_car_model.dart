@@ -1,4 +1,5 @@
 import 'package:flikcar/models/bid_model.dart';
+import 'package:http/http.dart';
 
 class AuctionCar {
   int id;
@@ -72,6 +73,7 @@ class AuctionCar {
   String purchasedAt;
   String purchasedPrice;
   BidModel? lastBid;
+  List<BidModel>? recentBid;
   String? yourLastBid;
   String technicianRating;
   String technicianRemarks;
@@ -157,6 +159,7 @@ class AuctionCar {
       required this.technicianRating,
       required this.technicianRemarks,
       this.yourLastBid,
+      this.recentBid,
       this.lastBid});
   @override
   bool operator ==(other) {
@@ -172,7 +175,7 @@ class AuctionCar {
         carName: json['car_name'] ?? "No data",
         carDescription: json['car_description'] ?? "No data",
         mileage: json['mileage'].toString() ?? "No data",
-        torque: json['torque'].toString() ?? "No data",
+        torque: json['torque'] == null ? "N.A" : json['torque'].toString(),
         engine: json['engine'].toString() ?? "No data",
         maxPower: json['max_power'].toString() ?? "No data",
         driveKms: json['drive_kms'].toString() ?? "No data",
@@ -273,6 +276,7 @@ class AuctionCar {
             : "no data",
         technicianRemarks: json["technician_remarks"] ?? "",
         technicianRating: json["technician_rating"].toString() ?? "",
+        recentBid: getBids(json["bid"]),
         lastBid:
             json["bid"].isNotEmpty ? BidModel.fromJson(json["bid"][0]) : null,
         yourLastBid: json["yourLastBid"].toString() ?? "No Data");
@@ -288,130 +292,127 @@ class AuctionCar {
     return result;
   }
 
+  static List<BidModel> getBids(List list) {
+    List<BidModel> result = [];
+
+    if (list.isNotEmpty) {
+      list.forEach((e) => result.add(BidModel.fromJson(e)));
+    }
+    return result;
+  }
+
   factory AuctionCar.fromJson2(Map<String, dynamic> json) {
     return AuctionCar(
-      id: json["vehicle"]['id'] ?? "No data",
-      carName: json["vehicle"]['car_name'] ?? "No data",
-      carDescription: json["vehicle"]['car_description'] ?? "No data",
-      mileage: json["vehicle"]['mileage'].toString() ?? "No data",
-      torque: json["vehicle"]['torque'].toString() ?? "No data",
-      engine: json["vehicle"]['engine'].toString() ?? "No data",
-      maxPower: json["vehicle"]['max_power'].toString() ?? "No data",
-      driveKms: json["vehicle"]['drive_kms'].toString() ?? "No data",
-      registrationYear:
-          json["vehicle"]['registration_year'].toString() ?? "No data",
-      transmission: json["vehicle"]['transmission'] ?? "No data",
-      groundClearance:
-          json["vehicle"]['ground_clearance'].toString() ?? "No data",
-      bootSpace: json["vehicle"]['boot_space'].toString() ?? "No data",
-      noOfSeatsRow: json["vehicle"]['no_of_seats_row'].toString() ?? "No data",
-      fuelTankCapacity:
-          json["vehicle"]['fuel_tank_capacity'].toString() ?? "No data",
-      wheelbase: json["vehicle"]['wheelbase'].toString() ?? "No data",
-      length: json["vehicle"]['length'].toString() ?? "No data",
-      alloyWheels: json["vehicle"]['alloy_wheels'] ?? "No data",
-      frontTyres: json["vehicle"]['front_tyres'] ?? "No data",
-      rearTyres: json["vehicle"]['rear_tyres'] ?? "No data",
-      spareWheel: json["vehicle"]['spare_wheel'] ?? "No data",
-      noOfDoors: json["vehicle"]['no_of_doors'].toString() ?? "No data",
-      height: json["vehicle"]['height'].toString() ?? "No data",
-      width: json["vehicle"]['width'].toString() ?? "No data",
-      wheelCover: json["vehicle"]['wheel_cover'] ?? "No data",
-      drivetrain: json["vehicle"]['drivetrain'] ?? "No data",
-      gearBox: json["vehicle"]['gear_box'].toString() ?? "No data",
-      displacement: json["vehicle"]['displacement'].toString() ?? "No data",
-      noOfCylinders: json["vehicle"]['no_of_cylinders'].toString() ?? "No data",
-      valveCylinders:
-          json["vehicle"]['valve_cylinders'].toString() ?? "No data",
-      turbocharger: json["vehicle"]['turbocharger'] ?? "No data",
-      limitedSlipDiffe: json["vehicle"]['limited_slip_diffe'] ?? "No data",
-      maxTorque: json["vehicle"]['max_torque'].toString() ?? "No data",
-      suspensionFront: json["vehicle"]['suspension_front'] ?? "No data",
-      suspensionRear: json["vehicle"]['suspension_rear'] ?? "No data",
-      frontBrakeType: json["vehicle"]['front_brake_type'] ?? "No data",
-      rearBrakeType: json["vehicle"]['rear_brake_type'] ?? "No data",
-      steeringType: json["vehicle"]['steering_type'] ?? "No data",
-      mStringurningRadius:
-          json["vehicle"]['min_turning_radius'].toString() ?? "No data",
-      carPrice: json["vehicle"]['car_price'].toString() ?? "No data",
-      salePrice: json["vehicle"]['sale_price'].toString() ?? "Na data",
-      soldTo: json["vehicle"]['sold_to'].toString() ?? "No data",
-      saleAt: json["vehicle"]['sale_at'].toString() ?? "No data",
-      //status= Active/Inactive
-      status: json["vehicle"]['status'] ?? "No data",
-      //sale status=Available/Sold Out
-      saleStatus: json["vehicle"]['sale_status'] ?? "No data",
-      updatedAt: json["vehicle"]["updatedAt"] ?? "No data",
+        id: json["vehicle"]['id'] ?? "No data",
+        carName: json["vehicle"]['car_name'] ?? "No data",
+        carDescription: json["vehicle"]['car_description'] ?? "No data",
+        mileage: json["vehicle"]['mileage'].toString() ?? "No data",
+        torque: json["vehicle"]['torque'].toString() ?? "No data",
+        engine: json["vehicle"]['engine'].toString() ?? "No data",
+        maxPower: json["vehicle"]['max_power'].toString() ?? "No data",
+        driveKms: json["vehicle"]['drive_kms'].toString() ?? "No data",
+        registrationYear:
+            json["vehicle"]['registration_year'].toString() ?? "No data",
+        transmission: json["vehicle"]['transmission'] ?? "No data",
+        groundClearance:
+            json["vehicle"]['ground_clearance'].toString() ?? "No data",
+        bootSpace: json["vehicle"]['boot_space'].toString() ?? "No data",
+        noOfSeatsRow:
+            json["vehicle"]['no_of_seats_row'].toString() ?? "No data",
+        fuelTankCapacity:
+            json["vehicle"]['fuel_tank_capacity'].toString() ?? "No data",
+        wheelbase: json["vehicle"]['wheelbase'].toString() ?? "No data",
+        length: json["vehicle"]['length'].toString() ?? "No data",
+        alloyWheels: json["vehicle"]['alloy_wheels'] ?? "No data",
+        frontTyres: json["vehicle"]['front_tyres'] ?? "No data",
+        rearTyres: json["vehicle"]['rear_tyres'] ?? "No data",
+        spareWheel: json["vehicle"]['spare_wheel'] ?? "No data",
+        noOfDoors: json["vehicle"]['no_of_doors'].toString() ?? "No data",
+        height: json["vehicle"]['height'].toString() ?? "No data",
+        width: json["vehicle"]['width'].toString() ?? "No data",
+        wheelCover: json["vehicle"]['wheel_cover'] ?? "No data",
+        drivetrain: json["vehicle"]['drivetrain'] ?? "No data",
+        gearBox: json["vehicle"]['gear_box'].toString() ?? "No data",
+        displacement: json["vehicle"]['displacement'].toString() ?? "No data",
+        noOfCylinders:
+            json["vehicle"]['no_of_cylinders'].toString() ?? "No data",
+        valveCylinders:
+            json["vehicle"]['valve_cylinders'].toString() ?? "No data",
+        turbocharger: json["vehicle"]['turbocharger'] ?? "No data",
+        limitedSlipDiffe: json["vehicle"]['limited_slip_diffe'] ?? "No data",
+        maxTorque: json["vehicle"]['max_torque'].toString() ?? "No data",
+        suspensionFront: json["vehicle"]['suspension_front'] ?? "No data",
+        suspensionRear: json["vehicle"]['suspension_rear'] ?? "No data",
+        frontBrakeType: json["vehicle"]['front_brake_type'] ?? "No data",
+        rearBrakeType: json["vehicle"]['rear_brake_type'] ?? "No data",
+        steeringType: json["vehicle"]['steering_type'] ?? "No data",
+        mStringurningRadius:
+            json["vehicle"]['min_turning_radius'].toString() ?? "No data",
+        carPrice: json["vehicle"]['car_price'].toString() ?? "No data",
+        salePrice: json["vehicle"]['sale_price'].toString() ?? "Na data",
+        soldTo: json["vehicle"]['sold_to'].toString() ?? "No data",
+        saleAt: json["vehicle"]['sale_at'].toString() ?? "No data",
+        //status= Active/Inactive
+        status: json["vehicle"]['status'] ?? "No data",
+        //sale status=Available/Sold Out
+        saleStatus: json["vehicle"]['sale_status'] ?? "No data",
+        updatedAt: json["vehicle"]["updatedAt"] ?? "No data",
 
-      ///
-      brand: json["vehicle"]['vehicleBrand']["name"] ?? "No data",
-      model: json["vehicle"]['vehicleModel']["name"] ?? "No data",
-      variant: json["vehicle"]['vehicleVariantType']["name"] ?? "No data",
-      fuel: json["vehicle"]['vehicleFuelType']["name"] ?? "No data",
-      bodytype: json["vehicle"]['vehicleBodyType']["name"] ?? "No data",
-      color: json["vehicle"]['vehicleColor']["name"] ?? "No data",
-      seat:
-          json["vehicle"]['vehicleSeat']["no_of_seats"].toString() ?? "No data",
-      ownertype: json["vehicle"]['vehicleOwnerType']["type"] ?? "No data",
-      //
-      carImages:
-          List<String>.from(myfunc("path", json["vehicle"]["vehicleImages"])),
-      featureDetails: json["vehicle"]['vehicleFeature'] != null
-          ? List<String>.from(myfunc("name", json["vehicle"]['vehicleFeature']))
-          : [],
-      exteriorDetails: json["vehicle"]['vehicleExterior'] != null
-          ? List<String>.from(
-              myfunc("name", json["vehicle"]['vehicleExterior']))
-          : [],
-      comfortDetails: json["vehicle"]['vehicleComfortConvenience'] != null
-          ? List<String>.from(
-              myfunc("name", json["vehicle"]['vehicleComfortConvenience']))
-          : [],
-      entertainmentDetails: json["vehicle"]
-                  ['vehicleEntertainmentCommunications'] !=
-              null
-          ? List<String>.from(myfunc(
-              "name", json["vehicle"]['vehicleEntertainmentCommunications']))
-          : [],
-      interiorDetails: json["vehicle"]['vehicleInterior'] != null
-          ? List<String>.from(
-              myfunc("name", json["vehicle"]['vehicleInterior']))
-          : [],
-      safetyDetails: json["vehicle"]['vehicleSafety'] != null
-          ? List<String>.from(myfunc("name", json["vehicle"]['vehicleSafety']))
-          : [],
-      dealerId: json["vehicle"]["dealer_id"].toString(),
-      dealerName: json["vehicle"]["dealer"] != null
-          ? json["vehicle"]["dealer"]["name"]
-          : "",
-      dealerPhoneNumber: json["vehicle"]["dealer"] != null
-          ? json["vehicle"]["dealer"]["phone"].toString()
-          : "",
-      dealerAddress: json["vehicle"]["dealer"] != null
-          ? json["vehicle"]["address_one"]
-          : "",
-      /////////
-      currentBidPrice: json["vehicle"]["current_bid_price"] != null
-          ? json["vehicle"]["current_bid_price"].toString()
-          : "no data",
-      endAuction: json["vehicle"]["end_auction"] != null
-          ? json["vehicle"]["end_auction"].toString()
-          : "no data",
-      purchasedAt: json["vehicle"]["purchased_at"] != null
-          ? json["vehicle"]["purchased_at"].toString()
-          : "no data",
-      purchasedBy: json["vehicle"]["purchased_by"] != null
-          ? json["vehicle"]["purchased_by"].toString()
-          : "no data",
-      purchasedPrice: json["vehicle"]["purchased_price"] != null
-          ? json["vehicle"]["purchased_price"].toString()
-          : "no data",
-      startAuction: json["vehicle"]["start_auction"] != null
-          ? json["vehicle"]["start_auction"].toString()
-          : "no data",
-      lastBid: json["bid"] != null ? BidModel.fromJson(json["bid"][0]) : null,
-      technicianRemarks: json["vehicle"]["technician_remarks"] ?? "",
-      technicianRating: json["vechicle"]["technician_rating"].toString() ?? "",
-    );
+        ///
+        brand: json["vehicle"]['vehicleBrand']["name"] ?? "No data",
+        model: json["vehicle"]['vehicleModel']["name"] ?? "No data",
+        variant: json["vehicle"]['vehicleVariantType']["name"] ?? "No data",
+        fuel: json["vehicle"]['vehicleFuelType']["name"] ?? "No data",
+        bodytype: json["vehicle"]['vehicleBodyType']["name"] ?? "No data",
+        color: json["vehicle"]['vehicleColor']["name"] ?? "No data",
+        seat: json["vehicle"]['vehicleSeat']["no_of_seats"].toString() ??
+            "No data",
+        ownertype: json["vehicle"]['vehicleOwnerType']["type"] ?? "No data",
+        //
+        carImages:
+            List<String>.from(myfunc("path", json["vehicle"]["vehicleImages"])),
+        featureDetails: json["vehicle"]['vehicleFeature'] != null
+            ? List<String>.from(
+                myfunc("name", json["vehicle"]['vehicleFeature']))
+            : [],
+        exteriorDetails: json["vehicle"]['vehicleExterior'] != null
+            ? List<String>.from(
+                myfunc("name", json["vehicle"]['vehicleExterior']))
+            : [],
+        comfortDetails: json["vehicle"]['vehicleComfortConvenience'] != null
+            ? List<String>.from(
+                myfunc("name", json["vehicle"]['vehicleComfortConvenience']))
+            : [],
+        entertainmentDetails: json["vehicle"]['vehicleEntertainmentCommunications'] != null
+            ? List<String>.from(myfunc(
+                "name", json["vehicle"]['vehicleEntertainmentCommunications']))
+            : [],
+        interiorDetails: json["vehicle"]['vehicleInterior'] != null
+            ? List<String>.from(
+                myfunc("name", json["vehicle"]['vehicleInterior']))
+            : [],
+        safetyDetails: json["vehicle"]['vehicleSafety'] != null
+            ? List<String>.from(
+                myfunc("name", json["vehicle"]['vehicleSafety']))
+            : [],
+        dealerId: json["vehicle"]["dealer_id"].toString(),
+        dealerName: json["vehicle"]["dealer"] != null
+            ? json["vehicle"]["dealer"]["name"]
+            : "",
+        dealerPhoneNumber: json["vehicle"]["dealer"] != null
+            ? json["vehicle"]["dealer"]["phone"].toString()
+            : "",
+        dealerAddress: json["vehicle"]["dealer"] != null ? json["vehicle"]["address_one"] : "",
+        /////////
+        currentBidPrice: json["vehicle"]["current_bid_price"] != null ? json["vehicle"]["current_bid_price"].toString() : "no data",
+        endAuction: json["vehicle"]["end_auction"] != null ? json["vehicle"]["end_auction"].toString() : "no data",
+        purchasedAt: json["vehicle"]["purchased_at"] != null ? json["vehicle"]["purchased_at"].toString() : "no data",
+        purchasedBy: json["vehicle"]["purchased_by"] != null ? json["vehicle"]["purchased_by"].toString() : "no data",
+        purchasedPrice: json["vehicle"]["purchased_price"] != null ? json["vehicle"]["purchased_price"].toString() : "no data",
+        startAuction: json["vehicle"]["start_auction"] != null ? json["vehicle"]["start_auction"].toString() : "no data",
+        lastBid: json["bid"] != null ? BidModel.fromJson(json["bid"][0]) : null,
+        technicianRemarks: json["vehicle"]["technician_remarks"] ?? "",
+        recentBid: getBids(json["bid"] as List),
+        technicianRating: json["vehicle"]["technician_rating"].toString());
   }
 }

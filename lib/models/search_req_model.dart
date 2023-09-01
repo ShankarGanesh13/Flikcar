@@ -9,7 +9,8 @@ class SearchReqModel {
   List<int> budget;
   List<int> drivenkm;
   List<int> fuel;
-  String type;
+  String city;
+
   SearchReqModel({
     required this.brand,
     required this.model,
@@ -21,7 +22,7 @@ class SearchReqModel {
     required this.fuel,
     required this.modelyear,
     required this.budget,
-    required this.type,
+    required this.city,
   });
   Map<String, dynamic> toJson() {
     return {
@@ -35,7 +36,7 @@ class SearchReqModel {
       'budget': budget.map((item) => item).toList(),
       'drivenkm': drivenkm.map((item) => item).toList(),
       'fuel': fuel.map((item) => item).toList(),
-      "type": type,
+      'city': ""
     };
   }
 }

@@ -4,6 +4,7 @@ import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
+import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
@@ -24,7 +25,7 @@ class HomeScreenCard extends StatelessWidget {
   final bool filterButton;
   final String filter;
   final List<String> filters;
-  final List<BuyerCar> cars;
+  final List<BuyerCarDisplay> cars;
   final int selectedindex;
 
   const HomeScreenCard({
@@ -99,9 +100,9 @@ class HomeScreenCard extends StatelessWidget {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     List<String> features = [
-                      cars[index].fuel,
+                      cars[index].fuelType,
                       "${cars[index].driveKms} kms",
-                      "${cars[index].registrationYear}",
+                      "${cars[index].registerationYear}",
                       cars[index].transmission,
                     ];
                     return GestureDetector(
@@ -110,7 +111,9 @@ class HomeScreenCard extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) => CarDetailedView(
-                                car: cars[index],
+                                car: Provider.of<GetCarDetails>(context,
+                                        listen: false)
+                                    .getCarById(id: cars[index].id.toString()),
                               ),
                             ));
                       },
@@ -148,46 +151,19 @@ class HomeScreenCard extends StatelessWidget {
                                     topRight: Radius.circular(15),
                                   ),
                                   child: Image.network(
-                                    cars[index].carImages.isNotEmpty
-                                        ? "https://webservice.flikcar.com:8000/public/${cars[index].carImages[0]}"
+                                    cars[index].images.isNotEmpty
+                                        ? "https://webservice.flikcar.com:8000/public/${cars[index].images[0]}"
                                         : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                     fit: BoxFit.fill,
-                                  )
-
-                                  //  FastCachedImage(
-                                  //   url: cars[index].carImages.isNotEmpty
-                                  //       ? "https://webservice.flikcar.com:8000/public/${cars[index].carImages[0]}"
-                                  //       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
-                                  //   fit: BoxFit.cover,
-                                  //   width: MediaQuery.of(context).size.width,
-                                  //   fadeInDuration: const Duration(seconds: 1),
-                                  //   errorBuilder:
-                                  //       (context, exception, stacktrace) {
-                                  //     return const Center(
-                                  //       child: Text("Image cannot be loaded"),
-                                  //     );
-                                  //   },
-                                  //   loadingBuilder: (context, progress) {
-                                  //     return SizedBox(
-                                  //       width: 200.0,
-                                  //       height: 100.0,
-                                  //       child: Shimmer.fromColors(
-                                  //           baseColor: Colors.black26,
-                                  //           highlightColor: Colors.black26,
-                                  //           child: const LoadingWidget()),
-                                  //     );
-                                  //   },
-                                  // ),
-
-                                  // SizedBox(
-                                  //   width: MediaQuery.of(context).size.width,
-                                  //   height: 181,
-                                  //   child: Image.asset(
-                                  //     "assets/sample_car.png",
-                                  //     fit: BoxFit.fill,
-                                  //   ),
-                                  // ),
-                                  ),
+                                    loadingBuilder:
+                                        (context, child, loadingProgress) {
+                                      if (loadingProgress == null) {
+                                        return child;
+                                      } else {
+                                        return const LoadingWidget();
+                                      }
+                                    },
+                                  )),
                             ),
                             Padding(
                               padding:
@@ -210,7 +186,7 @@ class HomeScreenCard extends StatelessWidget {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        "₹ ${cars[index].carPrice}",
+                                        "₹ ${cars[index].price}",
                                         style: AppFonts.w700s140,
                                       ),
                                     ],
@@ -272,16 +248,16 @@ class HomeScreenCard extends StatelessWidget {
                                         FirebaseEvents().customerCallDealer(
                                             customerPhone: "customer",
                                             dealerPhone:
-                                                cars[index].dealerPhoneNumber!);
+                                                cars[index].dealer.phone!);
                                         FacebookEvents().customerCallDealer(
                                             customerPhone: "customer",
                                             dealerPhone:
-                                                cars[index].dealerPhoneNumber!);
+                                                cars[index].dealer.phone!);
 
                                         Uri phoneno = Uri(
                                           scheme: 'tel',
                                           path:
-                                              '+91${cars[index].dealerPhoneNumber}',
+                                              '+91${cars[index].dealer.phone}',
                                         );
                                         if (await launchUrl(phoneno)) {
                                         } else {

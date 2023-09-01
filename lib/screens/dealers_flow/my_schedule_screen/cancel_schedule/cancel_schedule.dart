@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/cancel_schedule/widgets/cancel_reason.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/cancel_reason/cancel_reason.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -12,7 +13,19 @@ class CancelSchedule extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getAppBar(),
+      appBar: CustomAppBar.getAppBar(
+        function: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

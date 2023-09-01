@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -34,6 +35,17 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
     bool live = context.watch<AuctionService>().live;
     return Scaffold(
       appBar: CustomAppBar.getAppBarWithSearch(
+        function2: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 0,
+              ),
+            ),
+            (route) => false,
+          );
+        },
         context: context,
         back: true,
         function: () {},

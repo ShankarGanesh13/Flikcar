@@ -19,7 +19,6 @@ class SelectBrand extends StatelessWidget {
         FutureBuilder<List<BrandModelVarient>>(
             future: GetBrandModelVarient.getBrandModelVarientCust(),
             builder: (context, snaphot) {
-              print(snaphot.data);
               if (snaphot.data != null) {
                 return GridView.count(
                   shrinkWrap: true,
@@ -31,8 +30,6 @@ class SelectBrand extends StatelessWidget {
                   children: List.generate(
                       snaphot.data!.length < 9 ? snaphot.data!.length : 9,
                       (index) {
-                    print(snaphot.data![index].image);
-
                     return Container(
                         padding: const EdgeInsets.only(top: 5, bottom: 5),
                         height: 62,
@@ -52,6 +49,14 @@ class SelectBrand extends StatelessWidget {
                                 child: Image.network(
                                   "https://webservice.flikcar.com:8000/public/${snaphot.data![index].image}",
                                   fit: BoxFit.fill,
+                                  loadingBuilder:
+                                      (context, child, loadingProgress) {
+                                    if (loadingProgress == null) {
+                                      return child;
+                                    } else {
+                                      return const LoadingWidget();
+                                    }
+                                  },
                                 ),
                               ),
                               const SizedBox(height: 4),

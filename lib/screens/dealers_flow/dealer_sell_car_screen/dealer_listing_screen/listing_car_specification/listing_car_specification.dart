@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/listing_car_features.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/widgets/dimension_capacity.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/widgets/engine_transmisson.dart';
@@ -39,7 +40,19 @@ class _ListingCarSpecificationState extends State<ListingCarSpecification> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: CustomAppBar.getAppBar(),
+        appBar: CustomAppBar.getAppBar(
+          function: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const DealerFlow(
+                  index: 0,
+                ),
+              ),
+              (route) => false,
+            );
+          },
+        ),
         bottomNavigationBar: SafeArea(
           child: Container(
             height: 55,

@@ -1,46 +1,93 @@
 class BuyerCarDisplay {
-  String model;
+  int id;
   String brand;
-  String status;
-  String carPrice;
-  String fuel;
-  String kmsDriven;
-  String registrationYear;
+  String model;
+  String variant;
+  String fuelType;
+  String bodyType;
+  String mileage;
+  String torque;
+  String engine;
+  String driveKms;
+  String maxPower;
   String transmission;
-  String dealerName;
-  String dealerPhoneNumber;
-  String dealerAddress;
-  List<String> images;
+  String technicianRating;
+  int price;
+  String registerationYear;
+  String status;
+  String saleStatus;
 
-  BuyerCarDisplay({
-    required this.model,
-    required this.brand,
-    required this.status,
-    required this.carPrice,
-    required this.fuel,
-    required this.kmsDriven,
-    required this.registrationYear,
-    required this.transmission,
-    required this.dealerName,
-    required this.dealerPhoneNumber,
-    required this.dealerAddress,
-    required this.images,
-  });
+  List<String> images;
+  Dealer dealer;
+
+  BuyerCarDisplay(
+      {required this.id,
+      required this.brand,
+      required this.model,
+      required this.variant,
+      required this.fuelType,
+      required this.bodyType,
+      required this.mileage,
+      required this.torque,
+      required this.engine,
+      required this.maxPower,
+      required this.transmission,
+      required this.technicianRating,
+      required this.price,
+      required this.status,
+      required this.saleStatus,
+      required this.images,
+      required this.dealer,
+      required this.registerationYear,
+      required this.driveKms});
 
   factory BuyerCarDisplay.fromJson(Map<String, dynamic> json) {
     return BuyerCarDisplay(
-      model: json['model'],
-      brand: json['brand'],
-      status: json['status'],
-      carPrice: json['carPrice'],
-      fuel: json['fuel'],
-      kmsDriven: json['kmsDriven'],
-      registrationYear: json['registrationYear'],
+      id: json['id'],
+      brand: json['vehicleBrand']['name'],
+      model: json['vehicleModel']['name'],
+      variant: json['vehicleVariantType']['name'],
+      fuelType: json['vehicleFuelType']['name'],
+      bodyType: json["vehicleBodyType"] != null
+          ? json['vehicleBodyType']['name']
+          : "N.A",
+      mileage: json['mileage'].toString(),
+      torque: json['torque'].toString(),
+      engine: json['engine'].toString(),
+      maxPower: json['max_power'].toString(),
       transmission: json['transmission'],
-      dealerName: json['dealerName'],
-      dealerPhoneNumber: json['dealerPhoneNumber'],
-      dealerAddress: json['dealerAddress'],
-      images: List<String>.from(json['images']),
+      technicianRating: json['technician_rating'].toString(),
+      price: json['car_price'] ?? "N.A",
+      status: json['status'] ?? "N.A",
+      saleStatus: json['sale_status'],
+      driveKms: json["drive_kms"].toString() ?? "N.A",
+      registerationYear: json["registration_year"].toString(),
+      images: List<String>.from(
+          json['vehicleImages'].map((image) => image['path'])),
+      dealer: Dealer.fromJson(json['dealer']),
+    );
+  }
+}
+
+class Dealer {
+  String phone;
+  String name;
+  String addressOne;
+  String addressTwo;
+
+  Dealer({
+    required this.phone,
+    required this.name,
+    required this.addressOne,
+    required this.addressTwo,
+  });
+
+  factory Dealer.fromJson(Map<String, dynamic> json) {
+    return Dealer(
+      phone: json['phone'].toString() ?? "N.A",
+      name: json['name'] ?? "N.A",
+      addressOne: json['address_one'] ?? "N.A",
+      addressTwo: json['address_two'] ?? "N.A",
     );
   }
 }

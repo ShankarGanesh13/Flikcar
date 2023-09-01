@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flutter/material.dart';
 import 'package:isar/isar.dart';
@@ -8,79 +9,56 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class GetCarDetails extends ChangeNotifier {
-  List<BuyerCar> allCars = [];
+  List<BuyerCarDisplay> displayCars = [];
+  List<BuyerCarDisplay> similarCars = [];
 
-  List<BuyerCar> fuelFilter = [];
-  List<BuyerCar> transmissonFilter = [];
-  List<BuyerCar> bodyTypeFilter = [];
-  List<BuyerCar> wishlistCars = [];
+  List<BuyerCarDisplay> fuelFilter = [];
+  List<BuyerCarDisplay> transmissonFilter = [];
+  List<BuyerCarDisplay> bodyTypeFilter = [];
   int fuelIndex = -1;
   int transmissonIndex = -1;
   int bodyIndex = -1;
 
-  getAllCars() async {
-    print("get cars called");
-    allCars = [];
+  getAllDisplayCars() async {
+    displayCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
-    var url =
-        Uri.parse('https://webservice.flikcar.com:8000/api/buy-car/get-car');
+    var url = Uri.parse(
+        'https://webservice.flikcar.com:8000/api/buy-car/get-all-car');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     });
-    print(token);
+
     var data = jsonDecode(response.body);
     List result = data["data"] as List;
-
-    result.forEach((e) {
-      allCars.add(BuyerCar.fromJson(e));
-    });
-    fuelFilter = allCars
+    if (displayCars.length < 12) {
+      result.forEach((e) {
+        displayCars.add(BuyerCarDisplay.fromJson(e));
+      });
+    }
+    fuelFilter = displayCars
         .where((element) => element.transmission.toLowerCase() == "manual")
         .toList();
+    transmissonFilter.shuffle();
     notifyListeners();
-    print("car details saved");
   }
-
-  // changeWishlistStatus({required int carId}) {
-  //   allCars.map((e) {
-  //     if (e.id == carId) {
-  //       e.isFavourite = e.isFavourite == true ? false : true;
-  //     }
-  //   });
-  //   bodyTypeFilter.map((e) {
-  //     if (e.id == carId) {
-  //       e.isFavourite = e.isFavourite == true ? false : true;
-  //     }
-  //   });
-  //   fuelFilter.map((e) {
-  //     if (e.id == carId) {
-  //       e.isFavourite = e.isFavourite == true ? false : true;
-  //     }
-  //   });
-  //   bodyTypeFilter.forEach(
-  //     (element) {
-  //       print(element.isFavourite);
-  //     },
-  //   );
-  //   notifyListeners();
-  // }
 
   filterCars(
       {required String filterType,
       required String filter,
       required int index}) {
+    print(displayCars.length);
     switch (filterType) {
       case "fuel":
         {
           print("fuel");
           print(filter);
-          fuelFilter = allCars
+          fuelFilter = displayCars
               .where((element) =>
-                  element.fuel.toLowerCase() == filter.toLowerCase())
+                  element.fuelType.toLowerCase() == filter.toLowerCase())
               .toList();
           fuelIndex = index;
           notifyListeners();
@@ -89,7 +67,7 @@ class GetCarDetails extends ChangeNotifier {
         {
           print("transmisson");
           print(filter);
-          transmissonFilter = allCars
+          transmissonFilter = displayCars
               .where((element) =>
                   element.transmission.toLowerCase() == filter.toLowerCase())
               .toList();
@@ -100,9 +78,9 @@ class GetCarDetails extends ChangeNotifier {
         {
           print("bodyType");
           print(filter);
-          bodyTypeFilter = allCars
+          bodyTypeFilter = displayCars
               .where((element) =>
-                  element.bodytype.toLowerCase() == filter.toLowerCase())
+                  element.bodyType.toLowerCase() == filter.toLowerCase())
               .toList();
           bodyIndex = index;
           notifyListeners();
@@ -114,12 +92,12 @@ class GetCarDetails extends ChangeNotifier {
           bodyIndex = -1;
           fuelIndex = -1;
           transmissonIndex = -1;
-          bodyTypeFilter = allCars;
+          bodyTypeFilter = displayCars;
           // fuelFilter = allCars
           //     .where(
           //         (element) => element.transmission.toLowerCase() == "manual")
           //     .toList();
-          transmissonFilter = allCars;
+          transmissonFilter = displayCars;
 
           // bodyTypeFilter.shuffle();
           // fuelFilter.shuffle();
@@ -131,5 +109,38 @@ class GetCarDetails extends ChangeNotifier {
         }
         break;
     }
+  }
+
+  Future<BuyerCar> getCarById({required String id}) async {
+    similarCars = [];
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final String? token = sp.getString('userToken');
+
+    final queryParameters = {'id': id};
+    final url = Uri.https(
+      'webservice.flikcar.com:8000',
+      '/api/web/buy-car/cars/view/',
+      queryParameters,
+    );
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    var data = jsonDecode(response.body);
+
+    var result = data["data"]["vehicle"];
+    BuyerCar car = BuyerCar.fromJson(result);
+    var bestmatch = data["data"]["bestMatchCars"] as List;
+
+    if (bestmatch.isNotEmpty) {
+      bestmatch.forEach((element) {
+        similarCars.add(BuyerCarDisplay.fromJson(element));
+      });
+    }
+    return car;
   }
 }

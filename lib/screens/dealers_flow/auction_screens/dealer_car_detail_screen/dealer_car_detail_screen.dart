@@ -3,6 +3,7 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/car_specifications/car_specifications.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_auction_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_features.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_specification.dart';
@@ -10,6 +11,7 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_s
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/inspection_report.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_car_card.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -44,6 +46,17 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
 
     return Scaffold(
         appBar: CustomAppBar.getAppBarWithContainerSearch(
+            function2: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const DealerFlow(
+                    index: 0,
+                  ),
+                ),
+                (route) => false,
+              );
+            },
             context: context,
             function: () {
               Navigator.push(
@@ -137,6 +150,9 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
               ),
               const SizedBox(
                 height: 10,
+              ),
+              DealerAuctionDetails(
+                car: car ?? widget.carr,
               ),
               InspectionReport(car: widget.carr),
               const SizedBox(

@@ -48,8 +48,6 @@ class SelectBrandCard extends StatelessWidget {
                                     index: index,
                                     brand: snapshot.data![index].name,
                                     models: snapshot.data![index].models);
-
-                            print(index);
                           },
                           child: Container(
                               padding: const EdgeInsets.only(top: 5, bottom: 5),
@@ -76,6 +74,14 @@ class SelectBrandCard extends StatelessWidget {
                                       child: Image.network(
                                         "https://webservice.flikcar.com:8000/public/${snapshot.data![index].image}",
                                         fit: BoxFit.fill,
+                                        loadingBuilder:
+                                            (context, child, loadingProgress) {
+                                          if (loadingProgress == null) {
+                                            return child;
+                                          } else {
+                                            return const LoadingWidget();
+                                          }
+                                        },
                                       ),
                                     ),
                                     const SizedBox(height: 4),
@@ -90,7 +96,10 @@ class SelectBrandCard extends StatelessWidget {
                       ),
                     );
                   } else {
-                    return const LoadingWidget();
+                    return const Padding(
+                      padding: EdgeInsets.only(top: 50.0),
+                      child: LoadingWidget(),
+                    );
                   }
                 }),
             const SizedBox(
