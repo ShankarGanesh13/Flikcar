@@ -1,5 +1,3 @@
-import 'package:fast_cached_network_image/fast_cached_network_image.dart';
-import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
@@ -7,17 +5,13 @@ import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
-import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/services/get_car_details.dart';
-import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreenCard extends StatelessWidget {
@@ -124,12 +118,6 @@ class HomeScreenCard extends StatelessWidget {
                             right: 15, bottom: 20, top: 10, left: 15),
                         decoration: BoxDecoration(
                           boxShadow: const [
-                            // BoxShadow(
-                            //   color: Color.fromRGBO(0, 0, 0, 0.25),
-                            //   offset: Offset(2, 12),
-                            //   blurRadius: 18,
-                            //   spreadRadius: -8,
-                            // ),
                             BoxShadow(
                               color: Color.fromRGBO(0, 0, 0, 0.25),
                               offset: Offset(1, 1),
@@ -284,29 +272,6 @@ class HomeScreenCard extends StatelessWidget {
                                         ? AppFonts.w500green12
                                         : AppFonts.w500red12,
                                   )
-                                  // FavoriteButton(
-                                  //     iconSize: 30,
-                                  //     iconColor: Color.fromARGB(255, 255, 0, 0),
-                                  //     isFavorite: cars[index].isFavourite,
-                                  //     iconDisabledColor:
-                                  //         const Color(0xffE0E0E0),
-                                  //     valueChanged: (_) {
-                                  //       if (cars[index].isFavourite == true) {
-                                  //         Provider.of<WishlistService>(context,
-                                  //                 listen: false)
-                                  //             .removeFromWishlist(
-                                  //                 carId: cars[index].id,
-                                  //                 context: context);
-                                  //         cars[index].isFavourite = true;
-                                  //       } else {
-                                  //         Provider.of<WishlistService>(context,
-                                  //                 listen: false)
-                                  //             .addToWishlist(
-                                  //                 carId: cars[index].id,
-                                  //                 context: context);
-                                  //         cars[index].isFavourite = false;
-                                  //       }
-                                  //     }),
                                 ],
                               ),
                             )

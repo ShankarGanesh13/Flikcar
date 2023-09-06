@@ -15,7 +15,6 @@ class FacebookEvents {
       name: 'dealer_portal',
       parameters: {'start_screen': 'dealer'},
     );
-    print("mmbu");
   }
 
   customerCallDealer(
@@ -74,7 +73,6 @@ class FacebookEvents {
         'customer_phone_number': customerNumber,
       },
     );
-    print("ddddddd");
   }
 
   addToWishlistEvent({required String customerNumber, required String carId}) {

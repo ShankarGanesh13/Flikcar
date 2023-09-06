@@ -114,9 +114,11 @@ class BuyCarProvider extends ChangeNotifier {
       var data = body["data"] as List;
       data.forEach((element) {
         //   print(element);
-        testDriveCars.add(
-          CustomerTestDrive.fromJson(element),
-        );
+        if (element["vehicle"] != null) {
+          testDriveCars.add(
+            CustomerTestDrive.fromJson(element),
+          );
+        }
       });
     }
     customerUpcomingTestdrive();

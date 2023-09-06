@@ -84,12 +84,13 @@ class AuctionService extends ChangeNotifier {
 //////////////////
     socket.on("updateBidApp", (data) {
       // debugPrint("auction cars $data");
+
       auctionCars = [];
       debugPrint("new bid price updated");
       var response = data as List;
       response.forEach((element) {
         //  debugPrint("this is the bid");
-        //  debugPrint(element["bid"]);
+        //print(element["vehicleImages"]);
 
         //  debugPrint("current bid price  ${element["current_bid_price"]}");
         auctionCars.add(AuctionCar.fromJson(element));
@@ -106,8 +107,8 @@ class AuctionService extends ChangeNotifier {
       myBidCars = [];
       if (myBid != null) {
         myBid.forEach((element) {
-          //  debugPrint("this is the my bid data");
-          //  print(element);
+          // debugPrint("this is the my bid data");
+          // print(element);
           // debugPrint("++++++++++++++++++++");
           // debugPrint(element["Vehicle"]["yourLastBid"]);
           myBidCars.add(AuctionCar.fromJson(element["Vehicle"]));
@@ -136,7 +137,7 @@ class AuctionService extends ChangeNotifier {
               "bid", {"carId": carId, "amount": amount, "token": dealerToken});
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-                MySnackbar.showSnackBar(context, "Auction has not started"));
+                MySnackbar.showSnackBar(context, "Bid placed successfully"));
           }
         } else {
           if (context.mounted) {
@@ -148,7 +149,7 @@ class AuctionService extends ChangeNotifier {
       if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-              MySnackbar.showSnackBar(context, "Auction has not started"));
+              MySnackbar.showSnackBar(context, "Auction has ended"));
         }
       }
       if (DateTime.parse(car.startAuction).isAfter(DateTime.now())) {

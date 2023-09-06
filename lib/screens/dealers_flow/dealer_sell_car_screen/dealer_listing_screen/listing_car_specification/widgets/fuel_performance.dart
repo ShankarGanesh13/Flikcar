@@ -6,8 +6,11 @@ import 'package:provider/provider.dart';
 
 class FuelPerformance extends StatelessWidget {
   FuelPerformance({super.key});
+
   final TextEditingController powerController = TextEditingController();
+
   final TextEditingController torqueController = TextEditingController();
+
   final TextEditingController mileageController = TextEditingController();
 
   @override

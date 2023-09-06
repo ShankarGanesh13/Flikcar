@@ -170,8 +170,8 @@ class CustomAppBar {
                         icon: const Icon(Icons.chevron_left),
                         color: Colors.white,
                       )
-                    : SizedBox(),
-                Spacer(),
+                    : const SizedBox(),
+                const Spacer(),
                 SizedBox(
                   width: back
                       ? MediaQuery.of(context).size.width / 1.2
@@ -329,8 +329,8 @@ class CustomAppBar {
                         icon: const Icon(Icons.chevron_left),
                         color: Colors.white,
                       )
-                    : SizedBox(),
-                Spacer(),
+                    : const SizedBox(),
+                const Spacer(),
                 GestureDetector(
                   onTap: function,
                   child: Container(
@@ -365,6 +365,34 @@ class CustomAppBar {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  static PreferredSizeWidget appBarWithBack({required BuildContext context}) {
+    return PreferredSize(
+      preferredSize: const Size.fromHeight(50),
+      child: AppBar(
+        automaticallyImplyLeading: false,
+        shadowColor: Colors.transparent,
+        backgroundColor: AppColors.s1,
+        title: Row(
+          children: [
+            IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: const Icon(
+                Icons.chevron_left,
+                color: Colors.white,
+              ),
+            ),
+            Text(
+              "Back To Car Details",
+              style: AppFonts.w500white14,
+            )
+          ],
+        ),
       ),
     );
   }

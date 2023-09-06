@@ -20,9 +20,9 @@ class AuthService {
     };
     var response = await http.post(url, body: requestBody);
     if (response.statusCode == 200) {
-      print('Response body: ${response.body}');
+      debugPrint('Response body: ${response.body}');
     } else {
-      print('Request failed with status: ${response.statusCode}');
+      debugPrint('Request failed with status: ${response.statusCode}');
     }
   }
 
@@ -61,9 +61,9 @@ class AuthService {
             MySnackbar.showSnackBar(context, "Logged in successfully"));
       }
 
-      print("OTP verification successful");
+      debugPrint("OTP verification successful");
     } else {
-      print('Request failed with status: ${response.statusCode}');
+      debugPrint('Request failed with status: ${response.statusCode}');
       if (context.mounted) {
         ScaffoldMessenger.of(context)
             .showSnackBar(MySnackbar.showSnackBar(context, "Invalid OTP"));
@@ -106,7 +106,7 @@ class AuthService {
         headers: {'Authorization': 'Bearer $token'}, body: requestBody);
     var data = json.decode(response.body);
 
-    print(data["success"]);
+    debugPrint(data["success"]);
     if (data["success"] == true) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(

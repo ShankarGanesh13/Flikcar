@@ -38,7 +38,6 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
   @override
   Widget build(BuildContext context) {
     List<BuyerCar> cars = context.watch<GetDealerUploadCars>().searchCars;
-    print(cars);
     return Scaffold(
       appBar: CustomAppBar.getAppBar(
         function: () {

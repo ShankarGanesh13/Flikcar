@@ -2,6 +2,7 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/buyer_home_screen_header.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/buyer_testimonial.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/upcoming_test_drive_card.dart';
@@ -68,57 +69,7 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
           }),
       body: SingleChildScrollView(
         child: Column(children: [
-          Stack(
-            children: [
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                height: 230,
-                child: Image.asset(
-                  "assets/buy_car_background.png",
-                  fit: BoxFit.fill,
-                ),
-              ),
-              Positioned(
-                child: Container(
-                  height: 230,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [
-                        const Color(0xff171717).withOpacity(0.8),
-                        const Color(0xff171717).withOpacity(0.8)
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-              const Positioned(
-                top: 30,
-                left: 15,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Buy car at\nthe best price",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontWeight: FontWeight.w700),
-                    ),
-                    Text(
-                      "Find your perfect match on Flikcar. We have \na wide range of fully inspected and certified\nused cars at the best prices.",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
-                    )
-                  ],
-                ),
-              ),
-            ],
-          ),
+          const BuyerHomeScreenHeader(),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(bottom: 20),

@@ -56,17 +56,17 @@ class DealerDetails extends StatelessWidget {
                       maxLength: 30),
                   textField(
                       context: context,
-                      title: "Shop Address",
+                      title: "Shop Address *",
                       hint: "Enter Your Shop Address",
                       minLength: 5,
                       controller: addressController,
                       maxLength: 80),
                   textField(
                       context: context,
-                      title: "GST number *",
+                      title: "GST number (optional)",
                       controller: gstController,
                       hint: "Enter Your GST number",
-                      minLength: 5,
+                      minLength: 0,
                       maxLength: 20),
                   const SizedBox(
                     height: 30,
@@ -161,6 +161,11 @@ class DealerDetails extends StatelessWidget {
               if (value!.length < minLength) {
                 return "Enter a valid data";
               }
+              if (title == "Email *") {
+                if (!isValidEmail(value)) {
+                  return 'Invalid email address';
+                }
+              }
               return null;
             },
           ),
@@ -168,5 +173,11 @@ class DealerDetails extends StatelessWidget {
         const SizedBox(height: 20)
       ],
     );
+  }
+
+  bool isValidEmail(String email) {
+    // Regular expression for a valid email pattern
+    final RegExp emailRegExp = RegExp(r'^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$');
+    return emailRegExp.hasMatch(email);
   }
 }

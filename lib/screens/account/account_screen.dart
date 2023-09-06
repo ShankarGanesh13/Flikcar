@@ -79,19 +79,6 @@ class _AccountScreenState extends State<AccountScreen> {
                     subtitle: "View and manage your test drives",
                     icon: Icons.chevron_right),
               ),
-
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //             builder: (context) => const AccountSellRequest()));
-              //   },
-              //   child: profileDetails(
-              //       title: "Sell Orders",
-              //       subtitle: "View, track  and manage your sell orders",
-              //       icon: Icons.chevron_right),
-              // ),
               GestureDetector(
                 onTap: () {
                   openUrl(url: "https://www.flikcar.com/about-us/");
@@ -133,9 +120,9 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          "1.3.2",
+                          "1.3.5",
                           style: AppFonts.w500dark214,
-                        )
+                        ),
                       ],
                     ),
                   ],
@@ -145,11 +132,6 @@ class _AccountScreenState extends State<AccountScreen> {
                 height: 0,
                 color: Color.fromARGB(255, 177, 177, 177),
               ),
-              // profileDetails(
-              //     title: "Your Cars",
-              //     subtitle: "View all your cars and schedule inspection",
-              //     icon: Icons.chevron_right),
-
               const SizedBox(
                 height: 20,
               ),

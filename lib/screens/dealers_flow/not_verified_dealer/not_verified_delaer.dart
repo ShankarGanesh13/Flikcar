@@ -19,7 +19,7 @@ class NotVerifiedDealer extends StatelessWidget {
         },
       ),
       body: Padding(
-        padding: EdgeInsets.all(15),
+        padding: const EdgeInsets.all(15),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -43,14 +43,14 @@ class NotVerifiedDealer extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
             ),
-            Spacer(),
+            const Spacer(),
             PrimaryButton(
                 title: "Logout",
                 function: () {
                   DealerAuthService.dealerLogout(context);
                 },
                 borderColor: Colors.white,
-                backgroundColor: AppColors.p2,
+                backgroundColor: AppColors.s1,
                 textStyle: AppFonts.w700white16)
           ],
         ),

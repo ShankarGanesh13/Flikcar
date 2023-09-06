@@ -7,6 +7,7 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
+import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -43,13 +44,18 @@ class UpcomingTestDriveCard extends StatelessWidget {
                       ];
                       return GestureDetector(
                         onTap: () {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => CarDetailedView(
-                          //         car: testdrive[index].car,
-                          //       ),
-                          //     ));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => CarDetailedView(
+                                  car: Provider.of<GetCarDetails>(context)
+                                      .getCarById(
+                                          id: testdrive[index]
+                                              .car
+                                              .id
+                                              .toString()),
+                                ),
+                              ));
                         },
                         child: Container(
                           height: 351,
@@ -79,7 +85,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                   ),
                                   child: Image.network(
                                     testdrive[index].car.carImages.isNotEmpty
-                                        ? "https://webservice.flikcar.com:8000/public/${testdrive[index].car.carImages[0]}"
+                                        ? "https://webservice.flikcar.com:8000/public/${testdrive[index].car.carImages[0].imageUrl}"
                                         : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                     fit: BoxFit.cover,
                                     width: MediaQuery.of(context).size.width,
@@ -92,15 +98,6 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                       }
                                     },
                                   ),
-
-                                  // SizedBox(
-                                  //   width: MediaQuery.of(context).size.width,
-                                  //   height: 181,
-                                  //   child: Image.asset(
-                                  //     "assets/sample_car.png",
-                                  //     fit: BoxFit.fill,
-                                  //   ),
-                                  // ),
                                 ),
                               ),
                               Padding(

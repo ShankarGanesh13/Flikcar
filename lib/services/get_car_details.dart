@@ -54,8 +54,8 @@ class GetCarDetails extends ChangeNotifier {
     switch (filterType) {
       case "fuel":
         {
-          print("fuel");
-          print(filter);
+          // print("fuel");
+          // print(filter);
           fuelFilter = displayCars
               .where((element) =>
                   element.fuelType.toLowerCase() == filter.toLowerCase())
@@ -65,8 +65,8 @@ class GetCarDetails extends ChangeNotifier {
         }
       case "transmisson":
         {
-          print("transmisson");
-          print(filter);
+          // print("transmisson");
+          // print(filter);
           transmissonFilter = displayCars
               .where((element) =>
                   element.transmission.toLowerCase() == filter.toLowerCase())
@@ -76,8 +76,8 @@ class GetCarDetails extends ChangeNotifier {
         }
       case "bodyType":
         {
-          print("bodyType");
-          print(filter);
+          // print("bodyType");
+          // print(filter);
           bodyTypeFilter = displayCars
               .where((element) =>
                   element.bodyType.toLowerCase() == filter.toLowerCase())
@@ -87,8 +87,8 @@ class GetCarDetails extends ChangeNotifier {
         }
       case "all":
         {
-          print("all");
-          print(filter);
+          // print("all");
+          // print(filter);
           bodyIndex = -1;
           fuelIndex = -1;
           transmissonIndex = -1;
@@ -122,6 +122,7 @@ class GetCarDetails extends ChangeNotifier {
       '/api/web/buy-car/cars/view/',
       queryParameters,
     );
+
     var response = await http.get(
       url,
       headers: {

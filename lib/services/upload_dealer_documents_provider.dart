@@ -17,7 +17,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
   bool isLoading = false;
   File? fileToDisplay;
   PlatformFile? pickedFile;
-  String panImagePath = "";
+  //String panImagePath = "";
   String addressFrontImagePath = "";
   String addressBAckImagePath = "";
   String dealershipImagePath = "";
@@ -74,12 +74,6 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
 
   selectImage({required String imageType, required String pickedFilePath}) {
     switch (imageType) {
-      case "pan":
-        {
-          panImagePath = pickedFilePath;
-          notifyListeners();
-        }
-        break;
       case "addressFront":
         {
           addressFrontImagePath = pickedFilePath;
@@ -113,8 +107,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
   }
 
   validateForm(context) {
-    if (panImagePath == '' ||
-        addressFrontImagePath == '' ||
+    if (addressFrontImagePath == '' ||
         addressBAckImagePath == "" ||
         dealershipImagePath == '' ||
         dealerSelfiePath == "") {
@@ -173,10 +166,10 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     // var addressProofBackImageFile = File(pickedFile!.path!);
     // var imageFile = File(pickedFile!.path!);
 
-    request.files.add(await http.MultipartFile.fromPath(
-      "panCardImage",
-      panImagePath,
-    ));
+    // request.files.add(await http.MultipartFile.fromPath(
+    //   "panCardImage",
+    //   panImagePath,
+    // ));
 
     request.files.add(await http.MultipartFile.fromPath(
       "addressProofFrontImage",
@@ -190,14 +183,16 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
       "image",
       dealerSelfiePath,
     ));
-
     var response = await request.send();
-
+    print(request.fields);
+    print(request.files);
     var responseData = await response.stream.toBytes();
 
     var responseString = utf8.decode(responseData);
+    print(responseString);
 
     var data = json.decode(responseString);
+    print(data);
     print(data);
     print(data["status"]);
     if (data["status"] == 200 || data["status"] == 302) {

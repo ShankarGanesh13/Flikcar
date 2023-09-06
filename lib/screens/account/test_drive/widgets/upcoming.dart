@@ -59,13 +59,13 @@ class UpcomingTestDrive extends StatelessWidget {
                               borderRadius: BorderRadius.circular(5)),
                           child: Row(children: [
                             SizedBox(
-                              width: MediaQuery.of(context).size.width / 2.35,
+                              width: MediaQuery.of(context).size.width / 2.36,
                               height: 100,
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(5),
                                 child: Image.network(
                                   testdrive[index].car.carImages.isNotEmpty
-                                      ? "https://webservice.flikcar.com:8000/public/${testdrive[index].car.carImages[0]}"
+                                      ? "https://webservice.flikcar.com:8000/public/${testdrive[index].car.carImages[0].imageUrl}"
                                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                   fit: BoxFit.fill,
                                   loadingBuilder:
@@ -104,11 +104,11 @@ class UpcomingTestDrive extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 5),
                                   Wrap(
-                                    spacing: 6,
+                                    spacing: 4,
                                     children: List.generate(
                                       4,
                                       (index) => Container(
-                                        width: index == 0 ? 42 : null,
+                                        width: index == 0 ? 40 : null,
                                         padding: const EdgeInsets.only(
                                             left: 0,
                                             right: 0,

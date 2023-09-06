@@ -1,6 +1,7 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
@@ -149,6 +150,9 @@ class StartScreen extends StatelessWidget {
     if (dealerLoggedIn == true) {
       if (dealerStatus == "Pending") {
         return DealerDetails();
+      }
+      if (dealerStatus == "Submitted") {
+        return const NotVerifiedDealer();
       }
       if (dealerStatus == "Complete") {
         return const DealerFlow(index: 0);

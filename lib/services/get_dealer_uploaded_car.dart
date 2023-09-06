@@ -56,6 +56,7 @@ class GetDealerUploadCars extends ChangeNotifier {
   getDealerScheduledTestDrive() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('dealerToken');
+
     dealerTestDrive = [];
     var url =
         Uri.parse('https://webservice.flikcar.com:8000/api/dealer/test-drive');
@@ -68,7 +69,9 @@ class GetDealerUploadCars extends ChangeNotifier {
     if (data["data"] != null) {
       List result = data["data"] as List;
       result.forEach((element) {
-        dealerTestDrive.add(DealerTestDrive.fromJson(element));
+        if (element["vehicle"] != null) {
+          dealerTestDrive.add(DealerTestDrive.fromJson(element));
+        }
       });
       filteredDealerTestDrive = dealerTestDrive;
       notifyListeners();
@@ -121,10 +124,15 @@ class GetDealerUploadCars extends ChangeNotifier {
     var data = json.decode(response.body);
     if (data["status"] == 200) {
       if (context.mounted) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const DealerFlow(index: 1)));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DealerFlow(
+              index: 1,
+            ),
+          ),
+          (route) => false,
+        );
         ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
             context, "Car status changed successfully"));
       }

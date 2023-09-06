@@ -1,7 +1,7 @@
-import 'package:fast_cached_network_image/fast_cached_network_image.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/account/account_screen.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
+import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_image_viewer/car_image_viewer.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/car_specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart';
@@ -21,11 +21,11 @@ import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listi
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_sell_car_screen.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/cancel_schedule/cancel_schedule.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/reschedule_screen/reschedule_screen.dart';
-import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
 import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
@@ -66,7 +66,6 @@ void main() async {
         ChangeNotifierProvider(create: (context) => DealerUploadCar()),
         ChangeNotifierProvider(create: (context) => EvaluationProvider()),
         ChangeNotifierProvider(create: (context) => BuyCarProvider()),
-        ChangeNotifierProvider(create: (context) => DealerProvider()),
         ChangeNotifierProvider(create: (context) => CheckInternetProvider()),
         ChangeNotifierProvider(create: (context) => WishlistService()),
         ChangeNotifierProvider(create: (context) => GetCarDetails()),
@@ -83,7 +82,7 @@ void main() async {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
           useMaterial3: true,
         ),
-        home: ListingCarImages(),
+        home: StartScreen(),
       ),
     ),
   );

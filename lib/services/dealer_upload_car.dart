@@ -7,6 +7,7 @@ import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
+import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -58,6 +59,7 @@ class DealerUploadCar extends ChangeNotifier {
   String frontBrakeType = "";
   String rearBrakeType = "";
   String steeringType = "";
+  int engineCC = 999;
   int city = 592;
   List<int> selectedComfort = [];
   List<int> selectedInterior = [];
@@ -81,7 +83,6 @@ class DealerUploadCar extends ChangeNotifier {
 
   getVarientId({required int id}) {
     varientId = id;
-    print("000000000000000000");
     print(varientId);
   }
 
@@ -238,6 +239,10 @@ class DealerUploadCar extends ChangeNotifier {
 
   getSteering({required String steering}) {
     steeringType = steering;
+  }
+
+  getEngineCC({required int cc}) {
+    engineCC = cc;
   }
 
   addFeatures({required String feature, required int id}) {
@@ -417,27 +422,110 @@ class DealerUploadCar extends ChangeNotifier {
   FilePickerResult? result;
 
   bool isLoading = false;
-  List<File> fileToDisplay = [];
   PlatformFile? pickedFile;
+  List<File> fileToDisplay = [];
   List<String> carImages = [];
-  pickCarImages({required BuildContext context}) async {
+  //
+  List<File> interiorFileToDisplay = [];
+  List<String> interiorImages = [];
+  //
+  List<File> exteriorFileToDisplay = [];
+  List<String> exteriorImages = [];
+  //
+  List<File> engineFileToDisplay = [];
+  List<String> engineImages = [];
+  //
+  List<File> tyreToDisplay = [];
+  List<String> tyreImages = [];
+  //
+  List<File> dentsFileToDisplay = [];
+  List<String> dentsImages = [];
+  //
+  List<File> thumbnailFileToDisplay = [];
+  List<String> thumbnailImages = [];
+  //
+  List<File> otherFileToDisplay = [];
+  List<String> otherImages = [];
+
+  pickCarImages({
+    required BuildContext context,
+    required String type,
+  }) {
+    if (type == "interior") {
+      pickImage(
+          context: context,
+          multipleSelect: true,
+          displayFiles: interiorFileToDisplay,
+          images: interiorImages);
+    }
+    if (type == "exterior") {
+      pickImage(
+          context: context,
+          multipleSelect: true,
+          displayFiles: exteriorFileToDisplay,
+          images: exteriorImages);
+    }
+    if (type == "dents") {
+      pickImage(
+          context: context,
+          multipleSelect: true,
+          displayFiles: dentsFileToDisplay,
+          images: dentsImages);
+    }
+    if (type == "tyres") {
+      pickImage(
+        context: context,
+        displayFiles: tyreToDisplay,
+        images: tyreImages,
+        multipleSelect: true,
+      );
+    }
+    if (type == "engine") {
+      pickImage(
+          context: context,
+          multipleSelect: true,
+          displayFiles: engineFileToDisplay,
+          images: engineImages);
+    }
+    if (type == "thumbnail") {
+      pickImage(
+          context: context,
+          multipleSelect: false,
+          displayFiles: thumbnailFileToDisplay,
+          images: thumbnailImages);
+    }
+    if (type == "others") {
+      pickImage(
+          context: context,
+          multipleSelect: true,
+          displayFiles: otherFileToDisplay,
+          images: otherImages);
+    } else {
+      print("+++++++++++++++");
+      print("invalid type");
+
+      print("+++++++++++++");
+    }
+  }
+
+  ////////////////////
+  pickImage(
+      {required BuildContext context,
+      required List<File> displayFiles,
+      required bool multipleSelect,
+      required List<String> images}) async {
     try {
       result = await FilePicker.platform.pickFiles(
         type: FileType.image,
-        allowMultiple: true,
+        allowMultiple: multipleSelect,
       );
       if (result != null) {
-        print("--------------");
-        print(result!.files.length);
-
         result!.files.forEach((element) {
-          carImages.add(element.path.toString());
-          fileToDisplay!.add(File(element.path.toString()));
+          images.add(element.path.toString());
+          displayFiles!.add(File(element.path.toString()));
         });
         notifyListeners();
-        print(carImages);
-        print("////////////");
-        print(fileToDisplay);
+
         // pickedFile = result!.files.first;
         // fileToDisplay = fileToDisplay.add(File(pickedFile!.path.toString()));
       }
@@ -445,7 +533,7 @@ class DealerUploadCar extends ChangeNotifier {
       print(e);
     }
 
-    if (carImages.isNotEmpty) {
+    if (images.isNotEmpty) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -456,7 +544,7 @@ class DealerUploadCar extends ChangeNotifier {
         );
       }
     }
-    if (carImages.isEmpty) {
+    if (images.isEmpty) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -469,11 +557,39 @@ class DealerUploadCar extends ChangeNotifier {
         );
       }
     }
-    return result;
   }
 
-  removeImage({required File image, required BuildContext context}) {
-    fileToDisplay.remove(image);
+  ////////////////////////////
+  removeImage(
+      {required File image,
+      required BuildContext context,
+      required String type}) {
+    if (type == "interior") {
+      interiorFileToDisplay.remove(image);
+    }
+    if (type == "exterior") {
+      exteriorFileToDisplay.remove(image);
+    }
+    if (type == "dents") {
+      dentsFileToDisplay.remove(image);
+    }
+    if (type == "tyres") {
+      tyreToDisplay.remove(image);
+    }
+    if (type == "engine") {
+      engineFileToDisplay.remove(image);
+    }
+    if (type == "thumbnail") {
+      thumbnailFileToDisplay.remove(image);
+    }
+    if (type == "others") {
+      otherFileToDisplay.remove(image);
+    } else {
+      print("+++++++++++++++");
+      print("invalid type");
+
+      print("+++++++++++++");
+    }
     if (context.mounted) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
@@ -488,8 +604,8 @@ class DealerUploadCar extends ChangeNotifier {
 
   uploadCar(context) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url =
-        Uri.parse('https://webservice.flikcar.com:8000/api/dealer/car/add-car');
+    Uri url = Uri.parse(
+        'https://webservice.flikcar.com:8000/api/dealer/car/new-add-car');
     String? dealerToken = sp.getString('dealerToken');
     var request = http.MultipartRequest("POST", url);
     request.headers["Authorization"] = "Bearer $dealerToken";
@@ -541,10 +657,47 @@ class DealerUploadCar extends ChangeNotifier {
     request.fields["exterior"] = "$selectedExterior";
     request.fields["entertainment"] = "$selectedEntertainment";
     request.fields["safety"] = "$selectedSafety";
+    request.fields["engine"] = "$engineCC";
 
-    carImages.forEach((element) async {
+    tyreImages.forEach((element) async {
       request.files.add(await http.MultipartFile.fromPath(
-        "images",
+        "tyreImages",
+        element,
+      ));
+    });
+    thumbnailImages.forEach((element) async {
+      request.files.add(await http.MultipartFile.fromPath(
+        "thumbImage",
+        element,
+      ));
+    });
+    dentsImages.forEach((element) async {
+      request.files.add(await http.MultipartFile.fromPath(
+        "dentImages",
+        element,
+      ));
+    });
+    engineImages.forEach((element) async {
+      request.files.add(await http.MultipartFile.fromPath(
+        "engineImages",
+        element,
+      ));
+    });
+    exteriorImages.forEach((element) async {
+      request.files.add(await http.MultipartFile.fromPath(
+        "exteriorImages",
+        element,
+      ));
+    });
+    otherImages.forEach((element) async {
+      request.files.add(await http.MultipartFile.fromPath(
+        "extraImages",
+        element,
+      ));
+    });
+    interiorImages.forEach((element) async {
+      request.files.add(await http.MultipartFile.fromPath(
+        "interiorImages",
         element,
       ));
     });
@@ -562,12 +715,26 @@ class DealerUploadCar extends ChangeNotifier {
           context, "Something went wrong try again later"));
     }
     if (data["success"] == true) {
+      Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const DealerFlow(
+            index: 1,
+          ),
+        ),
+        (route) => false,
+      );
       showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-          title: const Text('Car uploaded successfully'),
-          content: const Text(
-              'Our team will verify the uploaded details and list the car for the buyers.'),
+          title: Text(
+            'Car uploaded successfully',
+            style: AppFonts.w700white16,
+          ),
+          content: Text(
+            'Our team will verify the uploaded details and make it live for the buyers. This process might take 1-2 hours.',
+            style: AppFonts.w500black14,
+          ),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -586,16 +753,16 @@ class DealerUploadCar extends ChangeNotifier {
           ],
         ),
       );
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DealerFlow(
-            index: 1,
-          ),
-        ),
-        (route) => false,
-      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+          context, "Something went wrong try again later"));
     }
     print(data);
+  }
+
+  clearData({required List<TextEditingController> controllers}) {
+    controllers.forEach((element) {
+      element.clear();
+    });
   }
 }

@@ -12,7 +12,6 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_s
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_car_card.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
-import 'package:flikcar/screens/dealers_flow/provider/dealer_provider.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -88,8 +87,6 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                   function: () {
                     Provider.of<AuctionService>(context, listen: false)
                         .increaseBidAmount();
-                    print("__________");
-                    print(currentBid);
                   }),
               const Spacer(),
               BuyNavButton(

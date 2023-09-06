@@ -1,3 +1,4 @@
+import 'package:flikcar/models/image_model.dart';
 import 'package:isar/isar.dart';
 
 class BuyerCar {
@@ -54,7 +55,7 @@ class BuyerCar {
   String seat;
   String ownertype;
   String updatedAt;
-  List<String> carImages;
+  List<ImageModel> carImages;
   List<String> featureDetails;
   List<String> exteriorDetails;
   List<String> comfortDetails;
@@ -197,7 +198,7 @@ class BuyerCar {
       seat: json['vehicleSeat']["no_of_seats"].toString() ?? "No data",
       ownertype: json['vehicleOwnerType']["type"] ?? "No data",
       //
-      carImages: List<String>.from(myfunc("path", json["vehicleImages"])),
+      carImages: List<ImageModel>.from(getImages(json["vehicleImages"])),
       featureDetails: json['vehicleFeature'] != null
           ? List<String>.from(myfunc("name", json['vehicleFeature']))
           : [],
@@ -232,6 +233,15 @@ class BuyerCar {
       list.forEach((e) => result.add(
             e[key].toString(),
           ));
+    }
+    return result;
+  }
+
+  static List<ImageModel> getImages(List list) {
+    List<ImageModel> result = [];
+
+    if (list.isNotEmpty) {
+      list.forEach((e) => result.add(ImageModel.fromJson(e)));
     }
     return result;
   }

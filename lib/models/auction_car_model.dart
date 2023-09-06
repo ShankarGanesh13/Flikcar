@@ -1,6 +1,8 @@
 import 'package:flikcar/models/bid_model.dart';
 import 'package:http/http.dart';
 
+import 'image_model.dart';
+
 class AuctionCar {
   int id;
   String carName;
@@ -55,7 +57,7 @@ class AuctionCar {
   String seat;
   String ownertype;
   String updatedAt;
-  List<String> carImages;
+  List<ImageModel> carImages;
   List<String> featureDetails;
   List<String> exteriorDetails;
   List<String> comfortDetails;
@@ -229,7 +231,7 @@ class AuctionCar {
         seat: json['vehicleSeat']["no_of_seats"].toString() ?? "No data",
         ownertype: json['vehicleOwnerType']["type"] ?? "No data",
         //
-        carImages: List<String>.from(myfunc("path", json["vehicleImages"])),
+        carImages: List<ImageModel>.from(getImages(json["vehicleImages"])),
         featureDetails: json['vehicleFeature'] != null
             ? List<String>.from(myfunc("name", json['vehicleFeature']))
             : [],
@@ -370,7 +372,9 @@ class AuctionCar {
         ownertype: json["vehicle"]['vehicleOwnerType']["type"] ?? "No data",
         //
         carImages:
-            List<String>.from(myfunc("path", json["vehicle"]["vehicleImages"])),
+            List<ImageModel>.from(getImages(json["vehicle"]["vehicleImages"])),
+
+        //
         featureDetails: json["vehicle"]['vehicleFeature'] != null
             ? List<String>.from(
                 myfunc("name", json["vehicle"]['vehicleFeature']))
@@ -414,5 +418,14 @@ class AuctionCar {
         technicianRemarks: json["vehicle"]["technician_remarks"] ?? "",
         recentBid: getBids(json["bid"] as List),
         technicianRating: json["vehicle"]["technician_rating"].toString());
+  }
+
+  static List<ImageModel> getImages(List list) {
+    List<ImageModel> result = [];
+
+    if (list.isNotEmpty) {
+      list.forEach((e) => result.add(ImageModel.fromJson(e)));
+    }
+    return result;
   }
 }

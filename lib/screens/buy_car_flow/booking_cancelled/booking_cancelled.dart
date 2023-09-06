@@ -19,7 +19,8 @@ class BookingCancelled extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const HomeScreen(index: 0)));
+                builder: (context) => const HomeScreen(index: 0),
+              ));
         },
       ),
       body: Column(children: [

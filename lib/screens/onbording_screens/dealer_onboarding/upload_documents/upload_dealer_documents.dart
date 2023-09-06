@@ -16,7 +16,6 @@ import 'widgets/pan_details.dart';
 class UploadDealerDocuments extends StatefulWidget {
   const UploadDealerDocuments({super.key});
   static List<String> documentTitle = [
-    "Pan Card",
     "Address Proof",
     "Dealership Details",
     "Selfie"
@@ -42,7 +41,7 @@ class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
                 color: const Color.fromARGB(255, 185, 216, 241),
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 4,
+                  itemCount: 3,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return GestureDetector(
@@ -70,9 +69,9 @@ class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: PrimaryButton(
-                  title: selectedIndex == 3 ? "Submit" : "Next",
+                  title: selectedIndex == 2 ? "Submit" : "Next",
                   function: () {
-                    if (selectedIndex < 3) {
+                    if (selectedIndex < 2) {
                       selectedIndex++;
                       setState(() {});
                     } else {
@@ -125,15 +124,12 @@ class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
 
   Widget steps() {
     if (selectedIndex == 0) {
-      return const PanDetails();
-    }
-    if (selectedIndex == 1) {
       return const AddressDetails();
     }
-    if (selectedIndex == 2) {
+    if (selectedIndex == 1) {
       return const DealershipDetails();
     }
-    if (selectedIndex == 3) {
+    if (selectedIndex == 2) {
       return const Selfie();
     }
     return const SizedBox();

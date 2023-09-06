@@ -27,7 +27,7 @@ class EditScheduleSheet extends StatelessWidget {
                 onTap: () {
                   Navigator.pop(context);
                 },
-                child: Icon(Icons.close))
+                child: const Icon(Icons.close))
           ],
         ),
         const SizedBox(

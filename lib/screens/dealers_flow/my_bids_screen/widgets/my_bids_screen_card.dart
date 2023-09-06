@@ -67,7 +67,7 @@ class MyBidsScreenCard extends StatelessWidget {
                 height: 181,
                 child: Image.network(
                   car.carImages.isNotEmpty
-                      ? 'https://webservice.flikcar.com:8000/public/${car.carImages[0]}'
+                      ? 'https://webservice.flikcar.com:8000/public/${car.carImages[0].imageUrl}'
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {

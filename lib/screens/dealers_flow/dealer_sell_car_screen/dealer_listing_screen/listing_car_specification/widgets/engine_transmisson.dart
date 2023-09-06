@@ -9,11 +9,18 @@ class EngineTransmisson extends StatelessWidget {
   EngineTransmisson({super.key});
 
   TextEditingController driveTrainController = TextEditingController();
+
   TextEditingController gearboxController = TextEditingController();
-  TextEditingController ccController = TextEditingController();
+
+  TextEditingController disController = TextEditingController();
+
   TextEditingController noOfCylinderController = TextEditingController();
+
   TextEditingController valveCylinderController = TextEditingController();
+
   TextEditingController lsdController = TextEditingController();
+
+  TextEditingController ccController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +57,8 @@ class EngineTransmisson extends StatelessWidget {
           ),
           SpecificationTextField(
             maxLength: 4,
-            title: "Displacement (in cc)",
-            controller: ccController,
+            title: "Displacement (in mm)",
+            controller: disController,
             keyboardType: TextInputType.number,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
@@ -66,6 +73,16 @@ class EngineTransmisson extends StatelessWidget {
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
                   .getNoOfCylinder(noCylinder: int.parse(value));
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 4,
+            title: "Engine (in CC)",
+            controller: ccController,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getEngineCC(cc: int.parse(value));
             },
           ),
           SpecificationTextField(

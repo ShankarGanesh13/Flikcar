@@ -21,9 +21,9 @@ class DealerAuthService {
     };
     var response = await http.post(url, body: requestBody);
     if (response.statusCode == 200) {
-      print('Response body: ${response.body}');
+      debugPrint('Response body: ${response.body}');
     } else {
-      print('Request failed with status: ${response.statusCode}');
+      debugPrint('Request failed with status: ${response.statusCode}');
     }
   }
 
@@ -45,14 +45,13 @@ class DealerAuthService {
     var data = json.decode(response.body);
 
     if (data["status"] == 200) {
-      print(data["data"]["profileStatus"]);
       await sp.setString('dealerToken', data["data"]["access_token"]);
       await sp.setBool('dealerIsLoggedIn', true);
       await sp.setString("dealerPhone", phoneNumber);
 
       await sp.setString('dealerStatus', data["data"]["profileStatus"]);
-      print("|||||||||||||||||||||||||");
-      print("dealer profile status ${data["data"]["profileStatus"]}");
+      debugPrint("|||||||||||||||||||||||||");
+      debugPrint("dealer profile status ${data["data"]["profileStatus"]}");
       if (context.mounted) {
         if (data["data"]["profileStatus"] == "Complete") {
           Navigator.pushAndRemoveUntil(
@@ -83,7 +82,7 @@ class DealerAuthService {
         }
       }
 
-      print("OTP verification successful");
+      debugPrint("OTP verification successful");
     } else {
       print('Request failed with status: ${response.statusCode}');
       if (context.mounted) {

@@ -11,17 +11,27 @@ import 'package:provider/provider.dart';
 
 class DimensionCapacity extends StatelessWidget {
   DimensionCapacity({super.key});
+
   TextEditingController groundClearanceController = TextEditingController();
+
   TextEditingController seatCapacityController = TextEditingController();
+
   TextEditingController bootController = TextEditingController();
-  //check row
+
   TextEditingController seatRowController = TextEditingController();
+
   TextEditingController fuelCapacityController = TextEditingController();
+
   TextEditingController wheelbaseController = TextEditingController();
+
   TextEditingController lengthController = TextEditingController();
+
   TextEditingController frontTyresController = TextEditingController();
+
   TextEditingController rearTyresController = TextEditingController();
+
   TextEditingController heightController = TextEditingController();
+
   TextEditingController widthController = TextEditingController();
 
   @override

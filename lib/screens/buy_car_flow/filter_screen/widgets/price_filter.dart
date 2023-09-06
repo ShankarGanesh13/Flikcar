@@ -23,13 +23,7 @@ class _PriceFilterState extends State<PriceFilter> {
   double _lowerValue = 200000;
 
   double _upperValue = 750000;
-  // List<String> priceFilter = [
-  //   "Under 3 lakh",
-  //   "From 3 lakh - 5 lakh",
-  //   "From 5 lakh - 10 lakh",
-  //   "From 10 lakh - 15 lakh",
-  //   "From 15 lakh - 20 lakh",
-  // ];
+
   int selectedIndex = -1;
   String selectedSuggestion = "";
   @override
@@ -139,52 +133,6 @@ class _PriceFilterState extends State<PriceFilter> {
             ),
           ),
           const SizedBox(height: 30),
-          // Text(
-          //   "Suggestions",
-          //   style: AppFonts.w700black16,
-          // ),
-          // const SizedBox(height: 20),
-          // Wrap(
-          //     direction: Axis.vertical,
-          //     runSpacing: 20,
-          //     spacing: 20,
-          //     children: List.generate(
-          //       5,
-          //       (index) => SizedBox(
-          //         width: 200,
-          //         child: GestureDetector(
-          //           onTap: () {
-          //             setState(() {
-          //               selectedIndex = index;
-          //             });
-          //           },
-          //           child: Row(
-          //             children: [
-          //               Container(
-          //                 height: 15,
-          //                 width: 15,
-          //                 decoration: BoxDecoration(
-          //                     border: Border.all(color: Color(0xff161F31))),
-          //                 child: Center(
-          //                     child: Icon(
-          //                   Icons.check,
-          //                   size: 14,
-          //                   color: selectedIndex == index
-          //                       ? AppColors.s1
-          //                       : Colors.transparent,
-          //                   weight: 2,
-          //                 )),
-          //               ),
-          //               const SizedBox(width: 10),
-          //               Text(
-          //                 priceFilter[index],
-          //                 style: AppFonts.w500dark214,
-          //               )
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ))
         ],
       ),
     );

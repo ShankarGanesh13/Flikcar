@@ -2,27 +2,23 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/car_specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
+import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_detail_bottom_nav.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_features.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/image_viewer.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
-import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/services/facebook_events.dart';
-import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
 import '../../../services/get_car_details.dart';
 
 class CarDetailedView extends StatelessWidget {
@@ -63,10 +59,9 @@ class CarDetailedView extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           BuyNavButton(
-                            icon: Icons.phone,
-                            title: "Contact Dealer",
-                            function: () {},
-                          ),
+                              icon: Icons.phone,
+                              title: "Contact Dealer",
+                              function: () {}),
                           const SizedBox(
                             width: 15,
                           ),
@@ -78,7 +73,7 @@ class CarDetailedView extends StatelessWidget {
                         ]),
                   ),
                 ),
-                body: LoadingWidget());
+                body: const LoadingWidget());
           }
           if (snapshot.data != null) {
             return Scaffold(
@@ -103,57 +98,8 @@ class CarDetailedView extends StatelessWidget {
                           builder: (context) => const FilterApplied()));
                 },
               ),
-              bottomNavigationBar: SafeArea(
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.only(bottom: 10, top: 5),
-                  color: AppColors.s1,
-                  child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        BuyNavButton(
-                          icon: Icons.phone,
-                          title: "Contact Dealer",
-                          function: () async {
-                            FirebaseEvents().customerCallDealer(
-                                customerPhone: "customer",
-                                dealerPhone: snapshot.data!.dealerPhoneNumber!);
-                            FacebookEvents().customerCallDealer(
-                                customerPhone: "customer",
-                                dealerPhone: snapshot.data!.dealerPhoneNumber!);
-
-                            Uri phoneno = Uri(
-                              scheme: 'tel',
-                              path: '+91${snapshot.data!.dealerPhoneNumber}',
-                            );
-                            if (await launchUrl(phoneno)) {
-                            } else {
-                              if (context.mounted) {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    MySnackbar.showSnackBar(
-                                        context, "Unable to open dailer"));
-                              }
-                            }
-                          },
-                        ),
-                        const SizedBox(
-                          width: 15,
-                        ),
-                        BuyNavButton(
-                          icon: Icons.watch_later,
-                          title: "Schedule Test Drive",
-                          function: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => ScheduleTestDrive(
-                                    car: snapshot.data!,
-                                  ),
-                                ));
-                          },
-                        )
-                      ]),
-                ),
+              bottomNavigationBar: CarDetailBottomNav(
+                car: snapshot.data!,
               ),
               body: SingleChildScrollView(
                 child: Column(children: [
@@ -164,16 +110,6 @@ class CarDetailedView extends StatelessWidget {
                       decoration: BoxDecoration(gradient: AppColors.gradient),
                       child: Row(
                         children: [
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     Navigator.pop(context);
-                          //   },
-                          //   child: Icon(
-                          //     Icons.chevron_left,
-                          //     color: AppColors.p2,
-                          //     size: 28,
-                          //   ),
-                          // ),
                           const SizedBox(width: 10),
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.3,
