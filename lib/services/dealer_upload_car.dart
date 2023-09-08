@@ -19,48 +19,48 @@ class DealerUploadCar extends ChangeNotifier {
   List<FeatureModel> interiorFeatures = [];
   List<FeatureModel> exteriorFeatures = [];
   List<FeatureModel> entertainmentFeatures = [];
-  int brandId = 0;
-  int modelId = 0;
-  int varientId = 5;
-  int registerationYear = 1000;
-  int bodyTypeId = 0;
-  int fuelTypeId = 0;
+  String brandId = "";
+  String modelId = "";
+  String varientId = "";
+  String registerationYear = "";
+  String bodyTypeId = "";
+  String fuelTypeId = "";
   String transmisson = "automatic";
-  int ownershipId = 0;
-  int colorId = 0;
-  int driveKm = 2000;
-  int carPrice = 100000;
+  String ownershipId = "";
+  String colorId = "";
+  String driveKm = "";
+  String carPrice = "";
   String description = "";
-  int groundClearance = 0;
-  int length = 0;
-  int seat = 2;
-  int frontTyres = 1;
-  int bootSpace = 0;
-  int rearTyres = 0;
-  int fuelCapacity = 0;
+  String groundClearance = "";
+  String length = "";
+  String seat = "";
+  String frontTyres = "";
+  String bootSpace = "";
+  String rearTyres = "";
+  String fuelCapacity = "";
   String wheelCover = "yes";
-  int wheelbase = 100;
+  String wheelbase = "";
   String spareWheel = "yes";
-  int height = 100;
-  int width = 100;
+  String height = "";
+  String width = "";
   String alloyWheels = "yes";
   String driveTrain = "";
-  int gearBox = 11;
-  int displacement = 20;
-  int noOfCylinder = 4;
-  int valveCylinder = 44;
+  String gearBox = "";
+  String displacement = "";
+  String noOfCylinder = "";
+  String valveCylinder = "";
   String limitedSlipDiff = "yes";
   String turboCharger = "yes";
-  int maxPower = 10;
-  int maxTorque = 100;
-  int mileage = 33;
+  String maxPower = "";
+  String maxTorque = "";
+  String mileage = "";
   String suspensionFront = "";
   String suspensionRear = "";
   String frontBrakeType = "";
   String rearBrakeType = "";
   String steeringType = "";
-  int engineCC = 999;
-  int city = 592;
+  String engineCC = "";
+  String city = "";
   List<int> selectedComfort = [];
   List<int> selectedInterior = [];
   List<int> selectedExterior = [];
@@ -72,37 +72,42 @@ class DealerUploadCar extends ChangeNotifier {
     notifyListeners();
   }
 
-  getBrandId({required int id}) {
-    brandId = id;
-    print(brandId);
+  increaseFeatureIndex() {
+    featuresIndex++;
+    notifyListeners();
   }
 
-  getModelId({required int id}) {
+  getBrandId({required String id}) {
+    brandId = id;
+    // print(brandId);
+  }
+
+  getModelId({required String id}) {
     modelId = id;
   }
 
-  getVarientId({required int id}) {
+  getVarientId({required String id}) {
     varientId = id;
-    print(varientId);
+    //  print(varientId);
   }
 
-  getYearId({required int year}) {
+  getYearId({required String year}) {
     registerationYear = year;
   }
 
-  getFuelId({required int id}) {
+  getFuelId({required String id}) {
     fuelTypeId = id;
   }
 
-  getBodyTypeId({required int id}) {
+  getBodyTypeId({required String id}) {
     bodyTypeId = id;
   }
 
-  getOwnershipId({required int id}) {
+  getOwnershipId({required String id}) {
     ownershipId = id;
   }
 
-  getColorId({required int id}) {
+  getColorId({required String id}) {
     colorId = id;
   }
 
@@ -110,18 +115,18 @@ class DealerUploadCar extends ChangeNotifier {
     transmisson = trans;
   }
 
-  getKilometerDriven({required int kms}) {
-    print(".................");
-    print(kms);
-    print(".................");
+  getKilometerDriven({required String kms}) {
+    // print(".................");
+    // print(kms);
+    // print(".................");
 
     driveKm = kms;
-    print("----------");
-    print(driveKm);
-    print("----------");
+    // print("----------");
+    // print(driveKm);
+    // print("----------");
   }
 
-  getSellingPrice({required int price}) {
+  getSellingPrice({required String price}) {
     carPrice = price;
   }
 
@@ -129,43 +134,43 @@ class DealerUploadCar extends ChangeNotifier {
     description = des;
   }
 
-  getGroundClearance({required int clearance}) {
+  getGroundClearance({required String clearance}) {
     groundClearance = clearance;
   }
 
-  getSeatCapacity({required int capacity}) {
+  getSeatCapacity({required String capacity}) {
     seat = capacity;
   }
 
-  getBootSpace({required int boot}) {
+  getBootSpace({required String boot}) {
     bootSpace = boot;
   }
 
-  getFuelCapacity({required int capacity}) {
+  getFuelCapacity({required String capacity}) {
     fuelCapacity = capacity;
   }
 
-  getWheelbase({required int wheelbasevalue}) {
+  getWheelbase({required String wheelbasevalue}) {
     wheelbase = wheelbasevalue;
   }
 
-  getLength({required int carLength}) {
+  getLength({required String carLength}) {
     length = carLength;
   }
 
-  getFrontTyres({required int frontTyresValue}) {
+  getFrontTyres({required String frontTyresValue}) {
     frontTyres = frontTyresValue;
   }
 
-  getRearTyres({required int rearTyreValue}) {
+  getRearTyres({required String rearTyreValue}) {
     rearTyres = rearTyreValue;
   }
 
-  getHeight({required int heightValue}) {
+  getHeight({required String heightValue}) {
     height = heightValue;
   }
 
-  getWidth({required int widthValue}) {
+  getWidth({required String widthValue}) {
     width = widthValue;
   }
 
@@ -185,19 +190,19 @@ class DealerUploadCar extends ChangeNotifier {
     driveTrain = drivetrain;
   }
 
-  getGearbox({required int gearbox}) {
+  getGearbox({required String gearbox}) {
     gearBox = gearbox;
   }
 
-  getCc({required int cc}) {
+  getCc({required String cc}) {
     displacement = cc;
   }
 
-  getNoOfCylinder({required int noCylinder}) {
+  getNoOfCylinder({required String noCylinder}) {
     noOfCylinder = noCylinder;
   }
 
-  getValve({required int valve}) {
+  getValve({required String valve}) {
     valveCylinder = valve;
   }
 
@@ -209,15 +214,15 @@ class DealerUploadCar extends ChangeNotifier {
     turboCharger = turbocharger;
   }
 
-  getPowerDetails({required int power}) {
+  getPowerDetails({required String power}) {
     maxPower = power;
   }
 
-  getTorqueDetails({required int torque}) {
+  getTorqueDetails({required String torque}) {
     maxTorque = torque;
   }
 
-  getMileage({required int kmpl}) {
+  getMileage({required String kmpl}) {
     mileage = kmpl;
   }
 
@@ -241,12 +246,12 @@ class DealerUploadCar extends ChangeNotifier {
     steeringType = steering;
   }
 
-  getEngineCC({required int cc}) {
+  getEngineCC({required String cc}) {
     engineCC = cc;
   }
 
   addFeatures({required String feature, required int id}) {
-    print(feature);
+    //   print(feature);
     switch (feature) {
       case "comfort":
         {
@@ -339,7 +344,7 @@ class DealerUploadCar extends ChangeNotifier {
     notifyListeners();
   }
 
-  getInteriorFeatures() async {
+  getinteriorFeatures() async {
     interiorFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     Uri url = Uri.parse(
@@ -695,6 +700,7 @@ class DealerUploadCar extends ChangeNotifier {
         element,
       ));
     });
+
     interiorImages.forEach((element) async {
       request.files.add(await http.MultipartFile.fromPath(
         "interiorImages",
@@ -729,7 +735,7 @@ class DealerUploadCar extends ChangeNotifier {
         builder: (BuildContext context) => AlertDialog(
           title: Text(
             'Car uploaded successfully',
-            style: AppFonts.w700white16,
+            style: AppFonts.w700black16,
           ),
           content: Text(
             'Our team will verify the uploaded details and make it live for the buyers. This process might take 1-2 hours.',

@@ -74,7 +74,9 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
             ),
             BuyNavButton(
               icon: Icons.check,
-              title: "Mark as Sold",
+              title: car.saleStatus == "Available"
+                  ? "Mark as Sold"
+                  : "Mark Available",
               function: () {
                 Provider.of<GetDealerUploadCars>(context, listen: false)
                     .markAsSold(context: context, carId: car.id.toString());
@@ -151,8 +153,8 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) =>
-                              CarSpecificationScreen(car: car)));
+                        builder: (context) => CarSpecificationScreen(car: car),
+                      ));
                 },
                 borderColor: Colors.white,
                 backgroundColor: AppColors.p2,

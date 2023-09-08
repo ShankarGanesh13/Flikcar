@@ -47,99 +47,8 @@ class DimensionCapacity extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          SpecificationTextField(
-            maxLength: 5,
-            keyboardType: TextInputType.number,
-            controller: groundClearanceController,
-            title: "Ground Clearence (in mm)",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getGroundClearance(clearance: int.parse(value));
-            },
-          ),
-          dropDown(),
-          SpecificationTextField(
-            maxLength: 5,
-            title: "Boot space(in litres)",
-            keyboardType: TextInputType.number,
-            controller: bootController,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getBootSpace(boot: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            keyboardType: TextInputType.number,
-            maxLength: 5,
-            controller: fuelCapacityController,
-            title: "Fuel tank capacity(in litres)",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getFuelCapacity(capacity: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            maxLength: 5,
-            title: "Wheelbase (in mm)",
-            keyboardType: TextInputType.number,
-            controller: wheelbaseController,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getWheelbase(wheelbasevalue: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            maxLength: 5,
-            controller: lengthController,
-            title: "Length (in mm)",
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getLength(carLength: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            maxLength: 5,
-            title: "Front tyres size",
-            controller: frontTyresController,
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getFrontTyres(frontTyresValue: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            maxLength: 5,
-            controller: rearTyresController,
-            title: "Rear tyres size",
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getRearTyres(rearTyreValue: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            maxLength: 5,
-            controller: heightController,
-            title: "Height (in mm)",
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getHeight(heightValue: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            maxLength: 5,
-            controller: widthController,
-            title: "Width (in mm)",
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getWidth(widthValue: int.parse(value));
-            },
-          ),
           BoolDropdownTextField(
-            title: "Wheel cover",
+            title: "Wheel cover*",
             selectedValue: "",
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
@@ -147,7 +56,7 @@ class DimensionCapacity extends StatelessWidget {
             },
           ),
           BoolDropdownTextField(
-            title: "Alloy wheels",
+            title: "Alloy wheels*",
             selectedValue: "",
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
@@ -155,11 +64,118 @@ class DimensionCapacity extends StatelessWidget {
             },
           ),
           BoolDropdownTextField(
-            title: "Spare wheel",
+            title: "Spare wheel*",
             selectedValue: "",
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
                   .getSpareWheel(sparewheel: value);
+            },
+          ),
+          dropDown(),
+          SpecificationTextField(
+            keyboardType: TextInputType.number,
+            maxLength: 5,
+            validator: true,
+            controller: fuelCapacityController,
+            title: "Fuel tank capacity(in litres)*",
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getFuelCapacity(capacity: value);
+            },
+          ),
+          Text(
+            "Optional Details",
+            style: AppFonts.w500black14,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SpecificationTextField(
+            maxLength: 5,
+            keyboardType: TextInputType.number,
+            controller: groundClearanceController,
+            title: "Ground Clearence (in mm)",
+            validator: false,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getGroundClearance(clearance: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 5,
+            validator: false,
+            title: "Boot space(in litres)",
+            keyboardType: TextInputType.number,
+            controller: bootController,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getBootSpace(boot: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 5,
+            title: "Wheelbase (in mm)",
+            validator: false,
+            keyboardType: TextInputType.number,
+            controller: wheelbaseController,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getWheelbase(wheelbasevalue: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 5,
+            controller: lengthController,
+            title: "Length (in mm)",
+            validator: false,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getLength(carLength: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 5,
+            title: "Front tyres size",
+            controller: frontTyresController,
+            keyboardType: TextInputType.number,
+            validator: false,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getFrontTyres(frontTyresValue: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 5,
+            controller: rearTyresController,
+            title: "Rear tyres size",
+            validator: false,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getRearTyres(rearTyreValue: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 5,
+            controller: heightController,
+            title: "Height (in mm)",
+            validator: false,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getHeight(heightValue: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 5,
+            controller: widthController,
+            title: "Width (in mm)",
+            validator: false,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getWidth(widthValue: value);
             },
           ),
           const SizedBox(
@@ -175,7 +191,7 @@ class DimensionCapacity extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Seating Capacity",
+          "Seating Capacity*",
           style: AppFonts.w500black12,
         ),
         const SizedBox(
@@ -213,7 +229,7 @@ class DimensionCapacity extends StatelessWidget {
                   },
                   onChanged: (value) {
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getSeatCapacity(capacity: value!);
+                        .getSeatCapacity(capacity: value!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(

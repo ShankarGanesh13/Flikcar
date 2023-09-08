@@ -25,9 +25,42 @@ class SuspensionBrakes extends StatelessWidget {
           style: AppFonts.w700black16,
         ),
         const SizedBox(height: 20),
+        dropDown(
+            title: "Front brakes type*",
+            hint: "Select brake type",
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getFrontBrakes(frontbrake: value);
+            }),
+        dropDown(
+            title: "Rear brakes type*",
+            hint: "Select brake type",
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getRearBrakes(rearbrake: value);
+            }),
+        SpecificationTextField(
+          maxLength: 30,
+          title: "Steering type (Eg. power steering)*",
+          validator: true,
+          controller: steeringController,
+          keyboardType: TextInputType.text,
+          onChanged: (value) {
+            Provider.of<DealerUploadCar>(context, listen: false)
+                .getSteering(steering: value);
+          },
+        ),
+        Text(
+          "Optional Details",
+          style: AppFonts.w500black14,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
         SpecificationTextField(
           maxLength: 20,
           title: "Suspension front type (Eg. Dual Beam)",
+          validator: false,
           controller: frontSuspensionController,
           keyboardType: TextInputType.text,
           onChanged: (value) {
@@ -38,35 +71,12 @@ class SuspensionBrakes extends StatelessWidget {
         SpecificationTextField(
           maxLength: 20,
           title: "Suspension rear (Eg. Dual Beam)",
+          validator: false,
           controller: rearSuspensionController,
           keyboardType: TextInputType.text,
           onChanged: (value) {
             Provider.of<DealerUploadCar>(context, listen: false)
                 .getRearSuspension(rearsuspension: value);
-          },
-        ),
-        dropDown(
-            title: "Front brakes type",
-            hint: "Select brake type",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getFrontBrakes(frontbrake: value);
-            }),
-        dropDown(
-            title: "Rear brakes type",
-            hint: "Select brake type",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getRearBrakes(rearbrake: value);
-            }),
-        SpecificationTextField(
-          maxLength: 30,
-          title: "Steering type (Eg. power steering)",
-          controller: steeringController,
-          keyboardType: TextInputType.text,
-          onChanged: (value) {
-            Provider.of<DealerUploadCar>(context, listen: false)
-                .getSteering(steering: value);
           },
         ),
       ],

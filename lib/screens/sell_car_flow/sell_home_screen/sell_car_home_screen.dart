@@ -59,7 +59,7 @@ class SellCarHomeScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    const Positioned(
+                    Positioned(
                         top: 30,
                         left: 15,
                         child: Column(
@@ -67,18 +67,14 @@ class SellCarHomeScreen extends StatelessWidget {
                           children: [
                             Text(
                               "Sell your car at\nthe best price",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 32,
-                                  fontWeight: FontWeight.w700),
+                              style: AppFonts.w700black30,
+                            ),
+                            const SizedBox(
+                              height: 8,
                             ),
                             Text(
-                              "Get the highest value for your car on Flikcar. \nExperience a simple and transparent way\nof selling your car with Flikcar. ",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            )
+                                "Get the highest value for your car on Flikcar. \nExperience a simple and transparent way\nof selling your car with Flikcar. ",
+                                style: AppFonts.w500white14)
                           ],
                         )),
                   ],

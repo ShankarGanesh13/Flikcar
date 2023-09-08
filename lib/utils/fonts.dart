@@ -23,6 +23,12 @@ class AppFonts {
     color: Colors.black,
     height: 1.2,
   );
+  static final w700black30 = getAppFont(
+    fontWeight: FontWeight.w700,
+    fontSize: 30,
+    color: Colors.white,
+    height: 1.2,
+  );
   static final w700green16 = getAppFont(
     fontWeight: FontWeight.w700,
     fontSize: 16,

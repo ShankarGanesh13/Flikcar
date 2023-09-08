@@ -27,7 +27,7 @@ class _ListingCarFaturesState extends State<ListingCarFatures> {
   void initState() {
     // TODO: implement initState
     Provider.of<DealerUploadCar>(context, listen: false).getComfortFeatures();
-    Provider.of<DealerUploadCar>(context, listen: false).getInteriorFeatures();
+    Provider.of<DealerUploadCar>(context, listen: false).getinteriorFeatures();
     Provider.of<DealerUploadCar>(context, listen: false).getExteriorFeatures();
     Provider.of<DealerUploadCar>(context, listen: false)
         .getEntertainmentFeatures();
@@ -84,11 +84,16 @@ class _ListingCarFaturesState extends State<ListingCarFatures> {
                 backgroundColor: AppColors.s1,
                 borderColor: Colors.transparent,
                 function: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const ListingCarImages(),
-                      ));
+                  if (selectedIndex < 4) {
+                    Provider.of<DealerUploadCar>(context, listen: false)
+                        .increaseFeatureIndex();
+                  } else {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ListingCarImages(),
+                        ));
+                  }
                 },
                 textStyle: AppFonts.w500white14,
                 title: "Next"),

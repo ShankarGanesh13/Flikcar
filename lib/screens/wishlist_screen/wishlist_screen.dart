@@ -29,7 +29,6 @@ class _WishlistScreenState extends State<WishlistScreen> {
   @override
   Widget build(BuildContext context) {
     List<BuyerCar> wishlistCars = context.watch<WishlistService>().wishlistCars;
-    print(wishlistCars);
     return Scaffold(
       appBar: CustomAppBar.getAppBar(
         function: () {

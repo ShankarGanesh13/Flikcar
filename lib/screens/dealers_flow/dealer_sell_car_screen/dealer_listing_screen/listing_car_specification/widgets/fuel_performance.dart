@@ -27,32 +27,35 @@ class FuelPerformance extends StatelessWidget {
         ),
         SpecificationTextField(
           maxLength: 5,
-          title: "Max power (in bhp)",
+          title: "Max power (in bhp)*",
+          validator: true,
           keyboardType: TextInputType.number,
           controller: powerController,
           onChanged: (value) {
             Provider.of<DealerUploadCar>(context, listen: false)
-                .getPowerDetails(power: int.parse(value));
+                .getPowerDetails(power: value);
           },
         ),
         SpecificationTextField(
           maxLength: 5,
-          title: "Max torque (in nm)",
+          title: "Max torque (in nm)*",
+          validator: true,
           keyboardType: TextInputType.number,
           controller: torqueController,
           onChanged: (value) {
             Provider.of<DealerUploadCar>(context, listen: false)
-                .getTorqueDetails(torque: int.parse(value));
+                .getTorqueDetails(torque: value);
           },
         ),
         SpecificationTextField(
           maxLength: 5,
-          title: "Mileage (ARAI) in kmpl",
+          title: "Mileage (ARAI) in kmpl*",
           keyboardType: TextInputType.number,
+          validator: true,
           controller: mileageController,
           onChanged: (value) {
             Provider.of<DealerUploadCar>(context, listen: false)
-                .getMileage(kmpl: int.parse(value));
+                .getMileage(kmpl: value);
           },
         ),
         // const SpecificationTextField(

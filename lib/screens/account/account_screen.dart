@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/edit_profile/edit_profile.dart';
 import 'package:flikcar/screens/account/sell_request/sell_request.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
+import 'package:flikcar/screens/account/widgets/connect_with_us.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/services/get_car_details.dart';
@@ -104,6 +105,15 @@ class _AccountScreenState extends State<AccountScreen> {
                 child: profileDetails(
                     title: "Terms and Conditions",
                     subtitle: "View our terms and conditions",
+                    icon: Icons.chevron_right),
+              ),
+              GestureDetector(
+                onTap: () {
+                  launchEmail();
+                },
+                child: profileDetails(
+                    title: "Mail Us",
+                    subtitle: "help@flikcar.com",
                     icon: Icons.chevron_right),
               ),
               Container(
@@ -212,6 +222,16 @@ class _AccountScreenState extends State<AccountScreen> {
     if (!await launchUrl(_url)) {
       throw Exception('Could not launch $_url');
     }
+  }
+
+  launchEmail() async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'info@myhapp.se',
+    );
+    if (!await launchUrl(
+      emailLaunchUri,
+    )) ;
   }
 }
 //final String? phone = sp.getString('custPhone');

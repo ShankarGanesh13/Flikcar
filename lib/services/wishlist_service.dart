@@ -87,7 +87,7 @@ class WishlistService extends ChangeNotifier {
     wishlistCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
-    print(token);
+    //print(token);
 
     var url = Uri.parse(
         'https://webservice.flikcar.com:8000/api/buy-car/get-favourites-car');
@@ -104,8 +104,6 @@ class WishlistService extends ChangeNotifier {
         result.forEach((e) async {
           BuyerCar car = BuyerCar.fromJson(e["dealerVehicle"]);
           wishlistCars.add(car..isFavourite = true);
-
-          print(wishlistCars);
         });
       } else {
         print('Request failed with status: ${response.statusCode}');

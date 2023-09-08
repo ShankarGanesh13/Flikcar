@@ -124,7 +124,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       controller: yearController,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getYearId(year: int.parse(value));
+                            .getYearId(year: value);
                       },
                     ),
                     const SizedBox(height: 20),
@@ -139,7 +139,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       onChanged: (value) {
                         print(value);
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getKilometerDriven(kms: int.parse(value));
+                            .getKilometerDriven(kms: value);
                       },
                     ),
                     const SizedBox(height: 20),
@@ -151,7 +151,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       controller: sellingPriceController,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getSellingPrice(price: int.parse(value));
+                            .getSellingPrice(price: value);
                       },
                     ),
                     const SizedBox(height: 20),

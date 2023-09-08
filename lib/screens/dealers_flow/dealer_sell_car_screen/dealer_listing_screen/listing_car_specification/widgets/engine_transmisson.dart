@@ -36,9 +36,55 @@ class EngineTransmisson extends StatelessWidget {
             height: 20,
           ),
           SpecificationTextField(
+            maxLength: 2,
+            title: "Number of cylinders*",
+            validator: true,
+            controller: noOfCylinderController,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getNoOfCylinder(noCylinder: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 4,
+            title: "Engine (in CC)*",
+            validator: true,
+            controller: ccController,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getEngineCC(cc: value);
+            },
+          ),
+          BoolDropdownTextField(
+            title: "Turbocharger*",
+            selectedValue: "",
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getTurboCharger(turbocharger: value);
+            },
+          ),
+          BoolDropdownTextField(
+            title: "Limited slip differential (LSD)*",
+            selectedValue: "",
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getLsd(lsd: value);
+            },
+          ),
+          Text(
+            "Optional Details",
+            style: AppFonts.w500black14,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          SpecificationTextField(
             maxLength: 30,
             title: "Drivetrain (eg. front wheel drive)",
             controller: driveTrainController,
+            validator: false,
             keyboardType: TextInputType.text,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
@@ -49,66 +95,33 @@ class EngineTransmisson extends StatelessWidget {
             maxLength: 30,
             title: "Number of gear",
             controller: gearboxController,
+            validator: false,
             keyboardType: TextInputType.number,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
-                  .getGearbox(gearbox: int.parse(value));
+                  .getGearbox(gearbox: value);
             },
           ),
           SpecificationTextField(
             maxLength: 4,
             title: "Displacement (in mm)",
+            validator: false,
             controller: disController,
             keyboardType: TextInputType.number,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
-                  .getCc(cc: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            maxLength: 2,
-            title: "Number of cylinders",
-            controller: noOfCylinderController,
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getNoOfCylinder(noCylinder: int.parse(value));
-            },
-          ),
-          SpecificationTextField(
-            maxLength: 4,
-            title: "Engine (in CC)",
-            controller: ccController,
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getEngineCC(cc: int.parse(value));
+                  .getCc(cc: value);
             },
           ),
           SpecificationTextField(
             maxLength: 10,
             title: "Valve/cylinder (configuration)",
             controller: valveCylinderController,
+            validator: false,
             keyboardType: TextInputType.number,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
-                  .getValve(valve: int.parse(value));
-            },
-          ),
-          BoolDropdownTextField(
-            title: "Limited slip differential (LSD)",
-            selectedValue: "",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getLsd(lsd: value);
-            },
-          ),
-          BoolDropdownTextField(
-            title: "Turbocharger",
-            selectedValue: "",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getTurboCharger(turbocharger: value);
+                  .getValve(valve: value);
             },
           ),
           const SizedBox(

@@ -1,3 +1,4 @@
+import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class DealerHeader extends StatelessWidget {
@@ -31,25 +32,20 @@ class DealerHeader extends StatelessWidget {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 30,
           left: 15,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Deal in Used Cars\nat Best Prices",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 30,
-                    fontWeight: FontWeight.w700),
+              Text("Deal in Used Cars\nat Best Prices",
+                  style: AppFonts.w700black30),
+              const SizedBox(
+                height: 8,
               ),
               Text(
                 "Unlock a world of opportunities with Flikcar. \nList your used cars for free and reach \nthousands of buyers.",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500),
+                style: AppFonts.w500white14,
               )
             ],
           ),

@@ -184,16 +184,13 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
       dealerSelfiePath,
     ));
     var response = await request.send();
-    print(request.fields);
-    print(request.files);
+
     var responseData = await response.stream.toBytes();
 
     var responseString = utf8.decode(responseData);
-    print(responseString);
 
     var data = json.decode(responseString);
-    print(data);
-    print(data);
+
     print(data["status"]);
     if (data["status"] == 200 || data["status"] == 302) {
       ScaffoldMessenger.of(context).showSnackBar(

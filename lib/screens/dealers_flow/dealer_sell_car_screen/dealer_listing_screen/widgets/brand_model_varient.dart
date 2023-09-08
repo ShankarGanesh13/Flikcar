@@ -70,7 +70,7 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
                     selectedVarientId = null;
                     selectedBrandId = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getBrandId(id: selectedBrandId!);
+                        .getBrandId(id: selectedBrandId!.toString());
                     models = snapshot.data!
                         .firstWhere((element) => element.id == value)
                         .models;
@@ -145,7 +145,7 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
             selectedVarientId = null;
             selectedModelId = value;
             Provider.of<DealerUploadCar>(context, listen: false)
-                .getModelId(id: selectedModelId!);
+                .getModelId(id: selectedModelId!.toString());
             varients = models
                 .firstWhere((element) => element.modelId == value)
                 .varients;
@@ -214,7 +214,7 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
           setState(() {
             selectedVarientId = value;
             Provider.of<DealerUploadCar>(context, listen: false)
-                .getVarientId(id: selectedVarientId!);
+                .getVarientId(id: selectedVarientId!.toString());
           });
         },
         buttonStyleData: const ButtonStyleData(

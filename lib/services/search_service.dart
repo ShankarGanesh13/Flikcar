@@ -415,7 +415,9 @@ class SearchService extends ChangeNotifier {
   searchFunction(String query) {
     searchedCarList = allCars;
     searchedCarList = allCars
-        .where((item) => item.model.toLowerCase().contains(query.toLowerCase()))
+        .where((item) => item.model.toLowerCase().contains(
+              query.toLowerCase(),
+            ))
         .toList();
     notifyListeners();
   }

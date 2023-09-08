@@ -70,17 +70,22 @@ class _ListingCarSpecificationState extends State<ListingCarSpecification> {
                 backgroundColor: AppColors.s1,
                 borderColor: Colors.transparent,
                 function: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ListingCarFatures(),
-                        ));
+                  if (selectedIndex < 3) {
+                    selectedIndex++;
                   } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        MySnackbar.showSnackBar(context,
-                            "Please ensure you enter all the required data in all four sections"));
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ListingCarFatures(),
+                          ));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          MySnackbar.showSnackBar(context,
+                              "Please ensure you enter all the required* data in all four sections"));
+                    }
                   }
+                  setState(() {});
                 },
                 textStyle: AppFonts.w500white14,
                 title: "Next"),

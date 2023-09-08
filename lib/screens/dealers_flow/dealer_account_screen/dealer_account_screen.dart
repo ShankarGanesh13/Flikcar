@@ -92,6 +92,15 @@ class DealerAccountScreen extends StatelessWidget {
                     subtitle: "View our terms and conditions",
                     icon: Icons.chevron_right),
               ),
+              GestureDetector(
+                onTap: () {
+                  launchEmail();
+                },
+                child: profileDetails(
+                    title: "Mail Us",
+                    subtitle: "help@flikcar.com",
+                    icon: Icons.chevron_right),
+              ),
               Container(
                 color: Colors.transparent,
                 padding: const EdgeInsets.all(15.0),
@@ -200,5 +209,15 @@ class DealerAccountScreen extends StatelessWidget {
     final String? phone = sp.getString('dealerPhone');
 
     return phone!;
+  }
+
+  launchEmail() async {
+    final Uri emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: 'help@flikcar.com',
+    );
+    if (!await launchUrl(
+      emailLaunchUri,
+    )) ;
   }
 }

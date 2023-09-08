@@ -1,3 +1,4 @@
+import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class BuyerHomeScreenHeader extends StatelessWidget {
@@ -31,26 +32,22 @@ class BuyerHomeScreenHeader extends StatelessWidget {
             ),
           ),
         ),
-        const Positioned(
+        Positioned(
           top: 30,
           left: 15,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Buy car at\nthe best price",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 32,
-                    fontWeight: FontWeight.w700),
+              SizedBox(
+                  width: 250,
+                  child: Text("Buy car at the best price",
+                      style: AppFonts.w700black30)),
+              const SizedBox(
+                height: 8,
               ),
               Text(
-                "Find your perfect match on Flikcar. We have \na wide range of fully inspected and certified\nused cars at the best prices.",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500),
-              )
+                  "Find your perfect match on Flikcar. We have \na wide range of fully inspected and certified\nused cars at the best prices.",
+                  style: AppFonts.w500white14)
             ],
           ),
         ),

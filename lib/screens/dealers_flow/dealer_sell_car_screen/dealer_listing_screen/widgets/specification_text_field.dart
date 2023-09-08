@@ -8,11 +8,13 @@ class SpecificationTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextEditingController controller;
   final ValueChanged onChanged;
+  final bool validator;
   const SpecificationTextField(
       {super.key,
       required this.maxLength,
       required this.keyboardType,
       required this.title,
+      required this.validator,
       required this.onChanged,
       required this.controller});
 
@@ -51,13 +53,16 @@ class SpecificationTextField extends StatelessWidget {
             maxLength: maxLength,
             style: AppFonts.w500black12,
             validator: (value) {
-              if (value == null) {
-                return "Enter a valid data";
+              if (validator == true) {
+                if (value == null) {
+                  return "Enter a valid data";
+                }
+                if (value == "") {
+                  return "Enter a valid data";
+                }
+              } else {
+                return null;
               }
-              if (value == "") {
-                return "Enter a valid data";
-              }
-              return null;
             },
             maxLines: 1,
           ),

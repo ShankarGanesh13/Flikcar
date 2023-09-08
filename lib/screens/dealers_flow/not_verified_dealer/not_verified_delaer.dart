@@ -29,7 +29,7 @@ class NotVerifiedDealer extends StatelessWidget {
             Center(
               child: Text(
                 "Your Dealer Profile is not verified please contact our support team",
-                style: AppFonts.w500black16,
+                style: AppFonts.w700black16,
                 textAlign: TextAlign.center,
               ),
             ),

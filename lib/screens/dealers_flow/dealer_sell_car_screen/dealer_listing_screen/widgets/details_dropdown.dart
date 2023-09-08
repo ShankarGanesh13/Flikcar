@@ -67,7 +67,7 @@ class DetailsDropDown extends StatelessWidget {
                   onChanged: (value) {
                     selectedFuelId = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getFuelId(id: selectedFuelId!);
+                        .getFuelId(id: selectedFuelId!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -140,7 +140,7 @@ class DetailsDropDown extends StatelessWidget {
                   onChanged: (value) {
                     selectedBodyId = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getBodyTypeId(id: selectedBodyId!);
+                        .getBodyTypeId(id: selectedBodyId!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -213,7 +213,7 @@ class DetailsDropDown extends StatelessWidget {
                   onChanged: (value) {
                     ownershipId = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getOwnershipId(id: ownershipId!);
+                        .getOwnershipId(id: ownershipId!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -302,7 +302,7 @@ class DetailsDropDown extends StatelessWidget {
                   onChanged: (value) {
                     selectedColorId = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getColorId(id: selectedColorId!);
+                        .getColorId(id: selectedColorId!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),
