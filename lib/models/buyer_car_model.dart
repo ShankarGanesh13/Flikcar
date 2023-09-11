@@ -1,5 +1,4 @@
 import 'package:flikcar/models/image_model.dart';
-import 'package:isar/isar.dart';
 
 class BuyerCar {
   int id;

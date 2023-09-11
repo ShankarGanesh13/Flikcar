@@ -1,33 +1,7 @@
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/screens/account/account_screen.dart';
-import 'package:flikcar/screens/account/test_drive/test_drive.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_image_viewer/car_image_viewer.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/car_specifications.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
-import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
-import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_features.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/dealer_auction_home_screen.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/listing_car_images.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/brand_model_varient.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_sell_car_screen.dart';
-import 'package:flikcar/screens/dealers_flow/my_schedule_screen/cancel_schedule/cancel_schedule.dart';
-import 'package:flikcar/screens/dealers_flow/my_schedule_screen/reschedule_screen/reschedule_screen.dart';
-import 'package:flikcar/screens/home_screen/home_screen.dart';
+
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
-import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
-import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
-import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
-import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
-import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
+
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
@@ -41,14 +15,8 @@ import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:path_provider/path_provider.dart';
-import 'screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/listing_car_features.dart';
-import 'screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
 
@@ -99,29 +67,22 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   @override
-  void initState() {
-    // TODO: implement initState
-
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     print("app is running build context");
     return const SizedBox();
   }
 
-  Future<bool> isLoggedIn(context) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final bool? loggedIn = sp.getBool('isLoggedIn');
-    Provider.of<CheckInternetProvider>(context, listen: false)
-        .startStreaming(context);
+  // Future<bool> isLoggedIn(context) async {
+  //   final SharedPreferences sp = await SharedPreferences.getInstance();
+  //   final bool? loggedIn = sp.getBool('isLoggedIn');
+  //   Provider.of<CheckInternetProvider>(context, listen: false)
+  //       .startStreaming(context);
 
-    if (loggedIn == true) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  //   if (loggedIn == true) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 }
 //keytool -genkey -v -keystore %userprofile%\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload

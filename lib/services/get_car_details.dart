@@ -3,8 +3,6 @@ import 'dart:convert';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flutter/material.dart';
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
