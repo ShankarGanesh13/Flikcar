@@ -27,28 +27,6 @@ class FuelPerformance extends StatelessWidget {
         ),
         SpecificationTextField(
           maxLength: 5,
-          title: "Max power (in bhp)*",
-          validator: true,
-          keyboardType: TextInputType.number,
-          controller: powerController,
-          onChanged: (value) {
-            Provider.of<DealerUploadCar>(context, listen: false)
-                .getPowerDetails(power: value);
-          },
-        ),
-        SpecificationTextField(
-          maxLength: 5,
-          title: "Max torque (in nm)*",
-          validator: true,
-          keyboardType: TextInputType.number,
-          controller: torqueController,
-          onChanged: (value) {
-            Provider.of<DealerUploadCar>(context, listen: false)
-                .getTorqueDetails(torque: value);
-          },
-        ),
-        SpecificationTextField(
-          maxLength: 5,
           title: "Mileage (ARAI) in kmpl*",
           keyboardType: TextInputType.number,
           validator: true,
@@ -58,6 +36,36 @@ class FuelPerformance extends StatelessWidget {
                 .getMileage(kmpl: value);
           },
         ),
+        Text(
+          "Optional Details",
+          style: AppFonts.w500black14,
+        ),
+        const SizedBox(
+          height: 10,
+        ),
+        SpecificationTextField(
+          maxLength: 5,
+          title: "Max power (in bhp)",
+          validator: false,
+          keyboardType: TextInputType.number,
+          controller: powerController,
+          onChanged: (value) {
+            Provider.of<DealerUploadCar>(context, listen: false)
+                .getPowerDetails(power: value);
+          },
+        ),
+        SpecificationTextField(
+          maxLength: 5,
+          title: "Max torque (in nm)",
+          validator: false,
+          keyboardType: TextInputType.number,
+          controller: torqueController,
+          onChanged: (value) {
+            Provider.of<DealerUploadCar>(context, listen: false)
+                .getTorqueDetails(torque: value);
+          },
+        ),
+
         // const SpecificationTextField(
         //     maxLength: 5, title: "Max power (bhp @ rpm)"),
         // const SpecificationTextField(

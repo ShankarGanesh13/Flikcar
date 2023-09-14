@@ -7,17 +7,23 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class DealerCarDetails extends StatelessWidget {
   final AuctionCar car;
+  final DateFormat formatter = DateFormat('yMMM');
   DealerCarDetails({super.key, required this.car});
   static List<String> icondata = [
     "assets/car_details_icon/location.png",
     "assets/car_details_icon/speedometer.png",
     "assets/car_details_icon/owner.png",
     "assets/car_details_icon/fuel_type.png",
-    "assets/car_details_icon/engine.png",
-    "assets/car_details_icon/transmisson.png"
+    "assets/car_details_icon/calendar.png",
+    "assets/car_details_icon/transmisson.png",
+    "assets/car_details_icon/roadTax.png",
+    "assets/car_details_icon/insurance.png",
+    "assets/car_details_icon/noc.png",
+    "assets/car_details_icon/location.png",
   ];
 
   List<String> data = [];
@@ -32,8 +38,12 @@ class DealerCarDetails extends StatelessWidget {
       "Km Driven: ${car.driveKms}",
       "Owners: ${car.ownertype}",
       "Fuel Type: ${car.fuel}",
-      "Engine: ${car.engine}cc",
-      "Transmission: ${car.transmission}"
+      "Reg. Year: ${car.registrationYear}",
+      "Transmission: ${car.transmission}",
+      "Road Tax \nValidity: ${car.roadtaxValidity == "N/A" ? "N/A" : formatter.format(DateTime.parse(car.roadtaxValidity))}",
+      "Insurance\nValidity: ${car.insuranceValidity == "N/A" ? "N/A" : formatter.format(DateTime.parse(car.insuranceValidity))}",
+      "NOC: ${car.noc}",
+      "RTO Location: ${car.rto}"
     ];
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -67,16 +77,16 @@ class DealerCarDetails extends StatelessWidget {
           ),
           const SizedBox(height: 10),
           checkTime(),
-          const SizedBox(height: 10),
-          car.lastBid != null
-              ? Text(
-                  "Last bid placed by ${car.lastBid!.dealerName}",
-                  style: AppFonts.w500green14,
-                )
-              : Text(
-                  "No bids placed",
-                  style: AppFonts.w500green14,
-                ),
+          // const SizedBox(height: 10),
+          // car.lastBid != null
+          //     ? Text(
+          //         "Last bid placed by ${car.lastBid!.dealerName}",
+          //         style: AppFonts.w500green14,
+          //       )
+          //     : Text(
+          //         "No bids placed",
+          //         style: AppFonts.w500green14,
+          //       ),
           const SizedBox(height: 10),
           Text(
             "₹ Base Price ${car.carPrice} ",
@@ -87,12 +97,12 @@ class DealerCarDetails extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Wrap(
               runAlignment: WrapAlignment.spaceEvenly,
-              alignment: WrapAlignment.spaceEvenly,
+              alignment: WrapAlignment.start,
               spacing: 15,
               runSpacing: 15,
               crossAxisAlignment: WrapCrossAlignment.start,
               children: List.generate(
-                  6,
+                  10,
                   (index) => SizedBox(
                         width: MediaQuery.of(context).size.width / 2.35,
                         child: Row(
@@ -111,6 +121,7 @@ class DealerCarDetails extends StatelessWidget {
                                 ),
                                 child: Image.asset(
                                   icondata[index],
+                                  color: Colors.white,
                                 )),
                             const SizedBox(
                               width: 6,

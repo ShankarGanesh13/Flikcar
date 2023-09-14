@@ -13,6 +13,7 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/image_vie
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
+import 'package:flikcar/screens/buy_car_flow/view_all_cars_at_store/view_all_cars_at_store.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -95,7 +96,8 @@ class CarDetailedView extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const FilterApplied()));
+                        builder: (context) => const FilterApplied(),
+                      ));
                 },
               ),
               bottomNavigationBar: CarDetailBottomNav(
@@ -106,7 +108,6 @@ class CarDetailedView extends StatelessWidget {
                   Container(
                       padding: const EdgeInsets.all(12),
                       width: MediaQuery.of(context).size.width,
-                      //color: const Color.fromARGB(255, 240, 255, 249),
                       decoration: BoxDecoration(gradient: AppColors.gradient),
                       child: Row(
                         children: [
@@ -155,6 +156,22 @@ class CarDetailedView extends StatelessWidget {
                   BuyCarDetails(
                     car: snapshot.data!,
                   ),
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: PrimaryButton(
+                        title: "View All Cars at This Store",
+                        function: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ViewAllCarsAtStore(
+                                        dealerId: snapshot.data!.dealerId,
+                                      )));
+                        },
+                        borderColor: Colors.white,
+                        backgroundColor: AppColors.p2,
+                        textStyle: AppFonts.w500white14),
+                  ),
                   //  const CarAddress(),
                   CarFeatures(
                     car: snapshot.data!,
@@ -165,7 +182,7 @@ class CarDetailedView extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: PrimaryButton(
-                        title: "View Specification",
+                        title: "View All Specification",
                         function: () {
                           Navigator.push(
                               context,

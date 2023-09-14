@@ -5,6 +5,7 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/widgets/upload_image.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -71,12 +72,14 @@ class ListingCarImages extends StatelessWidget {
                       MySnackbar.showSnackBar(
                           context, "Please upload all the required images"));
                 } else {
-                  Provider.of<DealerUploadCar>(context, listen: false)
-                      .uploadCar(context);
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ListingCarSpecification()));
                 }
               },
               textStyle: AppFonts.w500white14,
-              title: "Upload Car"),
+              title: "Next"),
         ),
       ),
       body: SingleChildScrollView(
@@ -86,14 +89,15 @@ class ListingCarImages extends StatelessWidget {
                 height: 50,
                 padding: const EdgeInsets.all(15),
                 width: MediaQuery.of(context).size.width,
-                color: const Color.fromARGB(255, 241, 255, 249),
+                decoration: BoxDecoration(gradient: AppColors.gradient),
                 child: Row(
                   children: [
                     GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Icon(Icons.chevron_left, color: AppColors.p2)),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Icon(Icons.chevron_left, color: AppColors.p2),
+                    ),
                     const SizedBox(width: 8),
                     Text(
                       "Upload Car Images",

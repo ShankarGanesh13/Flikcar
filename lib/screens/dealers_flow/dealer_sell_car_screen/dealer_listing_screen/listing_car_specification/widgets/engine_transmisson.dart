@@ -36,17 +36,6 @@ class EngineTransmisson extends StatelessWidget {
             height: 20,
           ),
           SpecificationTextField(
-            maxLength: 2,
-            title: "Number of cylinders*",
-            validator: true,
-            controller: noOfCylinderController,
-            keyboardType: TextInputType.number,
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getNoOfCylinder(noCylinder: value);
-            },
-          ),
-          SpecificationTextField(
             maxLength: 4,
             title: "Engine (in CC)*",
             validator: true,
@@ -57,28 +46,41 @@ class EngineTransmisson extends StatelessWidget {
                   .getEngineCC(cc: value);
             },
           ),
-          BoolDropdownTextField(
-            title: "Turbocharger*",
-            selectedValue: "",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getTurboCharger(turbocharger: value);
-            },
-          ),
-          BoolDropdownTextField(
-            title: "Limited slip differential (LSD)*",
-            selectedValue: "",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getLsd(lsd: value);
-            },
-          ),
           Text(
             "Optional Details",
             style: AppFonts.w500black14,
           ),
           const SizedBox(
             height: 10,
+          ),
+          BoolDropdownTextField(
+            title: "Turbocharger",
+            selectedValue: "",
+            validator: false,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getTurboCharger(turbocharger: value);
+            },
+          ),
+          BoolDropdownTextField(
+            title: "Limited slip differential (LSD)",
+            selectedValue: "",
+            validator: false,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getLsd(lsd: value);
+            },
+          ),
+          SpecificationTextField(
+            maxLength: 2,
+            title: "Number of cylinders",
+            validator: false,
+            controller: noOfCylinderController,
+            keyboardType: TextInputType.number,
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getNoOfCylinder(noCylinder: value);
+            },
           ),
           SpecificationTextField(
             maxLength: 30,

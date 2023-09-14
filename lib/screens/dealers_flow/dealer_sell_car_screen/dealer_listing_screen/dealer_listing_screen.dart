@@ -4,6 +4,7 @@ import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/listing_car_images.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/details_dropdown.dart';
@@ -71,7 +72,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ListingCarSpecification(),
+                        builder: (context) => const ListingCarImages(),
                       ));
                 }
               },

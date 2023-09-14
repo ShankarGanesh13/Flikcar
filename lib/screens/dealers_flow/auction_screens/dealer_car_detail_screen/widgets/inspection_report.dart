@@ -12,15 +12,24 @@ class InspectionReport extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.all(15),
-      child: Column(children: [
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Heading1(title1: "Inspection report", title2: ""),
-        SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: Text(  
-            car.technicianRemarks,
-            style: AppFonts.w500dark214,
-          ),
+        const SizedBox(
+          height: 8,
         ),
+        car.technicianRemarks == ""
+            ? Text(
+                "Data not available",
+                style: AppFonts.w500dark214,
+              )
+            : SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  car.technicianRemarks,
+                  style: AppFonts.w500dark214,
+                  textAlign: TextAlign.justify,
+                ),
+              ),
         // const SizedBox(
         //   height: 10,
         // ),

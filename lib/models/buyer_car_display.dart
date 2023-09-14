@@ -64,7 +64,13 @@ class BuyerCarDisplay {
       registerationYear: json["registration_year"].toString(),
       images: List<String>.from(
           json['vehicleImages'].map((image) => image['path'])),
-      dealer: Dealer.fromJson(json['dealer']),
+      dealer: json["dealer"] != null
+          ? Dealer.fromJson(json['dealer'])
+          : Dealer(
+              phone: "9830527529",
+              name: "NA",
+              addressOne: "NA",
+              addressTwo: "NA"),
     );
   }
 }

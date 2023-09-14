@@ -91,6 +91,7 @@ class AuctionService extends ChangeNotifier {
       response.forEach((element) {
         //  debugPrint("this is the bid");
         //print(element["vehicleImages"]);
+        //  print(element["vehicleRTO"]);
 
         //  debugPrint("current bid price  ${element["current_bid_price"]}");
         auctionCars.add(AuctionCar.fromJson(element));

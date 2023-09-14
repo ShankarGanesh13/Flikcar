@@ -88,15 +88,17 @@ class _ListingCarFaturesState extends State<ListingCarFatures> {
                     Provider.of<DealerUploadCar>(context, listen: false)
                         .increaseFeatureIndex();
                   } else {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ListingCarImages(),
-                        ));
+                    Provider.of<DealerUploadCar>(context, listen: false)
+                        .uploadCar(context);
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => const ListingCarImages(),
+                    //     ));
                   }
                 },
                 textStyle: AppFonts.w500white14,
-                title: "Next"),
+                title: selectedIndex < 4 ? "Next" : "Upload Car"),
           ),
         ),
         body: SingleChildScrollView(

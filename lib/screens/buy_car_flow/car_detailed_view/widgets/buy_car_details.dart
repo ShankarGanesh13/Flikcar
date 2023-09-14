@@ -11,8 +11,8 @@ class BuyCarDetails extends StatelessWidget {
     "assets/car_details_icon/speedometer.png",
     "assets/car_details_icon/owner.png",
     "assets/car_details_icon/fuel_type.png",
-    "assets/car_details_icon/engine.png",
-    "assets/car_details_icon/transmisson.png"
+    "assets/car_details_icon/calendar.png",
+    "assets/car_details_icon/transmisson.png",
   ];
 
   @override
@@ -22,8 +22,8 @@ class BuyCarDetails extends StatelessWidget {
       "Km Driven: ${car.driveKms.toString()}",
       "Owners: ${car.ownertype}",
       "Fuel Type: ${car.fuel}",
-      "Engine: ${car.engine} bhp",
-      "Transmission: ${car.transmission}"
+      "Reg. Year: ${car.registrationYear}",
+      "Transmission: ${car.transmission}",
     ];
 
     return Padding(
@@ -58,7 +58,7 @@ class BuyCarDetails extends StatelessWidget {
             alignment: Alignment.topLeft,
             child: Wrap(
               runAlignment: WrapAlignment.spaceEvenly,
-              alignment: WrapAlignment.spaceEvenly,
+              alignment: WrapAlignment.start,
               spacing: 8,
               runSpacing: 15,
               crossAxisAlignment: WrapCrossAlignment.start,
@@ -82,6 +82,8 @@ class BuyCarDetails extends StatelessWidget {
                                 ),
                                 child: Image.asset(
                                   icondata[index],
+                                  color: Colors.white,
+                                  fit: BoxFit.contain,
                                 )),
                             const SizedBox(
                               width: 8,

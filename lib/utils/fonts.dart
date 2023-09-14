@@ -123,7 +123,7 @@ class AppFonts {
     fontWeight: FontWeight.w500,
     fontSize: 10,
     color: Colors.black,
-    height: 1,
+    height: 1.2,
   );
   static final w500white10 = getAppFont(
     fontWeight: FontWeight.w500,

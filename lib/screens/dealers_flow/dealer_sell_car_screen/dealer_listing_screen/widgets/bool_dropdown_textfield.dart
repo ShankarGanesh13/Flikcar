@@ -6,11 +6,13 @@ import 'package:flutter/material.dart';
 class BoolDropdownTextField extends StatelessWidget {
   final String selectedValue;
   final String title;
+  final bool validator;
   final ValueChanged onChanged;
   const BoolDropdownTextField(
       {super.key,
       required this.title,
       required this.selectedValue,
+      required this.validator,
       required this.onChanged});
 
   static final List<String> items = ["Yes", "No"];
@@ -46,8 +48,12 @@ class BoolDropdownTextField extends StatelessWidget {
                   ))
               .toList(),
           validator: (value) {
-            if (value == null) {
-              return hint;
+            if (validator == true) {
+              if (value == null) {
+                return hint;
+              }
+            } else {
+              return null;
             }
             return null;
           },

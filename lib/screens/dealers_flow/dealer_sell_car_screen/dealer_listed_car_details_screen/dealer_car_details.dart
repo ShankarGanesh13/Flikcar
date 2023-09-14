@@ -12,7 +12,7 @@ class DealerUploadCarDetails extends StatelessWidget {
     "assets/car_details_icon/speedometer.png",
     "assets/car_details_icon/owner.png",
     "assets/car_details_icon/fuel_type.png",
-    "assets/car_details_icon/engine.png",
+    "assets/car_details_icon/calendar.png",
     "assets/car_details_icon/transmisson.png"
   ];
 
@@ -23,7 +23,7 @@ class DealerUploadCarDetails extends StatelessWidget {
       "Km Driven: ${car.driveKms.toString()}",
       "Owners: ${car.ownertype}",
       "Fuel Type: ${car.fuel}",
-      "Engine: ${car.engine} bhp",
+      "Engine: ${car.registrationYear}",
       "Transmission: ${car.transmission}"
     ];
     final DateFormat formatter = DateFormat('MMMd');
@@ -83,6 +83,7 @@ class DealerUploadCarDetails extends StatelessWidget {
                                 ),
                                 child: Image.asset(
                                   icondata[index],
+                                  color: Colors.white,
                                 )),
                             const SizedBox(
                               width: 8,

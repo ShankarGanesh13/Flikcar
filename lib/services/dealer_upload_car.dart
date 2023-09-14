@@ -738,7 +738,7 @@ class DealerUploadCar extends ChangeNotifier {
             style: AppFonts.w700black16,
           ),
           content: Text(
-            'Our team will verify the uploaded details and make it live for the buyers. This process might take 1-2 hours.',
+            "The car details have been uploaded successfully and are now live for the customers.",
             style: AppFonts.w500black14,
           ),
           actions: <Widget>[
@@ -763,12 +763,32 @@ class DealerUploadCar extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
           context, "Something went wrong try again later"));
     }
+    clearData();
     print(data);
   }
 
-  clearData({required List<TextEditingController> controllers}) {
-    controllers.forEach((element) {
-      element.clear();
-    });
+  clearData() {
+    featuresIndex = 0;
+    interiorFileToDisplay = [];
+    interiorImages = [];
+    //
+    exteriorFileToDisplay = [];
+    exteriorImages = [];
+    //
+    engineFileToDisplay = [];
+    engineImages = [];
+    //
+    tyreToDisplay = [];
+    tyreImages = [];
+    //
+    dentsFileToDisplay = [];
+    dentsImages = [];
+    //
+    thumbnailFileToDisplay = [];
+    thumbnailImages = [];
+    //
+    otherFileToDisplay = [];
+    otherImages = [];
+    notifyListeners();
   }
 }

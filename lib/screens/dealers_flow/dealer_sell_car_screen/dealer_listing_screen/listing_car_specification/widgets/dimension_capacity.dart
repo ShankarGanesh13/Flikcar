@@ -50,6 +50,7 @@ class DimensionCapacity extends StatelessWidget {
           BoolDropdownTextField(
             title: "Wheel cover*",
             selectedValue: "",
+            validator: true,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
                   .getWheelCover(wheelcover: value);
@@ -58,6 +59,7 @@ class DimensionCapacity extends StatelessWidget {
           BoolDropdownTextField(
             title: "Alloy wheels*",
             selectedValue: "",
+            validator: true,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
                   .getAlloyWheel(alloywheel: value);
@@ -66,29 +68,30 @@ class DimensionCapacity extends StatelessWidget {
           BoolDropdownTextField(
             title: "Spare wheel*",
             selectedValue: "",
+            validator: true,
             onChanged: (value) {
               Provider.of<DealerUploadCar>(context, listen: false)
                   .getSpareWheel(sparewheel: value);
             },
           ),
           dropDown(),
-          SpecificationTextField(
-            keyboardType: TextInputType.number,
-            maxLength: 5,
-            validator: true,
-            controller: fuelCapacityController,
-            title: "Fuel tank capacity(in litres)*",
-            onChanged: (value) {
-              Provider.of<DealerUploadCar>(context, listen: false)
-                  .getFuelCapacity(capacity: value);
-            },
-          ),
           Text(
             "Optional Details",
             style: AppFonts.w500black14,
           ),
           const SizedBox(
             height: 10,
+          ),
+          SpecificationTextField(
+            keyboardType: TextInputType.number,
+            maxLength: 5,
+            validator: false,
+            controller: fuelCapacityController,
+            title: "Fuel tank capacity(in litres)",
+            onChanged: (value) {
+              Provider.of<DealerUploadCar>(context, listen: false)
+                  .getFuelCapacity(capacity: value);
+            },
           ),
           SpecificationTextField(
             maxLength: 5,

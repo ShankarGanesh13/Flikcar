@@ -71,7 +71,9 @@ class _ListingCarSpecificationState extends State<ListingCarSpecification> {
                 borderColor: Colors.transparent,
                 function: () {
                   if (selectedIndex < 3) {
-                    selectedIndex++;
+                    if (_formKey.currentState!.validate()) {
+                      selectedIndex++;
+                    }
                   } else {
                     if (_formKey.currentState!.validate()) {
                       Navigator.push(
@@ -132,7 +134,9 @@ class _ListingCarSpecificationState extends State<ListingCarSpecification> {
                                 return GestureDetector(
                                   onTap: () {
                                     setState(() {
-                                      selectedIndex = index;
+                                      if (_formKey.currentState!.validate()) {
+                                        selectedIndex = index;
+                                      }
                                     });
                                     print(selectedIndex);
                                   },

@@ -120,7 +120,6 @@ class GetCarDetails extends ChangeNotifier {
       '/api/web/buy-car/cars/view/',
       queryParameters,
     );
-
     var response = await http.get(
       url,
       headers: {
@@ -141,5 +140,53 @@ class GetCarDetails extends ChangeNotifier {
       });
     }
     return car;
+  }
+
+  Future<List<BuyerCarDisplay>> getCarAtTheStore({required String id}) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final String? token = sp.getString('userToken');
+
+    var url =
+        Uri.parse("https://webservice.flikcar.com:8000/api/store/search-car");
+    Map<String, dynamic> body = {
+      "index": 0.5043553213209293,
+      "id": id,
+      "brand": [],
+      "model": [],
+      "fuel": [],
+      "city": "",
+      "bodytype": [],
+      "seats": [],
+      "transmission": [],
+      "owners": [],
+      "drivenkm": "",
+      "modelyear": "",
+      "budget": "",
+      "page": 1
+    };
+
+    var response = await http.post(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(body),
+    );
+
+    var data = jsonDecode(response.body);
+
+    var result = data["data"] as List;
+
+    List<BuyerCarDisplay> cars = [];
+
+    if (result.isNotEmpty) {
+      for (var i = 0; i < result.length; i++) {
+        cars.add(
+          BuyerCarDisplay.fromJson(result[i]),
+        );
+      }
+    }
+    return cars;
   }
 }
