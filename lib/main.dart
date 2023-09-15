@@ -19,6 +19,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
+import 'package:upgrader/upgrader.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -50,7 +51,10 @@ void main() async {
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.s1),
           useMaterial3: true,
         ),
-        home: StartScreen(),
+        home: UpgradeAlert(
+          upgrader: Upgrader(dialogStyle: UpgradeDialogStyle.material),
+          child: StartScreen(),
+        ),
       ),
     ),
   );
@@ -68,7 +72,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    print("app is running build context");
     return const SizedBox();
   }
 

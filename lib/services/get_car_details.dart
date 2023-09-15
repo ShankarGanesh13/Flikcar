@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flutter/material.dart';
@@ -40,6 +39,7 @@ class GetCarDetails extends ChangeNotifier {
     fuelFilter = displayCars
         .where((element) => element.transmission.toLowerCase() == "manual")
         .toList();
+
     transmissonFilter.shuffle();
     notifyListeners();
   }
@@ -48,7 +48,7 @@ class GetCarDetails extends ChangeNotifier {
       {required String filterType,
       required String filter,
       required int index}) {
-    print(displayCars.length);
+    debugPrint("${displayCars.length}");
     switch (filterType) {
       case "fuel":
         {
@@ -76,6 +76,7 @@ class GetCarDetails extends ChangeNotifier {
         {
           // print("bodyType");
           // print(filter);
+
           bodyTypeFilter = displayCars
               .where((element) =>
                   element.bodyType.toLowerCase() == filter.toLowerCase())

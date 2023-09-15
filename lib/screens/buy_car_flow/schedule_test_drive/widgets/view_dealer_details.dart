@@ -81,9 +81,12 @@ class ViewDealerDeatils extends StatelessWidget {
               "Address - ",
               style: AppFonts.w700s140,
             ),
-            Text(
-              car.dealerAddress == null ? "N.A" : car.dealerAddress!,
-              style: AppFonts.w500black14,
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 1.5,
+              child: Text(
+                car.dealerAddress == null ? "N.A" : car.dealerAddress!,
+                style: AppFonts.w500black14,
+              ),
             ),
           ],
         ),

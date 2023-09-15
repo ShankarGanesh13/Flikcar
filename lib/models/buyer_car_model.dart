@@ -221,7 +221,8 @@ class BuyerCar {
       dealerName: json["dealer"] != null ? json["dealer"]["name"] : "",
       dealerPhoneNumber:
           json["dealer"] != null ? json["dealer"]["phone"].toString() : "",
-      dealerAddress: json["dealer"] != null ? json["address_one"] : "",
+      dealerAddress:
+          json["dealer"] != null ? json["dealer"]["address_one"] : "",
       technicianRating: json["technician_rating"]?.toString() ?? "N/A",
     );
   }

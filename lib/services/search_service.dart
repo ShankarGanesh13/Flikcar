@@ -399,7 +399,7 @@ class SearchService extends ChangeNotifier {
     var data = json.decode(response.body);
     allCars = [];
     var allData = data["data"] as List;
-    print(data.length);
+    // print(data.length);
 
     for (var i = 0; i < allData.length; i++) {
       allCars.add(BuyerCarDisplay.fromJson(allData[i]));
@@ -407,7 +407,7 @@ class SearchService extends ChangeNotifier {
       // print(car.registrationYear);
     }
     searchedCarList = allCars;
-    print("car list length ${allCars.length}");
+    debugPrint("car list length ${allCars.length}");
 
     notifyListeners();
   }

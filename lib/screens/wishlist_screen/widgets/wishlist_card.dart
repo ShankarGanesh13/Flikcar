@@ -35,7 +35,7 @@ class WishlistCard extends StatelessWidget {
       },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20),
-        height: 164,
+        height: 162,
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -138,9 +138,9 @@ class WishlistCard extends StatelessWidget {
                     ),
                   )
                 ]),
-            Padding(
+            Container(
               padding: const EdgeInsets.only(
-                  top: 9.0, bottom: 10, left: 20, right: 20),
+                  top: 5.0, bottom: 10, left: 20, right: 20),
               child: PrimaryButton(
                   title: "Contact Dealer",
                   function: () {

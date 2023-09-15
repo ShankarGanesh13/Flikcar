@@ -126,9 +126,12 @@ class DealerCarDetails extends StatelessWidget {
                             const SizedBox(
                               width: 6,
                             ),
-                            Text(
-                              data[index],
-                              style: AppFonts.w500black10,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width / 3.2,
+                              child: Text(
+                                data[index],
+                                style: AppFonts.w500black10,
+                              ),
                             )
                           ],
                         ),
