@@ -83,6 +83,12 @@ class AppFonts {
     color: Colors.white,
     height: 1.6,
   );
+  static final w500white16 = getAppFont(
+    fontWeight: FontWeight.w500,
+    fontSize: 16,
+    color: Colors.white,
+    height: 1.6,
+  );
   static final w500black14 = getAppFont(
     fontWeight: FontWeight.w500,
     fontSize: 14,

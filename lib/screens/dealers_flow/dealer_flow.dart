@@ -21,7 +21,6 @@ class DealerFlow extends StatefulWidget {
 class _DealerFlowState extends State<DealerFlow> {
   @override
   void initState() {
-    // TODO: implement initState
     _currentIndex = widget.index;
     super.initState();
   }

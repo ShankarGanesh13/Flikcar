@@ -66,8 +66,8 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                   ));
             },
             back: true),
-        bottomNavigationBar:
-            AuctionBottomNav(currentBid: currentBid, car: widget.carr),
+        // bottomNavigationBar:
+        //     AuctionBottomNav(currentBid: currentBid, car: widget.carr),
 
         //  SafeArea(
         //   child: Container(
@@ -156,6 +156,7 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
               //   car: car ?? widget.carr,
               // ),
               InspectionReport(car: widget.carr),
+
               const SizedBox(
                 height: 10,
               ),

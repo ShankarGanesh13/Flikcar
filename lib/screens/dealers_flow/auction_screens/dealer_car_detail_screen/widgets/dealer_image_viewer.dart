@@ -17,7 +17,7 @@ class DealerImageViewer extends StatefulWidget {
 
 class _DealerImageViewerState extends State<DealerImageViewer> {
   @override
-  void initState() {
+  void initState() { 
     getImages();
     // TODO: implement initState
     super.initState();

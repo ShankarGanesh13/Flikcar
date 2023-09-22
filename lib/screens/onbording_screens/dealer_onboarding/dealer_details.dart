@@ -16,6 +16,7 @@ class DealerDetails extends StatelessWidget {
   TextEditingController shopNameController = TextEditingController();
   TextEditingController addressController = TextEditingController();
   TextEditingController gstController = TextEditingController();
+  TextEditingController pincodeController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -63,6 +64,13 @@ class DealerDetails extends StatelessWidget {
                       maxLength: 80),
                   textField(
                       context: context,
+                      title: "Pincode *",
+                      hint: "Enter Your Pincode",
+                      minLength: 4,
+                      controller: pincodeController,
+                      maxLength: 7),
+                  textField(
+                      context: context,
                       title: "GST number (optional)",
                       controller: gstController,
                       hint: "Enter Your GST number",
@@ -78,6 +86,7 @@ class DealerDetails extends StatelessWidget {
                           Provider.of<UploadDealerDocumentsProvider>(context,
                                   listen: false)
                               .getBasicDetails(
+                                  pincod: pincodeController.text,
                                   name: nameController.text,
                                   email: emailController.text,
                                   gstNumber: gstController.text,

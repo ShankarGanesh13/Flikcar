@@ -104,9 +104,14 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
                             itemBuilder: (context, index) {
                               return DealerCarListCard(car: auctionCars[index]);
                             })
-                        : const SizedBox(
+                        : SizedBox(
                             height: 300,
-                            child: LoadingWidget(),
+                            child: Center(
+                              child: Text(
+                                "No cars found",
+                                style: AppFonts.w500black14,
+                              ),
+                            ),
                           ),
                   ],
                 ),
@@ -117,5 +122,12 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
         ]),
       ),
     );
+  }  
+
+  Widget loading() {
+    Future.delayed(Duration(seconds: 10), () {
+      return Text("No cars found");
+    });
+    return SizedBox();
   }
 }

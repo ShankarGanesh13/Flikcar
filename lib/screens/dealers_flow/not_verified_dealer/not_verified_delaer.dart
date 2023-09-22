@@ -18,41 +18,43 @@ class NotVerifiedDealer extends StatelessWidget {
               context, MaterialPageRoute(builder: (context) => StartScreen()));
         },
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(
-              height: 50,
-            ),
-            Center(
-              child: Text(
-                "Your Dealer Profile is not verified please contact our support team",
-                style: AppFonts.w700black16,
-                textAlign: TextAlign.center,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(
+                height: 50,
               ),
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: Text(
-                "( Once your profile is verified please logout and try again )",
-                style: AppFonts.w500black14,
-                textAlign: TextAlign.center,
+              Center(
+                child: Text(
+                  "Your Dealer Profile is not verified please contact our support team",
+                  style: AppFonts.w700black16,
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-            const Spacer(),
-            PrimaryButton(
-                title: "Logout",
-                function: () {
-                  DealerAuthService.dealerLogout(context);
-                },
-                borderColor: Colors.white,
-                backgroundColor: AppColors.s1,
-                textStyle: AppFonts.w700white16)
-          ],
+              const SizedBox(
+                height: 30,
+              ),
+              Center(
+                child: Text(
+                  "( Once your profile is verified please logout and try again )",
+                  style: AppFonts.w500black14,
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              const Spacer(),
+              PrimaryButton(
+                  title: "Logout",
+                  function: () {
+                    DealerAuthService.dealerLogout(context);
+                  },
+                  borderColor: Colors.white,
+                  backgroundColor: AppColors.s1,
+                  textStyle: AppFonts.w700white16)
+            ],
+          ),
         ),
       ),
     );

@@ -24,45 +24,6 @@ class _DealershipDetailsState extends State<DealershipDetails> {
       child: Column(
         children: [
           Container(
-              height: 144,
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(bottom: 30),
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color.fromRGBO(190, 190, 190, 0.239),
-                        spreadRadius: 15,
-                        blurRadius: 10,
-                        offset: Offset(5, 5)),
-                  ],
-                  borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Select Address Proof",
-                      style: AppFonts.w700black16,
-                    ),
-                    const SizedBox(height: 20),
-                    ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 2,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = index;
-                              });
-                            },
-                            child: selectDealerProof(
-                                title: proof[index], index: index),
-                          );
-                        })
-                  ])),
-          Container(
               height: 241,
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(15),
@@ -80,7 +41,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Shop Photo",
+                    "Shop Photo*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(
@@ -120,7 +81,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                 ],
               )),
           Container(
-            height: 168,
+            height: 120,
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.only(top: 30),
             padding: const EdgeInsets.all(15),
@@ -150,28 +111,28 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "\u2022",
-                            style: AppFonts.w700black16,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.35,
-                            child: Text(
-                              "Visiting Card should have dealer & dealership name clearly visible",
-                              style: AppFonts.w500black14,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       "\u2022",
+                      //       style: AppFonts.w700black16,
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     SizedBox(
+                      //       width: MediaQuery.of(context).size.width / 1.35,
+                      //       child: Text(
+                      //         "Visiting Card should have dealer & dealership name clearly visible",
+                      //         style: AppFonts.w500black14,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [

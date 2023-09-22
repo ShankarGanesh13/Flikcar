@@ -1,6 +1,3 @@
-import 'dart:collection';
-import 'dart:convert';
-
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/models/bid_model.dart';
@@ -70,8 +67,10 @@ class AuctionService extends ChangeNotifier {
   }
 
   void connectToSocket() {
-    socket.connect();
-    debugPrint("socket connected----${socket.connected}");
+    if (socket.disconnected) {
+      socket.connect();
+    }
+    debugPrint("socket connection status -------${socket.connected}");
     socketConnected = socket.connected;
     socket.on('newBid', (data) {
       //  debugPrint("new bid ${data["vehicle"]["current_bid_price"]}");
@@ -88,13 +87,15 @@ class AuctionService extends ChangeNotifier {
       auctionCars = [];
       debugPrint("new bid price updated");
       var response = data as List;
+
       response.forEach((element) {
         //  debugPrint("this is the bid");
-        //print(element["vehicleImages"]);
-        //  print(element["vehicleRTO"]);
-
+        //  print(element["vehicleImages"]);
+        //  print(element["start_auction"]);
         //  debugPrint("current bid price  ${element["current_bid_price"]}");
-        auctionCars.add(AuctionCar.fromJson(element));
+        if (!DateTime.parse(element["end_auction"]).isBefore(DateTime.now())) {
+          auctionCars.add(AuctionCar.fromJson(element));
+        }
       });
       filterData();
       notifyListeners();
@@ -142,8 +143,8 @@ class AuctionService extends ChangeNotifier {
           }
         } else {
           if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                MySnackbar.showSnackBar(context, "Auction has not started"));
+            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+                context, "Something went wrong please try again"));
           }
         }
       }

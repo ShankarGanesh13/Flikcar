@@ -1,15 +1,11 @@
-import 'dart:async';
 
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flikcar/screens/account/account_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/buy_car_home_screen.dart';
-import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
 import 'package:flikcar/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

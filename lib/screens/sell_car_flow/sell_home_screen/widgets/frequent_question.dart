@@ -27,8 +27,6 @@ class FrequentQuestions extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    print(answer.length);
-    print("||||||||||||||||||");
     return Container(
       width: MediaQuery.of(context).size.width,
       decoration: const BoxDecoration(

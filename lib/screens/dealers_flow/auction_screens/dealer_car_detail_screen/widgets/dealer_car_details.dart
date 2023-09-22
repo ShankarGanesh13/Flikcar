@@ -1,4 +1,5 @@
 import 'package:flikcar/models/auction_car_model.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/auction_bottom_nav.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer2.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/timer_text.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_timer2.dart';
@@ -87,12 +88,22 @@ class DealerCarDetails extends StatelessWidget {
           //         "No bids placed",
           //         style: AppFonts.w500green14,
           //       ),
+          // const SizedBox(height: 10),
+          // Text(
+          //   "₹ Base Price ${car.carPrice} ",
+          //   style: AppFonts.w500black14,
+          // ),
+
           const SizedBox(height: 10),
+          AuctionBottomNav(currentBid: currentBid, car: car),
+          // const SizedBox(height: 10),
+
           Text(
-            "₹ Base Price ${car.carPrice} ",
-            style: AppFonts.w500black14,
+            "Note* Bid Amount should be atleast ₹1000 more than the current bid price",
+            style: AppFonts.w500black12,
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 25),
+
           Align(
             alignment: Alignment.topLeft,
             child: Wrap(

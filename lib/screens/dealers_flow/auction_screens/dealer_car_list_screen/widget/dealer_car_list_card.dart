@@ -40,9 +40,9 @@ class DealerCarListCard extends StatelessWidget {
             carId: car.id.toString(), car: car, context: context);
       },
       child: Container(
-        height: 390,
+        height: 375,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.only(bottom: 8),
         margin: const EdgeInsets.only(right: 15, bottom: 30, top: 5, left: 15),
         decoration: BoxDecoration(
           boxShadow: const [
@@ -144,11 +144,11 @@ class DealerCarListCard extends StatelessWidget {
                         : "Current Bid ₹${car.currentBidPrice}",
                     style: AppFonts.w700black20,
                   ),
-                  const SizedBox(height: 5),
-                  Text(
-                    "Base price ₹${car.carPrice}",
-                    style: AppFonts.w500black14,
-                  ),
+                  // const SizedBox(height: 5),
+                  // Text(
+                  //   "Base price ₹${car.carPrice}",
+                  //   style: AppFonts.w500black14,
+                  // ),
                 ],
               ),
             ),

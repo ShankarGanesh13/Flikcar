@@ -10,6 +10,7 @@ import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listi
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/details_dropdown.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/dropDownTextField.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/listing_text_field.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/rto_dropdown.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -25,6 +26,13 @@ class DealerListingScreen extends StatefulWidget {
 }
 
 class _DealerListingScreenState extends State<DealerListingScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    GetBrandModelVarient.getRto();
+    super.initState();
+  }
+
   String? selectedValue;
   TextEditingController yearController = TextEditingController();
   TextEditingController kmsController = TextEditingController();
@@ -35,6 +43,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
   BrandModelVarient? selectedBrand;
   Model? selectedModel;
   Varient? selectedVariant;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -116,6 +125,10 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                   children: [
                     const SizedBox(height: 15),
                     const BrandVarientModelDropDown(),
+                    // const SizedBox(height: 20),
+                    // RtoDropdown(),
+                    const SizedBox(height: 20),
+                    DetailsDropDown(),
                     const SizedBox(height: 20),
                     ListingTextField(
                       hint: "Eg. 2018",
@@ -128,8 +141,6 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                             .getYearId(year: value);
                       },
                     ),
-                    const SizedBox(height: 20),
-                    DetailsDropDown(),
                     const SizedBox(height: 20),
                     ListingTextField(
                       hint: "Eg. 130015",

@@ -38,7 +38,7 @@ class MyBidsScreenCard extends StatelessWidget {
             carId: car.id.toString(), car: car, context: context);
       },
       child: Container(
-        height: 400,
+        height: 380,
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.only(bottom: 8),
         margin: const EdgeInsets.only(right: 15, bottom: 30, top: 5, left: 15),
@@ -136,11 +136,11 @@ class MyBidsScreenCard extends StatelessWidget {
                   //   style: AppFonts.w700black20,
                   // ),
                   checkAuctionEnded(),
-                  const SizedBox(height: 4),
-                  Text(
-                    "Base price ₹${car.carPrice}",
-                    style: AppFonts.w500black14,
-                  ),
+                  // const SizedBox(height: 4),
+                  // Text(
+                  //   "Base price ₹${car.carPrice}",
+                  //   style: AppFonts.w500black14,
+                  // ),
                   const SizedBox(height: 4),
                   Text(
                     "Your last bid price ₹${car.yourLastBid}",
@@ -205,7 +205,7 @@ class MyBidsScreenCard extends StatelessWidget {
     } else {
       return Text(
         car.currentBidPrice == "no data"
-            ? "Curreny Bid ₹${car.carPrice}"
+            ? "Current Bid ₹${car.carPrice}"
             : "Current Bid ₹${car.currentBidPrice}",
         style: AppFonts.w700black20,
       );

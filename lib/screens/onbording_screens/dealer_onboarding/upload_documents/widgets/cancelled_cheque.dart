@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/document_textField.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
@@ -7,14 +8,14 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:provider/provider.dart';
 
-class PanDetails extends StatelessWidget {
-  PanDetails({super.key});
-  TextEditingController panController = TextEditingController();
+class CancelledCheque extends StatelessWidget {
+  CancelledCheque({super.key});
+  final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     String panPath =
-        context.watch<UploadDealerDocumentsProvider>().panImagePath;
+        context.watch<UploadDealerDocumentsProvider>().cancelChequePath;
 
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -37,8 +38,8 @@ class PanDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DocumentTextfield(
-                    title: "PAN Card Number*",
-                    controller: panController,
+                    title: "Cheque Number*",
+                    controller: controller,
                     hint: "Eg. INKPS2134U",
                     max: 12,
                     validator: true,
@@ -46,15 +47,15 @@ class PanDetails extends StatelessWidget {
                       Provider.of<UploadDealerDocumentsProvider>(context,
                               listen: false)
                           .getDocumentNumber(
-                              documentNumber: panController.text,
-                              documentType: "pan");
+                              documentNumber: controller.text,
+                              documentType: "cancelledCheque");
                     },
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   Text(
-                    "PAN card*",
+                    "Cancelled Cheque*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(
@@ -65,7 +66,8 @@ class PanDetails extends StatelessWidget {
                       //pickFile(context: context);
                       Provider.of<UploadDealerDocumentsProvider>(context,
                               listen: false)
-                          .pickFile(context: context, imageType: "pan");
+                          .pickFile(
+                              context: context, imageType: "cancelledCheque");
                     },
                     child: panPath == ""
                         ? const UploadImage()
@@ -85,7 +87,7 @@ class PanDetails extends StatelessWidget {
             height: 30,
           ),
           Container(
-            height: 215,
+            height: 150,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
@@ -149,7 +151,7 @@ class PanDetails extends StatelessWidget {
                           SizedBox(
                             width: MediaQuery.of(context).size.width / 1.35,
                             child: Text(
-                              "PAN must have your signature otherwise it is considered invalid",
+                              "Signature on cheques should be clearly visible",
                               style: AppFonts.w500black14,
                             ),
                           ),
@@ -158,25 +160,25 @@ class PanDetails extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "\u2022",
-                            style: AppFonts.w700black16,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.35,
-                            child: Text(
-                              "If you are Partnership or Company, please upload Partnership or Company PAN Card",
-                              style: AppFonts.w500black14,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       "\u2022",
+                      //       style: AppFonts.w700black16,
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     SizedBox(
+                      //       width: MediaQuery.of(context).size.width / 1.35,
+                      //       child: Text(
+                      //         "If you are Partnership or Company, please upload Partnership or Company PAN Card",
+                      //         style: AppFonts.w500black14,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   )
                 ],

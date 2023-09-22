@@ -5,6 +5,7 @@ import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/models/color_model.dart';
 import 'package:flikcar/models/fuel_type_model.dart';
 import 'package:flikcar/models/owner_type_model.dart';
+import 'package:flikcar/models/rto_model.dart';
 import 'package:flikcar/models/seats_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -164,5 +165,28 @@ class GetBrandModelVarient {
     });
 
     return seats;
+  }
+
+  static Future<List<Rto>> getRto() async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    List<Rto> rto = [];
+
+    Uri url = Uri.parse(
+      'https://webservice.flikcar.com:8000/api/rto',
+    );
+
+    String? dealerToken = sp.getString('dealerToken');
+
+    var response = await http.get(url, headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $dealerToken',
+    });
+    var body = jsonDecode(response.body);
+    List<dynamic> data = body["data"] as List;
+    for (var i = 0; i < data.length; i++) {
+      rto.add(Rto.fromJson(data[i]));
+    }
+
+    return rto;
   }
 }

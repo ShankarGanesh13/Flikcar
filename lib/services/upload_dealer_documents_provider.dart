@@ -2,9 +2,9 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/terms_and_condition.dart';
 import 'package:flutter/material.dart';
 
-import 'package:path_provider/path_provider.dart' as path_provider;
 import 'package:http/http.dart' as http;
 
 import 'package:file_picker/file_picker.dart';
@@ -12,21 +12,30 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class UploadDealerDocumentsProvider extends ChangeNotifier {
   FilePickerResult? result;
-
   String? fileName;
   bool isLoading = false;
   File? fileToDisplay;
   PlatformFile? pickedFile;
-  //String panImagePath = "";
+  String panImagePath = "";
+  String panCardNumber = "";
   String addressFrontImagePath = "";
   String addressBAckImagePath = "";
+  String addressProofNumber = "";
   String dealershipImagePath = "";
-  String dealerSelfiePath = "";
+  String tradeLicencePath = "";
+  String tradeLicenceNumber = "";
+  String cancelChequeNumber = "";
+  String cancelChequePath = "";
+  String udyogAadharPath = "";
+  String udyogAadharNumber = "";
   String dealerName = "";
   String dealerEmail = "";
   String dealerShopName = "";
   String dealerGstNumber = "";
   String dealerShopAddress = "";
+  //type
+  //shopimage
+  String pincode = "";
 
   pickFile({required BuildContext context, required String imageType}) async {
     try {
@@ -72,6 +81,49 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     return result;
   }
 
+  getDocumentNumber(
+      {required String documentNumber, required String documentType}) {
+    switch (documentType) {
+      case "address":
+        {
+          addressProofNumber = documentNumber;
+          debugPrint(addressProofNumber);
+        }
+        break;
+      case "pan":
+        {
+          panCardNumber = documentNumber;
+          debugPrint(panCardNumber);
+        }
+        break;
+      case "tradeLicence":
+        {
+          tradeLicenceNumber = documentNumber;
+          debugPrint(tradeLicenceNumber);
+        }
+        break;
+      case "udyogAadhar":
+        {
+          udyogAadharNumber = documentNumber;
+          debugPrint(udyogAadharNumber);
+        }
+        break;
+      case "cancelledCheque":
+        {
+          cancelChequeNumber = documentNumber;
+          debugPrint(cancelChequeNumber);
+        }
+        break;
+
+      default:
+        {
+          print("////////////////////////////////////////");
+          print("invalid choice");
+        }
+        break;
+    }
+  }
+
   selectImage({required String imageType, required String pickedFilePath}) {
     switch (imageType) {
       case "addressFront":
@@ -92,14 +144,33 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
           notifyListeners();
         }
         break;
-      case "dealerSelfie":
+      case "pan":
         {
-          dealerSelfiePath = pickedFilePath;
+          panImagePath = pickedFilePath;
+          notifyListeners();
+        }
+        break;
+      case "udyogAadhar":
+        {
+          udyogAadharPath = pickedFilePath;
+          notifyListeners();
+        }
+        break;
+      case "tradeLicence":
+        {
+          tradeLicencePath = pickedFilePath;
+          notifyListeners();
+        }
+        break;
+      case "cancelledCheque":
+        {
+          cancelChequePath = pickedFilePath;
           notifyListeners();
         }
         break;
       default:
         {
+          print("////////////////////////////////////////");
           print("invalid choice");
         }
         break;
@@ -110,18 +181,25 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     if (addressFrontImagePath == '' ||
         addressBAckImagePath == "" ||
         dealershipImagePath == '' ||
-        dealerSelfiePath == "") {
+        panImagePath == "" ||
+        dealershipImagePath == "" ||
+        tradeLicencePath == "" ||
+        cancelChequePath == "") {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           duration: Duration(seconds: 2),
           backgroundColor: Color(0xFF45C08D),
           content: Text(
-            "Please upload all the required documents",
+            "Please upload all the required document's image in all sections",
           ),
         ),
       );
     } else {
-      uploadDealerDocuments(context);
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TermsAndCondition(),
+          ));
     }
   }
 
@@ -130,9 +208,11 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
       required String email,
       required String gstNumber,
       required String address,
+      required String pincod,
       required String shopName}) {
     dealerName = name;
     dealerEmail = email;
+    pincode = pincod;
     dealerGstNumber = gstNumber;
     dealerShopAddress = address;
     dealerShopName = shopName;
@@ -157,8 +237,13 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     request.fields["shopAddress"] = dealerShopAddress;
     request.fields["state"] = "24";
     request.fields["city"] = "595";
-    request.fields["pincode"] = "123456";
+    request.fields["pincode"] = pincode;
     request.fields["addressProofType"] = "aadhar";
+    request.fields["addressProofNumber"] = addressProofNumber;
+    request.fields["panCardNumber"] = panCardNumber;
+    request.fields["tradeLicenseNumber"] = tradeLicenceNumber;
+    request.fields["cancelChequeNumber"] = cancelChequeNumber;
+    request.fields["udyogAadharNumber"] = udyogAadharNumber;
 
     // var panCardImageFile = File(pickedFile!.path!);
 
@@ -166,11 +251,24 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     // var addressProofBackImageFile = File(pickedFile!.path!);
     // var imageFile = File(pickedFile!.path!);
 
-    // request.files.add(await http.MultipartFile.fromPath(
-    //   "panCardImage",
-    //   panImagePath,
-    // ));
-
+    request.files.add(await http.MultipartFile.fromPath(
+      "panCardImage",
+      panImagePath,
+    ));
+    request.files.add(await http.MultipartFile.fromPath(
+      "tradeLicenseImage",
+      tradeLicencePath,
+    ));
+    request.files.add(await http.MultipartFile.fromPath(
+      "cancelChequeImage",
+      cancelChequePath,
+    ));
+    udyogAadharNumber != ""
+        ? request.files.add(await http.MultipartFile.fromPath(
+            "udyogAadharImage",
+            udyogAadharPath,
+          ))
+        : request.fields["udyogAadharImage"] = "";
     request.files.add(await http.MultipartFile.fromPath(
       "addressProofFrontImage",
       addressFrontImagePath,
@@ -180,9 +278,10 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
       addressBAckImagePath,
     ));
     request.files.add(await http.MultipartFile.fromPath(
-      "image",
-      dealerSelfiePath,
+      "shopImage",
+      dealershipImagePath,
     ));
+
     var response = await request.send();
 
     var responseData = await response.stream.toBytes();
@@ -193,6 +292,10 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
 
     print(data["status"]);
     if (data["status"] == 200 || data["status"] == 302) {
+      debugPrint("+++++++++++++++++++++++");
+      debugPrint("profile created");
+      await sp.setString('dealerStatus', "Submitted");
+
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           duration: Duration(seconds: 1),
@@ -210,6 +313,8 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
         (route) => false,
       );
     } else {
+      debugPrint("+++++++++++++++++++++++");
+      debugPrint("something went wrong");
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
           duration: Duration(seconds: 2),

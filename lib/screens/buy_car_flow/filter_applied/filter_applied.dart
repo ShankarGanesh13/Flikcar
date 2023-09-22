@@ -293,7 +293,10 @@ class _FilterAppliedState extends State<FilterApplied> {
                         "No cars found",
                         style: AppFonts.w700black16,
                       ),
-                    )
+                    ),
+              const SizedBox(
+                height: 35,
+              ),
             ],
           ),
         ));

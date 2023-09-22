@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:flikcar/models/auction_car_model.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class UpcomingTimer extends StatefulWidget {
   final AuctionCar car;
+
   const UpcomingTimer({super.key, required this.car});
 
   @override
@@ -17,16 +19,17 @@ class _UpcomingTimerState extends State<UpcomingTimer> {
   Timer? _timer;
   bool auctionLive = true;
   bool upcomingAuction = false;
+  bool auctionStarted = false; // Added to track auction start state
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _startCountdown();
   }
 
   @override
   void dispose() {
-    _timer!.cancel();
+    _timer?.cancel();
     super.dispose();
   }
 
@@ -49,16 +52,26 @@ class _UpcomingTimerState extends State<UpcomingTimer> {
         _remainingTime =
             DateTime.parse(widget.car.startAuction).difference(now);
       });
+
+      // Check if the auction has started
+      if (_remainingTime?.inSeconds == 0) {
+        _timer?.cancel(); // Stop the timer
+        setState(() {
+          auctionStarted = true; // Set the auctionStarted flag
+        });
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      _remainingTime != null
-          ? "Auction Starts in :\n${_formatDuration(_remainingTime!)} hrs"
-          : "Auction Starts in : \nhrs",
-      style: AppFonts.w500green14,
-    );
+    return auctionStarted
+        ? OngoingTimer(car: widget.car) // Display OngoingTimer widget
+        : Text(
+            _remainingTime != null
+                ? "Auction Starts in :\n${_formatDuration(_remainingTime!)} hrs"
+                : "Auction Starts in : \nhrs",
+            style: AppFonts.w500green14,
+          );
   }
 }

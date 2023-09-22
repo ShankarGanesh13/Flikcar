@@ -1,7 +1,6 @@
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
-
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
-
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
@@ -20,6 +19,8 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:upgrader/upgrader.dart';
+
+import 'screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,6 +75,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return const SizedBox();
   }
+}
 
   // Future<bool> isLoggedIn(context) async {
   //   final SharedPreferences sp = await SharedPreferences.getInstance();
@@ -87,5 +89,5 @@ class _MyAppState extends State<MyApp> {
   //     return false;
   //   }
   // }
-}
+
 //keytool -genkey -v -keystore %userprofile%\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload

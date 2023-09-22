@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class OngoingTimer2 extends StatefulWidget {
   final AuctionCar car;
+
   const OngoingTimer2({super.key, required this.car});
 
   @override
@@ -17,16 +18,18 @@ class _OngoingTimer2State extends State<OngoingTimer2> {
   Timer? _timer;
   bool auctionLive = true;
   bool upcomingAuction = false;
+  bool auctionEnded = false; // Added to track auction end state
+
   @override
   void initState() {
     _startCountdown();
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   void dispose() {
-    _timer!.cancel();
+    _timer
+        ?.cancel(); // Use ?. to safely call cancel on a potentially null timer
     super.dispose();
   }
 
@@ -48,15 +51,25 @@ class _OngoingTimer2State extends State<OngoingTimer2> {
       setState(() {
         _remainingTime = DateTime.parse(widget.car.endAuction).difference(now);
       });
+
+      // Check if the auction has ended
+      if (_remainingTime?.inSeconds == 0) {
+        _timer?.cancel(); // Stop the timer
+        setState(() {
+          auctionEnded = true; // Set the auctionEnded flag
+        });
+      }
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      _remainingTime != null
-          ? "Auction Ends in : ${_formatDuration(_remainingTime!)} hrs"
-          : "Auction Ends in : hrs",
+      auctionEnded
+          ? "Auction has ended"
+          : _remainingTime != null
+              ? "Auction Ends in : ${_formatDuration(_remainingTime!)} hrs"
+              : "Auction Ends in : hrs",
       style: AppFonts.w500red14,
     );
   }

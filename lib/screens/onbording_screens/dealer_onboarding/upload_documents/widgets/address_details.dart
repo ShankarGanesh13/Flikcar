@@ -1,4 +1,5 @@
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
+import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/document_textField.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -6,21 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:io';
 
-class AddressDetails extends StatefulWidget {
-  const AddressDetails({super.key});
+class AddressDetails extends StatelessWidget {
+  AddressDetails({super.key});
   static List<String> addressProof = [
     "Aadhar Card",
     "Driving Licence",
-    "Passport",
     "Votercard"
   ];
 
-  @override
-  State<AddressDetails> createState() => _AddressDetailsState();
-}
-
-class _AddressDetailsState extends State<AddressDetails> {
   int selectedIndex = 0;
+
+  TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,48 +29,47 @@ class _AddressDetailsState extends State<AddressDetails> {
       padding: const EdgeInsets.all(15.0),
       child: Column(
         children: [
+          // Container(
+          //     height: 180,
+          //     width: MediaQuery.of(context).size.width,
+          //     margin: const EdgeInsets.only(bottom: 30),
+          //     padding: const EdgeInsets.all(15),
+          //     decoration: BoxDecoration(
+          //         color: Colors.white,
+          //         boxShadow: const [
+          //           BoxShadow(
+          //               color: Color.fromRGBO(190, 190, 190, 0.239),
+          //               spreadRadius: 15,
+          //               blurRadius: 10,
+          //               offset: Offset(5, 5)),
+          //         ],
+          //         borderRadius: BorderRadius.circular(10)),
+          //     child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Text(
+          //             "Select Address Proof",
+          //             style: AppFonts.w700black16,
+          //           ),
+          //           const SizedBox(height: 20),
+          //           ListView.builder(
+          //               physics: NeverScrollableScrollPhysics(),
+          //               shrinkWrap: true,
+          //               itemCount: 3,
+          //               itemBuilder: (context, index) {
+          //                 return GestureDetector(
+          //                   onTap: () {
+          //                     setState(() {
+          //                       selectedIndex = index;
+          //                     });
+          //                   },
+          //                   child: selectAddressProof(
+          //                       title: AddressDetails.addressProof[index],
+          //                       index: index),
+          //                 );
+          //               })
+          //         ])),
           Container(
-              height: 223,
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(bottom: 30),
-              padding: const EdgeInsets.all(15),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Color.fromRGBO(190, 190, 190, 0.239),
-                        spreadRadius: 15,
-                        blurRadius: 10,
-                        offset: Offset(5, 5)),
-                  ],
-                  borderRadius: BorderRadius.circular(10)),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Select Address Proof",
-                      style: AppFonts.w700black16,
-                    ),
-                    const SizedBox(height: 20),
-                    ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: 4,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            onTap: () {
-                              setState(() {
-                                selectedIndex = index;
-                              });
-                            },
-                            child: selectAddressProof(
-                                title: AddressDetails.addressProof[index],
-                                index: index),
-                          );
-                        })
-                  ])),
-          Container(
-              height: 241,
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(15),
               decoration: BoxDecoration(
@@ -89,8 +85,25 @@ class _AddressDetailsState extends State<AddressDetails> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  DocumentTextfield(
+                    title: "Document Number*",
+                    controller: controller,
+                    validator: true,
+                    hint: "Eg. 999444888555",
+                    max: 12,
+                    onChanged: (value) {
+                      Provider.of<UploadDealerDocumentsProvider>(context,
+                              listen: false)
+                          .getDocumentNumber(
+                              documentNumber: controller.text,
+                              documentType: "address");
+                    },
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Text(
-                    "Address Proof",
+                    "Address Proof*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

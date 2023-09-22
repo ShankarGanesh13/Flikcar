@@ -312,7 +312,9 @@ class AuctionCar {
     List<BidModel> result = [];
 
     if (list.isNotEmpty) {
-      list.forEach((e) => result.add(BidModel.fromJson(e)));
+      list.forEach((e) {
+        result.add(BidModel.fromJson(e));
+      });
     }
     return result;
   }

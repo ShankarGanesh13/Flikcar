@@ -115,7 +115,7 @@ class DealerAccountScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          "1.3.5",
+                          "1.3.7",
                           style: AppFonts.w500dark214,
                         )
                       ],

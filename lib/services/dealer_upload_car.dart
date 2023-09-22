@@ -61,6 +61,7 @@ class DealerUploadCar extends ChangeNotifier {
   String steeringType = "";
   String engineCC = "";
   String city = "";
+  String rtoLocation = "";
   List<int> selectedComfort = [];
   List<int> selectedInterior = [];
   List<int> selectedExterior = [];
@@ -79,6 +80,11 @@ class DealerUploadCar extends ChangeNotifier {
 
   getBrandId({required String id}) {
     brandId = id;
+    // print(brandId);
+  }
+
+  getRtoLocationId({required String id}) {
+    rtoLocation = id;
     // print(brandId);
   }
 

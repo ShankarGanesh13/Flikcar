@@ -1,20 +1,19 @@
-import 'package:file_picker/file_picker.dart';
+import 'dart:io';
+
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/document_textField.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:provider/provider.dart';
 
-class PanDetails extends StatelessWidget {
-  PanDetails({super.key});
-  TextEditingController panController = TextEditingController();
-
+class UdyogAadhar extends StatelessWidget {
+  UdyogAadhar({super.key});
+  String panPath = "";
+  final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    String panPath =
-        context.watch<UploadDealerDocumentsProvider>().panImagePath;
+    panPath = context.watch<UploadDealerDocumentsProvider>().udyogAadharPath;
 
     return Padding(
       padding: const EdgeInsets.all(15.0),
@@ -37,24 +36,24 @@ class PanDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DocumentTextfield(
-                    title: "PAN Card Number*",
-                    controller: panController,
+                    title: "Udyog Aadhar Number (optional)",
+                    controller: controller,
                     hint: "Eg. INKPS2134U",
                     max: 12,
-                    validator: true,
+                    validator: false,
                     onChanged: (value) {
                       Provider.of<UploadDealerDocumentsProvider>(context,
                               listen: false)
                           .getDocumentNumber(
-                              documentNumber: panController.text,
-                              documentType: "pan");
+                              documentNumber: controller.text,
+                              documentType: "udyogAadhar");
                     },
                   ),
                   const SizedBox(
                     height: 15,
                   ),
                   Text(
-                    "PAN card*",
+                    "Udyog Aadhar (optional)",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(
@@ -65,7 +64,7 @@ class PanDetails extends StatelessWidget {
                       //pickFile(context: context);
                       Provider.of<UploadDealerDocumentsProvider>(context,
                               listen: false)
-                          .pickFile(context: context, imageType: "pan");
+                          .pickFile(context: context, imageType: "udyogAadhar");
                     },
                     child: panPath == ""
                         ? const UploadImage()
@@ -85,7 +84,7 @@ class PanDetails extends StatelessWidget {
             height: 30,
           ),
           Container(
-            height: 215,
+            height: 100,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(
@@ -136,47 +135,47 @@ class PanDetails extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "\u2022",
-                            style: AppFonts.w700black16,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.35,
-                            child: Text(
-                              "PAN must have your signature otherwise it is considered invalid",
-                              style: AppFonts.w500black14,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "\u2022",
-                            style: AppFonts.w700black16,
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 1.35,
-                            child: Text(
-                              "If you are Partnership or Company, please upload Partnership or Company PAN Card",
-                              style: AppFonts.w500black14,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       "\u2022",
+                      //       style: AppFonts.w700black16,
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     SizedBox(
+                      //       width: MediaQuery.of(context).size.width / 1.35,
+                      //       child: Text(
+                      //         "PAN must have your signature otherwise it is considered invalid",
+                      //         style: AppFonts.w500black14,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      // const SizedBox(
+                      //   height: 10,
+                      // ),
+                      // Row(
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Text(
+                      //       "\u2022",
+                      //       style: AppFonts.w700black16,
+                      //     ),
+                      //     const SizedBox(
+                      //       width: 5,
+                      //     ),
+                      //     SizedBox(
+                      //       width: MediaQuery.of(context).size.width / 1.35,
+                      //       child: Text(
+                      //         "If you are Partnership or Company, please upload Partnership or Company PAN Card",
+                      //         style: AppFonts.w500black14,
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
                     ],
                   )
                 ],
