@@ -130,7 +130,7 @@ class _AccountScreenState extends State<AccountScreen> {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          "1.3.7",
+                          "1.3.9",
                           style: AppFonts.w500dark214,
                         ),
                       ],

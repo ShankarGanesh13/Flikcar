@@ -770,6 +770,7 @@ class DealerUploadCar extends ChangeNotifier {
           context, "Something went wrong try again later"));
     }
     clearData();
+    print(data["status"]);
     print(data);
   }
 

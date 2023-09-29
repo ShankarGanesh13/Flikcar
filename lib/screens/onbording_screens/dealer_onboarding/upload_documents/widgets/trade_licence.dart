@@ -39,6 +39,7 @@ class TradeLicence extends StatelessWidget {
                   DocumentTextfield(
                     title: "Trade Licence Number*",
                     controller: controller,
+                    keyboard: TextInputType.text,
                     hint: "Eg. INKPS2134U",
                     max: 20,
                     validator: true,
@@ -54,7 +55,7 @@ class TradeLicence extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "Trade Licence*",
+                    "Trade Licence (required)*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

@@ -13,15 +13,15 @@ class CheckInternetProvider extends ChangeNotifier {
     result = await Connectivity().checkConnectivity();
     if (result != ConnectivityResult.none) {
       isConnected = true;
-      print("internet connected");
+      debugPrint("internet connected");
       notifyListeners();
     } else {
       isConnected = false;
       notifyListeners();
-      print("no internet");
+      debugPrint("no internet");
       showDialogBox(context);
     }
-    print("check internet called");
+    debugPrint("check internet called");
   }
 
   showDialogBox(context) {

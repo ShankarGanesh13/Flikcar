@@ -58,7 +58,7 @@ class DealerListedCars extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5)),
                   child: Row(children: [
                     SizedBox(
-                      width: MediaQuery.of(context).size.width / 2.45,
+                      width: MediaQuery.of(context).size.width / 2.46,
                       height: 137,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),

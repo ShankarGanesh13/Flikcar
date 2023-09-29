@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomeScreenCard extends StatelessWidget {
+class HomeScreenCard extends StatefulWidget {
   final String title;
   final bool filterButton;
   final String filter;
@@ -33,6 +33,30 @@ class HomeScreenCard extends StatelessWidget {
   });
 
   @override
+  State<HomeScreenCard> createState() => _HomeScreenCardState();
+}
+
+class _HomeScreenCardState extends State<HomeScreenCard> {
+  @override
+  void initState() {
+    loading();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  bool _isLoading = true;
+
+  loading() {
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
@@ -40,21 +64,21 @@ class HomeScreenCard extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: 15,
           ),
-          child: Heading1(title1: title, title2: ''),
+          child: Heading1(title1: widget.title, title2: ''),
         ),
         const SizedBox(height: 12),
-        filterButton == true
+        widget.filterButton == true
             ? SizedBox(
                 height: 30,
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: filters.length,
+                  itemCount: widget.filters.length,
                   itemBuilder: (context, index) => GestureDetector(
                     onTap: () {
                       Provider.of<GetCarDetails>(context, listen: false)
                           .filterCars(
-                              filterType: filter,
-                              filter: filters[index],
+                              filterType: widget.filter,
+                              filter: widget.filters[index],
                               index: index);
                       // Navigator.push(
                       //     context,
@@ -67,12 +91,12 @@ class HomeScreenCard extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           top: 5, bottom: 5, left: 10, right: 10),
                       decoration: BoxDecoration(
-                          color: selectedindex == index
+                          color: widget.selectedindex == index
                               ? AppColors.s1
                               : AppColors.p2,
                           borderRadius: BorderRadius.circular(4)),
                       child: Text(
-                        filters[index],
+                        widget.filters[index],
                         style: AppFonts.w500white14,
                       ),
                     ),
@@ -80,24 +104,24 @@ class HomeScreenCard extends StatelessWidget {
                 ),
               )
             : const SizedBox(),
-        SizedBox(height: filterButton == true ? 12 : 0),
+        SizedBox(height: widget.filterButton == true ? 12 : 0),
         const SizedBox(
           height: 5,
         ),
         Container(
           padding: const EdgeInsets.only(bottom: 15),
           height: 350,
-          child: cars.isNotEmpty
+          child: widget.cars.isNotEmpty
               ? ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: cars.length > 8 ? 8 : cars.length,
+                  itemCount: widget.cars.length > 8 ? 8 : widget.cars.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     List<String> features = [
-                      cars[index].fuelType,
-                      "${cars[index].driveKms} kms",
-                      "${cars[index].registerationYear}",
-                      cars[index].transmission,
+                      widget.cars[index].fuelType,
+                      "${widget.cars[index].driveKms} kms",
+                      "${widget.cars[index].registerationYear}",
+                      widget.cars[index].transmission,
                     ];
                     return GestureDetector(
                       onTap: () {
@@ -107,7 +131,8 @@ class HomeScreenCard extends StatelessWidget {
                               builder: (context) => CarDetailedView(
                                 car: Provider.of<GetCarDetails>(context,
                                         listen: false)
-                                    .getCarById(id: cars[index].id.toString()),
+                                    .getCarById(
+                                        id: widget.cars[index].id.toString()),
                               ),
                             ));
                       },
@@ -139,8 +164,8 @@ class HomeScreenCard extends StatelessWidget {
                                     topRight: Radius.circular(15),
                                   ),
                                   child: Image.network(
-                                    cars[index].images.isNotEmpty
-                                        ? "https://webservice.flikcar.com:8000/public/${cars[index].images[0]}"
+                                    widget.cars[index].images.isNotEmpty
+                                        ? "https://webservice.flikcar.com:8000/public/${widget.cars[index].images[0]}"
                                         : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                     fit: BoxFit.fill,
                                     loadingBuilder:
@@ -168,13 +193,13 @@ class HomeScreenCard extends StatelessWidget {
                                     children: [
                                       SizedBox(
                                         width: 160,
-                                        child: Text(cars[index].brand,
+                                        child: Text(widget.cars[index].brand,
                                             maxLines: 1,
                                             style: AppFonts.w500dark214),
                                       ),
                                       const Spacer(),
                                       Text(
-                                        "₹ ${cars[index].price}",
+                                        "₹ ${widget.cars[index].price}",
                                         style: AppFonts.w700s140,
                                       ),
                                     ],
@@ -187,7 +212,7 @@ class HomeScreenCard extends StatelessWidget {
                                       SizedBox(
                                         width: 170,
                                         child: Text(
-                                            "${cars[index].model} ${cars[index].variant}",
+                                            "${widget.cars[index].model} ${widget.cars[index].variant}",
                                             maxLines: 1,
                                             style: AppFonts.w700s140),
                                       ),
@@ -235,17 +260,17 @@ class HomeScreenCard extends StatelessWidget {
                                       function: () async {
                                         FirebaseEvents().customerCallDealer(
                                             customerPhone: "customer",
-                                            dealerPhone:
-                                                cars[index].dealer.phone!);
+                                            dealerPhone: widget
+                                                .cars[index].dealer.phone!);
                                         FacebookEvents().customerCallDealer(
                                             customerPhone: "customer",
-                                            dealerPhone:
-                                                cars[index].dealer.phone!);
+                                            dealerPhone: widget
+                                                .cars[index].dealer.phone!);
 
                                         Uri phoneno = Uri(
                                           scheme: 'tel',
                                           path:
-                                              '+91${cars[index].dealer.phone}',
+                                              '+91${widget.cars[index].dealer.phone}',
                                         );
                                         if (await launchUrl(phoneno)) {
                                         } else {
@@ -265,8 +290,8 @@ class HomeScreenCard extends StatelessWidget {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    cars[index].saleStatus,
-                                    style: (cars[index].saleStatus)
+                                    widget.cars[index].saleStatus,
+                                    style: (widget.cars[index].saleStatus)
                                                 .toLowerCase() ==
                                             "available"
                                         ? AppFonts.w500green12
@@ -281,15 +306,15 @@ class HomeScreenCard extends StatelessWidget {
                     );
                   })
               : SizedBox(
-                  height: 350,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 100.0),
-                    child: Text(
-                      "No cars found for the selected filter",
-                      style: AppFonts.w700black14,
-                    ),
-                  ),
-                ),
+                  height: 300,
+                  child: Center(
+                    child: _isLoading
+                        ? const LoadingWidget()
+                        : Text(
+                            "No cars found",
+                            style: AppFonts.w700black16,
+                          ),
+                  )),
         ),
         const SizedBox(
           height: 10,

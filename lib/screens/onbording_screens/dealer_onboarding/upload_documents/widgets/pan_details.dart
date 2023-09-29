@@ -38,6 +38,7 @@ class PanDetails extends StatelessWidget {
                 children: [
                   DocumentTextfield(
                     title: "PAN Card Number*",
+                    keyboard: TextInputType.text,
                     controller: panController,
                     hint: "Eg. INKPS2134U",
                     max: 12,
@@ -54,7 +55,7 @@ class PanDetails extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "PAN card*",
+                    "PAN card (required)*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

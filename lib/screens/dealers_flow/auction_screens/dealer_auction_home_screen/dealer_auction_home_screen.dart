@@ -30,8 +30,20 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
     Provider.of<AuctionService>(context, listen: false).connectToSocket();
     Provider.of<AuctionService>(context, listen: false).getAuctionCars();
     // Provider.of<AuctionService>(context, listen: false).connectSocket();
-
+    loading();
     super.initState();
+  }
+
+  bool _isLoading = true;
+
+  loading() {
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
   }
 
   @override
@@ -107,12 +119,13 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
                         : SizedBox(
                             height: 300,
                             child: Center(
-                              child: Text(
-                                "No cars found",
-                                style: AppFonts.w500black14,
-                              ),
-                            ),
-                          ),
+                              child: _isLoading
+                                  ? const LoadingWidget()
+                                  : Text(
+                                      "No data found",
+                                      style: AppFonts.w700black16,
+                                    ),
+                            )),
                   ],
                 ),
                 FrequentQuestions(),
@@ -122,12 +135,12 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
         ]),
       ),
     );
-  }  
-
-  Widget loading() {
-    Future.delayed(Duration(seconds: 10), () {
-      return Text("No cars found");
-    });
-    return SizedBox();
   }
+
+  // Widget loading() {
+  //   Future.delayed(Duration(seconds: 10), () {
+  //     return Text("No cars found");
+  //   });
+  //   return SizedBox();
+  // }
 }

@@ -15,8 +15,24 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class StartScreen extends StatelessWidget {
+import '../home_screen/provider/check_internet_provider.dart';
+
+class StartScreen extends StatefulWidget {
   StartScreen({super.key});
+
+  @override
+  State<StartScreen> createState() => _StartScreenState();
+}
+
+class _StartScreenState extends State<StartScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    Provider.of<CheckInternetProvider>(context, listen: false)
+        .startStreaming(context);
+    super.initState();
+  }
+
   final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
@@ -52,7 +68,7 @@ class StartScreen extends StatelessWidget {
                       child: SizedBox(
                           height: 109,
                           width: 169,
-                          child: Image.asset("assets/flikcar_logo.png")),
+                          child: Image.asset("assets/flikcar_logo2.png")),
                     )),
                   ],
                 ),

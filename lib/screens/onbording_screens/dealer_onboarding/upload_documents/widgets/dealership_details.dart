@@ -41,7 +41,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Shop Photo*",
+                    "Shop Photo (required)*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

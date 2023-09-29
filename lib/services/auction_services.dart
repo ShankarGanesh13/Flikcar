@@ -10,7 +10,7 @@ class AuctionService extends ChangeNotifier {
   BidModel? lastBid;
   String currentbidPrice = "0";
   AuctionCar? updatedCarData;
-  String bidAmount = "0";
+  // String bidAmount = "0";
   bool socketConnected = false;
   bool live = true;
 
@@ -74,9 +74,14 @@ class AuctionService extends ChangeNotifier {
     socketConnected = socket.connected;
     socket.on('newBid', (data) {
       //  debugPrint("new bid ${data["vehicle"]["current_bid_price"]}");
-//debugPrint(data["bid"]);
+      //debugPrint(data["bid"]);
 
-      updatedCarData = AuctionCar.fromJson2(data);
+      //updatedCarData = AuctionCar.fromJson2(data);
+      debugPrint("newBid socket called");
+      //print(data);
+      debugPrint("current bid price  ${data["vehicle"]["current_bid_price"]}");
+      updatedCarData!.currentBidPrice =
+          data["vehicle"]["current_bid_price"].toString();
 
       notifyListeners();
     });
@@ -85,14 +90,13 @@ class AuctionService extends ChangeNotifier {
       // debugPrint("auction cars $data");
 
       auctionCars = [];
-      debugPrint("new bid price updated");
+      debugPrint("updateBidApp is called");
       var response = data as List;
 
       response.forEach((element) {
         //  debugPrint("this is the bid");
-        //  print(element["vehicleImages"]);
-        //  print(element["start_auction"]);
         //  debugPrint("current bid price  ${element["current_bid_price"]}");
+
         if (!DateTime.parse(element["end_auction"]).isBefore(DateTime.now())) {
           auctionCars.add(AuctionCar.fromJson(element));
         }
@@ -109,10 +113,6 @@ class AuctionService extends ChangeNotifier {
       myBidCars = [];
       if (myBid != null) {
         myBid.forEach((element) {
-          // debugPrint("this is the my bid data");
-          // print(element);
-          // debugPrint("++++++++++++++++++++");
-          // debugPrint(element["Vehicle"]["yourLastBid"]);
           myBidCars.add(AuctionCar.fromJson(element["Vehicle"]));
         });
       }
@@ -129,8 +129,8 @@ class AuctionService extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
     String? dealerToken = sp.getString('dealerToken');
-    debugPrint("place bid called");
     //   debugPrint(updatedCarData);
+    debugPrint("place bid button pressed");
     if (updatedCarData != null) {
       if (DateTime.parse(car.endAuction).isAfter(DateTime.now()) &&
           DateTime.parse(car.startAuction).isBefore(DateTime.now())) {
@@ -182,29 +182,29 @@ class AuctionService extends ChangeNotifier {
     notifyListeners();
   }
 
-  getBidPrice({required String currentPrice}) {
-    bidAmount = currentPrice;
-    //  notifyListeners();
-  }
+  // getBidPrice({required String currentPrice}) {
+  //   bidAmount = currentPrice;
+  //   //  notifyListeners();
+  // }
 
   disconnectSocket() {
     socket.disconnect();
     debugPrint("socket disconnected");
   }
 
-  increaseBidAmount() {
-    bidAmount = (int.parse(bidAmount) + 500).toString();
-    debugPrint("increase bid called");
-    debugPrint(bidAmount);
-    notifyListeners();
-  }
+  // increaseBidAmount() {
+  //   bidAmount = (int.parse(bidAmount) + 500).toString();
+  //   debugPrint("increase bid called");
+  //   debugPrint(bidAmount);
+  //   notifyListeners();
+  // }
 
-  reduceBidAmount(String currentBid) {
-    if (int.parse(currentBid) < int.parse(bidAmount)) {
-      bidAmount = (int.parse(bidAmount) - 500).toString();
-    }
-    notifyListeners();
-  }
+  // reduceBidAmount(String currentBid) {
+  //   if (int.parse(currentBid) < int.parse(bidAmount)) {
+  //     bidAmount = (int.parse(bidAmount) - 500).toString();
+  //   }
+  //   notifyListeners();
+  // }
 
   setAuctionCarList() {
     searchLiveAuctionCars = liveAuctionCars;

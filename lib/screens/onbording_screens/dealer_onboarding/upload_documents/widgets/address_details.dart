@@ -86,6 +86,7 @@ class AddressDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DocumentTextfield(
+                    keyboard: TextInputType.text,
                     title: "Document Number*",
                     controller: controller,
                     validator: true,
@@ -103,7 +104,7 @@ class AddressDetails extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "Address Proof*",
+                    "Address Proof Image (required)*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

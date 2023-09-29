@@ -22,11 +22,11 @@ class CustomAppBar {
         },
         child: Container(
           margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
-          height: 37,
-          width: 59,
+          height: 41,
+          width: 70,
           decoration: const BoxDecoration(
             image: DecorationImage(
-              fit: BoxFit.cover,
+              fit: BoxFit.contain,
               image: AssetImage("assets/flikcar_logo2.png"),
             ),
           ),
@@ -94,11 +94,11 @@ class CustomAppBar {
               },
               child: Container(
                 margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
-                height: 37,
-                width: 59,
+                height: 41,
+                width: 70,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     image: AssetImage("assets/flikcar_logo2.png"),
                   ),
                 ),
@@ -213,13 +213,12 @@ class CustomAppBar {
       title: Row(
         children: [
           Container(
-            margin:
-                const EdgeInsets.only(left: 0, top: 8, bottom: 15, right: 20),
-            height: 37,
-            width: 59,
+            margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
+            height: 41,
+            width: 70,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                fit: BoxFit.cover,
+                fit: BoxFit.contain,
                 image: AssetImage("assets/flikcar_logo2.png"),
               ),
             ),
@@ -252,11 +251,11 @@ class CustomAppBar {
               },
               child: Container(
                 margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
-                height: 37,
-                width: 59,
+                height: 41,
+                width: 70,
                 decoration: const BoxDecoration(
                   image: DecorationImage(
-                    fit: BoxFit.cover,
+                    fit: BoxFit.contain,
                     image: AssetImage("assets/flikcar_logo2.png"),
                   ),
                 ),

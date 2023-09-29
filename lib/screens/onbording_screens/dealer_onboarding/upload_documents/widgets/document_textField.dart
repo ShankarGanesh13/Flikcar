@@ -6,6 +6,7 @@ class DocumentTextfield extends StatelessWidget {
   final String hint;
   final String title;
   final int max;
+  final TextInputType keyboard;
   final bool validator;
   final ValueChanged onChanged;
 
@@ -14,6 +15,7 @@ class DocumentTextfield extends StatelessWidget {
       required this.controller,
       required this.hint,
       required this.max,
+      required this.keyboard,
       required this.validator,
       required this.onChanged,
       required this.title});
@@ -32,6 +34,7 @@ class DocumentTextfield extends StatelessWidget {
         ),
         TextFormField(
           controller: controller,
+          keyboardType: keyboard,
           decoration: InputDecoration(
             contentPadding:
                 const EdgeInsets.only(left: 12, right: 12, top: 3, bottom: 3),

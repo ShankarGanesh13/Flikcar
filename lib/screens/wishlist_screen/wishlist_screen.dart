@@ -1,5 +1,6 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
@@ -23,7 +24,20 @@ class _WishlistScreenState extends State<WishlistScreen> {
     // TODO: implement initState
     Provider.of<WishlistService>(context, listen: false)
         .getWishlistCars(context: context);
+    loading();
     super.initState();
+  }
+
+  bool _isLoading = true;
+
+  loading() {
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
   }
 
   @override
@@ -61,12 +75,16 @@ class _WishlistScreenState extends State<WishlistScreen> {
           wishlistCars.isEmpty
               ? Padding(
                   padding: const EdgeInsets.only(top: 60.0),
-                  child: Center(
-                    child: Text(
-                      "No cars to show",
-                      style: AppFonts.w700black16,
-                    ),
-                  ),
+                  child: SizedBox(
+                      height: 100,
+                      child: Center(
+                        child: _isLoading
+                            ? const LoadingWidget()
+                            : Text(
+                                "No cars found",
+                                style: AppFonts.w700black16,
+                              ),
+                      )),
                 )
               : ListView.builder(
                   itemCount: wishlistCars.length,

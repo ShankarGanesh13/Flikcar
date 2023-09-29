@@ -33,8 +33,8 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
   void initState() {
     // TODO: implement initState
 
-    Provider.of<AuctionService>(context, listen: false)
-        .getBidPrice(currentPrice: widget.carr.currentBidPrice);
+    // Provider.of<AuctionService>(context, listen: false)
+    //     .getBidPrice(currentPrice: widget.carr.currentBidPrice);
     super.initState();
   }
 
@@ -42,7 +42,7 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
   @override
   Widget build(BuildContext context) {
     car = context.watch<AuctionService>().updatedCarData;
-    currentBid = context.watch<AuctionService>().bidAmount;
+    // currentBid = context.watch<AuctionService>().bidAmount;
 
     return Scaffold(
         appBar: CustomAppBar.getAppBarWithContainerSearch(

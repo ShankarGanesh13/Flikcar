@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
@@ -32,8 +33,20 @@ class _FilterAppliedState extends State<FilterApplied> {
     Provider.of<SearchService>(context, listen: false).getBodyTypes();
     Provider.of<SearchService>(context, listen: false).getOwnerTypes();
     Provider.of<SearchService>(context, listen: false).getBrandAndModels();
-
+    loading();
     super.initState();
+  }
+
+  bool _isLoading = true;
+
+  loading() {
+    Future.delayed(const Duration(seconds: 5), () {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    });
   }
 
   List<BuyerCarDisplay> allCars = [];
@@ -289,10 +302,16 @@ class _FilterAppliedState extends State<FilterApplied> {
                       })
                   : Padding(
                       padding: const EdgeInsets.only(top: 120),
-                      child: Text(
-                        "No cars found",
-                        style: AppFonts.w700black16,
-                      ),
+                      child: SizedBox(
+                          height: 300,
+                          child: Center(
+                            child: _isLoading
+                                ? const LoadingWidget()
+                                : Text(
+                                    "No data found",
+                                    style: AppFonts.w700black16,
+                                  ),
+                          )),
                     ),
               const SizedBox(
                 height: 35,

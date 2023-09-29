@@ -24,7 +24,7 @@ class _AuctionBottomNavState extends State<AuctionBottomNav> {
 
   @override
   Widget build(BuildContext context) {
-    final bidAmount = context.watch<AuctionService>().bidAmount;
+    //  final bidAmount = context.watch<AuctionService>().bidAmount;
 
     if (DateTime.parse(widget.car.startAuction).isAfter(DateTime.now())) {
       return buildAuctionStartingSoon(context);

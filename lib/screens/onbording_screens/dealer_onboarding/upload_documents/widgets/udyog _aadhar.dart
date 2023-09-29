@@ -38,6 +38,7 @@ class UdyogAadhar extends StatelessWidget {
                   DocumentTextfield(
                     title: "Udyog Aadhar Number (optional)",
                     controller: controller,
+                    keyboard: TextInputType.text,
                     hint: "Eg. INKPS2134U",
                     max: 12,
                     validator: false,

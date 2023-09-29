@@ -38,10 +38,11 @@ class CancelledCheque extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   DocumentTextfield(
+                    keyboard: TextInputType.number,
                     title: "Cheque Number*",
                     controller: controller,
-                    hint: "Eg. INKPS2134U",
-                    max: 12,
+                    hint: "Eg. 984512823",
+                    max: 14,
                     validator: true,
                     onChanged: (value) {
                       Provider.of<UploadDealerDocumentsProvider>(context,
@@ -55,7 +56,7 @@ class CancelledCheque extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "Cancelled Cheque*",
+                    "Cancelled Cheque (required)*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

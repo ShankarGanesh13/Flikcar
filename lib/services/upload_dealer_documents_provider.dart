@@ -289,8 +289,8 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     var responseString = utf8.decode(responseData);
 
     var data = json.decode(responseString);
-
     print(data["status"]);
+
     if (data["status"] == 200 || data["status"] == 302) {
       debugPrint("+++++++++++++++++++++++");
       debugPrint("profile created");
