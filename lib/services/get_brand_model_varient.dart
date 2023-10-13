@@ -13,8 +13,8 @@ import 'package:http/http.dart' as http;
 class GetBrandModelVarient {
   static Future<List<BodyTypeModel>> getBodyType() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/car/body-type');
+    Uri url =
+        Uri.parse('https://webservice.flikcar.com/api/dealer/car/body-type');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -34,8 +34,8 @@ class GetBrandModelVarient {
 
   static Future<List<OwnerTypeModel>> getownership() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/car/owner-type');
+    Uri url =
+        Uri.parse('https://webservice.flikcar.com/api/dealer/car/owner-type');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -54,8 +54,7 @@ class GetBrandModelVarient {
 
   static Future<List<ColorModel>> getColors() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url =
-        Uri.parse('https://webservice.flikcar.com:8000/api/dealer/car/color');
+    Uri url = Uri.parse('https://webservice.flikcar.com/api/dealer/car/color');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -76,7 +75,7 @@ class GetBrandModelVarient {
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
     Uri url = Uri.parse(
-      'https://webservice.flikcar.com:8000/api/dealer/car/fuel-type',
+      'https://webservice.flikcar.com/api/dealer/car/fuel-type',
     );
 
     String? dealerToken = sp.getString('dealerToken');
@@ -100,7 +99,7 @@ class GetBrandModelVarient {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     List<BrandModelVarient> brands = [];
     Uri url = Uri.parse(
-      'https://webservice.flikcar.com:8000/api/dealer/car/brand-model-variant',
+      'https://webservice.flikcar.com/api/dealer/car/brand-model-variant',
     );
 
     String? userToken = sp.getString('userToken');
@@ -125,7 +124,7 @@ class GetBrandModelVarient {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     List<BrandModelVarient> brands = [];
     Uri url = Uri.parse(
-      'https://webservice.flikcar.com:8000/api/dealer/car/brand-model-variant',
+      'https://webservice.flikcar.com/api/dealer/car/brand-model-variant',
     );
 
     String? dealerToken = sp.getString('dealerToken');
@@ -148,7 +147,7 @@ class GetBrandModelVarient {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     List<SeatsModel> seats = [];
     Uri url = Uri.parse(
-      'https://webservice.flikcar.com:8000/api/dealer/car/seat',
+      'https://webservice.flikcar.com/api/dealer/car/seat',
     );
 
     String? dealerToken = sp.getString('dealerToken');
@@ -172,7 +171,7 @@ class GetBrandModelVarient {
     List<Rto> rto = [];
 
     Uri url = Uri.parse(
-      'https://webservice.flikcar.com:8000/api/rto',
+      'https://webservice.flikcar.com/api/rto',
     );
 
     String? dealerToken = sp.getString('dealerToken');

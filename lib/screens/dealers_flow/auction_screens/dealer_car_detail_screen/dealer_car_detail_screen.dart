@@ -3,7 +3,7 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/car_specifications/car_specifications.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/auction_bottom_nav.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/bid_textfield.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_auction_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_features.dart';
@@ -20,28 +20,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DealerCarDetailScreen extends StatefulWidget {
-  final AuctionCar carr;
-  const DealerCarDetailScreen({super.key, required this.carr});
+  final AuctionCar car;
+  const DealerCarDetailScreen({super.key, required this.car});
 
   @override
   State<DealerCarDetailScreen> createState() => _DealerCarDetailScreenState();
 }
 
 class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
-  AuctionCar? car;
-  @override
-  void initState() {
-    // TODO: implement initState
+  // AuctionCar? updatedCar;
 
-    // Provider.of<AuctionService>(context, listen: false)
-    //     .getBidPrice(currentPrice: widget.carr.currentBidPrice);
-    super.initState();
-  }
-
-  String currentBid = "0";
   @override
   Widget build(BuildContext context) {
-    car = context.watch<AuctionService>().updatedCarData;
+    //   updatedCar = context.watch<AuctionService>().updatedCarData;
     // currentBid = context.watch<AuctionService>().bidAmount;
 
     return Scaffold(
@@ -66,47 +57,6 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                   ));
             },
             back: true),
-        // bottomNavigationBar:
-        //     AuctionBottomNav(currentBid: currentBid, car: widget.carr),
-
-        //  SafeArea(
-        //   child: Container(
-        //     width: MediaQuery.of(context).size.width,
-        //     padding:
-        //         const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 5),
-        //     color: AppColors.s1,
-        //     child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        //       bidButton(
-        //           icon: Icons.remove,
-        //           function: () {
-        //             Provider.of<AuctionService>(context, listen: false)
-        //                 .reduceBidAmount(widget.carr.currentBidPrice);
-        //           }),
-        //       Text(
-        //         "  ₹ ${context.watch<AuctionService>().bidAmount}  ",
-        //         style: AppFonts.w700white16,
-        //       ),
-        //       bidButton(
-        //           icon: Icons.add,
-        //           function: () {
-        //             Provider.of<AuctionService>(context, listen: false)
-        //                 .increaseBidAmount();
-        //           }),
-        //       const Spacer(),
-        //       BuyNavButton(
-        //         icon: Icons.chevron_right,
-        //         title: "Place Bid",
-        //         function: () {
-        //           Provider.of<AuctionService>(context, listen: false).placeBid(
-        //               carId: widget.carr.id.toString(),
-        //               amount: currentBid,
-        //               car: widget.carr,
-        //               context: context);
-        //         },
-        //       )
-        //     ]),
-        //   ),
-        // ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -124,11 +74,11 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              widget.carr.brand,
+                              widget.car.brand,
                               style: AppFonts.w500dark214,
                             ),
                             Text(
-                              "${widget.carr.model} ${widget.carr.variant}",
+                              "${widget.car.model} ${widget.car.variant}",
                               style: AppFonts.w700black16,
                               maxLines: 1,
                             ),
@@ -144,30 +94,30 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                     ],
                   )),
               DealerImageViewer(
-                car: widget.carr,
+                car: widget.car,
               ),
               DealerCarDetails(
-                car: car ?? widget.carr,
+                car: widget.car,
               ),
               // const SizedBox(
               //   height: 10,
               // ),
               // DealerAuctionDetails(
-              //   car: car ?? widget.carr,
+              //   car: car ?? widget.car,
               // ),
-              InspectionReport(car: widget.carr),
+              InspectionReport(car: widget.car),
 
               const SizedBox(
                 height: 10,
               ),
               DealerCarFeatures(
-                car: widget.carr,
+                car: widget.car,
               ),
               const SizedBox(
                 height: 15,
               ),
               DealerCarSpecification(
-                car: widget.carr,
+                car: widget.car,
               ),
               const SizedBox(
                 height: 15,
@@ -182,7 +132,7 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
                           MaterialPageRoute(
                               builder: (context) =>
                                   DealerCarSpecificationScreen(
-                                    car: widget.carr,
+                                    car: widget.car,
                                   )));
                     },
                     borderColor: Colors.white,

@@ -322,8 +322,8 @@ class CustomAppBar {
                     ? IconButton(
                         onPressed: () {
                           Navigator.pop(context);
-                          Provider.of<AuctionService>(context, listen: false)
-                              .clearAuctionCar();
+                          // Provider.of<AuctionService>(context, listen: false)
+                          //     .clearAuctionCar();
                         },
                         icon: const Icon(Icons.chevron_left),
                         color: Colors.white,

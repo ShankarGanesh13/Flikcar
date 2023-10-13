@@ -214,7 +214,7 @@ class SellingProcessProvider extends ChangeNotifier {
     final String? token = sp.getString('userToken');
 
     var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/web/sale-car/cars/add-sale');
+        'https://webservice.flikcar.com/api/web/sale-car/cars/add-sale');
 
     var requestBody = {
       "brand": "$selectedBrandId",

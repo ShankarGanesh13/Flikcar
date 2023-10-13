@@ -10,10 +10,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:io';
 
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 class AuthService {
   static sendOtp({required String phoneNumber}) async {
-    var url =
-        Uri.parse('https://webservice.flikcar.com:8000/api/customer/get-otp');
+    var url = Uri.parse('https://webservice.flikcar.com/api/customer/get-otp');
 
     var requestBody = {
       'contact': phoneNumber,
@@ -32,8 +40,7 @@ class AuthService {
       required BuildContext context}) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
-    var url =
-        Uri.parse('https://webservice.flikcar.com:8000/api/customer/sign-in');
+    var url = Uri.parse('https://webservice.flikcar.com/api/customer/sign-in');
 
     var requestBody = {
       'contact': phoneNumber,
@@ -96,7 +103,7 @@ class AuthService {
     String? token = sp.getString("userToken");
     await sp.setString("userName", fName);
     var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/web/customer/update-profile');
+        'https://webservice.flikcar.com/api/web/customer/update-profile');
     var requestBody = {
       'contact': contact,
       'fname': fName,

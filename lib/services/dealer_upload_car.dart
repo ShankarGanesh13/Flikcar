@@ -334,7 +334,7 @@ class DealerUploadCar extends ChangeNotifier {
     comfortFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     Uri url =
-        Uri.parse('https://webservice.flikcar.com:8000/api/dealer/car/comfort');
+        Uri.parse('https://webservice.flikcar.com/api/dealer/car/comfort');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -353,8 +353,8 @@ class DealerUploadCar extends ChangeNotifier {
   getinteriorFeatures() async {
     interiorFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/car/interior');
+    Uri url =
+        Uri.parse('https://webservice.flikcar.com/api/dealer/car/interior');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -373,8 +373,8 @@ class DealerUploadCar extends ChangeNotifier {
   getExteriorFeatures() async {
     exteriorFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/car/exterior');
+    Uri url =
+        Uri.parse('https://webservice.flikcar.com/api/dealer/car/exterior');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -393,8 +393,7 @@ class DealerUploadCar extends ChangeNotifier {
   getSafetyFeatures() async {
     safetyFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url =
-        Uri.parse('https://webservice.flikcar.com:8000/api/dealer/car/safety');
+    Uri url = Uri.parse('https://webservice.flikcar.com/api/dealer/car/safety');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -414,7 +413,7 @@ class DealerUploadCar extends ChangeNotifier {
     entertainmentFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     Uri url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/car/entertainment-communications');
+        'https://webservice.flikcar.com/api/dealer/car/entertainment-communications');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -614,164 +613,167 @@ class DealerUploadCar extends ChangeNotifier {
   }
 
   uploadCar(context) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/car/new-add-car');
-    String? dealerToken = sp.getString('dealerToken');
-    var request = http.MultipartRequest("POST", url);
-    request.headers["Authorization"] = "Bearer $dealerToken";
-    request.headers["Content-Type"] =
-        "application/x-www-form-urlencoded; charset=UTF-8";
-    request.fields["brand"] = "$brandId";
-    request.fields["model"] = "$modelId";
-    request.fields["variant"] = "$varientId";
-    request.fields["registrationYear"] = "$registerationYear";
-    request.fields["bodyType"] = "$bodyTypeId";
-    request.fields["fuelType"] = "$fuelTypeId";
-    request.fields["transmisson"] = "$transmisson";
-    request.fields["ownerType"] = "$ownershipId";
-    request.fields["color"] = "$colorId";
-    request.fields["drivenKm"] = "$driveKm";
-    request.fields["carPrice"] = "$carPrice";
-    request.fields["description"] = "$description";
-    request.fields["groundClearance"] = "$groundClearance";
-    request.fields["length"] = "$length";
-    request.fields["seat"] = "$seat";
-    request.fields["frontTyres"] = "$frontTyres";
-    request.fields["bootSpace"] = "$bootSpace";
-    request.fields["rearTyre"] = "$rearTyres";
-    request.fields["fuelTankCapacity"] = "$fuelCapacity";
-    request.fields["wheelCover"] = "$wheelCover";
-    request.fields["wheelbase"] = "$wheelbase";
-    request.fields["sparewheel"] = "$spareWheel";
-    request.fields["height"] = "$height";
-    request.fields["width"] = "$width";
-    request.fields["alloyWheels"] = "$alloyWheels";
-    request.fields["driveTrain"] = "$driveTrain";
-    request.fields["gearBox"] = "$gearBox";
-    request.fields["displacement"] = "$displacement";
-    request.fields["noOfCylinders"] = "$noOfCylinder";
-    request.fields["valveCylinders"] = "$valveCylinder";
-    request.fields["limitedSlipDiffer"] = "$limitedSlipDiff";
-    request.fields["turbocharger"] = "$turboCharger";
-    request.fields["maxPower"] = "$maxPower";
-    request.fields["maxTorque"] = "$maxTorque";
-    request.fields["mileage"] = "$mileage";
-    request.fields["suspensionFront"] = "$suspensionFront";
-    request.fields["suspensionRear"] = "$suspensionRear";
-    request.fields["frontBrakeFront"] = "$frontBrakeType";
-    request.fields["rearBrakeType"] = "$rearBrakeType";
-    request.fields["steeringType"] = "$steeringType";
-    request.fields["city"] = "592";
-    request.fields["comforts"] = "$selectedComfort";
-    request.fields["interior"] = "$selectedInterior";
-    request.fields["exterior"] = "$selectedExterior";
-    request.fields["entertainment"] = "$selectedEntertainment";
-    request.fields["safety"] = "$selectedSafety";
-    request.fields["engine"] = "$engineCC";
+    try {
+      final SharedPreferences sp = await SharedPreferences.getInstance();
+      Uri url = Uri.parse(
+          'https://webservice.flikcar.com/api/dealer/car/new-add-car');
+      String? dealerToken = sp.getString('dealerToken');
+      var request = http.MultipartRequest("POST", url);
+      request.headers["Authorization"] = "Bearer $dealerToken";
+      request.headers["Content-Type"] =
+          "application/x-www-form-urlencoded; charset=UTF-8";
+      request.fields["brand"] = "$brandId";
+      request.fields["model"] = "$modelId";
+      request.fields["variant"] = "$varientId";
+      request.fields["registrationYear"] = "$registerationYear";
+      request.fields["bodyType"] = "$bodyTypeId";
+      request.fields["fuelType"] = "$fuelTypeId";
+      request.fields["transmisson"] = "$transmisson";
+      request.fields["ownerType"] = "$ownershipId";
+      request.fields["color"] = "$colorId";
+      request.fields["drivenKm"] = "$driveKm";
+      request.fields["carPrice"] = "$carPrice";
+      request.fields["description"] = "$description";
+      request.fields["groundClearance"] = "$groundClearance";
+      request.fields["length"] = "$length";
+      request.fields["seat"] = "$seat";
+      request.fields["frontTyres"] = "$frontTyres";
+      request.fields["bootSpace"] = "$bootSpace";
+      request.fields["rearTyre"] = "$rearTyres";
+      request.fields["fuelTankCapacity"] = "$fuelCapacity";
+      request.fields["wheelCover"] = "$wheelCover";
+      request.fields["wheelbase"] = "$wheelbase";
+      request.fields["sparewheel"] = "$spareWheel";
+      request.fields["height"] = "$height";
+      request.fields["width"] = "$width";
+      request.fields["alloyWheels"] = "$alloyWheels";
+      request.fields["driveTrain"] = "$driveTrain";
+      request.fields["gearBox"] = "$gearBox";
+      request.fields["displacement"] = "$displacement";
+      request.fields["noOfCylinders"] = "$noOfCylinder";
+      request.fields["valveCylinders"] = "$valveCylinder";
+      request.fields["limitedSlipDiffer"] = "$limitedSlipDiff";
+      request.fields["turbocharger"] = "$turboCharger";
+      request.fields["maxPower"] = "$maxPower";
+      request.fields["maxTorque"] = "$maxTorque";
+      request.fields["mileage"] = "$mileage";
+      request.fields["suspensionFront"] = "$suspensionFront";
+      request.fields["suspensionRear"] = "$suspensionRear";
+      request.fields["frontBrakeFront"] = "$frontBrakeType";
+      request.fields["rearBrakeType"] = "$rearBrakeType";
+      request.fields["steeringType"] = "$steeringType";
+      request.fields["city"] = "592";
+      request.fields["comforts"] = "$selectedComfort";
+      request.fields["interior"] = "$selectedInterior";
+      request.fields["exterior"] = "$selectedExterior";
+      request.fields["entertainment"] = "$selectedEntertainment";
+      request.fields["safety"] = "$selectedSafety";
+      request.fields["engine"] = "$engineCC";
 
-    tyreImages.forEach((element) async {
-      request.files.add(await http.MultipartFile.fromPath(
-        "tyreImages",
-        element,
-      ));
-    });
-    thumbnailImages.forEach((element) async {
-      request.files.add(await http.MultipartFile.fromPath(
-        "thumbImage",
-        element,
-      ));
-    });
-    dentsImages.forEach((element) async {
-      request.files.add(await http.MultipartFile.fromPath(
-        "dentImages",
-        element,
-      ));
-    });
-    engineImages.forEach((element) async {
-      request.files.add(await http.MultipartFile.fromPath(
-        "engineImages",
-        element,
-      ));
-    });
-    exteriorImages.forEach((element) async {
-      request.files.add(await http.MultipartFile.fromPath(
-        "exteriorImages",
-        element,
-      ));
-    });
-    otherImages.forEach((element) async {
-      request.files.add(await http.MultipartFile.fromPath(
-        "extraImages",
-        element,
-      ));
-    });
+      tyreImages.forEach((element) async {
+        request.files.add(await http.MultipartFile.fromPath(
+          "tyreImages",
+          element,
+        ));
+      });
+      thumbnailImages.forEach((element) async {
+        request.files.add(await http.MultipartFile.fromPath(
+          "thumbImage",
+          element,
+        ));
+      });
+      dentsImages.forEach((element) async {
+        request.files.add(await http.MultipartFile.fromPath(
+          "dentImages",
+          element,
+        ));
+      });
+      engineImages.forEach((element) async {
+        request.files.add(await http.MultipartFile.fromPath(
+          "engineImages",
+          element,
+        ));
+      });
+      exteriorImages.forEach((element) async {
+        request.files.add(await http.MultipartFile.fromPath(
+          "exteriorImages",
+          element,
+        ));
+      });
+      otherImages.forEach((element) async {
+        request.files.add(await http.MultipartFile.fromPath(
+          "extraImages",
+          element,
+        ));
+      });
 
-    interiorImages.forEach((element) async {
-      request.files.add(await http.MultipartFile.fromPath(
-        "interiorImages",
-        element,
-      ));
-    });
+      interiorImages.forEach((element) async {
+        request.files.add(await http.MultipartFile.fromPath(
+          "interiorImages",
+          element,
+        ));
+      });
+      var response = await request.send();
+      var responseData = await response.stream.toBytes();
+      var responseString = utf8.decode(responseData);
+      var data = json.decode(responseString);
 
-    var response = await request.send();
-
-    var responseData = await response.stream.toBytes();
-
-    var responseString = utf8.decode(responseData);
-
-    var data = json.decode(responseString);
-
-    if (data["success"] == false) {
-      ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-          context, "Something went wrong try again later"));
-    }
-    if (data["success"] == true) {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const DealerFlow(
-            index: 1,
-          ),
-        ),
-        (route) => false,
-      );
-      showDialog<String>(
-        context: context,
-        builder: (BuildContext context) => AlertDialog(
-          title: Text(
-            'Car uploaded successfully',
-            style: AppFonts.w700black16,
-          ),
-          content: Text(
-            "The car details have been uploaded successfully and are now live for the customers.",
-            style: AppFonts.w500black14,
-          ),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                FirebaseEvents().dealerUploadCar(dealerNumber: "dealer number");
-                FacebookEvents().dealerUploadCar(dealerNumber: "dealer number");
-
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const DealerFlow(index: 1)),
-                  (route) => false,
-                );
-              },
-              child: const Text('OK'),
+      if (data["success"] == true) {
+        ScaffoldMessenger.of(context).showSnackBar(
+            MySnackbar.showSnackBar(context, "Car uploaded successfully"));
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DealerFlow(
+              index: 1,
             ),
-          ],
-        ),
-      );
-    } else {
+          ),
+          (route) => false,
+        );
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: Text(
+              'Car uploaded successfully',
+              style: AppFonts.w700black16,
+            ),
+            content: Text(
+              "The car details have been uploaded successfully and are now live for the customers.",
+              style: AppFonts.w500black14,
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  FirebaseEvents()
+                      .dealerUploadCar(dealerNumber: "dealer number");
+                  FacebookEvents()
+                      .dealerUploadCar(dealerNumber: "dealer number");
+
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const DealerFlow(index: 1)),
+                    (route) => false,
+                  );
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+        debugPrint("success status code ${data["status"]}");
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+            context, "Something went wrong try again later"));
+        debugPrint("error status code ${data["status"]}");
+      }
+    } catch (error) {
+      print("Error: $error");
       ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
           context, "Something went wrong try again later"));
     }
+
     clearData();
-    print(data["status"]);
-    print(data);
   }
 
   clearData() {

@@ -21,12 +21,13 @@ class GetDealerUploadCars extends ChangeNotifier {
   getDealerUploadedCars() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('dealerToken');
-    var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/car/list-car');
+    var url =
+        Uri.parse('https://webservice.flikcar.com/api/dealer/car/list-car');
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
     });
+
     var data = jsonDecode(response.body);
     List result = data["data"] as List;
     allCars = [];
@@ -58,8 +59,7 @@ class GetDealerUploadCars extends ChangeNotifier {
     final String? token = sp.getString('dealerToken');
 
     dealerTestDrive = [];
-    var url =
-        Uri.parse('https://webservice.flikcar.com:8000/api/dealer/test-drive');
+    var url = Uri.parse('https://webservice.flikcar.com/api/dealer/test-drive');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -107,8 +107,8 @@ class GetDealerUploadCars extends ChangeNotifier {
 
   markAsSold({required BuildContext context, required String carId}) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/car/mark-as-sold');
+    Uri url =
+        Uri.parse('https://webservice.flikcar.com/api/dealer/car/mark-as-sold');
     String? dealerToken = sp.getString('dealerToken');
     var body = {
       "carId": carId,

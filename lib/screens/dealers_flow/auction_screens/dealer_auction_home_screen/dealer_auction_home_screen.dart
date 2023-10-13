@@ -122,7 +122,7 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
                               child: _isLoading
                                   ? const LoadingWidget()
                                   : Text(
-                                      "No data found",
+                                      "No cars found",
                                       style: AppFonts.w700black16,
                                     ),
                             )),

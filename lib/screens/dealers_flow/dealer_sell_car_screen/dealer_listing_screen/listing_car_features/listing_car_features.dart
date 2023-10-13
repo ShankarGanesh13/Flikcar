@@ -6,6 +6,7 @@ import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listi
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/car_exterior.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/car_interior.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/car_safety.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/upload_button.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/listing_car_images.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -69,37 +70,41 @@ class _ListingCarFaturesState extends State<ListingCarFatures> {
         ),
         bottomNavigationBar: SafeArea(
           child: Container(
-            height: 55,
-            width: MediaQuery.of(context).size.width,
-            padding:
-                const EdgeInsets.only(left: 15, right: 15, bottom: 10, top: 8),
-            decoration: const BoxDecoration(color: Colors.white, boxShadow: [
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.25),
-                offset: Offset(0, -10),
-                blurRadius: 18,
+              height: 55,
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(
+                  left: 15, right: 15, bottom: 10, top: 8),
+              decoration: const BoxDecoration(color: Colors.white, boxShadow: [
+                BoxShadow(
+                  color: Color.fromRGBO(0, 0, 0, 0.25),
+                  offset: Offset(0, -10),
+                  blurRadius: 18,
+                )
+              ]),
+              child: UploadButton(
+                selectedIndex: selectedIndex,
               )
-            ]),
-            child: PrimaryButton(
-                backgroundColor: AppColors.s1,
-                borderColor: Colors.transparent,
-                function: () {
-                  if (selectedIndex < 4) {
-                    Provider.of<DealerUploadCar>(context, listen: false)
-                        .increaseFeatureIndex();
-                  } else {
-                    Provider.of<DealerUploadCar>(context, listen: false)
-                        .uploadCar(context);
-                    // Navigator.push(
-                    //     context,
-                    //     MaterialPageRoute(
-                    //       builder: (context) => const ListingCarImages(),
-                    //     ));
-                  }
-                },
-                textStyle: AppFonts.w500white14,
-                title: selectedIndex < 4 ? "Next" : "Upload Car"),
-          ),
+
+              //  PrimaryButton(
+              //     backgroundColor: AppColors.s1,
+              //     borderColor: Colors.transparent,
+              //     function: () {
+              //       if (selectedIndex < 4) {
+              //         Provider.of<DealerUploadCar>(context, listen: false)
+              //             .increaseFeatureIndex();
+              //       } else {
+              //         Provider.of<DealerUploadCar>(context, listen: false)
+              //             .uploadCar(context);
+              //         // Navigator.push(
+              //         //     context,
+              //         //     MaterialPageRoute(
+              //         //       builder: (context) => const ListingCarImages(),
+              //         //     ));
+              //       }
+              //     },
+              //     textStyle: AppFonts.w500white14,
+              //     title: selectedIndex < 4 ? "Next" : "Upload Car"),
+              ),
         ),
         body: SingleChildScrollView(
           child: Column(

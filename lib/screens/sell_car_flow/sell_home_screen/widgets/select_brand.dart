@@ -47,7 +47,7 @@ class SelectBrand extends StatelessWidget {
                               SizedBox(
                                 height: 35,
                                 child: Image.network(
-                                  "https://webservice.flikcar.com:8000/public/${snaphot.data![index].image}",
+                                  "https://webservice.flikcar.com/public/${snaphot.data![index].image}",
                                   fit: BoxFit.fill,
                                   loadingBuilder:
                                       (context, child, loadingProgress) {

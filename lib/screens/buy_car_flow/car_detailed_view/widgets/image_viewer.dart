@@ -46,7 +46,7 @@ class _ImageViewerState extends State<ImageViewer> {
             width: MediaQuery.of(context).size.width,
             child: Image.network(
               images.isNotEmpty
-                  ? "https://webservice.flikcar.com:8000/public/${images[selectedIndex].imageUrl}"
+                  ? "https://webservice.flikcar.com/public/${images[selectedIndex].imageUrl}"
                   : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
               fit: BoxFit.contain,
               loadingBuilder: (context, child, loadingProgress) {
@@ -95,7 +95,7 @@ class _ImageViewerState extends State<ImageViewer> {
                         });
                       },
                       child: Image.network(
-                        "https://webservice.flikcar.com:8000/public/${images[index].imageUrl}",
+                        "https://webservice.flikcar.com/public/${images[index].imageUrl}",
                         fit: BoxFit.cover,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) {
@@ -121,7 +121,7 @@ class _ImageViewerState extends State<ImageViewer> {
     _imageProviders = [];
     widget.car.carImages.forEach((element) {
       _imageProviders.add(Image.network(
-              "https://webservice.flikcar.com:8000/public/${element.imageUrl}")
+              "https://webservice.flikcar.com/public/${element.imageUrl}")
           .image);
     });
   }

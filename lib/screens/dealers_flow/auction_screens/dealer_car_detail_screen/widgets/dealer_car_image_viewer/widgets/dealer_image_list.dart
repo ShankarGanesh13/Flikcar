@@ -49,7 +49,7 @@ class DealerImageList extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Image.network(
-                    'https://webservice.flikcar.com:8000/public/${currentImages[index].imageUrl}',
+                    'https://webservice.flikcar.com/public/${currentImages[index].imageUrl}',
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
@@ -80,7 +80,7 @@ class DealerImageList extends StatelessWidget {
     _imageProviders = [];
     currentImages.forEach((element) {
       _imageProviders.add(Image.network(
-              "https://webservice.flikcar.com:8000/public/${element.imageUrl}")
+              "https://webservice.flikcar.com/public/${element.imageUrl}")
           .image);
     });
   }

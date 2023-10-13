@@ -63,7 +63,7 @@ class WishlistCard extends StatelessWidget {
                       child: Image.network(
                         car.carImages.isEmpty
                             ? "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png"
-                            : "https://webservice.flikcar.com:8000/public/${car.carImages[0].imageUrl}",
+                            : "https://webservice.flikcar.com/public/${car.carImages[0].imageUrl}",
                         fit: BoxFit.fill,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) {

@@ -223,7 +223,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
 
     final SharedPreferences sp = await SharedPreferences.getInstance();
     Uri url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/auth/update-profile');
+        'https://webservice.flikcar.com/api/dealer/auth/update-profile');
     String? dealerToken = sp.getString('dealerToken');
 
     var request = http.MultipartRequest("POST", url);

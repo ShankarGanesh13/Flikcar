@@ -8,27 +8,22 @@ import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 
-class AuctionBottomNav extends StatefulWidget {
+class BidTextField extends StatelessWidget {
   final String currentBid;
   final AuctionCar car;
 
-  AuctionBottomNav({Key? key, required this.currentBid, required this.car})
+  BidTextField({Key? key, required this.currentBid, required this.car})
       : super(key: key);
 
-  @override
-  State<AuctionBottomNav> createState() => _AuctionBottomNavState();
-}
-
-class _AuctionBottomNavState extends State<AuctionBottomNav> {
   final TextEditingController controller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     //  final bidAmount = context.watch<AuctionService>().bidAmount;
 
-    if (DateTime.parse(widget.car.startAuction).isAfter(DateTime.now())) {
+    if (DateTime.parse(car.startAuction).isAfter(DateTime.now())) {
       return buildAuctionStartingSoon(context);
-    } else if (DateTime.parse(widget.car.endAuction).isBefore(DateTime.now())) {
+    } else if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
       return buildAuctionEnded(context);
     } else {
       return buildAuctionLive(context);
@@ -103,12 +98,13 @@ class _AuctionBottomNavState extends State<AuctionBottomNav> {
                 function: () {
                   if (controller.text != "") {
                     if (int.parse(controller.text) >
-                        (int.parse(widget.car.currentBidPrice) + 999)) {
+                        (int.parse(car.currentBidPrice) + 999)) {
                       Provider.of<AuctionService>(context, listen: false)
                           .placeBid(
-                        carId: widget.car.id.toString(),
+                        carId: car.id.toString(),
                         amount: controller.text,
-                        car: widget.car,
+                        car: car,
+                        currentBid: currentBid,
                         context: context,
                       );
                       controller.clear();
@@ -147,11 +143,6 @@ class _AuctionBottomNavState extends State<AuctionBottomNav> {
   }
 }
 
-
-
-
-
-
 // import 'package:flikcar/models/auction_car_model.dart';
 // import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 // import 'package:flikcar/services/auction_services.dart';
@@ -160,10 +151,10 @@ class _AuctionBottomNavState extends State<AuctionBottomNav> {
 // import 'package:flutter/material.dart';
 // import 'package:provider/provider.dart';
 
-// class AuctionBottomNav extends StatelessWidget {
+// class BidTextField extends StatelessWidget {
 //   String currentBid;
 //   AuctionCar car;
-//   AuctionBottomNav({super.key, required this.currentBid, required this.car});
+//   BidTextField({super.key, required this.currentBid, required this.car});
 
 //   String bidAmount = "";
 //   TextEditingController controller = TextEditingController();

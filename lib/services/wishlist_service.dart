@@ -17,7 +17,7 @@ class WishlistService extends ChangeNotifier {
     final String? token = sp.getString('userToken');
 
     var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/buy-car/add-favourites-car');
+        'https://webservice.flikcar.com/api/buy-car/add-favourites-car');
     var requestBody = {
       "vehicleId": "$carId",
     };
@@ -57,7 +57,7 @@ class WishlistService extends ChangeNotifier {
     final String? token = sp.getString('userToken');
 
     var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/buy-car/delete-favourites-car');
+        'https://webservice.flikcar.com/api/buy-car/delete-favourites-car');
     var requestBody = {
       "vehicleId": "$carId",
     };
@@ -90,7 +90,7 @@ class WishlistService extends ChangeNotifier {
     //print(token);
 
     var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/buy-car/get-favourites-car');
+        'https://webservice.flikcar.com/api/buy-car/get-favourites-car');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ class WishlistService extends ChangeNotifier {
     final String? token = sp.getString('userToken');
 
     var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/buy-car/add-remove-favourites-car');
+        'https://webservice.flikcar.com/api/buy-car/add-remove-favourites-car');
     var requestBody = {
       "vehicleId": "$carId",
     };

@@ -1,5 +1,6 @@
 import 'package:flikcar/models/auction_car_model.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/auction_bottom_nav.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/bid_textfield.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/current_bid_widget.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer2.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/timer_text.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_timer2.dart';
@@ -9,10 +10,12 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'package:socket_io_client/socket_io_client.dart';
 
-class DealerCarDetails extends StatelessWidget {
+class DealerCarDetails extends StatefulWidget {
   final AuctionCar car;
-  final DateFormat formatter = DateFormat('yMMM');
+
   DealerCarDetails({super.key, required this.car});
   static List<String> icondata = [
     "assets/car_details_icon/location.png",
@@ -27,30 +30,72 @@ class DealerCarDetails extends StatelessWidget {
     "assets/car_details_icon/location.png",
   ];
 
+  @override
+  State<DealerCarDetails> createState() => _DealerCarDetailsState();
+}
+
+class _DealerCarDetailsState extends State<DealerCarDetails> {
+  // IO.Socket socket = io(
+  //   'https://webservice.flikcar.com',
+  //   IO.OptionBuilder().setTransports(['websocket']).build(),
+  // );
+  // String currentbidPrice = "";
+
+  // socketConnection() async {
+  //   if (socket.disconnected) {
+  //     try {
+  //       await socket.connect();
+  //       debugPrint("Socket connect called");
+  //     } catch (e) {
+  //       debugPrint("Error connecting to socket: $e");
+  //       return;
+  //     }
+  //   }
+  //   //   Event listener for 'newBid'
+  //   socket.on('newBid', (data) {
+  //     try {
+  //       widget.car.currentBidPrice =
+  //           data["vehicle"]["current_bid_price"].toString();
+  //     } catch (e) {
+  //       debugPrint("Error handling 'newBid' event: $e");
+  //     }
+  //   });
+  // }
+
+  @override
+  void initState() {
+    // socketConnection();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  final DateFormat formatter = DateFormat('yMMM');
+
   List<String> data = [];
 
-  String currentBid = "0";
+  String? currentBid = "0";
 
   @override
   Widget build(BuildContext context) {
     currentBid = context.watch<AuctionService>().currentbidPrice;
     data = [
       "City: Kolkata",
-      "Km Driven: ${car.driveKms}",
-      "Owners: ${car.ownertype}",
-      "Fuel Type: ${car.fuel}",
-      "Reg. Year: ${car.registrationYear}",
-      "Transmission: ${car.transmission}",
-      "Road Tax \nValidity: ${car.roadtaxValidity == "N/A" ? "N/A" : formatter.format(DateTime.parse(car.roadtaxValidity))}",
-      "Insurance\nValidity: ${car.insuranceValidity == "N/A" ? "N/A" : formatter.format(DateTime.parse(car.insuranceValidity))}",
-      "NOC: ${car.noc}",
-      "RTO Location: ${car.rto}"
+      "Km Driven: ${widget.car.driveKms}",
+      "Owners: ${widget.car.ownertype}",
+      "Fuel Type: ${widget.car.fuel}",
+      "Reg. Year: ${widget.car.registrationYear}",
+      "Transmission: ${widget.car.transmission}",
+      "Road Tax \nValidity: ${widget.car.roadtaxValidity == "N/A" ? "N/A" : formatter.format(DateTime.parse(widget.car.roadtaxValidity))}",
+      "Insurance\nValidity: ${widget.car.insuranceValidity == "N/A" ? "N/A" : formatter.format(DateTime.parse(widget.car.insuranceValidity))}",
+      "NOC: ${widget.car.noc}",
+      "RTO Location: ${widget.car.rto}"
     ];
     return Padding(
       padding: const EdgeInsets.all(15.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // CurrentBidWidget(car: widget.car),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -58,7 +103,7 @@ class DealerCarDetails extends StatelessWidget {
               //   "Current Bid\n${car.currentBidPrice} ₹",
               //   style: AppFonts.w700black20,
               // ),
-              checkAuctionEnded(),
+              checkAuctionEnded(context),
               const Spacer(),
               Text(
                 "Inspection Score:",
@@ -71,31 +116,16 @@ class DealerCarDetails extends StatelessWidget {
               ),
               const SizedBox(width: 3),
               Text(
-                "${car.technicianRating} / 5",
+                "${widget.car.technicianRating} / 5",
                 style: AppFonts.w700black16,
               )
             ],
           ),
           const SizedBox(height: 10),
           checkTime(),
-          // const SizedBox(height: 10),
-          // car.lastBid != null
-          //     ? Text(
-          //         "Last bid placed by ${car.lastBid!.dealerName}",
-          //         style: AppFonts.w500green14,
-          //       )
-          //     : Text(
-          //         "No bids placed",
-          //         style: AppFonts.w500green14,
-          //       ),
-          // const SizedBox(height: 10),
-          // Text(
-          //   "₹ Base Price ${car.carPrice} ",
-          //   style: AppFonts.w500black14,
-          // ),
 
           const SizedBox(height: 10),
-          AuctionBottomNav(currentBid: currentBid, car: car),
+          BidTextField(currentBid: currentBid!, car: widget.car),
           // const SizedBox(height: 10),
 
           Text(
@@ -131,7 +161,7 @@ class DealerCarDetails extends StatelessWidget {
                                   ),
                                 ),
                                 child: Image.asset(
-                                  icondata[index],
+                                  DealerCarDetails.icondata[index],
                                   color: Colors.white,
                                 )),
                             const SizedBox(
@@ -155,7 +185,7 @@ class DealerCarDetails extends StatelessWidget {
   }
 
   Widget checkTime() {
-    if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
+    if (DateTime.parse(widget.car.endAuction).isBefore(DateTime.now())) {
       return Text(
         "Auction has ended",
         style: AppFonts.w500red14,
@@ -167,29 +197,29 @@ class DealerCarDetails extends StatelessWidget {
 
   Widget checkLive() {
     DateTime now = DateTime.now();
-    if (DateTime.parse(car.endAuction).isAfter(now) &&
-        DateTime.parse(car.startAuction).isBefore(now)) {
+    if (DateTime.parse(widget.car.endAuction).isAfter(now) &&
+        DateTime.parse(widget.car.startAuction).isBefore(now)) {
       return OngoingTimer2(
-        car: car,
+        car: widget.car,
       );
     } else {
       return UpcomingTimer2(
-        car: car,
+        car: widget.car,
       );
     }
   }
 
-  Widget checkAuctionEnded() {
-    if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
+  Widget checkAuctionEnded(BuildContext context) {
+    if (DateTime.parse(widget.car.endAuction).isBefore(DateTime.now())) {
       return Text(
-        "Final Bid\n₹${car.currentBidPrice}",
+        "Final Bid\n₹${widget.car.currentBidPrice}",
         style: AppFonts.w700black20,
       );
     } else {
       return Text(
-        car.currentBidPrice == "no data"
-            ? "Curreny Bid\n₹${car.carPrice}"
-            : "Current Bid\n₹${car.currentBidPrice}",
+        widget.car.currentBidPrice == "no data"
+            ? "Curreny Bid\n₹${widget.car.carPrice}"
+            : "Current Bid\n₹${context.watch<AuctionService>().currentbidPrice}",
         style: AppFonts.w700black20,
       );
     }

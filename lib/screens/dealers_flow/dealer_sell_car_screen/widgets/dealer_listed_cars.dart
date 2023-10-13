@@ -64,7 +64,7 @@ class DealerListedCars extends StatelessWidget {
                         borderRadius: BorderRadius.circular(5),
                         child: Image.network(
                           cars[index].carImages.isNotEmpty
-                              ? "https://webservice.flikcar.com:8000/public/${cars[index].carImages[0].imageUrl}"
+                              ? "https://webservice.flikcar.com/public/${cars[index].carImages[0].imageUrl}"
                               : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                           fit: BoxFit.fill,
                           loadingBuilder: (context, child, loadingProgress) {

@@ -33,7 +33,7 @@ class DealerCarListCard extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => DealerCarDetailScreen(
-                      carr: car,
+                      car: car,
                     )));
 
         Provider.of<AuctionService>(context, listen: false).joinAuctionRoom(
@@ -69,7 +69,7 @@ class DealerCarListCard extends StatelessWidget {
                 height: 181,
                 child: Image.network(
                   car.carImages.isNotEmpty
-                      ? 'https://webservice.flikcar.com:8000/public/${car.carImages[0].imageUrl}'
+                      ? 'https://webservice.flikcar.com/public/${car.carImages[0].imageUrl}'
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                   fit: BoxFit.cover,
                   loadingBuilder: (context, child, loadingProgress) {
@@ -169,7 +169,13 @@ class DealerCarListCard extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) =>
-                                    DealerCarDetailScreen(carr: car)));
+                                    DealerCarDetailScreen(car: car)));
+
+                        Provider.of<AuctionService>(context, listen: false)
+                            .joinAuctionRoom(
+                                carId: car.id.toString(),
+                                car: car,
+                                context: context);
                       },
                       borderColor: Colors.black,
                       textStyle: AppFonts.w500black14,

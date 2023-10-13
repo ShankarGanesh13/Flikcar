@@ -12,20 +12,50 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class DealerAuthService {
+  // static sendOtp({required String phoneNumber}) async {
+  //   var url = Uri.parse(
+  //       'https://webservice.flikcar.com/api/dealer/auth/get-otp');
+
+  //   var requestBody = {
+  //     'contact': phoneNumber,
+  //   };
+  //   var response = await http.post(url, body: requestBody);
+
+  //   if (response.statusCode == 200) {
+  //     debugPrint('Response body: ${response.body}');
+  //   } else {
+  //     debugPrint('Request failed with status: ${response.statusCode}');
+  //   }
+  // }
+
   static sendOtp({required String phoneNumber}) async {
-    var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/auth/get-otp');
+    var url =
+        Uri.parse('https://webservice.flikcar.com/api/dealer/auth/get-otp');
+
+    var headers = {
+      'Content-Type': 'application/json',
+    };
 
     var requestBody = {
       'contact': phoneNumber,
     };
-    var response = await http.post(url, body: requestBody);
-    if (response.statusCode == 200) {
-      debugPrint('Response body: ${response.body}');
-    } else {
-      debugPrint('Request failed with status: ${response.statusCode}');
+
+    try {
+      var response =
+          await http.post(url, headers: headers, body: jsonEncode(requestBody));
+
+      if (response.statusCode == 200) {
+        debugPrint('Response body: ${response.body}');
+      } else {
+        debugPrint('Request failed with status: ${response.statusCode}');
+        // Handle other error cases or responses here
+      }
+    } catch (e) {
+      debugPrint('Error: $e');
+      // Handle network errors or other exceptions here
     }
   }
+  // https://webservice.flikcar.com/api/dealer/auth/get-otp
 
   static verifyOtp(
       {required String phoneNumber,
@@ -33,8 +63,8 @@ class DealerAuthService {
       required BuildContext context}) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
-    var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/dealer/auth/sign-in');
+    var url =
+        Uri.parse('https://webservice.flikcar.com/api/dealer/auth/sign-in');
 
     var requestBody = {
       'contact': phoneNumber,

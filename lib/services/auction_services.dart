@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/models/bid_model.dart';
@@ -5,17 +8,20 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
+import 'package:http/http.dart' as http;
+
+//tomorrow use current bid price instead on updatedCarData
 
 class AuctionService extends ChangeNotifier {
-  BidModel? lastBid;
-  String currentbidPrice = "0";
-  AuctionCar? updatedCarData;
-  // String bidAmount = "0";
-  bool socketConnected = false;
   bool live = true;
+  String currentCarId = "";
+  String? currentbidPrice;
 
-  IO.Socket socket = io('https://webservice.flikcar.com:8000',
-      OptionBuilder().setTransports(['websocket']).build());
+  IO.Socket socket = io(
+    'https://webservice.flikcar.com',
+    IO.OptionBuilder().setTransports(['websocket']).build(),
+  );
+
   List<AuctionCar> auctionCars = [];
   List<AuctionCar> myBidCars = [];
   List<AuctionCar> liveAuctionCars = [];
@@ -23,14 +29,13 @@ class AuctionService extends ChangeNotifier {
   List<AuctionCar> searchLiveAuctionCars = [];
   List<AuctionCar> searchUpcomingAuctionCars = [];
 
-  getCurrentBidPrice(String currentBid) {
-    currentbidPrice = currentBid;
-    notifyListeners();
-  }
+  // getCurrentBidPrice(String currentBid) {
+  //   currentbidPrice = currentBid;
+  //   notifyListeners();
+  // }
 
   changeSection({required bool isLive}) {
     live = isLive;
-
     notifyListeners();
   }
 
@@ -51,6 +56,29 @@ class AuctionService extends ChangeNotifier {
     notifyListeners();
   }
 
+  getAuctionCar({required String id}) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    final String? token = sp.getString('dealerToken');
+    final queryParameters = {'id': id};
+    final url = Uri.https(
+      'webservice.flikcar.com',
+      '/api/dealer/auction/car-by-id',
+      queryParameters,
+    );
+    var response = await http.get(
+      url,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+    );
+
+    var data = jsonDecode(response.body);
+
+    AuctionCar auctionCar = AuctionCar.fromJson(data["data"]);
+    print(auctionCar);
+  }
+
   joinAuctionRoom(
       {required String carId,
       required AuctionCar car,
@@ -62,103 +90,147 @@ class AuctionService extends ChangeNotifier {
       ScaffoldMessenger.of(context).showSnackBar(
           MySnackbar.showSnackBar(context, "Auction time has expired"));
     }
-    updatedCarData = car;
+    currentbidPrice = car.currentBidPrice;
+    currentCarId = carId;
+    //  updatedCarData = car;
     notifyListeners();
   }
 
-  void connectToSocket() {
+  void connectToSocket() async {
     if (socket.disconnected) {
-      socket.connect();
+      try {
+        await socket.connect();
+        debugPrint("Socket connect called");
+      } catch (e) {
+        debugPrint("Error connecting to socket: $e");
+        return;
+      }
     }
-    debugPrint("socket connection status -------${socket.connected}");
-    socketConnected = socket.connected;
+
+    //debugPrint("Socket connection status----------: ${socket.connected}");
+
+    socket.onConnectError((data) => print(data));
+    // Event listener for 'newBid'
     socket.on('newBid', (data) {
-      //  debugPrint("new bid ${data["vehicle"]["current_bid_price"]}");
-      //debugPrint(data["bid"]);
-
-      //updatedCarData = AuctionCar.fromJson2(data);
-      debugPrint("newBid socket called");
-      //print(data);
-      debugPrint("current bid price  ${data["vehicle"]["current_bid_price"]}");
-      updatedCarData!.currentBidPrice =
-          data["vehicle"]["current_bid_price"].toString();
-
-      notifyListeners();
-    });
-//////////////////
-    socket.on("updateBidApp", (data) {
-      // debugPrint("auction cars $data");
-
-      auctionCars = [];
-      debugPrint("updateBidApp is called");
-      var response = data as List;
-
-      response.forEach((element) {
-        //  debugPrint("this is the bid");
-        //  debugPrint("current bid price  ${element["current_bid_price"]}");
-
-        if (!DateTime.parse(element["end_auction"]).isBefore(DateTime.now())) {
-          auctionCars.add(AuctionCar.fromJson(element));
+      debugPrint("NewBid event called");
+      try {
+        // Verify the data type and handle it
+        if (currentCarId == data["vehicle"]["id"].toString()) {
+          debugPrint(
+              "-------------------------------------$currentbidPrice----------------------------------------");
+          currentbidPrice = data["vehicle"]["current_bid_price"].toString();
         }
-      });
-      filterData();
-      notifyListeners();
+        debugPrint(
+            "newBid current vehicle bid amount - ${data["vehicle"]["current_bid_price"].toString()}");
+        notifyListeners();
+      } catch (e) {
+        debugPrint("Error handling 'newBid' event: $e");
+      }
     });
-    /////////////
+
+    // Event listener for 'updateBidApp'
+    socket.on("updateBidApp", (data) {
+      debugPrint("UpdateBidApp event called");
+      try {
+        // Handle the event data as needed
+        var response = data as List;
+        auctionCars = [];
+        response.forEach((element) {
+          debugPrint(
+              "UpdateBidApp  current bid price ${element["current_bid_price"]}");
+          if (!DateTime.parse(element["end_auction"])
+              .isBefore(DateTime.now())) {
+            auctionCars.add(AuctionCar.fromJson(element));
+          }
+        });
+        filterData();
+        notifyListeners();
+      } catch (e) {
+        debugPrint("Error handling 'updateBidApp' event: $e");
+      }
+    });
+
+    // Event listener for 'getMyBidToken'
     socket.on('getMyBidToken', (z) {
       getMyBid();
     });
-    ////////////
+
+    // Event listener for 'updateMyBidApp'
     socket.on('updateMyBidApp', (myBid) {
-      myBidCars = [];
-      if (myBid != null) {
-        myBid.forEach((element) {
-          myBidCars.add(AuctionCar.fromJson(element["Vehicle"]));
-        });
+      //   debugPrint("UpdateMyBidApp event called");
+      try {
+        // Handle the 'updateMyBidApp' event data as needed
+        myBidCars = [];
+        if (myBid != null) {
+          myBid.forEach((element) {
+            myBidCars.add(AuctionCar.fromJson(element["Vehicle"]));
+          });
+        }
+        notifyListeners();
+      } catch (e) {
+        debugPrint("Error handling 'updateMyBidApp' event: $e");
       }
-      //  debugPrint(myBidCars);
-      notifyListeners();
     });
   }
 
-  placeBid(
-      {required String carId,
-      required String amount,
-      required AuctionCar car,
-      required BuildContext context}) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
+  Future<void> placeBid({
+    required String carId,
+    required String amount,
+    required AuctionCar car,
+    required String currentBid,
+    required BuildContext context,
+  }) async {
+    try {
+      final SharedPreferences sp = await SharedPreferences.getInstance();
+      final String? dealerToken = sp.getString('dealerToken');
 
-    String? dealerToken = sp.getString('dealerToken');
-    //   debugPrint(updatedCarData);
-    debugPrint("place bid button pressed");
-    if (updatedCarData != null) {
+      if (dealerToken == null) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            MySnackbar.showSnackBar(context, "Dealer token not available"),
+          );
+        }
+        return;
+      }
+
       if (DateTime.parse(car.endAuction).isAfter(DateTime.now()) &&
           DateTime.parse(car.startAuction).isBefore(DateTime.now())) {
-        if (int.parse(updatedCarData!.currentBidPrice) < int.parse(amount)) {
+        if (int.parse(currentBid) < int.parse(amount)) {
           socket.emit(
               "bid", {"carId": carId, "amount": amount, "token": dealerToken});
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
-                MySnackbar.showSnackBar(context, "Bid placed successfully"));
+              MySnackbar.showSnackBar(context, "Bid placed successfully"),
+            );
           }
         } else {
           if (context.mounted) {
-            ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Something went wrong please try again"));
+            ScaffoldMessenger.of(context).showSnackBar(
+              MySnackbar.showSnackBar(context, "Increase your bid Amount"),
+            );
           }
         }
-      }
-      if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
+      } else if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-              MySnackbar.showSnackBar(context, "Auction has ended"));
+            MySnackbar.showSnackBar(context, "Auction has ended"),
+          );
         }
       }
       if (DateTime.parse(car.startAuction).isAfter(DateTime.now())) {
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-              MySnackbar.showSnackBar(context, "Auction has not started"));
+            MySnackbar.showSnackBar(context, "Auction has not started"),
+          );
         }
+      }
+    } catch (error) {
+      debugPrint("Error: $error");
+      if (context.mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          MySnackbar.showSnackBar(
+              context, "An error occurred. Please try again."),
+        );
       }
     }
   }
@@ -177,10 +249,11 @@ class AuctionService extends ChangeNotifier {
     //  notifyListeners();
   }
 
-  clearAuctionCar() {
-    updatedCarData = null;
-    notifyListeners();
-  }
+  // clearAuctionCar() {
+  //   currentbidPrice = null;
+  //   // updatedCarData = null;
+  //   notifyListeners();
+  // }
 
   // getBidPrice({required String currentPrice}) {
   //   bidAmount = currentPrice;
@@ -249,3 +322,8 @@ class AuctionService extends ChangeNotifier {
 //   socket.on('updateMyBid', (myBid) => {
 //     setListMyBid(myBid);
 //   });
+
+
+
+
+

@@ -17,7 +17,7 @@ class DealerImageViewer extends StatefulWidget {
 
 class _DealerImageViewerState extends State<DealerImageViewer> {
   @override
-  void initState() { 
+  void initState() {
     getImages();
     // TODO: implement initState
     super.initState();
@@ -53,7 +53,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
             width: MediaQuery.of(context).size.width,
             child: Image.network(
               images.isNotEmpty
-                  ? 'https://webservice.flikcar.com:8000/public/${images[selectedIndex].imageUrl}'
+                  ? 'https://webservice.flikcar.com/public/${images[selectedIndex].imageUrl}'
                   : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
               fit: BoxFit.contain,
               loadingBuilder: (context, child, loadingProgress) {
@@ -99,7 +99,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
                         });
                       },
                       child: Image.network(
-                        'https://webservice.flikcar.com:8000/public/${images[index].imageUrl}',
+                        'https://webservice.flikcar.com/public/${images[index].imageUrl}',
                         fit: BoxFit.cover,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) {
@@ -135,7 +135,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
     _imageProviders = [];
     widget.car.carImages.forEach((element) {
       _imageProviders.add(Image.network(
-              "https://webservice.flikcar.com:8000/public/${element.imageUrl}")
+              "https://webservice.flikcar.com/public/${element.imageUrl}")
           .image);
     });
   }

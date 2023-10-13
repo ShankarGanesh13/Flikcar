@@ -21,8 +21,8 @@ class GetCarDetails extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
-    var url = Uri.parse(
-        'https://webservice.flikcar.com:8000/api/buy-car/get-all-car');
+    var url =
+        Uri.parse('https://webservice.flikcar.com/api/buy-car/get-all-car');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -117,7 +117,7 @@ class GetCarDetails extends ChangeNotifier {
 
     final queryParameters = {'id': id};
     final url = Uri.https(
-      'webservice.flikcar.com:8000',
+      'webservice.flikcar.com',
       '/api/web/buy-car/cars/view/',
       queryParameters,
     );
@@ -147,8 +147,7 @@ class GetCarDetails extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
-    var url =
-        Uri.parse("https://webservice.flikcar.com:8000/api/store/search-car");
+    var url = Uri.parse("https://webservice.flikcar.com/api/store/search-car");
     Map<String, dynamic> body = {
       "index": 0.5043553213209293,
       "id": id,

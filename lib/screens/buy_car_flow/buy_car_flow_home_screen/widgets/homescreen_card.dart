@@ -165,7 +165,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                   ),
                                   child: Image.network(
                                     widget.cars[index].images.isNotEmpty
-                                        ? "https://webservice.flikcar.com:8000/public/${widget.cars[index].images[0]}"
+                                        ? "https://webservice.flikcar.com/public/${widget.cars[index].images[0]}"
                                         : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                     fit: BoxFit.fill,
                                     loadingBuilder:

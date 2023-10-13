@@ -85,7 +85,7 @@ class UpcomingTestDriveCard extends StatelessWidget {
                                   ),
                                   child: Image.network(
                                     testdrive[index].car.carImages.isNotEmpty
-                                        ? "https://webservice.flikcar.com:8000/public/${testdrive[index].car.carImages[0].imageUrl}"
+                                        ? "https://webservice.flikcar.com/public/${testdrive[index].car.carImages[0].imageUrl}"
                                         : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
                                     fit: BoxFit.cover,
                                     width: MediaQuery.of(context).size.width,
