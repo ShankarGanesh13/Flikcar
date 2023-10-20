@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/terms_and_condition.dart';
+import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
 
 import 'package:http/http.dart' as http;
@@ -36,6 +37,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
   //type
   //shopimage
   String pincode = "";
+  String apiUrl = Env.apiUrl;
 
   pickFile({required BuildContext context, required String imageType}) async {
     try {
@@ -222,8 +224,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     print("uploadDealerDocuments");
 
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse(
-        'https://webservice.flikcar.com/api/dealer/auth/update-profile');
+    Uri url = Uri.parse('$apiUrl/dealer/auth/update-profile');
     String? dealerToken = sp.getString('dealerToken');
 
     var request = http.MultipartRequest("POST", url);

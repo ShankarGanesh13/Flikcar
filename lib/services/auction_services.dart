@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/models/bid_model.dart';
@@ -28,6 +27,8 @@ class AuctionService extends ChangeNotifier {
   List<AuctionCar> upcomingAuctionCars = [];
   List<AuctionCar> searchLiveAuctionCars = [];
   List<AuctionCar> searchUpcomingAuctionCars = [];
+  List<AuctionCar> liveMyBidsCars = [];
+  List<AuctionCar> yourWinnings = [];
 
   // getCurrentBidPrice(String currentBid) {
   //   currentbidPrice = currentBid;
@@ -56,27 +57,24 @@ class AuctionService extends ChangeNotifier {
     notifyListeners();
   }
 
-  getAuctionCar({required String id}) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('dealerToken');
-    final queryParameters = {'id': id};
-    final url = Uri.https(
-      'webservice.flikcar.com',
-      '/api/dealer/auction/car-by-id',
-      queryParameters,
-    );
-    var response = await http.get(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
+  filterMyBids() async {
+    liveMyBidsCars = [];
+    yourWinnings = [];
 
-    var data = jsonDecode(response.body);
+    for (var i = 0; i < myBidCars.length; i++) {
+      if (DateTime.parse(myBidCars[i].startAuction).isBefore(DateTime.now()) &&
+          DateTime.parse(myBidCars[i].endAuction).isAfter(DateTime.now())) {
+        liveMyBidsCars.add(myBidCars[i]);
+      }
+    }
+    for (var i = 0; i < myBidCars.length; i++) {
+      if (myBidCars[i].currentBidPrice == myBidCars[i].yourLastBid &&
+          DateTime.parse(myBidCars[i].endAuction).isBefore(DateTime.now())) {
+        yourWinnings.add(myBidCars[i]);
+      }
+    }
 
-    AuctionCar auctionCar = AuctionCar.fromJson(data["data"]);
-    print(auctionCar);
+    notifyListeners();
   }
 
   joinAuctionRoom(
@@ -155,17 +153,18 @@ class AuctionService extends ChangeNotifier {
       getMyBid();
     });
 
-    // Event listener for 'updateMyBidApp'
+    // Event listener for 'updateMyBidApp to get My bids'
     socket.on('updateMyBidApp', (myBid) {
       //   debugPrint("UpdateMyBidApp event called");
       try {
-        // Handle the 'updateMyBidApp' event data as needed
         myBidCars = [];
         if (myBid != null) {
           myBid.forEach((element) {
             myBidCars.add(AuctionCar.fromJson(element["Vehicle"]));
           });
         }
+        filterMyBids();
+
         notifyListeners();
       } catch (e) {
         debugPrint("Error handling 'updateMyBidApp' event: $e");
@@ -175,9 +174,8 @@ class AuctionService extends ChangeNotifier {
 
   Future<void> placeBid({
     required String carId,
-    required String amount,
+    required TextEditingController controller,
     required AuctionCar car,
-    required String currentBid,
     required BuildContext context,
   }) async {
     try {
@@ -195,14 +193,18 @@ class AuctionService extends ChangeNotifier {
 
       if (DateTime.parse(car.endAuction).isAfter(DateTime.now()) &&
           DateTime.parse(car.startAuction).isBefore(DateTime.now())) {
-        if (int.parse(currentBid) < int.parse(amount)) {
-          socket.emit(
-              "bid", {"carId": carId, "amount": amount, "token": dealerToken});
+        if (int.parse(currentbidPrice!) + 999 < int.parse(controller.text)) {
+          socket.emit("bid", {
+            "carId": carId,
+            "amount": controller.text,
+            "token": dealerToken
+          });
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(
               MySnackbar.showSnackBar(context, "Bid placed successfully"),
             );
           }
+          controller.clear();
         } else {
           if (context.mounted) {
             ScaffoldMessenger.of(context).showSnackBar(

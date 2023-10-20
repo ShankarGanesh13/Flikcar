@@ -4,6 +4,7 @@ import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/dealer_testdrive.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,12 +18,12 @@ class GetDealerUploadCars extends ChangeNotifier {
   List<DealerTestDrive> filteredDealerTestDrive = [];
   final DateTime now = DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  String apiUrl = Env.apiUrl;
 
   getDealerUploadedCars() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('dealerToken');
-    var url =
-        Uri.parse('https://webservice.flikcar.com/api/dealer/car/list-car');
+    var url = Uri.parse('$apiUrl/dealer/car/list-car');
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer $token',
@@ -59,7 +60,7 @@ class GetDealerUploadCars extends ChangeNotifier {
     final String? token = sp.getString('dealerToken');
 
     dealerTestDrive = [];
-    var url = Uri.parse('https://webservice.flikcar.com/api/dealer/test-drive');
+    var url = Uri.parse('$apiUrl/dealer/test-drive');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -107,8 +108,7 @@ class GetDealerUploadCars extends ChangeNotifier {
 
   markAsSold({required BuildContext context, required String carId}) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url =
-        Uri.parse('https://webservice.flikcar.com/api/dealer/car/mark-as-sold');
+    Uri url = Uri.parse('$apiUrl/dealer/car/mark-as-sold');
     String? dealerToken = sp.getString('dealerToken');
     var body = {
       "carId": carId,

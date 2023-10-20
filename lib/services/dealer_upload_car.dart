@@ -7,6 +7,7 @@ import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
+import 'package:flikcar/utils/env.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -67,6 +68,7 @@ class DealerUploadCar extends ChangeNotifier {
   List<int> selectedExterior = [];
   List<int> selectedSafety = [];
   List<int> selectedEntertainment = [];
+  String apiUrl = Env.apiUrl;
 
   changeFeatureIndex(int index) {
     featuresIndex = index;
@@ -333,8 +335,7 @@ class DealerUploadCar extends ChangeNotifier {
   getComfortFeatures() async {
     comfortFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url =
-        Uri.parse('https://webservice.flikcar.com/api/dealer/car/comfort');
+    Uri url = Uri.parse('$apiUrl/dealer/car/comfort');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -353,8 +354,7 @@ class DealerUploadCar extends ChangeNotifier {
   getinteriorFeatures() async {
     interiorFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url =
-        Uri.parse('https://webservice.flikcar.com/api/dealer/car/interior');
+    Uri url = Uri.parse('$apiUrl/dealer/car/interior');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -373,8 +373,7 @@ class DealerUploadCar extends ChangeNotifier {
   getExteriorFeatures() async {
     exteriorFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url =
-        Uri.parse('https://webservice.flikcar.com/api/dealer/car/exterior');
+    Uri url = Uri.parse('$apiUrl/dealer/car/exterior');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -393,7 +392,7 @@ class DealerUploadCar extends ChangeNotifier {
   getSafetyFeatures() async {
     safetyFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('https://webservice.flikcar.com/api/dealer/car/safety');
+    Uri url = Uri.parse('$apiUrl/dealer/car/safety');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -412,8 +411,7 @@ class DealerUploadCar extends ChangeNotifier {
   getEntertainmentFeatures() async {
     entertainmentFeatures = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse(
-        'https://webservice.flikcar.com/api/dealer/car/entertainment-communications');
+    Uri url = Uri.parse('$apiUrl/dealer/car/entertainment-communications');
     String? dealerToken = sp.getString('dealerToken');
 
     var response = await http.get(url, headers: {
@@ -615,8 +613,7 @@ class DealerUploadCar extends ChangeNotifier {
   uploadCar(context) async {
     try {
       final SharedPreferences sp = await SharedPreferences.getInstance();
-      Uri url = Uri.parse(
-          'https://webservice.flikcar.com/api/dealer/car/new-add-car');
+      Uri url = Uri.parse('$apiUrl/dealer/car/new-add-car');
       String? dealerToken = sp.getString('dealerToken');
       var request = http.MultipartRequest("POST", url);
       request.headers["Authorization"] = "Bearer $dealerToken";

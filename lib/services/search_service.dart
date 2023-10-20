@@ -4,6 +4,7 @@ import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/fuel_type_model.dart';
 import 'package:flikcar/models/owner_type_model.dart';
 import 'package:flikcar/models/search_req_model.dart';
+import 'package:flikcar/utils/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/car_brand_model.dart';
@@ -29,6 +30,7 @@ class SearchService extends ChangeNotifier {
   List<String> appliedFilters = [];
   List<BuyerCarDisplay> searchedCarList = [];
   int sort = -1;
+  String apiUrl = Env.apiUrl;
 
   //////////
   ///
@@ -55,7 +57,7 @@ class SearchService extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
     List<CarBrandModel> carModel = [];
-    var url = Uri.parse('https://webservice.flikcar.com/api/cars/make-model');
+    var url = Uri.parse('$apiUrl/cars/make-model');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -76,7 +78,7 @@ class SearchService extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
     fuel = [];
-    var url = Uri.parse('https://webservice.flikcar.com/api/cars/fuel');
+    var url = Uri.parse('$apiUrl/cars/fuel');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -97,7 +99,7 @@ class SearchService extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
     bodyType = [];
-    var url = Uri.parse('https://webservice.flikcar.com/api/cars/body-type');
+    var url = Uri.parse('$apiUrl/cars/body-type');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -118,7 +120,7 @@ class SearchService extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
     ownership = [];
-    var url = Uri.parse('https://webservice.flikcar.com/api/cars/owner');
+    var url = Uri.parse('$apiUrl/cars/owner');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -203,8 +205,7 @@ class SearchService extends ChangeNotifier {
     allCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
-    var url = Uri.parse(
-        'https://webservice.flikcar.com/api/web/buy-car/cars/search-car');
+    var url = Uri.parse('$apiUrl/web/buy-car/cars/search-car');
     SearchReqModel body = SearchReqModel(
       brand: brandFilter,
       model: modelFilter,
@@ -266,8 +267,7 @@ class SearchService extends ChangeNotifier {
     getBrandAndModels();
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
-    var url = Uri.parse(
-        'https://webservice.flikcar.com/api/web/buy-car/cars/search-car');
+    var url = Uri.parse('$apiUrl/web/buy-car/cars/search-car');
     SearchReqModel body = SearchReqModel(
       brand: brandFilter,
       model: modelFilter,
@@ -370,8 +370,7 @@ class SearchService extends ChangeNotifier {
     notifyListeners();
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
-    var url = Uri.parse(
-        'https://webservice.flikcar.com/api/web/buy-car/cars/search-car');
+    var url = Uri.parse('$apiUrl/web/buy-car/cars/search-car');
 
     SearchReqModel body = SearchReqModel(
         brand: brandFilter,

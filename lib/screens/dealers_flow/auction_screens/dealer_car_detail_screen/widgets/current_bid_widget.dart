@@ -1,6 +1,8 @@
 import 'package:flikcar/models/auction_car_model.dart';
+import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -13,49 +15,11 @@ class CurrentBidWidget extends StatefulWidget {
 }
 
 class _CurrentBidWidgetState extends State<CurrentBidWidget> {
-  IO.Socket socket = io(
-    'https://webservice.flikcar.com',
-    IO.OptionBuilder().setTransports(['websocket']).build(),
-  );
-  // String currentbidPrice = "";
-  @override
-  void initState() {
-    socketConnection();
-    // TODO: implement initState
-    super.initState();
-  }
-
-  socketConnection() async {
-    debugPrint("Socket connect called");
-
-    if (socket.disconnected) {
-      try {
-        await socket.connect();
-        debugPrint("Socket connect called");
-      } catch (e) {
-        debugPrint("Error connecting to socket: $e");
-        return;
-      }
-    }
-    //   Event listener for 'newBid'
-    socket.on('newBid', (data) {
-      debugPrint("NewBid event called");
-      try {
-        if (widget.car.id == data["vehicle"]["id"]) {
-          widget.car.currentBidPrice =
-              data["vehicle"]["current_bid_price"].toString();
-          setState(() {});
-        }
-        debugPrint(
-            "newBid event current car bid amount -------------------${widget.car.currentBidPrice}");
-      } catch (e) {
-        debugPrint("Error handling 'newBid' event: $e");
-      }
-    });
-  }
+  String? currentbidPrice = "";
 
   @override
   Widget build(BuildContext context) {
+    currentbidPrice = context.watch<AuctionService>().currentbidPrice;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -87,9 +51,9 @@ class _CurrentBidWidgetState extends State<CurrentBidWidget> {
       );
     } else {
       return Text(
-        widget.car.currentBidPrice == "no data"
+        currentbidPrice == ""
             ? "Curreny Bid\n₹${widget.car.carPrice}"
-            : "Current Bid\n₹${widget.car.currentBidPrice}",
+            : "Current Bid\n₹${currentbidPrice}",
         style: AppFonts.w700black20,
       );
     }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
@@ -15,14 +16,14 @@ class GetCarDetails extends ChangeNotifier {
   int fuelIndex = -1;
   int transmissonIndex = -1;
   int bodyIndex = -1;
+  String apiUrl = Env.apiUrl;
 
   getAllDisplayCars() async {
     displayCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
-    var url =
-        Uri.parse('https://webservice.flikcar.com/api/buy-car/get-all-car');
+    var url = Uri.parse('$apiUrl/buy-car/get-all-car');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -147,7 +148,7 @@ class GetCarDetails extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
-    var url = Uri.parse("https://webservice.flikcar.com/api/store/search-car");
+    var url = Uri.parse("$apiUrl/store/search-car");
     Map<String, dynamic> body = {
       "index": 0.5043553213209293,
       "id": id,

@@ -6,6 +6,7 @@ import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
+import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -14,7 +15,7 @@ import 'package:http/http.dart' as http;
 class DealerAuthService {
   // static sendOtp({required String phoneNumber}) async {
   //   var url = Uri.parse(
-  //       'https://webservice.flikcar.com/api/dealer/auth/get-otp');
+  //       '$apiUrl/dealer/auth/get-otp');
 
   //   var requestBody = {
   //     'contact': phoneNumber,
@@ -27,10 +28,9 @@ class DealerAuthService {
   //     debugPrint('Request failed with status: ${response.statusCode}');
   //   }
   // }
-
+  static String apiUrl = Env.apiUrl;
   static sendOtp({required String phoneNumber}) async {
-    var url =
-        Uri.parse('https://webservice.flikcar.com/api/dealer/auth/get-otp');
+    var url = Uri.parse('$apiUrl/dealer/auth/get-otp');
 
     var headers = {
       'Content-Type': 'application/json',
@@ -55,7 +55,7 @@ class DealerAuthService {
       // Handle network errors or other exceptions here
     }
   }
-  // https://webservice.flikcar.com/api/dealer/auth/get-otp
+  // $apiUrl/dealer/auth/get-otp
 
   static verifyOtp(
       {required String phoneNumber,
@@ -63,8 +63,7 @@ class DealerAuthService {
       required BuildContext context}) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
 
-    var url =
-        Uri.parse('https://webservice.flikcar.com/api/dealer/auth/sign-in');
+    var url = Uri.parse('$apiUrl/dealer/auth/sign-in');
 
     var requestBody = {
       'contact': phoneNumber,

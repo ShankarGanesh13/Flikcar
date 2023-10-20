@@ -5,6 +5,7 @@ import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/services/get_car_details.dart';
+import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,12 +13,13 @@ import 'package:http/http.dart' as http;
 
 class WishlistService extends ChangeNotifier {
   List<BuyerCar> wishlistCars = [];
+  String apiUrl = Env.apiUrl;
+
   addToWishlist({required BuildContext context, required int carId}) async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
-    var url = Uri.parse(
-        'https://webservice.flikcar.com/api/buy-car/add-favourites-car');
+    var url = Uri.parse('$apiUrl/buy-car/add-favourites-car');
     var requestBody = {
       "vehicleId": "$carId",
     };
@@ -56,8 +58,7 @@ class WishlistService extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
-    var url = Uri.parse(
-        'https://webservice.flikcar.com/api/buy-car/delete-favourites-car');
+    var url = Uri.parse('$apiUrl/buy-car/delete-favourites-car');
     var requestBody = {
       "vehicleId": "$carId",
     };
@@ -87,10 +88,8 @@ class WishlistService extends ChangeNotifier {
     wishlistCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
-    //print(token);
 
-    var url = Uri.parse(
-        'https://webservice.flikcar.com/api/buy-car/get-favourites-car');
+    var url = Uri.parse('$apiUrl/buy-car/get-favourites-car');
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',
@@ -116,8 +115,7 @@ class WishlistService extends ChangeNotifier {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     final String? token = sp.getString('userToken');
 
-    var url = Uri.parse(
-        'https://webservice.flikcar.com/api/buy-car/add-remove-favourites-car');
+    var url = Uri.parse('$apiUrl/buy-car/add-remove-favourites-car');
     var requestBody = {
       "vehicleId": "$carId",
     };

@@ -29,6 +29,8 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
     // TODO: implement initState
     Provider.of<AuctionService>(context, listen: false).connectToSocket();
     Provider.of<AuctionService>(context, listen: false).getAuctionCars();
+    Provider.of<AuctionService>(context, listen: false).getMyBid();
+
     // Provider.of<AuctionService>(context, listen: false).connectSocket();
     loading();
     super.initState();
