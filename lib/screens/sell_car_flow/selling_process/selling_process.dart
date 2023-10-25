@@ -34,37 +34,41 @@ class SellingProcess extends StatelessWidget {
                     builder: (context) => const HomeScreen(index: 0)));
           },
         ),
-        bottomNavigationBar: SafeArea(
-          child: Container(
-              height: 60,
-              color: AppColors.s1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  NavButton(
-                    title: "Back",
-                    backIcon: true,
-                    function: () {
-                      Provider.of<SellingProcessProvider>(context,
-                              listen: false)
-                          .previousStep(
-                              controller: controller, context: context);
-                    },
-                  ),
-                  const SizedBox(width: 20),
-                  NavButton(
-                    title: context.watch<SellingProcessProvider>().counter == 3
-                        ? "Finish"
-                        : "Next",
-                    backIcon: false,
-                    function: () {
-                      Provider.of<SellingProcessProvider>(context,
-                              listen: false)
-                          .nextStep(controller: controller, context: context);
-                    },
-                  )
-                ],
-              )),
+        bottomNavigationBar: Container(
+          color: AppColors.s1,
+          child: SafeArea(
+            child: Container(
+                height: 60,
+                color: AppColors.s1,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    NavButton(
+                      title: "Back",
+                      backIcon: true,
+                      function: () {
+                        Provider.of<SellingProcessProvider>(context,
+                                listen: false)
+                            .previousStep(
+                                controller: controller, context: context);
+                      },
+                    ),
+                    const SizedBox(width: 20),
+                    NavButton(
+                      title:
+                          context.watch<SellingProcessProvider>().counter == 3
+                              ? "Finish"
+                              : "Next",
+                      backIcon: false,
+                      function: () {
+                        Provider.of<SellingProcessProvider>(context,
+                                listen: false)
+                            .nextStep(controller: controller, context: context);
+                      },
+                    )
+                  ],
+                )),
+          ),
         ),
         body: Column(
           children: [

@@ -74,8 +74,8 @@ class BuyCarProvider extends ChangeNotifier {
     var data = json.decode(response.body);
     print(data);
     if (data["status"] == 200 || data["status"] == 201) {
-      FirebaseEvents()
-          .customerConfirmTestdrive(customerPhone: "customer phone");
+      // FirebaseEvents()
+      //     .customerConfirmTestdrive(customerPhone: "customer phone");
       FacebookEvents()
           .customerConfirmTestdrive(customerPhone: "customer phone");
       if (context.mounted) {

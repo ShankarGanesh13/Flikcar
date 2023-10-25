@@ -253,7 +253,7 @@ class SellingProcessProvider extends ChangeNotifier {
                 TextButton(
                   onPressed: () {
                     Navigator.pop(context, 'Cancel');
-                    FirebaseEvents().customerCarSellRequest(customerNumber: "");
+                  //  FirebaseEvents().customerCarSellRequest(customerNumber: "");
                     FacebookEvents().customerCarSellRequest(customerNumber: "");
                   },
                   child: const Text('Ok'),

@@ -96,9 +96,9 @@ class NewTestDriveCard extends StatelessWidget {
                           child: PrimaryButton(
                             title: "Contact Customer",
                             function: () async {
-                              FirebaseEvents().dealerCallCustomer(
-                                  customerPhone: testDrive.customerPhone,
-                                  dealerPhone: "dealer");
+                              // FirebaseEvents().dealerCallCustomer(
+                              //     customerPhone: testDrive.customerPhone,
+                              //     dealerPhone: "dealer");
                               FacebookEvents().dealerCallCustomer(
                                   customerPhone: testDrive.customerPhone,
                                   dealerPhone: "dealer");

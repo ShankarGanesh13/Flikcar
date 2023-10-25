@@ -26,10 +26,10 @@ import 'package:upgrader/upgrader.dart';
 import 'screens/onbording_screens/dealer_onboarding/dealer_details.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  FacebookAppEvents();
+  //s WidgetsFlutterBinding.ensureInitialized();
 
-  await Firebase.initializeApp();
+  // await Firebase.initializeApp();
+  FacebookAppEvents();
 
   FacebookEvents();
   GetCarDetails();

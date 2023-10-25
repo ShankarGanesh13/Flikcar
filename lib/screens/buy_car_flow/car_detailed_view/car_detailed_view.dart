@@ -51,27 +51,30 @@ class CarDetailedView extends StatelessWidget {
                   context: context,
                   function: () {},
                 ),
-                bottomNavigationBar: SafeArea(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    padding: const EdgeInsets.only(bottom: 10, top: 5),
-                    color: AppColors.s1,
-                    child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          BuyNavButton(
-                              icon: Icons.phone,
-                              title: "Contact Dealer",
-                              function: () {}),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          BuyNavButton(
-                            icon: Icons.watch_later,
-                            title: "Schedule Test Drive",
-                            function: () {},
-                          )
-                        ]),
+                bottomNavigationBar: Container(
+                  color: AppColors.s1,
+                  child: SafeArea(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.only(bottom: 10, top: 5),
+                      color: AppColors.s1,
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            BuyNavButton(
+                                icon: Icons.phone,
+                                title: "Contact Dealer",
+                                function: () {}),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            BuyNavButton(
+                              icon: Icons.watch_later,
+                              title: "Schedule Test Drive",
+                              function: () {},
+                            )
+                          ]),
+                    ),
                   ),
                 ),
                 body: const LoadingWidget());

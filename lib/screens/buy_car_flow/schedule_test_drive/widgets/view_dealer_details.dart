@@ -96,9 +96,9 @@ class ViewDealerDeatils extends StatelessWidget {
         PrimaryButton(
             title: "Contact Dealer",
             function: () async {
-              FirebaseEvents().customerCallDealer(
-                  customerPhone: "customer",
-                  dealerPhone: car.dealerPhoneNumber!);
+              // FirebaseEvents().customerCallDealer(
+              //     customerPhone: "customer",
+              //     dealerPhone: car.dealerPhoneNumber!);
               FacebookEvents().customerCallDealer(
                   customerPhone: "customer",
                   dealerPhone: car.dealerPhoneNumber!);

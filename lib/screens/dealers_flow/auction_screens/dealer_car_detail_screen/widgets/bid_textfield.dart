@@ -104,15 +104,10 @@ class _BidTextFieldState extends State<BidTextField> {
   Widget checkTime(context) {
     if (DateTime.parse(widget.car.endAuction).isBefore(DateTime.now())) {
       return SafeArea(
-          child: Container(
-        width: MediaQuery.of(context).size.width,
-        color: AppColors.s1,
-        height: 50,
-        child: Center(
-          child: Text(
-            "Auction Has Ended",
-            style: AppFonts.w500white14,
-          ),
+          child: Center(
+        child: Text(
+          "Auction Has Ended",
+          style: AppFonts.w500white14,
         ),
       ));
     } else {

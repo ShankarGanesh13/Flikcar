@@ -1,4 +1,3 @@
-
 import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flikcar/screens/account/account_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/buy_car_home_screen.dart';
@@ -47,41 +46,45 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: SafeArea(
-        child: CustomNavigationBar(
-          iconSize: 24.0,
-          selectedColor: const Color(0xff9A2870),
-          strokeColor: const Color(0x30040307),
-          unSelectedColor: Colors.white,
-          backgroundColor: AppColors.s1,
-          items: [
-            navBarItems(
-              imagePath: "assets/buy_car_icon.png",
-              title: "Buy Car",
-              index: 0,
-            ),
-            navBarItems(
-              imagePath: "assets/sell_car_icon.png",
-              title: "Sell Car",
-              index: 1,
-            ),
-            navBarItems(
-              imagePath: "assets/wishlist_icon.png",
-              title: "Wishlist",
-              index: 2,
-            ),
-            navBarItems(
-              imagePath: "assets/account_icon.png",
-              title: "Account",
-              index: 3,
-            )
-          ],
-          currentIndex: _currentIndex,
-          onTap: (index) {
-            setState(() {
-              _currentIndex = index;
-            });
-          },
+      bottomNavigationBar: Container(
+        color: AppColors.s1,
+        child: SafeArea(
+          child: CustomNavigationBar(
+            iconSize: 24.0,
+            selectedColor: const Color(0xff9A2870),
+            strokeColor: const Color(0x30040307),
+            unSelectedColor: Colors.white,
+            backgroundColor: AppColors.s1,
+            elevation: 0,
+            items: [
+              navBarItems(
+                imagePath: "assets/buy_car_icon.png",
+                title: "Buy Car",
+                index: 0,
+              ),
+              navBarItems(
+                imagePath: "assets/sell_car_icon.png",
+                title: "Sell Car",
+                index: 1,
+              ),
+              navBarItems(
+                imagePath: "assets/wishlist_icon.png",
+                title: "Wishlist",
+                index: 2,
+              ),
+              navBarItems(
+                imagePath: "assets/account_icon.png",
+                title: "Account",
+                index: 3,
+              )
+            ],
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+          ),
         ),
       ),
       body: pages.elementAt(_currentIndex),

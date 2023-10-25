@@ -258,10 +258,10 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                     child: PrimaryButton(
                                       title: "Contact Dealer",
                                       function: () async {
-                                        FirebaseEvents().customerCallDealer(
-                                            customerPhone: "customer",
-                                            dealerPhone: widget
-                                                .cars[index].dealer.phone!);
+                                        // FirebaseEvents().customerCallDealer(
+                                        //     customerPhone: "customer",
+                                        //     dealerPhone: widget
+                                        //         .cars[index].dealer.phone!);
                                         FacebookEvents().customerCallDealer(
                                             customerPhone: "customer",
                                             dealerPhone: widget

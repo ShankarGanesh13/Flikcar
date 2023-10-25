@@ -29,8 +29,8 @@ class WishlistService extends ChangeNotifier {
     var data = json.decode(response.body);
 
     if (data["status"] == 201 || data["status"] == 200) {
-      FirebaseEvents().addToWishlistEvent(
-          customerNumber: "customerNumber", carId: "$carId");
+      // FirebaseEvents().addToWishlistEvent(
+      //     customerNumber: "customerNumber", carId: "$carId");
       FacebookEvents().addToWishlistEvent(
           customerNumber: "customerNumber", carId: "$carId");
       if (context.mounted) {

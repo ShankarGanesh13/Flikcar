@@ -43,7 +43,7 @@ class CustomAppBar {
                 ),
                 padding: EdgeInsets.only(left: 10, right: 10)),
             onPressed: () async {
-              FirebaseEvents().contactSupport(customerPhone: "customer phone");
+              //  FirebaseEvents().contactSupport(customerPhone: "customer phone");
               Uri phoneno = Uri(
                 scheme: 'tel',
                 path: '+91 9830527529',
@@ -116,8 +116,8 @@ class CustomAppBar {
                     padding: const EdgeInsets.only(left: 10, right: 10),
                   ),
                   onPressed: () async {
-                    FirebaseEvents()
-                        .contactSupport(customerPhone: "customer phone");
+                    // FirebaseEvents()
+                    //     .contactSupport(customerPhone: "customer phone");
                     FacebookEvents()
                         .contactSupport(customerPhone: "customer phone");
                     Uri phoneno = Uri(
@@ -273,8 +273,8 @@ class CustomAppBar {
                     padding: const EdgeInsets.only(left: 10, right: 10),
                   ),
                   onPressed: () async {
-                    FirebaseEvents()
-                        .contactSupport(customerPhone: "customer phone");
+                    // FirebaseEvents()
+                    //     .contactSupport(customerPhone: "customer phone");
                     FacebookEvents()
                         .contactSupport(customerPhone: "customer phone");
                     Uri phoneno = Uri(

@@ -33,7 +33,7 @@ class _StartScreenState extends State<StartScreen> {
     super.initState();
   }
 
-  final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  //final FirebaseAnalytics analytics = FirebaseAnalytics.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +101,7 @@ class _StartScreenState extends State<StartScreen> {
                                 }),
                           ),
                         );
-                        FirebaseEvents().customerPortalEvent();
+                        //   FirebaseEvents().customerPortalEvent();
                         FacebookEvents().customerPortalEvent();
                       },
                       child: OptionCard(
@@ -125,7 +125,7 @@ class _StartScreenState extends State<StartScreen> {
                                     }
                                   }),
                             ));
-                        FirebaseEvents().dealerPortalEvent();
+                        //   FirebaseEvents().dealerPortalEvent();
                         FacebookEvents().dealerPortalEvent();
                         Provider.of<AuctionService>(context, listen: false)
                             .connectToSocket();
@@ -177,13 +177,5 @@ class _StartScreenState extends State<StartScreen> {
     } else {
       return DealerPhoneNumber();
     }
-  }
-
-  logEvent() {
-    analytics.logEvent(
-      name: 'customer_portal',
-      parameters: {'button_id': 'login_button'},
-    );
-    print("event logged");
   }
 }

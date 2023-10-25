@@ -14,54 +14,57 @@ class CarDetailBottomNav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.only(bottom: 10, top: 5),
-        color: AppColors.s1,
-        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          BuyNavButton(
-            icon: Icons.phone,
-            title: "Contact Dealer",
-            function: () async {
-              FirebaseEvents().customerCallDealer(
-                  customerPhone: "customer",
-                  dealerPhone: car.dealerPhoneNumber!);
-              FacebookEvents().customerCallDealer(
-                  customerPhone: "customer",
-                  dealerPhone: car.dealerPhoneNumber!);
+    return Container(
+      color: AppColors.s1,
+      child: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.only(bottom: 10, top: 5),
+          color: AppColors.s1,
+          child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            BuyNavButton(
+              icon: Icons.phone,
+              title: "Contact Dealer",
+              function: () async {
+                // FirebaseEvents().customerCallDealer(
+                //     customerPhone: "customer",
+                //     dealerPhone: car.dealerPhoneNumber!);
+                FacebookEvents().customerCallDealer(
+                    customerPhone: "customer",
+                    dealerPhone: car.dealerPhoneNumber!);
 
-              Uri phoneno = Uri(
-                scheme: 'tel',
-                path: '+91${car.dealerPhoneNumber}',
-              );
-              if (await launchUrl(phoneno)) {
-              } else {
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      MySnackbar.showSnackBar(
-                          context, "Unable to open dailer"));
+                Uri phoneno = Uri(
+                  scheme: 'tel',
+                  path: '+91${car.dealerPhoneNumber}',
+                );
+                if (await launchUrl(phoneno)) {
+                } else {
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                        MySnackbar.showSnackBar(
+                            context, "Unable to open dailer"));
+                  }
                 }
-              }
-            },
-          ),
-          const SizedBox(
-            width: 15,
-          ),
-          BuyNavButton(
-            icon: Icons.watch_later,
-            title: "Schedule Test Drive",
-            function: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ScheduleTestDrive(
-                      car: car,
-                    ),
-                  ));
-            },
-          )
-        ]),
+              },
+            ),
+            const SizedBox(
+              width: 15,
+            ),
+            BuyNavButton(
+              icon: Icons.watch_later,
+              title: "Schedule Test Drive",
+              function: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ScheduleTestDrive(
+                        car: car,
+                      ),
+                    ));
+              },
+            )
+          ]),
+        ),
       ),
     );
   }

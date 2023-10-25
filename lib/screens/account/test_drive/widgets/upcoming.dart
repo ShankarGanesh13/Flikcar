@@ -172,10 +172,10 @@ class UpcomingTestDrive extends StatelessWidget {
                                   textStyle: AppFonts.w500p215,
                                   title: "Contact Dealer",
                                   function: () async {
-                                    FirebaseEvents().customerCallDealer(
-                                        customerPhone: "customer",
-                                        dealerPhone:
-                                            testdrive[index].customerPhone);
+                                    // FirebaseEvents().customerCallDealer(
+                                    //     customerPhone: "customer",
+                                    //     dealerPhone:
+                                    //         testdrive[index].customerPhone);
                                     FacebookEvents().customerCallDealer(
                                         customerPhone: "customer",
                                         dealerPhone:

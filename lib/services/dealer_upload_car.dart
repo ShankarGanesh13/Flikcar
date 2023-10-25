@@ -741,8 +741,8 @@ class DealerUploadCar extends ChangeNotifier {
             actions: <Widget>[
               TextButton(
                 onPressed: () {
-                  FirebaseEvents()
-                      .dealerUploadCar(dealerNumber: "dealer number");
+                  // FirebaseEvents()
+                  //     .dealerUploadCar(dealerNumber: "dealer number");
                   FacebookEvents()
                       .dealerUploadCar(dealerNumber: "dealer number");
 
