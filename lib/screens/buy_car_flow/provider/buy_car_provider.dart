@@ -76,8 +76,8 @@ class BuyCarProvider extends ChangeNotifier {
     if (data["status"] == 200 || data["status"] == 201) {
       // FirebaseEvents()
       //     .customerConfirmTestdrive(customerPhone: "customer phone");
-      FacebookEvents()
-          .customerConfirmTestdrive(customerPhone: "customer phone");
+      // FacebookEvents()
+      //     .customerConfirmTestdrive(customerPhone: "customer phone");
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
             MySnackbar.showSnackBar(context, "Test drive book succeessfully"));

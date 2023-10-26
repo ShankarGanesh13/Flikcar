@@ -19,8 +19,6 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:facebook_app_events/facebook_app_events.dart';
 import 'package:upgrader/upgrader.dart';
 
 import 'screens/onbording_screens/dealer_onboarding/dealer_details.dart';
@@ -29,9 +27,9 @@ void main() async {
   //s WidgetsFlutterBinding.ensureInitialized();
 
   // await Firebase.initializeApp();
-  FacebookAppEvents();
+  // FacebookAppEvents();
 
-  FacebookEvents();
+//  FacebookEvents();
   GetCarDetails();
   runApp(
     MultiProvider(

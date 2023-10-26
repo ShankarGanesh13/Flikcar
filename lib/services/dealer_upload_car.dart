@@ -743,8 +743,8 @@ class DealerUploadCar extends ChangeNotifier {
                 onPressed: () {
                   // FirebaseEvents()
                   //     .dealerUploadCar(dealerNumber: "dealer number");
-                  FacebookEvents()
-                      .dealerUploadCar(dealerNumber: "dealer number");
+                  // FacebookEvents()
+                  //     .dealerUploadCar(dealerNumber: "dealer number");
 
                   Navigator.pushAndRemoveUntil(
                     context,

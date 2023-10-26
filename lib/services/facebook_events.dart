@@ -1,87 +1,87 @@
-import 'package:facebook_app_events/facebook_app_events.dart';
+// import 'package:facebook_app_events/facebook_app_events.dart';
 
-class FacebookEvents {
-  final FacebookAppEvents facebookAppEvents = FacebookAppEvents();
+// class FacebookEvents {
+//   final FacebookAppEvents facebookAppEvents = FacebookAppEvents();
 
-  customerPortalEvent() {
-    facebookAppEvents.logEvent(
-      name: 'customer_portal',
-      parameters: {'start_screen': 'customer'},
-    );
-  }
+//   customerPortalEvent() {
+//     facebookAppEvents.logEvent(
+//       name: 'customer_portal',
+//       parameters: {'start_screen': 'customer'},
+//     );
+//   }
 
-  dealerPortalEvent() {
-    facebookAppEvents.logEvent(
-      name: 'dealer_portal',
-      parameters: {'start_screen': 'dealer'},
-    );
-  }
+//   dealerPortalEvent() {
+//     facebookAppEvents.logEvent(
+//       name: 'dealer_portal',
+//       parameters: {'start_screen': 'dealer'},
+//     );
+//   }
 
-  customerCallDealer(
-      {required String customerPhone, required String dealerPhone}) {
-    facebookAppEvents.logEvent(
-      name: 'customer_call_dealer',
-      parameters: {
-        'customer_phone_number': customerPhone,
-        'dealer_phone_number': dealerPhone,
-      },
-    );
-  }
+//   customerCallDealer(
+//       {required String customerPhone, required String dealerPhone}) {
+//     facebookAppEvents.logEvent(
+//       name: 'customer_call_dealer',
+//       parameters: {
+//         'customer_phone_number': customerPhone,
+//         'dealer_phone_number': dealerPhone,
+//       },
+//     );
+//   }
 
-  dealerCallCustomer(
-      {required String customerPhone, required String dealerPhone}) {
-    facebookAppEvents.logEvent(
-      name: 'dealer_call_dealer',
-      parameters: {
-        'customer_phone_number': customerPhone,
-        'dealer_phone_number': dealerPhone,
-      },
-    );
-  }
+//   dealerCallCustomer(
+//       {required String customerPhone, required String dealerPhone}) {
+//     facebookAppEvents.logEvent(
+//       name: 'dealer_call_dealer',
+//       parameters: {
+//         'customer_phone_number': customerPhone,
+//         'dealer_phone_number': dealerPhone,
+//       },
+//     );
+//   }
 
-  contactSupport({required String customerPhone}) {
-    facebookAppEvents.logEvent(
-      name: 'contact_support',
-      parameters: {
-        'phone_number': customerPhone,
-      },
-    );
-  }
+//   contactSupport({required String customerPhone}) {
+//     facebookAppEvents.logEvent(
+//       name: 'contact_support',
+//       parameters: {
+//         'phone_number': customerPhone,
+//       },
+//     );
+//   }
 
-  customerConfirmTestdrive({required String customerPhone}) {
-    facebookAppEvents.logEvent(
-      name: 'customer_confirm_testdrive',
-      parameters: {
-        'customer_phone_number': customerPhone,
-      },
-    );
-  }
+//   customerConfirmTestdrive({required String customerPhone}) {
+//     facebookAppEvents.logEvent(
+//       name: 'customer_confirm_testdrive',
+//       parameters: {
+//         'customer_phone_number': customerPhone,
+//       },
+//     );
+//   }
 
-  dealerUploadCar({required String dealerNumber}) {
-    facebookAppEvents.logEvent(
-      name: 'dealer_car_upload_comfirmation',
-      parameters: {
-        'dealer_phone_number': dealerNumber,
-      },
-    );
-  }
+//   dealerUploadCar({required String dealerNumber}) {
+//     facebookAppEvents.logEvent(
+//       name: 'dealer_car_upload_comfirmation',
+//       parameters: {
+//         'dealer_phone_number': dealerNumber,
+//       },
+//     );
+//   }
 
-  customerCarSellRequest({required String customerNumber}) {
-    facebookAppEvents.logEvent(
-      name: 'customer_sell_request_confirmation',
-      parameters: {
-        'customer_phone_number': customerNumber,
-      },
-    );
-  }
+//   customerCarSellRequest({required String customerNumber}) {
+//     facebookAppEvents.logEvent(
+//       name: 'customer_sell_request_confirmation',
+//       parameters: {
+//         'customer_phone_number': customerNumber,
+//       },
+//     );
+//   }
 
-  addToWishlistEvent({required String customerNumber, required String carId}) {
-    facebookAppEvents.logEvent(
-      name: 'customer_add_to_wishlist',
-      parameters: {
-        'customer_phone_number': customerNumber,
-        'car_id': carId,
-      },
-    );
-  }
-}
+//   addToWishlistEvent({required String customerNumber, required String carId}) {
+//     facebookAppEvents.logEvent(
+//       name: 'customer_add_to_wishlist',
+//       parameters: {
+//         'customer_phone_number': customerNumber,
+//         'car_id': carId,
+//       },
+//     );
+//   }
+// }
