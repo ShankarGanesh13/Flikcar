@@ -198,7 +198,7 @@ class WinningCard extends StatelessWidget {
   Widget checkTime() {
     if (DateTime.parse(car.endAuction).isBefore(DateTime.now())) {
       return Text(
-        "Your have won the car",
+        "You have won this car",
         style: AppFonts.w500red14,
       );
     } else {

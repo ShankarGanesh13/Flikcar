@@ -8,8 +8,8 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class DealerImageViewer extends StatefulWidget {
-  AuctionCar car;
-  DealerImageViewer({super.key, required this.car});
+  final AuctionCar car;
+  const DealerImageViewer({super.key, required this.car});
 
   @override
   State<DealerImageViewer> createState() => _DealerImageViewerState();
@@ -45,8 +45,8 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) =>
-                        DealerCarImageViewer(images: images)));
+                  builder: (context) => DealerCarImageViewer(images: images),
+                ));
           },
           child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,

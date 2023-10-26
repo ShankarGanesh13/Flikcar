@@ -32,7 +32,7 @@ class DealerCarDetails extends StatelessWidget {
 
   final DateFormat formatter = DateFormat('yMMM');
 
-  List<String> data = [];
+  static List<String> data = [];
   //TextEditingController controller = TextEditingController();
 
   @override

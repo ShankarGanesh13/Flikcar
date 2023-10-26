@@ -11,7 +11,7 @@ class InspectionReport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Heading1(title1: "Inspection report", title2: ""),
         const SizedBox(

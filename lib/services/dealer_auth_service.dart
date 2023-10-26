@@ -74,6 +74,8 @@ class DealerAuthService {
     var data = json.decode(response.body);
 
     if (data["status"] == 200) {
+      debugPrint("dealer jwt token ${data["data"]["access_token"]}");
+
       await sp.setString('dealerToken', data["data"]["access_token"]);
       await sp.setBool('dealerIsLoggedIn', true);
       await sp.setString("dealerPhone", phoneNumber);

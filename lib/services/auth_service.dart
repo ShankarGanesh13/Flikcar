@@ -44,7 +44,7 @@ class AuthService {
 
     var data = json.decode(response.body);
     if (data["status"] == 200) {
-      print(data);
+      debugPrint("customer jwt token ${data["data"]["access_token"]}");
       await sp.setString('userToken', data["data"]["access_token"]);
       await sp.setBool('isLoggedIn', true);
       await sp.setString("custPhone", phoneNumber);

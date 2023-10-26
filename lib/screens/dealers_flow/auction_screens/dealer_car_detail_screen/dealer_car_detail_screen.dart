@@ -165,7 +165,7 @@ class _DealerCarDetailScreenState extends State<DealerCarDetailScreen> {
           icon,
           size: 24,
           weight: 900,
-          color: Color(0xff606060),
+          color: const Color(0xff606060),
         ),
       ),
     );
