@@ -31,8 +31,8 @@ class WishlistService extends ChangeNotifier {
     if (data["status"] == 201 || data["status"] == 200) {
       // FirebaseEvents().addToWishlistEvent(
       //     customerNumber: "customerNumber", carId: "$carId");
-      FacebookEvents().addToWishlistEvent(
-          customerNumber: "customerNumber", carId: "$carId");
+      // FacebookEvents().addToWishlistEvent(
+      //     customerNumber: "customerNumber", carId: "$carId");
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
             MySnackbar.showSnackBar(context, "Added to wishlist"));

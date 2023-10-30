@@ -99,9 +99,9 @@ class NewTestDriveCard extends StatelessWidget {
                               // FirebaseEvents().dealerCallCustomer(
                               //     customerPhone: testDrive.customerPhone,
                               //     dealerPhone: "dealer");
-                              FacebookEvents().dealerCallCustomer(
-                                  customerPhone: testDrive.customerPhone,
-                                  dealerPhone: "dealer");
+                              // FacebookEvents().dealerCallCustomer(
+                              //     customerPhone: testDrive.customerPhone,
+                              //     dealerPhone: "dealer");
                               Uri phoneno = Uri(
                                 scheme: 'tel',
                                 path: '+91${testDrive.customerPhone}',

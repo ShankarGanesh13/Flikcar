@@ -176,10 +176,10 @@ class UpcomingTestDrive extends StatelessWidget {
                                     //     customerPhone: "customer",
                                     //     dealerPhone:
                                     //         testdrive[index].customerPhone);
-                                    FacebookEvents().customerCallDealer(
-                                        customerPhone: "customer",
-                                        dealerPhone:
-                                            testdrive[index].customerPhone);
+                                    // FacebookEvents().customerCallDealer(
+                                    //     customerPhone: "customer",
+                                    //     dealerPhone:
+                                    //         testdrive[index].customerPhone);
                                     Uri phoneno = Uri(
                                       scheme: 'tel',
                                       path:

@@ -262,10 +262,10 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                         //     customerPhone: "customer",
                                         //     dealerPhone: widget
                                         //         .cars[index].dealer.phone!);
-                                        FacebookEvents().customerCallDealer(
-                                            customerPhone: "customer",
-                                            dealerPhone: widget
-                                                .cars[index].dealer.phone!);
+                                        // FacebookEvents().customerCallDealer(
+                                        //     customerPhone: "customer",
+                                        //     dealerPhone: widget
+                                        //         .cars[index].dealer.phone!);
 
                                         Uri phoneno = Uri(
                                           scheme: 'tel',

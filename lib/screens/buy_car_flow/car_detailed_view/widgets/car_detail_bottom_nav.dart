@@ -29,9 +29,9 @@ class CarDetailBottomNav extends StatelessWidget {
                 // FirebaseEvents().customerCallDealer(
                 //     customerPhone: "customer",
                 //     dealerPhone: car.dealerPhoneNumber!);
-                FacebookEvents().customerCallDealer(
-                    customerPhone: "customer",
-                    dealerPhone: car.dealerPhoneNumber!);
+                // FacebookEvents().customerCallDealer(
+                //     customerPhone: "customer",
+                //     dealerPhone: car.dealerPhoneNumber!);
 
                 Uri phoneno = Uri(
                   scheme: 'tel',

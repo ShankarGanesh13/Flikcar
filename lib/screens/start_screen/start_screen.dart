@@ -1,4 +1,3 @@
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
@@ -102,7 +101,7 @@ class _StartScreenState extends State<StartScreen> {
                           ),
                         );
                         //   FirebaseEvents().customerPortalEvent();
-                        FacebookEvents().customerPortalEvent();
+                        // FacebookEvents().customerPortalEvent();
                       },
                       child: OptionCard(
                         title: "Buy Car &\nSell Car",
@@ -126,7 +125,7 @@ class _StartScreenState extends State<StartScreen> {
                                   }),
                             ));
                         //   FirebaseEvents().dealerPortalEvent();
-                        FacebookEvents().dealerPortalEvent();
+                        //  FacebookEvents().dealerPortalEvent();
                         Provider.of<AuctionService>(context, listen: false)
                             .connectToSocket();
                       },

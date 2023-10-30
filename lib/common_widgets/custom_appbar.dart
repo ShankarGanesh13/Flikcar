@@ -118,8 +118,8 @@ class CustomAppBar {
                   onPressed: () async {
                     // FirebaseEvents()
                     //     .contactSupport(customerPhone: "customer phone");
-                    FacebookEvents()
-                        .contactSupport(customerPhone: "customer phone");
+                    // FacebookEvents()
+                    //     .contactSupport(customerPhone: "customer phone");
                     Uri phoneno = Uri(
                       scheme: 'tel',
                       path: '+91 9830527529',
@@ -275,8 +275,8 @@ class CustomAppBar {
                   onPressed: () async {
                     // FirebaseEvents()
                     //     .contactSupport(customerPhone: "customer phone");
-                    FacebookEvents()
-                        .contactSupport(customerPhone: "customer phone");
+                    // FacebookEvents()
+                    //     .contactSupport(customerPhone: "customer phone");
                     Uri phoneno = Uri(
                       scheme: 'tel',
                       path: '+91 9830527529',
