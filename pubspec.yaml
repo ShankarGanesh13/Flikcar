@@ -68,8 +68,7 @@ dependencies:
   upgrader: ^8.1.0
 
 flutter_launcher_icons:
-  image_path: "assets/app_icon2.png"
-  
+  image_path: assets/app_icon2.png
 
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
