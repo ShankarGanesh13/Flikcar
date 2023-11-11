@@ -97,7 +97,7 @@ class AuctionService extends ChangeNotifier {
   void connectToSocket() async {
     if (socket.disconnected) {
       try {
-        await socket.connect();
+        socket.connect();
         debugPrint("Socket connect called");
       } catch (e) {
         debugPrint("Error connecting to socket: $e");
@@ -105,9 +105,10 @@ class AuctionService extends ChangeNotifier {
       }
     }
 
-    //debugPrint("Socket connection status----------: ${socket.connected}");
+    debugPrint("Socket connection status----------: ${socket.connected}");
 
-    socket.onConnectError((data) => print(data));
+    socket.onConnectError(
+        (data) => debugPrint("error in connecting to socket----------- $data"));
     // Event listener for 'newBid'
     socket.on('newBid', (data) {
       debugPrint("NewBid event called");
@@ -115,7 +116,7 @@ class AuctionService extends ChangeNotifier {
         // Verify the data type and handle it
         if (currentCarId == data["vehicle"]["id"].toString()) {
           debugPrint(
-              "-------------------------------------$currentbidPrice----------------------------------------");
+              "------------------------------------ new bid event -$currentbidPrice----------------------------------------");
           currentbidPrice = data["vehicle"]["current_bid_price"].toString();
         }
         debugPrint(
@@ -135,7 +136,7 @@ class AuctionService extends ChangeNotifier {
         auctionCars = [];
         response.forEach((element) {
           debugPrint(
-              "UpdateBidApp  current bid price ${element["current_bid_price"]}");
+              "UpdateBidApp event  current bid price ${element["current_bid_price"]}");
           if (!DateTime.parse(element["end_auction"])
               .isBefore(DateTime.now())) {
             auctionCars.add(AuctionCar.fromJson(element));
@@ -155,7 +156,7 @@ class AuctionService extends ChangeNotifier {
 
     // Event listener for 'updateMyBidApp to get My bids'
     socket.on('updateMyBidApp', (myBid) {
-      //   debugPrint("UpdateMyBidApp event called");
+      debugPrint("UpdateMyBidApp event called");
       try {
         myBidCars = [];
         if (myBid != null) {

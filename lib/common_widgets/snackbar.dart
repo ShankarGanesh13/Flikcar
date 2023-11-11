@@ -6,7 +6,7 @@ class MySnackbar {
   static SnackBar showSnackBar(context, String message) {
     //print(message);
     return SnackBar(
-      duration: Duration(seconds: 2),
+      duration: const Duration(seconds: 2),
       backgroundColor: AppColors.p2,
       content: Text(
         message,

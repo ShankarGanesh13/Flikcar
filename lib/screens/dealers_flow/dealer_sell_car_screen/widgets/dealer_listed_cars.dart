@@ -143,25 +143,32 @@ class DealerListedCars extends StatelessWidget {
                           Row(
                             children: [
                               SizedBox(
-                                width: 100,
+                                width: 90,
                                 height: 30,
                                 child: PrimaryButton(
-                                    title: cars[index].saleStatus == "Available"
-                                        ? "Mark as Sold"
-                                        : "Mark Available",
+                                    title: "View Car",
+                                    // cars[index].saleStatus == "Available"
+                                    //     ? "Mark as Sold"
+                                    //     : "Mark Available",
                                     function: () {
-                                      Provider.of<GetDealerUploadCars>(context,
-                                              listen: false)
-                                          .markAsSold(
-                                              context: context,
-                                              carId: cars[index].id.toString());
+                                      // Provider.of<GetDealerUploadCars>(context,
+                                      //         listen: false)
+                                      //     .markAsSold(
+                                      //         context: context,
+                                      //         carId: cars[index].id.toString());
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DealerListedCarDetailsScreen(
+                                                      car: cars[index])));
                                     },
                                     borderColor: AppColors.s1,
                                     backgroundColor: Colors.white,
                                     textStyle: AppFonts.w500s110),
                               ),
                               const SizedBox(
-                                width: 4,
+                                width: 5,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

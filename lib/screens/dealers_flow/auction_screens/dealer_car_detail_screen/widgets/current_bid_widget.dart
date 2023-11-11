@@ -3,8 +3,6 @@ import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
-import 'package:socket_io_client/socket_io_client.dart';
 
 class CurrentBidWidget extends StatefulWidget {
   final AuctionCar car;
