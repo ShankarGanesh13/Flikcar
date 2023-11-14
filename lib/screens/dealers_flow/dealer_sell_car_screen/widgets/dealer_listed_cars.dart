@@ -5,8 +5,6 @@ import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listed_car_details_screen/dealer_listed_car_deatils_screen.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/edit_dealer_uploaded_car/edit_dealer_uploaded_car.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/widgets/edit_listing_bottom_sheet.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -143,25 +141,29 @@ class DealerListedCars extends StatelessWidget {
                           Row(
                             children: [
                               SizedBox(
-                                width: 100,
+                                width: 90,
                                 height: 30,
                                 child: PrimaryButton(
-                                    title: cars[index].saleStatus == "Available"
-                                        ? "Mark as Sold"
-                                        : "Mark Available",
+                                    title: "View Car",
                                     function: () {
-                                      Provider.of<GetDealerUploadCars>(context,
-                                              listen: false)
-                                          .markAsSold(
-                                              context: context,
-                                              carId: cars[index].id.toString());
+                                      // Provider.of<GetDealerUploadCars>(context,
+                                      //         listen: false)
+                                      //     .markAsSold(
+                                      //         context: context,
+                                      //         carId: cars[index].id.toString());
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DealerListedCarDetailsScreen(
+                                                      car: cars[index])));
                                     },
                                     borderColor: AppColors.s1,
                                     backgroundColor: Colors.white,
                                     textStyle: AppFonts.w500s110),
                               ),
                               const SizedBox(
-                                width: 4,
+                                width: 5,
                               ),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

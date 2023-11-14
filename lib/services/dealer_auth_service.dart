@@ -140,4 +140,22 @@ class DealerAuthService {
       (route) => false,
     );
   }
+
+  static deleteAccount(context) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.setBool('dealerIsLoggedIn', false);
+    await sp.setString("dealerToken", "logged out");
+    await sp.setString("dealerStatus", "logged out");
+    await sp.setString("profileStatus", "");
+    await sp.setString("dealerPhone", "");
+    ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(context,
+        "Delete request has be submitted. Account will be deleted in 24 hrs. Thank you"));
+    Navigator.pushAndRemoveUntil(
+      context,
+      MaterialPageRoute(
+        builder: (context) => StartScreen(),
+      ),
+      (route) => false,
+    );
+  }
 }
