@@ -44,7 +44,7 @@ class _UploadButtonState extends State<UploadButton> {
               } else {
                 loading();
                 Provider.of<DealerUploadCar>(context, listen: false)
-                    .uploadCar(context);
+                    .uploadCarToFirestore();
 
                 // Navigator.push(
                 //     context,

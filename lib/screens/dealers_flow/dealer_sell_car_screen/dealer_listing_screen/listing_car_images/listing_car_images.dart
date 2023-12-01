@@ -4,8 +4,8 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/listing_car_features.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/widgets/upload_image.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -72,10 +72,12 @@ class ListingCarImages extends StatelessWidget {
                       MySnackbar.showSnackBar(
                           context, "Please upload all the required images"));
                 } else {
+                  Provider.of<DealerUploadCar>(context, listen: false)
+                      .mergeAllImages();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => ListingCarSpecification()));
+                          builder: (context) => ListingCarFatures()));
                 }
               },
               textStyle: AppFonts.w500white14,

@@ -12,10 +12,10 @@ import 'package:provider/provider.dart';
 
 class DetailsDropDown extends StatelessWidget {
   DetailsDropDown({super.key});
-  int? selectedFuelId;
-  int? selectedBodyId;
-  int? selectedColorId;
-  int? ownershipId;
+  String? selectedFuel;
+  String? selectedBody;
+  String? selectedColor;
+  String? ownership;
   List<String> transmisson = ["Automatic", "Manual"];
   String? selectedTransmisson;
   @override
@@ -24,7 +24,7 @@ class DetailsDropDown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "Fuel type",
+          "Fuel type*",
           style: AppFonts.w700black16,
         ),
         const SizedBox(
@@ -47,13 +47,13 @@ class DetailsDropDown extends StatelessWidget {
                         borderSide: BorderSide(color: AppColors.p1)),
                   ),
                   hint: Text(
-                    "Select fuel type",
+                    "Select fuel type*",
                     style: AppFonts.w500dark214,
                   ),
-                  value: selectedFuelId,
+                  value: selectedFuel,
                   items: snapshot.data!
                       .map((item) => DropdownMenuItem(
-                            value: item.id,
+                            value: item.fuelType,
                             child: Text(item.fuelType,
                                 style: AppFonts.w500black14),
                           ))
@@ -65,9 +65,9 @@ class DetailsDropDown extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) {
-                    selectedFuelId = value;
+                    selectedFuel = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getFuelId(id: selectedFuelId!.toString());
+                        .getFuelId(fuel: selectedFuel!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -97,7 +97,7 @@ class DetailsDropDown extends StatelessWidget {
         ////////////////////////////////////////////
         ///BodyType
         Text(
-          "Body Type",
+          "Body Type*",
           style: AppFonts.w700black16,
         ),
         const SizedBox(
@@ -120,13 +120,13 @@ class DetailsDropDown extends StatelessWidget {
                         borderSide: BorderSide(color: AppColors.p1)),
                   ),
                   hint: Text(
-                    "Select body type",
+                    "Select body type*",
                     style: AppFonts.w500dark214,
                   ),
-                  value: selectedBodyId,
+                  value: selectedBody,
                   items: snapshot.data!
                       .map((item) => DropdownMenuItem(
-                            value: item.id,
+                            value: item.bodyType,
                             child: Text(item.bodyType,
                                 style: AppFonts.w500black14),
                           ))
@@ -138,9 +138,9 @@ class DetailsDropDown extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) {
-                    selectedBodyId = value;
+                    selectedBody = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getBodyTypeId(id: selectedBodyId!.toString());
+                        .getBodyTypeId(bodyTypeName: selectedBody!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -170,7 +170,7 @@ class DetailsDropDown extends StatelessWidget {
 /////////////////////////////////////////////////////
         ///Owner
         Text(
-          "Ownership",
+          "Ownership*",
           style: AppFonts.w700black16,
         ),
         const SizedBox(
@@ -196,10 +196,10 @@ class DetailsDropDown extends StatelessWidget {
                     "Select ownership",
                     style: AppFonts.w500dark214,
                   ),
-                  value: ownershipId,
+                  value: ownership,
                   items: snapshot.data!
                       .map((item) => DropdownMenuItem(
-                            value: item.id,
+                            value: item.ownerType,
                             child: Text(item.ownerType,
                                 style: AppFonts.w500black14),
                           ))
@@ -211,9 +211,9 @@ class DetailsDropDown extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) {
-                    ownershipId = value;
+                    ownership = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getOwnershipId(id: ownershipId!.toString());
+                        .getOwnershipId(owner: ownership!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -245,7 +245,7 @@ class DetailsDropDown extends StatelessWidget {
         ////////////////////////
         ///
         Text(
-          "Color",
+          "Color*",
           style: AppFonts.w700black16,
         ),
         const SizedBox(
@@ -271,10 +271,10 @@ class DetailsDropDown extends StatelessWidget {
                     "Select a color",
                     style: AppFonts.w500dark214,
                   ),
-                  value: selectedColorId,
+                  value: selectedColor,
                   items: snapshot.data!
                       .map((item) => DropdownMenuItem(
-                            value: item.id,
+                            value: item.color,
                             child: Row(
                               children: [
                                 Container(
@@ -300,9 +300,9 @@ class DetailsDropDown extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) {
-                    selectedColorId = value;
+                    selectedColor = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getColorId(id: selectedColorId!.toString());
+                        .getColorId(colorName: selectedColor!.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),
@@ -334,7 +334,7 @@ class DetailsDropDown extends StatelessWidget {
         /////////////////////////////////////
         ///Transmisson
         Text(
-          "Transmisson",
+          "Transmisson*",
           style: AppFonts.w700black16,
         ),
         const SizedBox(
@@ -352,7 +352,7 @@ class DetailsDropDown extends StatelessWidget {
                 borderSide: BorderSide(color: AppColors.p1)),
           ),
           hint: Text(
-            "Select transmisson type",
+            "Select transmisson type*",
             style: AppFonts.w500dark214,
           ),
           value: selectedTransmisson,
@@ -392,7 +392,7 @@ class DetailsDropDown extends StatelessWidget {
           ),
           menuItemStyleData:
               const MenuItemStyleData(padding: EdgeInsets.all(0)),
-        )
+        ),
       ],
     );
   }

@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flikcar/models/body_type_model.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/models/color_model.dart';
@@ -8,91 +10,80 @@ import 'package:flikcar/models/owner_type_model.dart';
 import 'package:flikcar/models/rto_model.dart';
 import 'package:flikcar/models/seats_model.dart';
 import 'package:flikcar/utils/env.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class GetBrandModelVarient {
+  static FirebaseFirestore firestore = FirebaseFirestore.instance;
   static String apiUrl = Env.apiUrl;
-  static Future<List<BodyTypeModel>> getBodyType() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/body-type');
-    String? dealerToken = sp.getString('dealerToken');
 
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
+  static Future<List<BodyTypeModel>> getBodyType() async {
     List<BodyTypeModel> bodyType = [];
 
-    data.forEach((element) {
-      bodyType.add(BodyTypeModel.fromJson(element));
-    });
-
+    try {
+      CollectionReference collection = firestore.collection('bodyTypes');
+      QuerySnapshot querySnapshot = await collection.get();
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        bodyType.add(BodyTypeModel.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>));
+      }
+    } catch (e) {
+      print("----------------$e");
+    }
+    // debugPrint("$bodyType");
     return bodyType;
   }
 
   static Future<List<OwnerTypeModel>> getownership() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/owner-type');
-    String? dealerToken = sp.getString('dealerToken');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
     List<OwnerTypeModel> ownership = [];
-    data.forEach((element) {
-      ownership.add(OwnerTypeModel.fromJson(element));
-    });
+    try {
+      CollectionReference collection = firestore.collection('ownerTypes');
+      QuerySnapshot querySnapshot = await collection.get();
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        ownership.add(OwnerTypeModel.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
+    // debugPrint("$ownership");
 
     return ownership;
   }
 
   static Future<List<ColorModel>> getColors() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/color');
-    String? dealerToken = sp.getString('dealerToken');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
     List<ColorModel> colors = [];
+    try {
+      CollectionReference collection = firestore.collection('colors');
+      QuerySnapshot querySnapshot = await collection.get();
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        colors.add(ColorModel.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
+    //  debugPrint("$colors");
 
-    data.forEach((element) {
-      colors.add(ColorModel.fromJson(element));
-    });
     return colors;
   }
 
   static Future<List<FuelTypeModel>> getFuelType() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
+    List<FuelTypeModel> fuelTypes = [];
+    try {
+      CollectionReference collection = firestore.collection('fuelTypes');
+      QuerySnapshot querySnapshot = await collection.get();
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        fuelTypes.add(FuelTypeModel.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
+    // debugPrint("$fuelTypes");
 
-    Uri url = Uri.parse(
-      '$apiUrl/dealer/car/fuel-type',
-    );
-
-    String? dealerToken = sp.getString('dealerToken');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
-    List<FuelTypeModel> fuelType = [];
-
-    data.forEach((element) {
-      fuelType.add(FuelTypeModel.fromJson(element));
-    });
-
-    return fuelType;
+    return fuelTypes;
   }
 
   static Future<List<BrandModelVarient>> getBrandModelVarientCust() async {
@@ -144,24 +135,18 @@ class GetBrandModelVarient {
   }
 
   static Future<List<SeatsModel>> getSeats() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
     List<SeatsModel> seats = [];
-    Uri url = Uri.parse(
-      '$apiUrl/dealer/car/seat',
-    );
-
-    String? dealerToken = sp.getString('dealerToken');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
-
-    data.forEach((element) {
-      seats.add(SeatsModel.fromJson(element));
-    });
+    try {
+      CollectionReference collection = firestore.collection('seats');
+      QuerySnapshot querySnapshot = await collection.get();
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        seats.add(SeatsModel.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
+    //  debugPrint("$seats");
 
     return seats;
   }

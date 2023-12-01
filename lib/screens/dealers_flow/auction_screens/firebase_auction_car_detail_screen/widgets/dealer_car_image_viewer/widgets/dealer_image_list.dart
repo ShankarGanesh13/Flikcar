@@ -5,19 +5,19 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class DealerImageList extends StatelessWidget {
-  final List<ImageModel> currentImages;
+  final List<FirebaseImageModel> currentImages;
   const DealerImageList({super.key, required this.currentImages});
 
   final int selectedIndex = 0;
 
-  static List<String> imageSection = [
-    "Exterior",
-    "Interior",
-    "Engine",
-    "Tyres",
-    "Others",
-    "Dents",
-  ];
+  // static List<String> imageSection = [
+  //   "Exterior",
+  //   "Interior",
+  //   "Engine",
+  //   "Tyres",
+  //   "Others",
+  //   "Dents",
+  // ];
 
   static List<ImageProvider> _imageProviders = [];
 
@@ -49,7 +49,7 @@ class DealerImageList extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Image.network(
-                    'https://webservice.flikcar.com/public/${currentImages[index].imageUrl}',
+                    '${currentImages[index].imageUrl}',
                     fit: BoxFit.fill,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
@@ -79,9 +79,7 @@ class DealerImageList extends StatelessWidget {
   getImages() {
     _imageProviders = [];
     currentImages.forEach((element) {
-      _imageProviders.add(Image.network(
-              "https://webservice.flikcar.com/public/${element.imageUrl}")
-          .image);
+      _imageProviders.add(Image.network("${element.imageUrl}").image);
     });
   }
 }

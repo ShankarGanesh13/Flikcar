@@ -21,10 +21,10 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<AuctionService>(context, listen: false).getMyBid();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<AuctionService>(context, listen: false).filterMyBids();
-    });
+    // Provider.of<AuctionService>(context, listen: false).getMyBid();
+    // WidgetsBinding.instance.addPostFrameCallback((_) {
+    //   Provider.of<AuctionService>(context, listen: false).filterMyBids();
+    // });
 
     super.initState();
   }
@@ -33,9 +33,10 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<AuctionCar> cars = context.watch<AuctionService>().liveMyBidsCars;
-    List<AuctionCar> yourWinnings =
-        context.watch<AuctionService>().yourWinnings;
+    List<AuctionCar> cars = [];
+    //context.watch<AuctionService>().liveMyBidsCars;
+    List<AuctionCar> yourWinnings = [];
+    // context.watch<AuctionService>().yourWinnings;
     return Scaffold(
       appBar: CustomAppBar.getAppBar(
         function: () {

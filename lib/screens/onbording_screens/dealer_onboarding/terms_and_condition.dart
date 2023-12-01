@@ -85,7 +85,7 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
                       if (terms == true) {
                         Provider.of<UploadDealerDocumentsProvider>(context,
                                 listen: false)
-                            .uploadDealerDocuments(context);
+                            .uploadDealerDocumentsFirebase(context);
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

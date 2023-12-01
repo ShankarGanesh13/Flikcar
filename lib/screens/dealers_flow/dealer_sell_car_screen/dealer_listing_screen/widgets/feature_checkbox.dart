@@ -28,7 +28,8 @@ class _FeatureCheckboxState extends State<FeatureCheckbox> {
                 widget.features[index].isSelected = true;
                 Provider.of<DealerUploadCar>(context, listen: false)
                     .addFeatures(
-                        feature: widget.feature, id: widget.features[index].id);
+                        feature: widget.feature,
+                        id: widget.features[index].name);
               } else if (widget.features[index].isSelected == true) {
                 widget.features[index].isSelected = false;
                 Provider.of<DealerUploadCar>(context, listen: false)

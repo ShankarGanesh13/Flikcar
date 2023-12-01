@@ -137,8 +137,8 @@ class AddressDetails extends StatelessWidget {
                                   : SizedBox(
                                       height: 136,
                                       width: 136,
-                                      child: Image.file(
-                                        File(addressFront),
+                                      child: Image.network(
+                                        addressFront,
                                         fit: BoxFit.cover,
                                         width: double.infinity,
                                       ),
@@ -169,8 +169,8 @@ class AddressDetails extends StatelessWidget {
                                   : SizedBox(
                                       height: 136,
                                       width: 136,
-                                      child: Image.file(
-                                        File(addressBack),
+                                      child: Image.network(
+                                        addressBack,
                                         fit: BoxFit.cover,
                                         width: double.infinity,
                                       ),

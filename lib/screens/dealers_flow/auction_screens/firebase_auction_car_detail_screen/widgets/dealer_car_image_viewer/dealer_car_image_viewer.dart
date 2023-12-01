@@ -3,13 +3,13 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/models/image_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_image_viewer/widgets/image_list.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_image_viewer/widgets/dealer_image_list.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_image_viewer/widgets/dealer_image_list.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class DealerCarImageViewer extends StatefulWidget {
-  final List<ImageModel> images;
+  final List<FirebaseImageModel> images;
   const DealerCarImageViewer({super.key, required this.images});
 
   @override
@@ -19,12 +19,12 @@ class DealerCarImageViewer extends StatefulWidget {
 class _DealerCarImageViewerState extends State<DealerCarImageViewer> {
   @override
   void initState() {
-    setImages(imageType: "1");
+    setImages(imageType: "ext");
     // getImages();
     super.initState();
   }
 
-  List<ImageModel> currentImages = [];
+  List<FirebaseImageModel> currentImages = [];
 
   int selectedIndex = 0;
   List<String> imageSection = [
@@ -34,6 +34,14 @@ class _DealerCarImageViewerState extends State<DealerCarImageViewer> {
     "Tyres",
     "Others",
     "Dents",
+  ];
+  List<String> imageTypes = [
+    "ext",
+    "int",
+    "engine",
+    "tyre",
+    "other",
+    "dent",
   ];
 
   @override
@@ -67,7 +75,7 @@ class _DealerCarImageViewerState extends State<DealerCarImageViewer> {
                           setState(() {
                             selectedIndex = index;
                             setImages(
-                              imageType: (index + 1).toString(),
+                              imageType: imageTypes[selectedIndex],
                             );
                           });
                         },
@@ -143,7 +151,7 @@ class _DealerCarImageViewerState extends State<DealerCarImageViewer> {
 
   setImages({required String imageType}) {
     currentImages = widget.images
-        .where((element) => element.imageType == imageType)
+        .where((element) => element.imageType.toLowerCase() == imageType)
         .toList();
     setState(() {});
   }

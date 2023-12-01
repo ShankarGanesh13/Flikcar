@@ -1,11 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/terms_and_condition.dart';
 import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
-
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:http/http.dart' as http;
 
 import 'package:file_picker/file_picker.dart';
@@ -56,7 +59,9 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     }
 
     if (pickedFile != null) {
-      selectImage(imageType: imageType, pickedFilePath: pickedFile!.path!);
+      uploadImageAndSetPath(
+          imageType: imageType, pickedFilePath: pickedFile!.path!);
+      //selectImage(imageType: imageType, pickedFilePath: pickedFile!.path!);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -81,6 +86,94 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
       }
     }
     return result;
+  }
+
+  Future<void> uploadImageAndSetPath(
+      {required String imageType, required String pickedFilePath}) async {
+    try {
+      // Upload image to Firebase Storage
+      String downloadUrl = await uploadImage(File(pickedFilePath));
+
+      // Set the download URL based on the imageType
+      switch (imageType) {
+        case "addressFront":
+          addressFrontImagePath = downloadUrl;
+          break;
+        case "addressBack":
+          addressBAckImagePath = downloadUrl;
+          break;
+        case "dealershipImage":
+          dealershipImagePath = downloadUrl;
+          break;
+        case "pan":
+          panImagePath = downloadUrl;
+          break;
+        case "udyogAadhar":
+          udyogAadharPath = downloadUrl;
+          break;
+        case "tradeLicence":
+          tradeLicencePath = downloadUrl;
+          break;
+        case "cancelledCheque":
+          cancelChequePath = downloadUrl;
+          break;
+        default:
+          print("Invalid choice");
+      }
+
+      // Notify listeners if needed
+      notifyListeners();
+    } catch (e) {
+      print('Error uploading image: $e');
+    }
+  }
+
+  Future<String> uploadImage(File imageFile) async {
+    try {
+      String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+      Reference storageReference =
+          FirebaseStorage.instance.ref().child('$fileName');
+      SettableMetadata metadata = SettableMetadata(contentType: 'image/jpeg');
+
+      UploadTask uploadTask = storageReference.putFile(
+        imageFile,
+        metadata,
+      );
+
+      TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+      String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+      return downloadUrl;
+    } catch (e) {
+      print('Error uploading image: $e');
+      return '';
+    }
+  }
+
+  validateForm(context) {
+    if (addressFrontImagePath == '' ||
+        addressBAckImagePath == "" ||
+        dealershipImagePath == '' ||
+        panImagePath == "" ||
+        dealershipImagePath == "" ||
+        tradeLicencePath == "" ||
+        cancelChequePath == "") {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(seconds: 2),
+          backgroundColor: Color(0xFF45C08D),
+          content: Text(
+            "Please upload all the required document's image in all sections",
+          ),
+        ),
+      );
+    } else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const TermsAndCondition(),
+          ));
+    }
   }
 
   getDocumentNumber(
@@ -126,85 +219,6 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     }
   }
 
-  selectImage({required String imageType, required String pickedFilePath}) {
-    switch (imageType) {
-      case "addressFront":
-        {
-          addressFrontImagePath = pickedFilePath;
-          notifyListeners();
-        }
-        break;
-      case "addressBack":
-        {
-          addressBAckImagePath = pickedFilePath;
-          notifyListeners();
-        }
-        break;
-      case "dealershipImage":
-        {
-          dealershipImagePath = pickedFilePath;
-          notifyListeners();
-        }
-        break;
-      case "pan":
-        {
-          panImagePath = pickedFilePath;
-          notifyListeners();
-        }
-        break;
-      case "udyogAadhar":
-        {
-          udyogAadharPath = pickedFilePath;
-          notifyListeners();
-        }
-        break;
-      case "tradeLicence":
-        {
-          tradeLicencePath = pickedFilePath;
-          notifyListeners();
-        }
-        break;
-      case "cancelledCheque":
-        {
-          cancelChequePath = pickedFilePath;
-          notifyListeners();
-        }
-        break;
-      default:
-        {
-          print("////////////////////////////////////////");
-          print("invalid choice");
-        }
-        break;
-    }
-  }
-
-  validateForm(context) {
-    if (addressFrontImagePath == '' ||
-        addressBAckImagePath == "" ||
-        dealershipImagePath == '' ||
-        panImagePath == "" ||
-        dealershipImagePath == "" ||
-        tradeLicencePath == "" ||
-        cancelChequePath == "") {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          duration: Duration(seconds: 2),
-          backgroundColor: Color(0xFF45C08D),
-          content: Text(
-            "Please upload all the required document's image in all sections",
-          ),
-        ),
-      );
-    } else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const TermsAndCondition(),
-          ));
-    }
-  }
-
   getBasicDetails(
       {required String name,
       required String email,
@@ -220,111 +234,73 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     dealerShopName = shopName;
   }
 
-  uploadDealerDocuments(context) async {
-    print("uploadDealerDocuments");
+  uploadDealerDocumentsFirebase(context) async {
+    try {
+      final SharedPreferences sp = await SharedPreferences.getInstance();
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
+      CollectionReference usersCollection = firestore.collection('users');
+      FirebaseAuth auth = FirebaseAuth.instance;
+      DocumentReference userDocRef = usersCollection.doc(auth.currentUser!.uid);
 
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/auth/update-profile');
-    String? dealerToken = sp.getString('dealerToken');
-
-    var request = http.MultipartRequest("POST", url);
-    request.headers["Authorization"] = "Bearer $dealerToken";
-    request.headers["Content-Type"] =
-        "application/x-www-form-urlencoded; charset=UTF-8";
-    request.fields["name"] = dealerName;
-    request.fields["email"] = dealerEmail;
-    request.fields["shopName"] = dealerShopName;
-    request.fields["gstNo"] = dealerGstNumber;
-    request.fields["shopAddress"] = dealerShopAddress;
-    request.fields["state"] = "24";
-    request.fields["city"] = "595";
-    request.fields["pincode"] = pincode;
-    request.fields["addressProofType"] = "aadhar";
-    request.fields["addressProofNumber"] = addressProofNumber;
-    request.fields["panCardNumber"] = panCardNumber;
-    request.fields["tradeLicenseNumber"] = tradeLicenceNumber;
-    request.fields["cancelChequeNumber"] = cancelChequeNumber;
-    request.fields["udyogAadharNumber"] = udyogAadharNumber;
-
-    // var panCardImageFile = File(pickedFile!.path!);
-
-    // var addressProofFrontImageFile = File(pickedFile!.path!);
-    // var addressProofBackImageFile = File(pickedFile!.path!);
-    // var imageFile = File(pickedFile!.path!);
-
-    request.files.add(await http.MultipartFile.fromPath(
-      "panCardImage",
-      panImagePath,
-    ));
-    request.files.add(await http.MultipartFile.fromPath(
-      "tradeLicenseImage",
-      tradeLicencePath,
-    ));
-    request.files.add(await http.MultipartFile.fromPath(
-      "cancelChequeImage",
-      cancelChequePath,
-    ));
-    udyogAadharNumber != ""
-        ? request.files.add(await http.MultipartFile.fromPath(
-            "udyogAadharImage",
-            udyogAadharPath,
-          ))
-        : request.fields["udyogAadharImage"] = "";
-    request.files.add(await http.MultipartFile.fromPath(
-      "addressProofFrontImage",
-      addressFrontImagePath,
-    ));
-    request.files.add(await http.MultipartFile.fromPath(
-      "addressProofBackImage",
-      addressBAckImagePath,
-    ));
-    request.files.add(await http.MultipartFile.fromPath(
-      "shopImage",
-      dealershipImagePath,
-    ));
-
-    var response = await request.send();
-
-    var responseData = await response.stream.toBytes();
-
-    var responseString = utf8.decode(responseData);
-
-    var data = json.decode(responseString);
-    print(data["status"]);
-
-    if (data["status"] == 200 || data["status"] == 302) {
-      debugPrint("+++++++++++++++++++++++");
-      debugPrint("profile created");
-      await sp.setString('dealerStatus', "Submitted");
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          duration: Duration(seconds: 1),
-          backgroundColor: Color(0xFF45C08D),
-          content: Text(
-            "Details uploaded successfully",
-          ),
-        ),
-      );
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const NotVerifiedDealer(),
-        ),
-        (route) => false,
-      );
-    } else {
-      debugPrint("+++++++++++++++++++++++");
-      debugPrint("something went wrong");
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          duration: Duration(seconds: 2),
-          backgroundColor: Color(0xFF45C08D),
-          content: Text(
-            "Something went wrong try again",
-          ),
-        ),
-      );
+      Map<String, dynamic> formData = {
+        "addressProofNumber": addressProofNumber,
+        "cancelledChequeNumber": cancelChequeNumber,
+        "email": dealerEmail,
+        "name": dealerName,
+        "panCardNumber": panCardNumber,
+        "pincode": pincode,
+        "selectedCity": "Kolkata",
+        "selectedState": "West Bengal",
+        "shopAddress": dealerShopAddress,
+        "shopName": dealerShopName,
+        "tradeLicenseNumber": tradeLicenceNumber,
+        "docImagePath": [
+          {
+            "type": "pan",
+            "url": panImagePath,
+          },
+          {
+            "type": "addressProofFront",
+            "url": addressFrontImagePath,
+          },
+          {
+            "type": "addressProofBack",
+            "url": addressBAckImagePath,
+          },
+          {
+            "type": "tradeLicense",
+            "url": tradeLicencePath,
+          },
+          {
+            "type": "cancelledCheque",
+            "url": cancelChequePath,
+          },
+          {
+            "type": "shop",
+            "url": dealershipImagePath,
+          },
+        ]
+      };
+      DocumentSnapshot userDoc = await userDocRef.get();
+      if (userDoc.exists) {
+        // Document exists, update the phone number
+        await userDocRef.update({
+          'dealerOnboardFormData': formData,
+          'userTypeStatus': "DEALER_FORMS_SUBMITTED"
+        });
+        await sp.setString('userType', "DEALER_FORMS_SUBMITTED");
+        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+            context, "Documents submitted successfully"));
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => NotVerifiedDealer()),
+            (route) => false);
+        print('User data updated successfully');
+      } else {
+        print('User not found');
+      }
+    } catch (e) {
+      print('Error updating data in Firestore: $e');
     }
   }
 }

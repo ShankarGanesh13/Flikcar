@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
@@ -79,10 +80,12 @@ class AuthService {
     await sp.setBool('isLoggedIn', false);
     await sp.setString("userToken", "logged out");
     await sp.setString("userName", "");
+    FirebaseAuth auth = FirebaseAuth.instance;
+    auth.signOut();
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => StartScreen(),
+        builder: (context) => PhoneNumber(),
       ),
       (route) => false,
     );

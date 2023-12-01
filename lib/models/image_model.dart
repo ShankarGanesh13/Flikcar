@@ -10,3 +10,22 @@ class ImageModel {
     );
   }
 }
+
+class FirebaseImageModel {
+  String imageUrl;
+  String imageType;
+  FirebaseImageModel({required this.imageType, required this.imageUrl});
+
+  factory FirebaseImageModel.fromJson(Map<String, dynamic> image) {
+    return FirebaseImageModel(
+      imageType: image["type"].toString(),
+      imageUrl: image["path"],
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'path': imageUrl,
+      'type': imageType,
+    };
+  }
+}

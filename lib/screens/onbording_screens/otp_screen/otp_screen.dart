@@ -1,17 +1,40 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/auth_service.dart';
+import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
+import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:otp_timer_button/otp_timer_button.dart';
 
-class OtpScreen extends StatelessWidget {
+class OtpScreen extends StatefulWidget {
   final String phoneNumber;
   OtpScreen({super.key, required this.phoneNumber});
+
+  @override
+  State<OtpScreen> createState() => _OtpScreenState();
+}
+
+class _OtpScreenState extends State<OtpScreen> {
+  @override
+  void initState() {
+    verifyUserPhoneNumber(
+      phoneNumber: widget.phoneNumber,
+      context: context,
+    );
+    // TODO: implement initState
+    super.initState();
+  }
+
   final TextEditingController controller = TextEditingController();
+  FirebaseAuth auth = FirebaseAuth.instance;
+  String receivedID = "";
+
   final defaultPinTheme = PinTheme(
     width: 56,
     height: 56,
@@ -21,9 +44,13 @@ class OtpScreen extends StatelessWidget {
       border: Border.all(color: const Color(0xffE0E0E0)),
     ),
   );
+
   final Color focusedBorderColor = const Color(0xff9A2870);
+
   final Color fillColor = Colors.white;
+
   final Color borderColor = const Color(0xffE0E0E0);
+
   final OtpTimerButtonController resendOtpController =
       OtpTimerButtonController();
 
@@ -56,7 +83,7 @@ class OtpScreen extends StatelessWidget {
                       style: AppFonts.w500black14,
                     ),
                     Text(
-                      phoneNumber,
+                      widget.phoneNumber,
                       style: AppFonts.w700black14,
                     ),
                     GestureDetector(
@@ -148,7 +175,7 @@ class OtpScreen extends StatelessWidget {
                   child: OtpTimerButton(
                     controller: resendOtpController,
                     onPressed: () {
-                      AuthService.sendOtp(phoneNumber: phoneNumber);
+                      AuthService.sendOtp(phoneNumber: widget.phoneNumber);
                     },
                     text: Text(
                       'Resend OTP ',
@@ -166,10 +193,11 @@ class OtpScreen extends StatelessWidget {
                   borderColor: Colors.transparent,
                   textStyle: AppFonts.w500white14,
                   function: () {
-                    AuthService.verifyOtp(
-                        phoneNumber: phoneNumber,
-                        otp: controller.text,
-                        context: context);
+                    verifyOTPCode(otp: controller.text);
+                    // AuthService.verifyOtp(
+                    //     phoneNumber: phoneNumber,
+                    //     otp: controller.text,
+                    //     context: context);
                   },
                 ),
                 const SizedBox(height: 20),
@@ -177,5 +205,57 @@ class OtpScreen extends StatelessWidget {
             ),
           ),
         ));
+  }
+
+  void verifyUserPhoneNumber(
+      {required String phoneNumber, required BuildContext context}) {
+    auth.verifyPhoneNumber(
+      phoneNumber: "+91$phoneNumber",
+      verificationCompleted: (PhoneAuthCredential credential) async {
+        await auth.signInWithCredential(credential).then(
+              (value) => {
+                FirebaseAuthService.createUserInFirestore(
+                    userId: auth.currentUser!.uid,
+                    phoneNumber: widget.phoneNumber,
+                    context: context)
+                // ScaffoldMessenger.of(context).showSnackBar(
+                //     MySnackbar.showSnackBar(context, "Logged in successfully"))
+              },
+            );
+      },
+      verificationFailed: (FirebaseAuthException e) {
+        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+            context, "Something went wrong please try again"));
+      },
+      codeSent: (String verificationId, int? resendToken) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(MySnackbar.showSnackBar(context, "OTP sent"));
+        receivedID = verificationId;
+      },
+      codeAutoRetrievalTimeout: (String verificationId) {},
+    );
+  }
+
+  Future<void> verifyOTPCode({
+    required String otp,
+  }) async {
+    print("-----------------------------------$receivedID");
+    PhoneAuthCredential credential = PhoneAuthProvider.credential(
+      verificationId: receivedID,
+      smsCode: otp,
+    );
+    try {
+      await auth.signInWithCredential(credential).then((value) => {
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //     MySnackbar.showSnackBar(context, "User logged in sucessfully"))
+            FirebaseAuthService.createUserInFirestore(
+                userId: auth.currentUser!.uid,
+                phoneNumber: widget.phoneNumber,
+                context: context)
+          });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          MySnackbar.showSnackBar(context, "Invalid OTP please try again"));
+    }
   }
 }

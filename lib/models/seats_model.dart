@@ -5,7 +5,7 @@ class SeatsModel {
   factory SeatsModel.fromJson(Map<String, dynamic> seat) {
     return SeatsModel(
       id: seat["id"],
-      noOfSeats: seat["no_of_seats"],
+      noOfSeats: seat["noOfSeats"],
     );
   }
 }

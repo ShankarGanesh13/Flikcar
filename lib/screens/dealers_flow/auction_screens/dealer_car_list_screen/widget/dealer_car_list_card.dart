@@ -4,7 +4,6 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/timer_text.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_timer.dart';
@@ -29,15 +28,15 @@ class DealerCarListCard extends StatelessWidget {
     ];
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DealerCarDetailScreen(
-                      car: car,
-                    )));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => DealerCarDetailScreen(
+        //               car: car,
+        //             )));
 
-        Provider.of<AuctionService>(context, listen: false).joinAuctionRoom(
-            carId: car.id.toString(), car: car, context: context);
+        // Provider.of<AuctionService>(context, listen: false).joinAuctionRoom(
+        //     carId: car.id.toString(), car: car, context: context);
       },
       child: Container(
         height: 375,
@@ -165,17 +164,17 @@ class DealerCarListCard extends StatelessWidget {
                     child: PrimaryButton(
                       title: "Place Bid",
                       function: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    DealerCarDetailScreen(car: car)));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             DealerCarDetailScreen(car: car)));
 
-                        Provider.of<AuctionService>(context, listen: false)
-                            .joinAuctionRoom(
-                                carId: car.id.toString(),
-                                car: car,
-                                context: context);
+                        // Provider.of<AuctionService>(context, listen: false)
+                        //     .joinAuctionRoom(
+                        //         carId: car.id.toString(),
+                        //         car: car,
+                        //         context: context);
                       },
                       borderColor: Colors.black,
                       textStyle: AppFonts.w500black14,
@@ -206,13 +205,15 @@ class DealerCarListCard extends StatelessWidget {
     DateTime now = DateTime.now();
     if (DateTime.parse(car.endAuction).isAfter(now) &&
         DateTime.parse(car.startAuction).isBefore(now)) {
-      return OngoingTimer(
-        car: car,
-      );
+      return Text("datetime");
+      // OngoingTimer(
+      //   car: car,
+      // );
     } else {
-      return UpcomingTimer(
-        car: car,
-      );
+      return Text("datetime");
+      // UpcomingTimer(
+      //   car: car,
+      // );
     }
   }
 }

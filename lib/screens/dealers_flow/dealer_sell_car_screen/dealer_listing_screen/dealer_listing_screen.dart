@@ -5,7 +5,6 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/listing_car_images.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_specification/listing_car_specification.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/details_dropdown.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/dropDownTextField.dart';
@@ -34,7 +33,14 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
   }
 
   String? selectedValue;
-  TextEditingController yearController = TextEditingController();
+  TextEditingController regYearController = TextEditingController();
+  TextEditingController manuYearController = TextEditingController();
+  TextEditingController seatController = TextEditingController();
+  TextEditingController engineCCController = TextEditingController();
+  TextEditingController maxTorqueController = TextEditingController();
+  TextEditingController maxPowerController = TextEditingController();
+  TextEditingController mileageController = TextEditingController();
+
   TextEditingController kmsController = TextEditingController();
   TextEditingController sellingPriceController = TextEditingController();
   TextEditingController descController = TextEditingController();
@@ -125,8 +131,8 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                   children: [
                     const SizedBox(height: 15),
                     const BrandVarientModelDropDown(),
-                    // const SizedBox(height: 20),
-                    // RtoDropdown(),
+                    const SizedBox(height: 20),
+                    RtoDropdown(),
                     const SizedBox(height: 20),
                     DetailsDropDown(),
                     const SizedBox(height: 20),
@@ -134,8 +140,9 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       hint: "Eg. 2018",
                       maxlength: 4,
                       keyboardType: TextInputType.number,
-                      title: "Make Year",
-                      controller: yearController,
+                      title: "Make Year*",
+                      controller: manuYearController,
+                      validator: true,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
                             .getYearId(year: value);
@@ -143,10 +150,37 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      hint: "Eg. 2020",
+                      maxlength: 8,
+                      validator: true,
+                      title: "Registeration Year*",
+                      keyboardType: TextInputType.number,
+                      controller: regYearController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getSellingPrice(price: value);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ListingTextField(
+                      hint: "Eg. 5",
+                      maxlength: 8,
+                      validator: true,
+                      title: "Seats*",
+                      keyboardType: TextInputType.number,
+                      controller: seatController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getSellingPrice(price: value);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ListingTextField(
                       hint: "Eg. 130015",
                       maxlength: 6,
+                      validator: true,
                       keyboardType: TextInputType.number,
-                      title: "Kilometers Driven",
+                      title: "Kilometers Driven*",
                       controller: kmsController,
                       onChanged: (value) {
                         print(value);
@@ -158,7 +192,8 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     ListingTextField(
                       hint: "Eg. 430000",
                       maxlength: 8,
-                      title: "Selling Price",
+                      validator: true,
+                      title: "Selling Price*",
                       keyboardType: TextInputType.number,
                       controller: sellingPriceController,
                       onChanged: (value) {
@@ -168,8 +203,61 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      hint: "Eg. 1199",
+                      maxlength: 8,
+                      validator: false,
+                      title: "Engine CC",
+                      keyboardType: TextInputType.number,
+                      controller: engineCCController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getSellingPrice(price: value);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ListingTextField(
+                      hint: "Eg. 202",
+                      maxlength: 8,
+                      validator: false,
+                      title: "Max Torque",
+                      keyboardType: TextInputType.number,
+                      controller: maxTorqueController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getSellingPrice(price: value);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ListingTextField(
+                      hint: "Eg. 210",
+                      maxlength: 8,
+                      validator: false,
+                      title: "Max Power",
+                      keyboardType: TextInputType.number,
+                      controller: maxPowerController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getPowerDetails(power: value);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ListingTextField(
+                      hint: "Eg. 23",
+                      maxlength: 8,
+                      validator: false,
+                      title: "Mileage",
+                      keyboardType: TextInputType.number,
+                      controller: mileageController,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getMileage(kmpl: value);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+                    ListingTextField(
                       hint: "Description about car",
                       maxlength: 200,
+                      validator: false,
                       title: "Description",
                       keyboardType: TextInputType.text,
                       controller: descController,

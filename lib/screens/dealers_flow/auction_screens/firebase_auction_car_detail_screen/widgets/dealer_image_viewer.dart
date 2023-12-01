@@ -2,20 +2,21 @@ import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/models/image_model.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/widgets/dealer_car_image_viewer/dealer_car_image_viewer.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_image_viewer/dealer_car_image_viewer.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
-class DealerImageViewer extends StatefulWidget {
-  AuctionCar car;
-  DealerImageViewer({super.key, required this.car});
+class FirebaseDealerImageViewer extends StatefulWidget {
+  List<FirebaseImageModel> carImages;
+  FirebaseDealerImageViewer({super.key, required this.carImages});
 
   @override
-  State<DealerImageViewer> createState() => _DealerImageViewerState();
+  State<FirebaseDealerImageViewer> createState() =>
+      _FirebaseDealerImageViewerState();
 }
 
-class _DealerImageViewerState extends State<DealerImageViewer> {
+class _FirebaseDealerImageViewerState extends State<FirebaseDealerImageViewer> {
   @override
   void initState() {
     getImages();
@@ -28,7 +29,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
 
   @override
   Widget build(BuildContext context) {
-    List<ImageModel> images = widget.car.carImages;
+    List<FirebaseImageModel> images = widget.carImages;
 
     return Column(
       children: [
@@ -53,7 +54,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
             width: MediaQuery.of(context).size.width,
             child: Image.network(
               images.isNotEmpty
-                  ? 'https://webservice.flikcar.com/public/${images[selectedIndex].imageUrl}'
+                  ? '${images[selectedIndex].imageUrl}'
                   : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
               fit: BoxFit.contain,
               loadingBuilder: (context, child, loadingProgress) {
@@ -99,7 +100,7 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
                         });
                       },
                       child: Image.network(
-                        'https://webservice.flikcar.com/public/${images[index].imageUrl}',
+                        '${images[index].imageUrl}',
                         fit: BoxFit.cover,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) {
@@ -133,10 +134,8 @@ class _DealerImageViewerState extends State<DealerImageViewer> {
 
   getImages() {
     _imageProviders = [];
-    widget.car.carImages.forEach((element) {
-      _imageProviders.add(Image.network(
-              "https://webservice.flikcar.com/public/${element.imageUrl}")
-          .image);
+    widget.carImages.forEach((element) {
+      _imageProviders.add(Image.network("${element.imageUrl}").image);
     });
   }
 }

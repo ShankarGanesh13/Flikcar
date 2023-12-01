@@ -75,8 +75,8 @@ class CancelledCheque extends StatelessWidget {
                         : SizedBox(
                             height: 136,
                             width: 136,
-                            child: Image.file(
-                              File(panPath),
+                            child: Image.network(
+                              panPath,
                               fit: BoxFit.cover,
                               width: double.infinity,
                             ),

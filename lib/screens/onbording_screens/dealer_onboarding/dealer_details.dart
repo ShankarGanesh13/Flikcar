@@ -1,4 +1,5 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/services/dealer_auth_service.dart';
@@ -32,7 +33,13 @@ class DealerDetails extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
-                    height: 50,
+                    height: 15,
+                  ),
+                  const Heading1(
+                      title1: "You have to be a dealer to",
+                      title2: "access this feature"),
+                  const SizedBox(
+                    height: 20,
                   ),
                   textField(
                       context: context,

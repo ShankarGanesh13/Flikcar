@@ -20,18 +20,19 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<AuctionService>(context, listen: false).setAuctionCarList();
+    // Provider.of<AuctionService>(context, listen: false).setAuctionCarList();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    List<AuctionCar> liveAuctionCars =
-        context.watch<AuctionService>().searchLiveAuctionCars;
-    List<AuctionCar> upcomingAuctionCars =
-        context.watch<AuctionService>().searchUpcomingAuctionCars;
+    List<AuctionCar> liveAuctionCars = [];
+    //    context.watch<AuctionService>().searchLiveAuctionCars;
+    List<AuctionCar> upcomingAuctionCars = [];
+    //    context.watch<AuctionService>().searchUpcomingAuctionCars;
 
-    bool live = context.watch<AuctionService>().live;
+    bool live = true;
+    // context.watch<AuctionService>().live;
     return Scaffold(
       appBar: CustomAppBar.getAppBarWithSearch(
         function2: () {
@@ -49,8 +50,8 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
         back: true,
         function: () {},
         onchange: (value) {
-          Provider.of<AuctionService>(context, listen: false)
-              .searchAuctionCarList(query: value);
+          // Provider.of<AuctionService>(context, listen: false)
+          //     .searchAuctionCarList(query: value);
         },
       ),
       body: SingleChildScrollView(
@@ -62,8 +63,8 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
               children: [
                 GestureDetector(
                   onTap: () {
-                    Provider.of<AuctionService>(context, listen: false)
-                        .changeSection(isLive: true);
+                    // Provider.of<AuctionService>(context, listen: false)
+                    //     .changeSection(isLive: true);
                   },
                   child: menu(
                       image: "assets/car_details_icon/live_icon.png",
@@ -81,8 +82,8 @@ class _DealerCarListScreenState extends State<DealerCarListScreen> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Provider.of<AuctionService>(context, listen: false)
-                        .changeSection(isLive: false);
+                    // Provider.of<AuctionService>(context, listen: false)
+                    //     .changeSection(isLive: false);
                   },
                   child: menu(
                       image: "assets/car_details_icon/upcoming.png",

@@ -38,7 +38,7 @@ class _DealerFlowState extends State<DealerFlow> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        Provider.of<AuctionService>(context, listen: false).disconnectSocket();
+        //  Provider.of<AuctionService>(context, listen: false).disconnectSocket();
         return true;
       },
       child: Scaffold(

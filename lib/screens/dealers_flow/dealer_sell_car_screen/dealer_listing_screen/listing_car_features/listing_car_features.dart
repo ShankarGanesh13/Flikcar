@@ -14,8 +14,6 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../listing_car_specification/widgets/dimension_capacity.dart';
-
 class ListingCarFatures extends StatefulWidget {
   const ListingCarFatures({super.key});
 
@@ -83,28 +81,7 @@ class _ListingCarFaturesState extends State<ListingCarFatures> {
               ]),
               child: UploadButton(
                 selectedIndex: selectedIndex,
-              )
-
-              //  PrimaryButton(
-              //     backgroundColor: AppColors.s1,
-              //     borderColor: Colors.transparent,
-              //     function: () {
-              //       if (selectedIndex < 4) {
-              //         Provider.of<DealerUploadCar>(context, listen: false)
-              //             .increaseFeatureIndex();
-              //       } else {
-              //         Provider.of<DealerUploadCar>(context, listen: false)
-              //             .uploadCar(context);
-              //         // Navigator.push(
-              //         //     context,
-              //         //     MaterialPageRoute(
-              //         //       builder: (context) => const ListingCarImages(),
-              //         //     ));
-              //       }
-              //     },
-              //     textStyle: AppFonts.w500white14,
-              //     title: selectedIndex < 4 ? "Next" : "Upload Car"),
-              ),
+              )),
         ),
         body: SingleChildScrollView(
           child: Column(

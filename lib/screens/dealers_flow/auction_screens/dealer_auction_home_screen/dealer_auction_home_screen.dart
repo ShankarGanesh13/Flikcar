@@ -3,13 +3,16 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/firebase_models/firebase_auction.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_header.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_listed_car_firebase.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/services/auction_services.dart';
+import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +30,9 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<AuctionService>(context, listen: false).connectToSocket();
-    Provider.of<AuctionService>(context, listen: false).getAuctionCars();
-    Provider.of<AuctionService>(context, listen: false).getMyBid();
+    // Provider.of<AuctionService>(context, listen: false).connectToSocket();
+    // Provider.of<AuctionService>(context, listen: false).getAuctionCars();
+    // Provider.of<AuctionService>(context, listen: false).getMyBid();
 
     // Provider.of<AuctionService>(context, listen: false).connectSocket();
     loading();
@@ -50,7 +53,8 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<AuctionCar> auctionCars = context.watch<AuctionService>().auctionCars;
+    List<AuctionCar> auctionCars = [];
+    //context.watch<AuctionService>().auctionCars;
 
     return Scaffold(
       backgroundColor: const Color(0xff171717),
@@ -110,24 +114,65 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
                       padding: EdgeInsets.all(15.0),
                       child: Heading1(title1: "Auctions House", title2: ""),
                     ),
-                    auctionCars.isNotEmpty
-                        ? ListView.builder(
-                            itemCount: auctionCars.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemBuilder: (context, index) {
-                              return DealerCarListCard(car: auctionCars[index]);
-                            })
-                        : SizedBox(
-                            height: 300,
-                            child: Center(
-                              child: _isLoading
-                                  ? const LoadingWidget()
-                                  : Text(
-                                      "No cars found",
-                                      style: AppFonts.w700black16,
-                                    ),
-                            )),
+                    // auctionCars.isNotEmpty
+                    //     ? ListView.builder(
+                    //         itemCount: auctionCars.length,
+                    //         shrinkWrap: true,
+                    //         physics: const NeverScrollableScrollPhysics(),
+                    //         itemBuilder: (context, index) {
+                    //           return DealerCarListCard(car: auctionCars[index]);
+                    //         })
+                    // : SizedBox(
+                    //     height: 300,
+                    //     child: Center(
+                    //       child: _isLoading
+                    //           ? const LoadingWidget()
+                    //           : Text(
+                    //               "No cars found",
+                    //               style: AppFonts.w700black16,
+                    //             ),
+                    //     )),
+                    StreamBuilder<List<FirebaseAuction>>(
+                      stream: FirebaseAuctionService().getAuctionCarsStream(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return SizedBox(
+                              height: 300,
+                              child: Center(
+                                child: _isLoading
+                                    ? const LoadingWidget()
+                                    : Text(
+                                        "No cars found",
+                                        style: AppFonts.w700black16,
+                                      ),
+                              ));
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else if (snapshot.data == null) {
+                          return SizedBox(
+                              height: 300,
+                              child: Center(
+                                child: _isLoading
+                                    ? const LoadingWidget()
+                                    : Text(
+                                        "No cars found",
+                                        style: AppFonts.w700black16,
+                                      ),
+                              ));
+                        } else {
+                          return ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: snapshot.data!.length,
+                              shrinkWrap: true,
+                              itemBuilder: (context, index) {
+                                return DealerCarListCardFirebase(
+                                  car: snapshot.data![index],
+                                );
+                              });
+                        }
+                      },
+                    )
                   ],
                 ),
                 FrequentQuestions(),

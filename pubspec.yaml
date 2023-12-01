@@ -63,9 +63,14 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   rename: ^2.1.1
   upgrader: ^8.1.0
+  firebase_core: ^2.23.0
+  cloud_firestore: ^4.13.2
+  cloud_functions: ^4.5.5
+  firebase_auth: ^4.14.1
+  firebase_storage: ^11.5.3
 
 flutter_launcher_icons:
-  image_path: assets/app_icon2.png
+  image_path: "assets/blue_logo.png"
 
   android: true # can specify file name here e.g. "ic_launcher"
   ios: true # can specify file name here e.g. "My-Launcher-Icon"
@@ -75,7 +80,7 @@ flutter_native_splash:
   android: true
   ios: true
   web: false
-  color: "#FFFFFF"
+  background_image: assets/sample_car/splash_screen.jpg
   image: assets/blue_logo.png
 
 dev_dependencies:

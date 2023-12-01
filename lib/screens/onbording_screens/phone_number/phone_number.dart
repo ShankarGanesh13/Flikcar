@@ -3,6 +3,7 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
 import 'package:flikcar/services/auth_service.dart';
+import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/gestures.dart';
@@ -131,7 +132,10 @@ class _PhoneNumberState extends State<PhoneNumber> {
                       title: "Send OTP",
                       function: () {
                         if (_formKey.currentState!.validate()) {
-                          AuthService.sendOtp(phoneNumber: controller.text);
+                          // FirebaseAuthService().verifyUserPhoneNumber(
+                          //     context: context,
+                          //     phoneNumber: "+91${controller.text}");
+                          // AuthService.sendOtp(phoneNumber: controller.text);
                           Navigator.push(
                               context,
                               MaterialPageRoute(

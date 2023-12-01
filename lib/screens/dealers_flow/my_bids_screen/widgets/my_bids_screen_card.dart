@@ -4,7 +4,6 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_detail_screen/dealer_car_detail_screen.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/timer_text.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -27,15 +26,15 @@ class MyBidsScreenCard extends StatelessWidget {
     ];
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => DealerCarDetailScreen(
-                      car: car,
-                    )));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => DealerCarDetailScreen(
+        //               car: car,
+        //             )));
 
-        Provider.of<AuctionService>(context, listen: false).joinAuctionRoom(
-            carId: car.id.toString(), car: car, context: context);
+        // Provider.of<AuctionService>(context, listen: false).joinAuctionRoom(
+        //     carId: car.id.toString(), car: car, context: context);
       },
       child: Container(
         height: 380,
@@ -162,17 +161,17 @@ class MyBidsScreenCard extends StatelessWidget {
                     child: PrimaryButton(
                       title: "Place Bid",
                       function: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    DealerCarDetailScreen(car: car)));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             DealerCarDetailScreen(car: car)));
 
-                        Provider.of<AuctionService>(context, listen: false)
-                            .joinAuctionRoom(
-                                carId: car.id.toString(),
-                                car: car,
-                                context: context);
+                        // Provider.of<AuctionService>(context, listen: false)
+                        //     .joinAuctionRoom(
+                        //         carId: car.id.toString(),
+                        //         car: car,
+                        //         context: context);
                       },
                       borderColor: Colors.black,
                       textStyle: AppFonts.w500black14,

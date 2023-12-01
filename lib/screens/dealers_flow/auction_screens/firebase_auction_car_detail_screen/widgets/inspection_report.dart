@@ -1,12 +1,13 @@
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/firebase_models/firebase_car_details.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
-class InspectionReport extends StatelessWidget {
-  final AuctionCar car;
+class FirebaseInspectionReport extends StatelessWidget {
+  final FirebaseCarDetails car;
 
-  const InspectionReport({super.key, required this.car});
+  const FirebaseInspectionReport({super.key, required this.car});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +18,7 @@ class InspectionReport extends StatelessWidget {
         const SizedBox(
           height: 8,
         ),
-        car.technicianRemarks == ""
+        car.properties.inspectionReport == ""
             ? Text(
                 "Data not available",
                 style: AppFonts.w500dark214,
@@ -25,7 +26,7 @@ class InspectionReport extends StatelessWidget {
             : SizedBox(
                 width: MediaQuery.of(context).size.width,
                 child: Text(
-                  car.technicianRemarks,
+                  car.properties.inspectionReport,
                   style: AppFonts.w500dark214,
                   textAlign: TextAlign.justify,
                 ),

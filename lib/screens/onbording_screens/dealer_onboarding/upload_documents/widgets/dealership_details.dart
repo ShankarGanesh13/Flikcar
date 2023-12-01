@@ -70,8 +70,8 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                               : SizedBox(
                                   height: 136,
                                   width: 136,
-                                  child: Image.file(
-                                    File(dealershipProof),
+                                  child: Image.network(
+                                    dealershipProof,
                                     fit: BoxFit.cover,
                                     width: double.infinity,
                                   ),

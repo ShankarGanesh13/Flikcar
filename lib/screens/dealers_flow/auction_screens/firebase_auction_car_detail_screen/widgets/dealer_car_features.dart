@@ -1,13 +1,15 @@
 import 'package:expansion_tile_group/expansion_tile_group.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/firebase_models/firebase_car_details.dart';
 import 'package:flikcar/models/auction_car_model.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/firebase_auction_car_detail_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
-class DealerCarFeatures extends StatelessWidget {
-  final AuctionCar car;
-  const DealerCarFeatures({super.key, required this.car});
+class FirebaseDealerCarFeatures extends StatelessWidget {
+  final FirebaseCarDetails car;
+  const FirebaseDealerCarFeatures({super.key, required this.car});
   static final List<String> features = [
     "Comfort",
     "Safety",
@@ -34,11 +36,11 @@ class DealerCarFeatures extends StatelessWidget {
 
   List<ExpansionTileItem> questions(context) {
     List<List> allFeatures = [
-      car.comfortDetails,
-      car.safetyDetails,
-      car.interiorDetails,
-      car.exteriorDetails,
-      car.entertainmentDetails
+      car.properties.comfort,
+      car.properties.safety,
+      car.properties.interior,
+      car.properties.exterior,
+      car.properties.entertainment
     ];
     return List.generate(
       features.length,

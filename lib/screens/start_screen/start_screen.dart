@@ -8,6 +8,7 @@ import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart
 import 'package:flikcar/screens/start_screen/widgets/option_card.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flutter/material.dart';
@@ -89,16 +90,17 @@ class _StartScreenState extends State<StartScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => FutureBuilder<bool>(
-                                future: isLoggedIn(context),
-                                builder: (context, snapshot) {
-                                  if (snapshot.data == true) {
-                                    return const HomeScreen(index: 1);
-                                  } else {
-                                    return PhoneNumber();
-                                  }
-                                }),
-                          ),
+                              builder: (context) => const HomeScreen(index: 0)
+                              // FutureBuilder<bool>(
+                              //     future: isLoggedIn(context),
+                              //     builder: (context, snapshot) {
+                              //       if (snapshot.data == true) {
+                              //         return const HomeScreen(index: 1);
+                              //       } else {
+                              //         return PhoneNumber();
+                              //       }
+                              //     }),
+                              ),
                         );
                         //   FirebaseEvents().customerPortalEvent();
                         // FacebookEvents().customerPortalEvent();
@@ -109,25 +111,18 @@ class _StartScreenState extends State<StartScreen> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {
-                        print("pressed");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => FutureBuilder<Widget>(
-                                  future: dealerIsLoggedIn(context),
-                                  builder: (context, snapshot) {
-                                    if (snapshot.data != null) {
-                                      return snapshot.data!;
-                                    } else {
-                                      return SizedBox();
-                                    }
-                                  }),
-                            ));
+                      onTap: () async {
+                        final SharedPreferences sp =
+                            await SharedPreferences.getInstance();
+                        final String? userType = sp.getString('userType');
+
+                        debugPrint("-----------userType------- $userType");
+                        FirebaseAuthService.navigateUserBasedOnType(
+                            userType: userType!, context: context);
                         //   FirebaseEvents().dealerPortalEvent();
                         //  FacebookEvents().dealerPortalEvent();
-                        Provider.of<AuctionService>(context, listen: false)
-                            .connectToSocket();
+                        // Provider.of<AuctionService>(context, listen: false)
+                        //     .connectToSocket();
                       },
                       child: OptionCard(
                         title: "Dealers'\nPortal",

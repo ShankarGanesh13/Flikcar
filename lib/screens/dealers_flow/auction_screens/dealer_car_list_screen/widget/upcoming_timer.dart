@@ -1,36 +1,55 @@
 import 'dart:async';
 
-import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class UpcomingTimer extends StatefulWidget {
-  final AuctionCar car;
+  final DateTime startTime;
+  final DateTime endTime;
 
-  const UpcomingTimer({super.key, required this.car});
+  const UpcomingTimer(
+      {Key? key, required this.startTime, required this.endTime})
+      : super(key: key);
 
   @override
   State<UpcomingTimer> createState() => _UpcomingTimerState();
 }
 
 class _UpcomingTimerState extends State<UpcomingTimer> {
-  Duration? _remainingTime;
-  Timer? _timer;
-  bool auctionLive = true;
-  bool upcomingAuction = false;
-  bool auctionStarted = false; // Added to track auction start state
+  late Duration _remainingTime;
+  late Timer _timer;
+  bool _auctionStarted = false;
 
   @override
   void initState() {
     super.initState();
+    _remainingTime = Duration.zero;
     _startCountdown();
   }
 
   @override
   void dispose() {
-    _timer?.cancel();
+    _timer.cancel();
     super.dispose();
+  }
+
+  void _startCountdown() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      DateTime now = DateTime.now();
+
+      if (now.isAfter(widget.startTime)) {
+        // Auction has started
+        setState(() {
+          _auctionStarted = true;
+        });
+        _timer.cancel();
+      } else {
+        setState(() {
+          _remainingTime = widget.startTime.difference(now);
+        });
+      }
+    });
   }
 
   String _formatDuration(Duration duration) {
@@ -44,34 +63,26 @@ class _UpcomingTimerState extends State<UpcomingTimer> {
     return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
-  void _startCountdown() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      DateTime now = DateTime.now();
-
-      setState(() {
-        _remainingTime =
-            DateTime.parse(widget.car.startAuction).difference(now);
-      });
-
-      // Check if the auction has started
-      if (_remainingTime?.inSeconds == 0) {
-        _timer?.cancel(); // Stop the timer
-        setState(() {
-          auctionStarted = true; // Set the auctionStarted flag
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return auctionStarted
-        ? OngoingTimer(car: widget.car) // Display OngoingTimer widget
-        : Text(
-            _remainingTime != null
-                ? "Auction Starts in :\n${_formatDuration(_remainingTime!)} hrs"
-                : "Auction Starts in : \nhrs",
-            style: AppFonts.w500green14,
+    return _auctionStarted
+        ? OngoingTimer(startTime: widget.startTime, endTime: widget.endTime)
+        : Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Auction Starts in:",
+                style: AppFonts.w500green14,
+              ),
+              Text(
+                _auctionStarted
+                    ? ""
+                    : _remainingTime != null
+                        ? "${_formatDuration(_remainingTime)} hrs"
+                        : "00:00:00 hrs",
+                style: AppFonts.w500green14,
+              ),
+            ],
           );
   }
 }

@@ -16,16 +16,16 @@ class BrandVarientModelDropDown extends StatefulWidget {
 }
 
 class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
-  int? selectedBrandId;
-  int? selectedModelId;
-  int? selectedVarientId;
+  String? selectedBrand;
+  String? selectedModel;
+  String? selectedVarient;
   List<Varient> varients = [];
   List<Model> models = [];
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Text(
-        "Brand",
+        "Brand*",
         style: AppFonts.w700black16,
       ),
       const SizedBox(
@@ -51,10 +51,10 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
                   "Select a brand",
                   style: AppFonts.w500dark214,
                 ),
-                value: selectedBrandId,
+                value: selectedBrand,
                 items: snapshot.data!
                     .map((item) => DropdownMenuItem(
-                          value: item.id,
+                          value: item.name,
                           child: Text(item.name, style: AppFonts.w500black14),
                         ))
                     .toList(),
@@ -66,13 +66,13 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
                 },
                 onChanged: (value) {
                   setState(() {
-                    selectedModelId = null;
-                    selectedVarientId = null;
-                    selectedBrandId = value;
+                    selectedModel = null;
+                    selectedVarient = null;
+                    selectedBrand = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getBrandId(id: selectedBrandId!.toString());
+                        .getBrandId(brandName: selectedBrand.toString());
                     models = snapshot.data!
-                        .firstWhere((element) => element.id == value)
+                        .firstWhere((element) => element.name == value)
                         .models;
                   });
                 },
@@ -106,7 +106,7 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
       ////////////////////////////////
       ///model
       Text(
-        "Model",
+        "Model*",
         style: AppFonts.w700black16,
       ),
       const SizedBox(
@@ -127,10 +127,10 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
           "Select a model",
           style: AppFonts.w500dark214,
         ),
-        value: selectedModelId,
+        value: selectedModel,
         items: models
             .map((item) => DropdownMenuItem(
-                  value: item.modelId,
+                  value: item.name,
                   child: Text(item.name, style: AppFonts.w500black14),
                 ))
             .toList(),
@@ -142,13 +142,12 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
         },
         onChanged: (value) {
           setState(() {
-            selectedVarientId = null;
-            selectedModelId = value;
+            selectedVarient = null;
+            selectedModel = value;
             Provider.of<DealerUploadCar>(context, listen: false)
-                .getModelId(id: selectedModelId!.toString());
-            varients = models
-                .firstWhere((element) => element.modelId == value)
-                .varients;
+                .getModelId(modelName: selectedModel!.toString());
+            varients =
+                models.firstWhere((element) => element.name == value).varients;
           });
         },
         buttonStyleData: const ButtonStyleData(
@@ -176,7 +175,7 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
       ////////////////////////
       ///varient
       Text(
-        "Varient",
+        "Varient*",
         style: AppFonts.w700black16,
       ),
       const SizedBox(
@@ -197,10 +196,10 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
           "Select a Varient",
           style: AppFonts.w500dark214,
         ),
-        value: selectedVarientId,
+        value: selectedVarient,
         items: varients
             .map((item) => DropdownMenuItem(
-                  value: item.varientId,
+                  value: item.name,
                   child: Text(item.name, style: AppFonts.w500black14),
                 ))
             .toList(),
@@ -212,9 +211,9 @@ class _BrandVarientModelDropDownState extends State<BrandVarientModelDropDown> {
         },
         onChanged: (value) {
           setState(() {
-            selectedVarientId = value;
+            selectedVarient = value;
             Provider.of<DealerUploadCar>(context, listen: false)
-                .getVarientId(id: selectedVarientId!.toString());
+                .getVarientId(varientName: selectedVarient.toString());
           });
         },
         buttonStyleData: const ButtonStyleData(

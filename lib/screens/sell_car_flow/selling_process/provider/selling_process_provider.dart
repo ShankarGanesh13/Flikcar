@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
@@ -15,6 +16,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SellingProcessProvider extends ChangeNotifier {
+  static FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   late BrandModelVarient selectedbrand;
   List<Model> selecedModels = [];
   int counter = 1;
@@ -22,6 +25,9 @@ class SellingProcessProvider extends ChangeNotifier {
   String contactNumber = "";
   String selectedBrandId = "";
   String selectedModelId = "";
+  String selectedBrand = "";
+  String selectedModel = "";
+
   String registerationYear = "";
 
   int brandIndex = -1;
@@ -209,67 +215,57 @@ class SellingProcessProvider extends ChangeNotifier {
     }
   }
 
-  bookInspection({required BuildContext context}) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
+  void bookInspection({required BuildContext context}) {
+    try {
+      CollectionReference collection =
+          FirebaseFirestore.instance.collection('sell_vehicle_enquiries');
+      var requestBody = {
+        "brand": "${list[0]}",
+        "model": "${list[1]}",
+        "registrationYear": "$registerationYear",
+        "phone": "$contactNumber",
+        "status": "IN-PROGRESS"
+      };
 
-    var url = Uri.parse(
-        'https://webservice.flikcar.com/api/web/sale-car/cars/add-sale');
-
-    var requestBody = {
-      "brand": "$selectedBrandId",
-      "model": "$selectedModelId",
-      "year": "$registerationYear",
-      "contact": "$contactNumber",
-    };
-
-    var response = await http.post(url,
-        headers: {'Authorization': 'Bearer $token'}, body: requestBody);
-    print(response.body);
-    var data = json.decode(response.body);
-    print(data);
-
-    if (data["status"] == 201 || data["status"] == 200) {
-      if (context.mounted) {
-        clearData();
-        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-            context, "Car details uploaded successfully"));
-        Timer(const Duration(seconds: 1), () {
-          Navigator.pushAndRemoveUntil(
+      collection.add(requestBody).then((value) {
+        if (context.mounted) {
+          clearData();
+          ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
             context,
-            MaterialPageRoute(
-              builder: (context) => const HomeScreen(
-                index: 1,
+            "Car details uploaded successfully",
+          ));
+          Timer(const Duration(seconds: 1), () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(index: 1),
               ),
-            ),
-            (route) => false,
-          );
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: const Text('Thank you for registering with us'),
-              content: const Text('Our team will contact you shortly'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context, 'Cancel');
-                    //  FirebaseEvents().customerCarSellRequest(customerNumber: "");
-                    //  FacebookEvents().customerCarSellRequest(customerNumber: "");
-                  },
-                  child: const Text('Ok'),
-                ),
-              ],
-            ),
-          );
-        });
-      }
-      print("Added to wishlist");
-    } else {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-            context, "Falied to upload car try again later"));
-      }
-      print('Request failed with status: ${response.statusCode}');
+              (route) => false,
+            );
+            showDialog<String>(
+              context: context,
+              builder: (BuildContext context) => AlertDialog(
+                title: const Text('Thank you for registering with us'),
+                content: const Text('Our team will contact you shortly'),
+                actions: <Widget>[
+                  TextButton(
+                    onPressed: () {
+                      Navigator.pop(context, 'Cancel');
+                    },
+                    child: const Text('Ok'),
+                  ),
+                ],
+              ),
+            );
+          });
+        }
+      });
+    } catch (e) {
+      print("-------------------$e");
+      ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+        context,
+        "Failed to upload car, please try again later",
+      ));
     }
   }
 

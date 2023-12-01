@@ -5,32 +5,49 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class OngoingTimer2 extends StatefulWidget {
-  final AuctionCar car;
+  final DateTime startTime;
+  final DateTime endTime;
 
-  const OngoingTimer2({super.key, required this.car});
+  const OngoingTimer2({required this.startTime, required this.endTime});
 
   @override
-  State<OngoingTimer2> createState() => _OngoingTimer2State();
+  _OngoingTimer2State createState() => _OngoingTimer2State();
 }
 
 class _OngoingTimer2State extends State<OngoingTimer2> {
-  Duration? _remainingTime;
-  Timer? _timer;
-  bool auctionLive = true;
-  bool upcomingAuction = false;
-  bool auctionEnded = false; // Added to track auction end state
+  late Duration _remainingTime;
+  late Timer _timer;
+  bool _auctionEnded = false;
 
   @override
   void initState() {
-    _startCountdown();
     super.initState();
+    _remainingTime = widget.endTime.difference(DateTime.now());
+    _startCountdown();
   }
 
   @override
   void dispose() {
-    _timer
-        ?.cancel(); // Use ?. to safely call cancel on a potentially null timer
+    _timer.cancel();
     super.dispose();
+  }
+
+  void _startCountdown() {
+    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+      DateTime now = DateTime.now();
+
+      if (now.isAfter(widget.endTime)) {
+        // Auction has ended
+        setState(() {
+          _auctionEnded = true;
+        });
+        _timer.cancel();
+      } else {
+        setState(() {
+          _remainingTime = widget.endTime.difference(now);
+        });
+      }
+    });
   }
 
   String _formatDuration(Duration duration) {
@@ -44,33 +61,24 @@ class _OngoingTimer2State extends State<OngoingTimer2> {
     return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
   }
 
-  void _startCountdown() {
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
-      DateTime now = DateTime.now();
-
-      setState(() {
-        _remainingTime = DateTime.parse(widget.car.endAuction).difference(now);
-      });
-
-      // Check if the auction has ended
-      if (_remainingTime?.inSeconds == 0) {
-        _timer?.cancel(); // Stop the timer
-        setState(() {
-          auctionEnded = true; // Set the auctionEnded flag
-        });
-      }
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Text(
-      auctionEnded
-          ? "Auction has ended"
-          : _remainingTime != null
-              ? "Auction Ends in : ${_formatDuration(_remainingTime!)} hrs"
-              : "Auction Ends in : hrs",
-      style: AppFonts.w500red14,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          _auctionEnded ? "Auction has ended" : "Auction Ends in:",
+          style: AppFonts.w500red14,
+        ),
+        Text(
+          _auctionEnded
+              ? ""
+              : _remainingTime != null
+                  ? " ${_formatDuration(_remainingTime)} hrs"
+                  : "00:00:00 hr",
+          style: AppFonts.w500red14,
+        ),
+      ],
     );
   }
 }

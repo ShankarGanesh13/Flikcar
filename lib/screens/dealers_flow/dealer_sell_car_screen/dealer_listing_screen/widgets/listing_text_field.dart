@@ -5,12 +5,14 @@ class ListingTextField extends StatelessWidget {
   final String hint;
   final int maxlength;
   final String title;
+  final bool validator;
   final TextInputType keyboardType;
   final TextEditingController controller;
   final ValueChanged onChanged;
   const ListingTextField(
       {super.key,
       required this.hint,
+      required this.validator,
       required this.keyboardType,
       required this.controller,
       required this.maxlength,
@@ -47,11 +49,13 @@ class ListingTextField extends StatelessWidget {
             },
             maxLength: maxlength,
             validator: (value) {
-              if (value == null) {
-                return "Enter valid data";
-              }
-              if (value == "") {
-                return "Enter valid data";
+              if (validator == true) {
+                if (value == null) {
+                  return "Enter valid data";
+                }
+                if (value == "") {
+                  return "Enter valid data";
+                }
               }
               return null;
             },

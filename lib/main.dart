@@ -1,8 +1,15 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_image_viewer/widgets/dealer_image_list.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/listing_car_images.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_sell_car_screen.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
+import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
@@ -22,12 +29,14 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:upgrader/upgrader.dart';
 
 import 'screens/onbording_screens/dealer_onboarding/dealer_details.dart';
+import 'services/firebase_auth_service/firebase_auth_service.dart';
 
 void main() async {
-  //s WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
 
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp();
   // FacebookAppEvents();
+  FirebaseAuth firebase = FirebaseAuth.instance;
 
 //  FacebookEvents();
   GetCarDetails();
@@ -42,7 +51,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => WishlistService()),
         ChangeNotifierProvider(create: (context) => GetCarDetails()),
         ChangeNotifierProvider(create: (context) => SearchService()),
-        ChangeNotifierProvider(create: (context) => AuctionService()),
+        //  ChangeNotifierProvider(create: (context) => AuctionService()),
         ChangeNotifierProvider(create: (context) => GetDealerUploadCars()),
         ChangeNotifierProvider(
             create: (context) => UploadDealerDocumentsProvider()),
@@ -56,7 +65,7 @@ void main() async {
         ),
         home: UpgradeAlert(
           upgrader: Upgrader(dialogStyle: UpgradeDialogStyle.material),
-          child: StartScreen(),
+          child: firebase.currentUser != null ? StartScreen() : PhoneNumber(),
         ),
       ),
     ),

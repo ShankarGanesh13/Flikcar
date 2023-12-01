@@ -1,8 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/features_model.dart';
+import 'package:flikcar/models/image_model.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/services/facebook_events.dart';
@@ -20,54 +25,30 @@ class DealerUploadCar extends ChangeNotifier {
   List<FeatureModel> interiorFeatures = [];
   List<FeatureModel> exteriorFeatures = [];
   List<FeatureModel> entertainmentFeatures = [];
-  String brandId = "";
-  String modelId = "";
-  String varientId = "";
+  String brand = "";
+  String model = "";
+  String varient = "";
   String registerationYear = "";
-  String bodyTypeId = "";
-  String fuelTypeId = "";
+  String bodyType = "";
+  String fuelType = "";
   String transmisson = "automatic";
-  String ownershipId = "";
-  String colorId = "";
+  String ownership = "";
+  String color = "";
   String driveKm = "";
   String carPrice = "";
   String description = "";
-  String groundClearance = "";
-  String length = "";
   String seat = "";
-  String frontTyres = "";
-  String bootSpace = "";
-  String rearTyres = "";
-  String fuelCapacity = "";
-  String wheelCover = "yes";
-  String wheelbase = "";
-  String spareWheel = "yes";
-  String height = "";
-  String width = "";
-  String alloyWheels = "yes";
-  String driveTrain = "";
-  String gearBox = "";
-  String displacement = "";
-  String noOfCylinder = "";
-  String valveCylinder = "";
-  String limitedSlipDiff = "yes";
-  String turboCharger = "yes";
   String maxPower = "";
   String maxTorque = "";
   String mileage = "";
-  String suspensionFront = "";
-  String suspensionRear = "";
-  String frontBrakeType = "";
-  String rearBrakeType = "";
-  String steeringType = "";
   String engineCC = "";
   String city = "";
   String rtoLocation = "";
-  List<int> selectedComfort = [];
-  List<int> selectedInterior = [];
-  List<int> selectedExterior = [];
-  List<int> selectedSafety = [];
-  List<int> selectedEntertainment = [];
+  List<String> selectedComfort = [];
+  List<String> selectedInterior = [];
+  List<String> selectedExterior = [];
+  List<String> selectedSafety = [];
+  List<String> selectedEntertainment = [];
   String apiUrl = Env.apiUrl;
 
   changeFeatureIndex(int index) {
@@ -80,47 +61,55 @@ class DealerUploadCar extends ChangeNotifier {
     notifyListeners();
   }
 
-  getBrandId({required String id}) {
-    brandId = id;
-    // print(brandId);
+  getBrandId({required String brandName}) {
+    brand = brandName;
+    //  print(brand);
   }
 
   getRtoLocationId({required String id}) {
     rtoLocation = id;
-    // print(brandId);
+    //    print(brand);
   }
 
-  getModelId({required String id}) {
-    modelId = id;
+  getModelId({required String modelName}) {
+    model = modelName;
+    // print(model);
   }
 
-  getVarientId({required String id}) {
-    varientId = id;
-    //  print(varientId);
+  getVarientId({required String varientName}) {
+    varient = varientName;
+
+    //  print(varient);
   }
 
   getYearId({required String year}) {
     registerationYear = year;
+    print(registerationYear);
   }
 
-  getFuelId({required String id}) {
-    fuelTypeId = id;
+  getFuelId({required String fuel}) {
+    fuelType = fuel;
+    print(fuelType);
   }
 
-  getBodyTypeId({required String id}) {
-    bodyTypeId = id;
+  getBodyTypeId({required String bodyTypeName}) {
+    bodyType = bodyTypeName;
+    print(bodyType);
   }
 
-  getOwnershipId({required String id}) {
-    ownershipId = id;
+  getOwnershipId({required String owner}) {
+    ownership = owner;
+    print(ownership);
   }
 
-  getColorId({required String id}) {
-    colorId = id;
+  getColorId({required String colorName}) {
+    color = colorName;
+    print(color);
   }
 
   getTransmisson({required String trans}) {
     transmisson = trans;
+    print(transmisson);
   }
 
   getKilometerDriven({required String kms}) {
@@ -130,160 +119,76 @@ class DealerUploadCar extends ChangeNotifier {
 
     driveKm = kms;
     // print("----------");
-    // print(driveKm);
+    print(driveKm);
     // print("----------");
   }
 
   getSellingPrice({required String price}) {
     carPrice = price;
+    print(carPrice);
   }
 
   getDescription({required String des}) {
     description = des;
-  }
-
-  getGroundClearance({required String clearance}) {
-    groundClearance = clearance;
+    print(description);
   }
 
   getSeatCapacity({required String capacity}) {
     seat = capacity;
-  }
-
-  getBootSpace({required String boot}) {
-    bootSpace = boot;
-  }
-
-  getFuelCapacity({required String capacity}) {
-    fuelCapacity = capacity;
-  }
-
-  getWheelbase({required String wheelbasevalue}) {
-    wheelbase = wheelbasevalue;
-  }
-
-  getLength({required String carLength}) {
-    length = carLength;
-  }
-
-  getFrontTyres({required String frontTyresValue}) {
-    frontTyres = frontTyresValue;
-  }
-
-  getRearTyres({required String rearTyreValue}) {
-    rearTyres = rearTyreValue;
-  }
-
-  getHeight({required String heightValue}) {
-    height = heightValue;
-  }
-
-  getWidth({required String widthValue}) {
-    width = widthValue;
-  }
-
-  getWheelCover({required String wheelcover}) {
-    wheelCover = wheelcover;
-  }
-
-  getAlloyWheel({required String alloywheel}) {
-    alloyWheels = alloywheel;
-  }
-
-  getSpareWheel({required String sparewheel}) {
-    spareWheel = sparewheel;
-  }
-
-  getDriveTrain({required String drivetrain}) {
-    driveTrain = drivetrain;
-  }
-
-  getGearbox({required String gearbox}) {
-    gearBox = gearbox;
-  }
-
-  getCc({required String cc}) {
-    displacement = cc;
-  }
-
-  getNoOfCylinder({required String noCylinder}) {
-    noOfCylinder = noCylinder;
-  }
-
-  getValve({required String valve}) {
-    valveCylinder = valve;
-  }
-
-  getLsd({required String lsd}) {
-    limitedSlipDiff = lsd;
-  }
-
-  getTurboCharger({required String turbocharger}) {
-    turboCharger = turbocharger;
+    print(seat);
   }
 
   getPowerDetails({required String power}) {
     maxPower = power;
+    print(maxPower);
   }
 
   getTorqueDetails({required String torque}) {
     maxTorque = torque;
+    print(maxTorque);
   }
 
   getMileage({required String kmpl}) {
     mileage = kmpl;
-  }
-
-  getFrontSuspension({required String frontsuspension}) {
-    suspensionFront = frontsuspension;
-  }
-
-  getRearSuspension({required String rearsuspension}) {
-    suspensionRear = rearsuspension;
-  }
-
-  getFrontBrakes({required String frontbrake}) {
-    frontBrakeType = frontbrake;
-  }
-
-  getRearBrakes({required String rearbrake}) {
-    rearBrakeType = rearbrake;
-  }
-
-  getSteering({required String steering}) {
-    steeringType = steering;
+    print(mileage);
   }
 
   getEngineCC({required String cc}) {
     engineCC = cc;
+    print(engineCC);
   }
 
-  addFeatures({required String feature, required int id}) {
+  addFeatures({required String feature, required String id}) {
     //   print(feature);
     switch (feature) {
       case "comfort":
         {
           selectedComfort.add(id);
+          print(selectedComfort);
         }
         break;
       case "safety":
         {
           selectedSafety.add(id);
+          print(selectedSafety);
         }
         break;
       case "interior":
         {
           selectedInterior.add(id);
+          print(selectedInterior);
         }
         break;
       case "exterior":
         {
           selectedExterior.add(id);
+          print(selectedExterior);
         }
         break;
       case "entertainment":
         {
           selectedEntertainment.add(id);
+          print(selectedEntertainment);
         }
         break;
       default:
@@ -435,25 +340,26 @@ class DealerUploadCar extends ChangeNotifier {
   List<String> carImages = [];
   //
   List<File> interiorFileToDisplay = [];
-  List<String> interiorImages = [];
+  List<FirebaseImageModel> interiorImages = [];
   //
   List<File> exteriorFileToDisplay = [];
-  List<String> exteriorImages = [];
+  List<FirebaseImageModel> exteriorImages = [];
   //
   List<File> engineFileToDisplay = [];
-  List<String> engineImages = [];
+  List<FirebaseImageModel> engineImages = [];
   //
   List<File> tyreToDisplay = [];
-  List<String> tyreImages = [];
+  List<FirebaseImageModel> tyreImages = [];
   //
   List<File> dentsFileToDisplay = [];
-  List<String> dentsImages = [];
+  List<FirebaseImageModel> dentsImages = [];
   //
   List<File> thumbnailFileToDisplay = [];
-  List<String> thumbnailImages = [];
+  List<FirebaseImageModel> thumbnailImages = [];
   //
   List<File> otherFileToDisplay = [];
-  List<String> otherImages = [];
+  List<FirebaseImageModel> otherImages = [];
+  List<FirebaseImageModel> allImages = [];
 
   pickCarImages({
     required BuildContext context,
@@ -461,6 +367,7 @@ class DealerUploadCar extends ChangeNotifier {
   }) {
     if (type == "interior") {
       pickImage(
+          type: "INT",
           context: context,
           multipleSelect: true,
           displayFiles: interiorFileToDisplay,
@@ -468,6 +375,7 @@ class DealerUploadCar extends ChangeNotifier {
     }
     if (type == "exterior") {
       pickImage(
+          type: "EXT",
           context: context,
           multipleSelect: true,
           displayFiles: exteriorFileToDisplay,
@@ -475,6 +383,7 @@ class DealerUploadCar extends ChangeNotifier {
     }
     if (type == "dents") {
       pickImage(
+          type: "DENT",
           context: context,
           multipleSelect: true,
           displayFiles: dentsFileToDisplay,
@@ -482,6 +391,7 @@ class DealerUploadCar extends ChangeNotifier {
     }
     if (type == "tyres") {
       pickImage(
+        type: "TYRE",
         context: context,
         displayFiles: tyreToDisplay,
         images: tyreImages,
@@ -490,6 +400,7 @@ class DealerUploadCar extends ChangeNotifier {
     }
     if (type == "engine") {
       pickImage(
+          type: "ENGINE",
           context: context,
           multipleSelect: true,
           displayFiles: engineFileToDisplay,
@@ -497,6 +408,7 @@ class DealerUploadCar extends ChangeNotifier {
     }
     if (type == "thumbnail") {
       pickImage(
+          type: "THUMB",
           context: context,
           multipleSelect: false,
           displayFiles: thumbnailFileToDisplay,
@@ -504,6 +416,7 @@ class DealerUploadCar extends ChangeNotifier {
     }
     if (type == "others") {
       pickImage(
+          type: "OTHER",
           context: context,
           multipleSelect: true,
           displayFiles: otherFileToDisplay,
@@ -521,7 +434,8 @@ class DealerUploadCar extends ChangeNotifier {
       {required BuildContext context,
       required List<File> displayFiles,
       required bool multipleSelect,
-      required List<String> images}) async {
+      required String type,
+      required List<FirebaseImageModel> images}) async {
     try {
       result = await FilePicker.platform.pickFiles(
         type: FileType.image,
@@ -529,13 +443,13 @@ class DealerUploadCar extends ChangeNotifier {
       );
       if (result != null) {
         result!.files.forEach((element) {
-          images.add(element.path.toString());
           displayFiles!.add(File(element.path.toString()));
         });
-        notifyListeners();
 
-        // pickedFile = result!.files.first;
-        // fileToDisplay = fileToDisplay.add(File(pickedFile!.path.toString()));
+        images.addAll(
+            await uploadImagesToFirestore(files: displayFiles, type: type));
+
+        notifyListeners();
       }
     } catch (e) {
       print(e);
@@ -565,6 +479,32 @@ class DealerUploadCar extends ChangeNotifier {
         );
       }
     }
+  }
+
+  Future<List<FirebaseImageModel>> uploadImagesToFirestore(
+      {required List<File> files, required String type}) async {
+    final storage = FirebaseStorage.instance;
+    List<FirebaseImageModel> imageUrls = [];
+
+    for (var file in files) {
+      try {
+        String fileName = DateTime.now().millisecondsSinceEpoch.toString();
+        Reference storageReference = storage.ref().child('$fileName.jpg');
+
+        UploadTask uploadTask = storageReference.putFile(file);
+
+        TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
+
+        String downloadUrl = await taskSnapshot.ref.getDownloadURL();
+        imageUrls
+            .add(FirebaseImageModel(imageType: type, imageUrl: downloadUrl));
+      } catch (e) {
+        print('Error uploading image: $e');
+        // Handle errors if needed
+      }
+    }
+    // print("||||||||||||||||||||||||||||||||||||||||||||||||||||||$imageUrls");
+    return imageUrls;
   }
 
   ////////////////////////////
@@ -610,168 +550,117 @@ class DealerUploadCar extends ChangeNotifier {
     notifyListeners();
   }
 
-  uploadCar(context) async {
-    try {
-      final SharedPreferences sp = await SharedPreferences.getInstance();
-      Uri url = Uri.parse('$apiUrl/dealer/car/new-add-car');
-      String? dealerToken = sp.getString('dealerToken');
-      var request = http.MultipartRequest("POST", url);
-      request.headers["Authorization"] = "Bearer $dealerToken";
-      request.headers["Content-Type"] =
-          "application/x-www-form-urlencoded; charset=UTF-8";
-      request.fields["brand"] = "$brandId";
-      request.fields["model"] = "$modelId";
-      request.fields["variant"] = "$varientId";
-      request.fields["registrationYear"] = "$registerationYear";
-      request.fields["bodyType"] = "$bodyTypeId";
-      request.fields["fuelType"] = "$fuelTypeId";
-      request.fields["transmisson"] = "$transmisson";
-      request.fields["ownerType"] = "$ownershipId";
-      request.fields["color"] = "$colorId";
-      request.fields["drivenKm"] = "$driveKm";
-      request.fields["carPrice"] = "$carPrice";
-      request.fields["description"] = "$description";
-      request.fields["groundClearance"] = "$groundClearance";
-      request.fields["length"] = "$length";
-      request.fields["seat"] = "$seat";
-      request.fields["frontTyres"] = "$frontTyres";
-      request.fields["bootSpace"] = "$bootSpace";
-      request.fields["rearTyre"] = "$rearTyres";
-      request.fields["fuelTankCapacity"] = "$fuelCapacity";
-      request.fields["wheelCover"] = "$wheelCover";
-      request.fields["wheelbase"] = "$wheelbase";
-      request.fields["sparewheel"] = "$spareWheel";
-      request.fields["height"] = "$height";
-      request.fields["width"] = "$width";
-      request.fields["alloyWheels"] = "$alloyWheels";
-      request.fields["driveTrain"] = "$driveTrain";
-      request.fields["gearBox"] = "$gearBox";
-      request.fields["displacement"] = "$displacement";
-      request.fields["noOfCylinders"] = "$noOfCylinder";
-      request.fields["valveCylinders"] = "$valveCylinder";
-      request.fields["limitedSlipDiffer"] = "$limitedSlipDiff";
-      request.fields["turbocharger"] = "$turboCharger";
-      request.fields["maxPower"] = "$maxPower";
-      request.fields["maxTorque"] = "$maxTorque";
-      request.fields["mileage"] = "$mileage";
-      request.fields["suspensionFront"] = "$suspensionFront";
-      request.fields["suspensionRear"] = "$suspensionRear";
-      request.fields["frontBrakeFront"] = "$frontBrakeType";
-      request.fields["rearBrakeType"] = "$rearBrakeType";
-      request.fields["steeringType"] = "$steeringType";
-      request.fields["city"] = "592";
-      request.fields["comforts"] = "$selectedComfort";
-      request.fields["interior"] = "$selectedInterior";
-      request.fields["exterior"] = "$selectedExterior";
-      request.fields["entertainment"] = "$selectedEntertainment";
-      request.fields["safety"] = "$selectedSafety";
-      request.fields["engine"] = "$engineCC";
-
-      tyreImages.forEach((element) async {
-        request.files.add(await http.MultipartFile.fromPath(
-          "tyreImages",
-          element,
-        ));
-      });
-      thumbnailImages.forEach((element) async {
-        request.files.add(await http.MultipartFile.fromPath(
-          "thumbImage",
-          element,
-        ));
-      });
-      dentsImages.forEach((element) async {
-        request.files.add(await http.MultipartFile.fromPath(
-          "dentImages",
-          element,
-        ));
-      });
-      engineImages.forEach((element) async {
-        request.files.add(await http.MultipartFile.fromPath(
-          "engineImages",
-          element,
-        ));
-      });
-      exteriorImages.forEach((element) async {
-        request.files.add(await http.MultipartFile.fromPath(
-          "exteriorImages",
-          element,
-        ));
-      });
-      otherImages.forEach((element) async {
-        request.files.add(await http.MultipartFile.fromPath(
-          "extraImages",
-          element,
-        ));
-      });
-
-      interiorImages.forEach((element) async {
-        request.files.add(await http.MultipartFile.fromPath(
-          "interiorImages",
-          element,
-        ));
-      });
-      var response = await request.send();
-      var responseData = await response.stream.toBytes();
-      var responseString = utf8.decode(responseData);
-      var data = json.decode(responseString);
-
-      if (data["success"] == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
-            MySnackbar.showSnackBar(context, "Car uploaded successfully"));
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DealerFlow(
-              index: 1,
-            ),
-          ),
-          (route) => false,
-        );
-        showDialog<String>(
-          context: context,
-          builder: (BuildContext context) => AlertDialog(
-            title: Text(
-              'Car uploaded successfully',
-              style: AppFonts.w700black16,
-            ),
-            content: Text(
-              "The car details have been uploaded successfully and are now live for the customers.",
-              style: AppFonts.w500black14,
-            ),
-            actions: <Widget>[
-              TextButton(
-                onPressed: () {
-                  // FirebaseEvents()
-                  //     .dealerUploadCar(dealerNumber: "dealer number");
-                  // FacebookEvents()
-                  //     .dealerUploadCar(dealerNumber: "dealer number");
-
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const DealerFlow(index: 1)),
-                    (route) => false,
-                  );
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-        debugPrint("success status code ${data["status"]}");
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-            context, "Something went wrong try again later"));
-        debugPrint("error status code ${data["status"]}");
-      }
-    } catch (error) {
-      print("Error: $error");
-      ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-          context, "Something went wrong try again later"));
-    }
-
-    clearData();
+  mergeAllImages() {
+    allImages.addAll(interiorImages);
+    allImages.addAll(exteriorImages);
+    allImages.addAll(thumbnailImages);
+    allImages.addAll(dentsImages);
+    allImages.addAll(otherImages);
+    allImages.addAll(engineImages);
+    allImages.addAll(tyreImages);
   }
+
+  uploadCarToFirestore() async {
+    List<Map<String, String>> imageList = allImages
+        .map((image) => Map<String, String>.from(image.toJson()))
+        .toList();
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    final firestore = FirebaseFirestore.instance;
+    Map<String, dynamic> data = {
+      "id": DateTime.now().microsecondsSinceEpoch,
+      "carPrice": carPrice,
+      "status": "ACTIVE",
+      "images": imageList,
+      "properties": {
+        "brand": brand,
+        "model": model,
+        "variant": varient,
+        "fuelType": fuelType,
+        "bodyType": bodyType,
+        "color": color,
+        "seat": seat,
+        "ownerType": ownership,
+        "city": rtoLocation,
+      },
+      "saleStatus": "AVAILABLE",
+      "uploadedBy": auth.currentUser!.uid,
+      "uploadedAt": DateTime.now().microsecondsSinceEpoch,
+      "dealer": {
+        "id": auth.currentUser!.uid,
+        "name": "Dealer",
+        "phone": auth.currentUser!.phoneNumber,
+        "address": "Kolkata",
+      },
+    };
+    try {
+      await firestore
+          .collection('vehicles')
+          .doc("${DateTime.now().microsecondsSinceEpoch}")
+          .set(data);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  // uploadCar(context) async {
+  //     if (data["success"] == true) {
+  //       ScaffoldMessenger.of(context).showSnackBar(
+  //           MySnackbar.showSnackBar(context, "Car uploaded successfully"));
+  //       Navigator.pushAndRemoveUntil(
+  //         context,
+  //         MaterialPageRoute(
+  //           builder: (context) => const DealerFlow(
+  //             index: 1,
+  //           ),
+  //         ),
+  //         (route) => false,
+  //       );
+  //       showDialog<String>(
+  //         context: context,
+  //         builder: (BuildContext context) => AlertDialog(
+  //           title: Text(
+  //             'Car uploaded successfully',
+  //             style: AppFonts.w700black16,
+  //           ),
+  //           content: Text(
+  //             "The car details have been uploaded successfully and are now live for the customers.",
+  //             style: AppFonts.w500black14,
+  //           ),
+  //           actions: <Widget>[
+  //             TextButton(
+  //               onPressed: () {
+  //                 // FirebaseEvents()
+  //                 //     .dealerUploadCar(dealerNumber: "dealer number");
+  //                 // FacebookEvents()
+  //                 //     .dealerUploadCar(dealerNumber: "dealer number");
+
+  //                 Navigator.pushAndRemoveUntil(
+  //                   context,
+  //                   MaterialPageRoute(
+  //                       builder: (context) => const DealerFlow(index: 1)),
+  //                   (route) => false,
+  //                 );
+  //               },
+  //               child: const Text('OK'),
+  //             ),
+  //           ],
+  //         ),
+  //       );
+  //       debugPrint("success status code ${data["status"]}");
+  //     } else {
+  //       ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+  //           context, "Something went wrong try again later"));
+  //       debugPrint("error status code ${data["status"]}");
+  //     }
+  //   } catch (error) {
+  //     print("Error: $error");
+  //     ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+  //         context, "Something went wrong try again later"));
+  //   }
+
+  //   clearData();
+  // }
 
   clearData() {
     featuresIndex = 0;
