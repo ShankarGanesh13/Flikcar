@@ -76,7 +76,7 @@ class FirebaseCarProperties {
       seat: json['seat'] ?? 'N/A',
       variant: json['variant'] ?? 'N/A',
       maxPower: json['maxPower']?.toString() ?? 'N/A',
-      noc: json['noc'] ?? 'N/A',
+      noc: json['noc'].toString() ?? 'N/A',
       mileage: json['mileage']?.toString() ?? 'N/A',
       entertainment: List<String>.from(json['entertainment'] ?? []),
       comfort: List<String>.from(json['comfort'] ?? []),

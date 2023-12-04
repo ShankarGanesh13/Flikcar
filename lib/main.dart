@@ -102,3 +102,7 @@ class _MyAppState extends State<MyApp> {
   // }
 
 //keytool -genkey -v -keystore %userprofile%\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+// Your Android App Bundle is signed with the wrong key. Ensure that your App Bundle is signed with the correct signing key and try again. Your app bundle is expected to be signed with the certificate with fingerprint:
+// SHA1: 18:80:B7:7C:C0:C4:5A:59:E2:E1:AB:45:E0:50:23:C0:D7:B6:0D:BD
+// but the certificate used to sign the app bundle that you uploaded has fingerprint:
+// SHA1: 9B:A6:90:C1:5F:3B:5B:A0:86:BD:FA:14:FD:24:23:2C:68:AF:EF:DE

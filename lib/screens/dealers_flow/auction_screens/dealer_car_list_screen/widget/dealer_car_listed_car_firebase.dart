@@ -142,7 +142,7 @@ class DealerCarListCardFirebase extends StatelessWidget {
                 children: [
                   Text(
                     car.bid == null
-                        ? "Curreny Bid ₹${car.startPrice}"
+                        ? "Current Bid ₹${car.startPrice}"
                         : "Current Bid ₹${car.bid!.price}",
                     style: AppFonts.w700black20,
                   ),

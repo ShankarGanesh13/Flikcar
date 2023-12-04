@@ -83,7 +83,7 @@ class _FirebaseCurrentBidWidgetState extends State<FirebaseCurrentBidWidget> {
       );
     } else {
       return Text(
-        "Curreny Bid\n${formatPrice(auction.bid!.price)}",
+        "Current Bid\n${formatPrice(auction.bid!.price)}",
         // auction.bid.price == null
         //     ? "Curreny Bid\n₹${auction.bid!.price}"
         //     : "Current Bid\n₹${currentbidPrice}",

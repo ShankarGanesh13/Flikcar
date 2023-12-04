@@ -18,18 +18,31 @@ class FirebaseAuctionService {
     }
   }
 
-  Stream<List<FirebaseAuction>> getAuctionCarsStream() {
-    // getAuctionCarDetails(carId: "F9DtKQsWhPvtRt0rAspW");
+  Stream<List<FirebaseAuction?>> getAuctionCarsStream() {
     CollectionReference collection = firestore.collection("auctions");
     return collection.snapshots().map(
       (QuerySnapshot querySnapshot) {
-        return querySnapshot.docs.map(
-          (QueryDocumentSnapshot queryDocumentSnapshot) {
-            return FirebaseAuction.fromJson(
-              queryDocumentSnapshot.data() as Map<String, dynamic>,
-            );
-          },
-        ).toList();
+        final currentTime = DateTime.now();
+
+        return querySnapshot.docs
+            .map(
+              (QueryDocumentSnapshot queryDocumentSnapshot) {
+                final auctionData =
+                    queryDocumentSnapshot.data() as Map<String, dynamic>;
+                //final endTime = auctionData['endTime'] as Timestamp;
+
+                // Check if the auction has ended
+                if (DateTime.fromMicrosecondsSinceEpoch(auctionData['endTime'])
+                    .isAfter(currentTime)) {
+                  return FirebaseAuction.fromJson(auctionData);
+                } else {
+                  // Auction has ended, exclude from the stream
+                  return null;
+                }
+              },
+            )
+            .where((auction) => auction != null)
+            .toList();
       },
     );
   }

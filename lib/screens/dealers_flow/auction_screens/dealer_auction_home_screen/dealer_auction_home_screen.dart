@@ -132,9 +132,10 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
                     //               style: AppFonts.w700black16,
                     //             ),
                     //     )),
-                    StreamBuilder<List<FirebaseAuction>>(
+                    StreamBuilder<List<FirebaseAuction?>>(
                       stream: FirebaseAuctionService().getAuctionCarsStream(),
                       builder: (context, snapshot) {
+                        print(snapshot.data);
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return SizedBox(
@@ -149,7 +150,8 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
                               ));
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
-                        } else if (snapshot.data == null) {
+                        } else if (snapshot.data == null ||
+                            snapshot.data!.isEmpty) {
                           return SizedBox(
                               height: 300,
                               child: Center(
@@ -167,7 +169,7 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 return DealerCarListCardFirebase(
-                                  car: snapshot.data![index],
+                                  car: snapshot.data![index]!,
                                 );
                               });
                         }

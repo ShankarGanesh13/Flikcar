@@ -39,7 +39,7 @@ class FirebaseDisplayCar {
       city: json['city'] ?? '',
       ownerType: json['ownerType'] ?? '',
       model: json['model'] ?? '',
-      seat: json['seat'] ?? '',
+      seat: json['seat'].toString(),
       brand: json['brand'] ?? '',
       kmsDriven: json['kmsDriven'] ?? 0,
       transmission: json['transmission'] ?? '',
