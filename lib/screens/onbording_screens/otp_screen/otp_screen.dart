@@ -175,7 +175,10 @@ class _OtpScreenState extends State<OtpScreen> {
                   child: OtpTimerButton(
                     controller: resendOtpController,
                     onPressed: () {
-                      AuthService.sendOtp(phoneNumber: widget.phoneNumber);
+                      verifyUserPhoneNumber(
+                        phoneNumber: widget.phoneNumber,
+                        context: context,
+                      );
                     },
                     text: Text(
                       'Resend OTP ',
@@ -224,6 +227,7 @@ class _OtpScreenState extends State<OtpScreen> {
             );
       },
       verificationFailed: (FirebaseAuthException e) {
+        print(e);
         ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
             context, "Something went wrong please try again"));
       },
