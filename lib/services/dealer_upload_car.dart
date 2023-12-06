@@ -598,7 +598,7 @@ class DealerUploadCar extends ChangeNotifier {
           "description": description,
           "saleStatus": "AVAILABLE",
           "uploadedBy": auth.currentUser!.uid,
-          "uploadedAt": DateTime.now().microsecondsSinceEpoch,
+          "uploadedAt": DateTime.now().millisecondsSinceEpoch,
           "dealer": {
             "id": auth.currentUser!.uid,
             "name": "Dealer",

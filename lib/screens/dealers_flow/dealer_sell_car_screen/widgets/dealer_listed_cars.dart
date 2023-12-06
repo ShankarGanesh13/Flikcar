@@ -174,7 +174,7 @@ class DealerListedCars extends StatelessWidget {
                                   //             ? AppFonts.w500green14
                                   //             : AppFonts.w500red14),
                                   Text(
-                                    "Listed on ${formatter.format(DateTime.fromMicrosecondsSinceEpoch(cars[index].createdAt))}",
+                                    "Listed on ${formatter.format(DateTime.fromMillisecondsSinceEpoch(cars[index].createdAt))}",
                                     style: AppFonts.w500black10,
                                   )
                                 ],

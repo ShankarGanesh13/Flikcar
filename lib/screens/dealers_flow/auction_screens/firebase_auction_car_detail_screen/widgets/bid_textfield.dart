@@ -44,8 +44,8 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
   Widget checkLiveNew() {
     DateTime now = DateTime.now();
     DateTime startTime =
-        DateTime.fromMicrosecondsSinceEpoch(widget.car.startTime);
-    DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(widget.car.endTime);
+        DateTime.fromMillisecondsSinceEpoch(widget.car.startTime);
+    DateTime endTime = DateTime.fromMillisecondsSinceEpoch(widget.car.endTime);
 
     if (endTime.isBefore(now)) {
       // Auction has ended

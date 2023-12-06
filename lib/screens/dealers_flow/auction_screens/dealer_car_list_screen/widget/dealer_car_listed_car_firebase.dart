@@ -198,8 +198,8 @@ class DealerCarListCardFirebase extends StatelessWidget {
 
   Widget checkLiveNew() {
     DateTime now = DateTime.now();
-    DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(car.startTime);
-    DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(car.endTime);
+    DateTime startTime = DateTime.fromMillisecondsSinceEpoch(car.startTime);
+    DateTime endTime = DateTime.fromMillisecondsSinceEpoch(car.endTime);
     // print("***********startTime$startTime");
     // print("*****************endtime$endTime");
     // print("****************now$now");

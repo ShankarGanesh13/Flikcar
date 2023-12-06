@@ -109,12 +109,12 @@ class MyBidsScreenCard extends StatelessWidget {
                       style: AppFonts.w700s116),
                   const SizedBox(height: 4),
                   Wrap(
-                    spacing: 6,
+                    spacing: 4,
                     children: List.generate(
                       5,
                       (index) => Container(
                         padding: const EdgeInsets.only(
-                            left: 0, right: 7, top: 5, bottom: 0),
+                            left: 0, right: 5, top: 5, bottom: 0),
                         decoration: BoxDecoration(
                             color: Colors.transparent,
                             borderRadius: BorderRadius.circular(20)),
@@ -172,9 +172,9 @@ class MyBidsScreenCard extends StatelessWidget {
                 children: [
                   OngoingTimer(
                       startTime:
-                          DateTime.fromMicrosecondsSinceEpoch(car.startTime),
+                          DateTime.fromMillisecondsSinceEpoch(car.startTime),
                       endTime:
-                          DateTime.fromMicrosecondsSinceEpoch(car.endTime)),
+                          DateTime.fromMillisecondsSinceEpoch(car.endTime)),
                   const Spacer(),
                   SizedBox(
                     width: 122,

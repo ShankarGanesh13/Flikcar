@@ -33,7 +33,7 @@ class FirebaseAuctionService {
                 final auctionData =
                     queryDocumentSnapshot.data() as Map<String, dynamic>;
 
-                if (DateTime.fromMicrosecondsSinceEpoch(auctionData['endTime'])
+                if (DateTime.fromMillisecondsSinceEpoch(auctionData['endTime'])
                     .isAfter(currentTime)) {
                   return FirebaseAuction.fromJson(auctionData);
                 } else {
