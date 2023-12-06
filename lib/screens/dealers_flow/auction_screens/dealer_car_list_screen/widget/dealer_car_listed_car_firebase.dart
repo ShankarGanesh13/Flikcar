@@ -12,6 +12,7 @@ import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DealerCarListCardFirebase extends StatelessWidget {
@@ -142,8 +143,8 @@ class DealerCarListCardFirebase extends StatelessWidget {
                 children: [
                   Text(
                     car.bid == null
-                        ? "Current Bid ₹${car.startPrice}"
-                        : "Current Bid ₹${car.bid!.price}",
+                        ? "Current Bid ${formatPrice(car.startPrice)}"
+                        : "Current Bid ${formatPrice(car.bid!.price)}",
                     style: AppFonts.w700black20,
                   ),
                   // const SizedBox(height: 5),
@@ -199,32 +200,41 @@ class DealerCarListCardFirebase extends StatelessWidget {
     DateTime now = DateTime.now();
     DateTime startTime = DateTime.fromMicrosecondsSinceEpoch(car.startTime);
     DateTime endTime = DateTime.fromMicrosecondsSinceEpoch(car.endTime);
-    print("***********startTime$startTime");
-    print("*****************endtime$endTime");
-    print("****************now$now");
+    // print("***********startTime$startTime");
+    // print("*****************endtime$endTime");
+    // print("****************now$now");
 
     if (endTime.isBefore(now)) {
       // Auction has ended
-      print("auction ended");
+      debugPrint("auction ended");
       return Text(
         "Auction has ended",
         style: AppFonts.w500red14,
       );
     } else if (startTime.isBefore(now) && endTime.isAfter(now)) {
       // Auction is ongoing
-      print("ongoing");
+      debugPrint("ongoing");
       return OngoingTimer(
         endTime: endTime,
         startTime: startTime,
       );
     } else {
-      print("upcoming");
+      debugPrint("upcoming");
       // Auction is upcoming
       return UpcomingTimer(
         startTime: startTime,
         endTime: endTime,
       );
     }
+  }
+
+  String formatPrice(int price) {
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'en_IN',
+      symbol: '₹',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(price);
   }
 }
 // I/flutter ( 6247): ***********startTime     2023-11-30 10:28:26.079

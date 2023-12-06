@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
@@ -24,6 +25,8 @@ import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:upgrader/upgrader.dart';
@@ -36,7 +39,14 @@ void main() async {
 
   await Firebase.initializeApp();
   // FacebookAppEvents();
+  await FirebaseAppCheck.instance.activate(
+      androidProvider: AndroidProvider.playIntegrity,
+      appleProvider: AppleProvider.debug);
   FirebaseAuth firebase = FirebaseAuth.instance;
+
+  await Hive.initFlutter();
+
+  //FirebaseAuthService().getDealerDetails();
 
 //  FacebookEvents();
   GetCarDetails();

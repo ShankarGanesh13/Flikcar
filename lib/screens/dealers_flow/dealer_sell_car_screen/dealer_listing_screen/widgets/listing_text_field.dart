@@ -1,5 +1,6 @@
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class ListingTextField extends StatelessWidget {
   final String hint;
@@ -9,8 +10,10 @@ class ListingTextField extends StatelessWidget {
   final TextInputType keyboardType;
   final TextEditingController controller;
   final ValueChanged onChanged;
+  final List<TextInputFormatter>? inputType;
   const ListingTextField(
       {super.key,
+      this.inputType,
       required this.hint,
       required this.validator,
       required this.keyboardType,
@@ -32,6 +35,7 @@ class ListingTextField extends StatelessWidget {
           margin: const EdgeInsets.only(top: 10),
           width: MediaQuery.of(context).size.width,
           child: TextFormField(
+            inputFormatters: inputType,
             keyboardType: keyboardType,
             controller: controller,
             decoration: InputDecoration(

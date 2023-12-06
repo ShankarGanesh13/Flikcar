@@ -28,7 +28,9 @@ class FirebaseAuction {
       carDetails: FirebaseDisplayCar.fromJson(json['carDetails'] ?? {}),
       startPrice: json['startPrice'] ?? 0,
       startTime: json['startTime'] ?? 0,
-      bid: FirebaseBid.fromJson(json['latestBid']),
+      bid: json['latestBid'] != null
+          ? FirebaseBid.fromJson(json['latestBid'])
+          : null,
       endPrice: json['endPrice'] ?? 0,
       endTime: json['endTime'] ?? 0,
     );

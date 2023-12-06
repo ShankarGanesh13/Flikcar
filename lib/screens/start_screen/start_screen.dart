@@ -150,26 +150,4 @@ class _StartScreenState extends State<StartScreen> {
       return false;
     }
   }
-
-  Future<Widget> dealerIsLoggedIn(context) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final bool? dealerLoggedIn = sp.getBool("dealerIsLoggedIn");
-    final String? dealerStatus = sp.getString("dealerStatus");
-    print(dealerLoggedIn);
-    print(dealerStatus);
-    if (dealerLoggedIn == true) {
-      if (dealerStatus == "Pending") {
-        return DealerDetails();
-      }
-      if (dealerStatus == "Submitted") {
-        return const NotVerifiedDealer();
-      }
-      if (dealerStatus == "Complete") {
-        return const DealerFlow(index: 0);
-      }
-      return const SizedBox();
-    } else {
-      return DealerPhoneNumber();
-    }
-  }
 }

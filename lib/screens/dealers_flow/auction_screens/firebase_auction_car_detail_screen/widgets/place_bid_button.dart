@@ -8,9 +8,11 @@ import 'package:flutter/material.dart';
 class PlaceBidButton extends StatefulWidget {
   final TextEditingController controller;
   final int currentBid;
+  final String carId;
 
   const PlaceBidButton({
     super.key,
+    required this.carId,
     required this.controller,
     required this.currentBid,
   });
@@ -35,7 +37,8 @@ class _PlaceBidButtonState extends State<PlaceBidButton> {
         ),
         padding: const EdgeInsets.only(left: 10, right: 10),
       ),
-      onPressed: isLoading ? null : () async => await _placeBid(),
+      onPressed:
+          isLoading ? null : () async => await _placeBid(carId: widget.carId),
       child: Row(
         children: [
           Text(
@@ -63,14 +66,14 @@ class _PlaceBidButtonState extends State<PlaceBidButton> {
     );
   }
 
-  Future<void> _placeBid() async {
+  Future<void> _placeBid({required String carId}) async {
     setState(() {
       isLoading = true;
     });
 
     if (widget.controller.text.isNotEmpty) {
       status = await FirebaseAuctionService().placeBid(
-        auctionId: "1",
+        auctionId: carId,
         currentBid: widget.currentBid,
         bidAmount: int.parse(widget.controller.text.replaceAll(regex, '')),
         userId: auth.currentUser!.uid,

@@ -1,12 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/firebase_models/firebase_auction.dart';
 import 'package:flikcar/firebase_models/firebase_car_details.dart';
 import 'package:cloud_functions/cloud_functions.dart';
+import 'package:flikcar/firebase_models/firebase_my_bids.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseAuctionService {
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseAuth auth = FirebaseAuth.instance;
 
   getAuctionCars() async {
     CollectionReference collection = await firestore.collection("auctions");
@@ -29,14 +32,11 @@ class FirebaseAuctionService {
               (QueryDocumentSnapshot queryDocumentSnapshot) {
                 final auctionData =
                     queryDocumentSnapshot.data() as Map<String, dynamic>;
-                //final endTime = auctionData['endTime'] as Timestamp;
 
-                // Check if the auction has ended
                 if (DateTime.fromMicrosecondsSinceEpoch(auctionData['endTime'])
                     .isAfter(currentTime)) {
                   return FirebaseAuction.fromJson(auctionData);
                 } else {
-                  // Auction has ended, exclude from the stream
                   return null;
                 }
               },
@@ -55,9 +55,59 @@ class FirebaseAuctionService {
     // Return the stream
     return docRef.snapshots().map(
       (DocumentSnapshot documentSnapshot) {
-        var data = documentSnapshot.data() as Map<String, dynamic>;
+        //   var data = documentSnapshot.data() as Map<String, dynamic>;
 
         return FirebaseAuction.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>);
+      },
+    );
+  }
+
+  Stream<List<FirebaseAuction>> getMyBids() {
+    CollectionReference collection = firestore.collection("auctions");
+    CollectionReference userMyBidCollection = firestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("bids");
+
+    return collection.snapshots().asyncMap(
+      (QuerySnapshot querySnapshot) async {
+        List<FirebaseAuction> filteredAuctions = [];
+
+        for (QueryDocumentSnapshot queryDocumentSnapshot
+            in querySnapshot.docs) {
+          // Check if the document exists in the user's "bids" collection
+          DocumentSnapshot userBidDoc =
+              await userMyBidCollection.doc(queryDocumentSnapshot.id).get();
+
+          if (userBidDoc.exists) {
+            // If the document exists, add the auction to the filtered list
+            filteredAuctions.add(
+              FirebaseAuction.fromJson(
+                queryDocumentSnapshot.data() as Map<String, dynamic>,
+              ),
+            );
+          }
+        }
+
+        return filteredAuctions;
+      },
+    ).handleError((error) {
+      print("Error getting bids stream: $error");
+      // You can choose to throw an error or return an empty list based on your needs.
+      return [];
+    });
+  }
+
+  Stream<FirebaseMyBids> getMyBidPrice({required String carId}) {
+    DocumentReference docRef = firestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("bids")
+        .doc(carId);
+    return docRef.snapshots().map(
+      (DocumentSnapshot documentSnapshot) {
+        return FirebaseMyBids.fromJson(
             documentSnapshot.data() as Map<String, dynamic>);
       },
     );

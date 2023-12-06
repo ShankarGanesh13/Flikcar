@@ -111,25 +111,43 @@ class GetBrandModelVarient {
     return brands;
   }
 
+  // static Future<List<BrandModelVarient>> getBrandModelVarient() async {
+  //   final SharedPreferences sp = await SharedPreferences.getInstance();
+  //   List<BrandModelVarient> brands = [];
+  //   Uri url = Uri.parse(
+  //     '$apiUrl/dealer/car/brand-model-variant',
+  //   );
+
+  //   String? dealerToken = sp.getString('dealerToken');
+
+  //   var response = await http.get(url, headers: {
+  //     'Content-Type': 'application/json',
+  //     'Authorization': 'Bearer $dealerToken',
+  //   });
+  //   var body = jsonDecode(response.body);
+  //   var data = body["data"] as List;
+  //   brands = [];
+  //   data.forEach((element) {
+  //     brands.add(BrandModelVarient.fromJson(element));
+  //   });
+
+  //   return brands;
+  // }
+
   static Future<List<BrandModelVarient>> getBrandModelVarient() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
     List<BrandModelVarient> brands = [];
-    Uri url = Uri.parse(
-      '$apiUrl/dealer/car/brand-model-variant',
-    );
-
-    String? dealerToken = sp.getString('dealerToken');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
-    brands = [];
-    data.forEach((element) {
-      brands.add(BrandModelVarient.fromJson(element));
-    });
+    print("get brand model variant");
+    try {
+      CollectionReference collection =
+          firestore.collection('brand_model_variants');
+      QuerySnapshot querySnapshot = await collection.get();
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        brands.add(BrandModelVarient.fromJson(
+            documentSnapshot.data() as Map<String, dynamic>));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
 
     return brands;
   }

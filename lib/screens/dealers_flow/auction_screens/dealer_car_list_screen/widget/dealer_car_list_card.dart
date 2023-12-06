@@ -139,7 +139,7 @@ class DealerCarListCard extends StatelessWidget {
                 children: [
                   Text(
                     car.currentBidPrice == "no data"
-                        ? "Curreny Bid ₹${car.carPrice}"
+                        ? "Current Bid ₹${car.carPrice}"
                         : "Current Bid ₹${car.currentBidPrice}",
                     style: AppFonts.w700black20,
                   ),

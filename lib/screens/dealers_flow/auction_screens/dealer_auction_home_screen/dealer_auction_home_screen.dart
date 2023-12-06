@@ -135,7 +135,6 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
                     StreamBuilder<List<FirebaseAuction?>>(
                       stream: FirebaseAuctionService().getAuctionCarsStream(),
                       builder: (context, snapshot) {
-                        print(snapshot.data);
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return SizedBox(

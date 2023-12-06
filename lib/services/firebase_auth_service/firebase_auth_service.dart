@@ -8,6 +8,7 @@ import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_detai
 import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseAuthService {
@@ -27,7 +28,7 @@ class FirebaseAuthService {
           .get();
 
       if (userDoc.exists) {
-        print("&&&&&&&&user already exist.......");
+        print("--------------user already exist.......");
         // Document already exists, navigate accordingly based on userType
         String userType = userDoc['userTypeStatus'];
         await sp.setString('userType', userType);
@@ -42,7 +43,6 @@ class FirebaseAuthService {
             (route) => false,
           );
         }
-        //  navigateUserBasedOnType(context: context, userType: userType);
       } else {
         // Document doesn't exist, create it
         await FirebaseFirestore.instance.collection('users').doc(userId).set({
@@ -51,8 +51,6 @@ class FirebaseAuthService {
           'userTypeStatus': 'CUSTOMER',
         });
 
-        // Document created, navigate to home screen
-        //  navigateUserBasedOnType(context: context, userType: "CUSTOMER");
         await sp.setString('userType', "CUSTOMER");
         if (context.mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -124,5 +122,29 @@ class FirebaseAuthService {
         print("++++++++++++++++++++invalid type");
         break;
     }
+  }
+
+  getDealerDetails() async {
+    var dealerBox = await Hive.openBox<Map<String, dynamic>>('dealer');
+
+    DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .get();
+
+    var json = doc.data() as Map<String, dynamic>;
+    var data = {
+      "phoneNumber": json["phone"],
+      "name": json["dealerOnboardFormData"]["name"],
+      "shopAddress": json["dealerOnboardFormData"]["shopAddress"],
+    };
+
+    // Store the data in the Hive box
+    await dealerBox.put('dealerData', data);
+
+    // Close the box when done
+    await dealerBox.close();
+
+    // Return the data
   }
 }

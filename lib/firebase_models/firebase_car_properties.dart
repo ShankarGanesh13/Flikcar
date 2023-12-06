@@ -20,13 +20,10 @@ class FirebaseCarProperties {
   String color;
   int? roadTaxValidity;
   int? insuranceValidity;
-
   String inspectionScore;
   String manufacturingYear;
   String registerationYear;
-
   String maxPower;
-
   String mileage;
   String engineCC;
   String kmsDriven;
@@ -73,10 +70,10 @@ class FirebaseCarProperties {
       bodyType: json['bodyType'] ?? 'N/A',
       exterior: List<String>.from(json['exterior'] ?? []),
       safety: List<String>.from(json['safety'] ?? []),
-      seat: json['seat'] ?? 'N/A',
+      seat: json['seat']?.toString() ?? 'N/A',
       variant: json['variant'] ?? 'N/A',
       maxPower: json['maxPower']?.toString() ?? 'N/A',
-      noc: json['noc'].toString() ?? 'N/A',
+      noc: json['noc']?.toString() ?? 'N/A',
       mileage: json['mileage']?.toString() ?? 'N/A',
       entertainment: List<String>.from(json['entertainment'] ?? []),
       comfort: List<String>.from(json['comfort'] ?? []),

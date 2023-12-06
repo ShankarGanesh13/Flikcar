@@ -1,10 +1,14 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/common_widgets/loading_widget.dart';
+import 'package:flikcar/firebase_models/firebase_auction.dart';
+import 'package:flikcar/firebase_models/firebase_my_bids.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/widgets/my_bids_screen_card.dart';
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/widgets/winning_card.dart';
 import 'package:flikcar/services/auction_services.dart';
+import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -114,32 +118,41 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
             height: 20,
           ),
           live == true
-              ? cars.isNotEmpty
-                  ? ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: cars.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return MyBidsScreenCard(car: cars[index]);
-                      })
-                  : Column(
-                      children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          "No cars to show",
-                          style: AppFonts.w700black16,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "Here you can find all the cars where you have placed bids",
-                          style: AppFonts.w500dark212,
-                        )
-                      ],
-                    )
+              ? StreamBuilder<List<FirebaseAuction>>(
+                  stream: FirebaseAuctionService().getMyBids(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const LoadingWidget();
+                    }
+                    if (snapshot.data != null) {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return MyBidsScreenCard(car: snapshot.data![index]);
+                          });
+                    } else {
+                      return Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            "No cars to show",
+                            style: AppFonts.w700black16,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Here you can find all the cars where you have placed bids",
+                            style: AppFonts.w500dark212,
+                          )
+                        ],
+                      );
+                    }
+                  })
               : yourWinnings.isNotEmpty
                   ? ListView.builder(
                       shrinkWrap: true,

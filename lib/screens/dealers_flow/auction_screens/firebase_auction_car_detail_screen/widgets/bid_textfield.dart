@@ -106,7 +106,10 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
                 const Spacer(),
                 PlaceBidButton(
                   controller: controller,
-                  currentBid: widget.car.bid!.price,
+                  currentBid: widget.car.bid != null
+                      ? widget.car.bid!.price
+                      : widget.car.startPrice,
+                  carId: widget.car.id,
                 ),
                 // BuyNavButton(
                 //   icon: Icons.chevron_right,

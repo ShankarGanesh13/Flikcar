@@ -142,11 +142,11 @@ class EditProfile extends StatelessWidget {
                     title: "Submit",
                     function: () {
                       if (_formKey.currentState!.validate()) {
-                        AuthService.editProfile(
-                            fName: fNameController.text,
-                            lName: lNameController.text,
-                            contact: phoneNumber,
-                            context: context);
+                        // AuthService.editProfile(
+                        //     fName: fNameController.text,
+                        //     lName: lNameController.text,
+                        //     contact: phoneNumber,
+                        //     context: context);
                       }
                     },
                     borderColor: Colors.transparent,

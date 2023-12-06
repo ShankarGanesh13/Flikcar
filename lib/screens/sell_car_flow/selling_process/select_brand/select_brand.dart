@@ -44,7 +44,7 @@ class SelectBrandCard extends StatelessWidget {
                                     listen: false)
                                 .setBrand(
                                     brandId:
-                                        snapshot.data![index].id.toString(),
+                                        snapshot.data![index].name.toString(),
                                     index: index,
                                     brand: snapshot.data![index].name,
                                     models: snapshot.data![index].models);
@@ -69,21 +69,21 @@ class SelectBrandCard extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    SizedBox(
-                                      height: 35,
-                                      child: Image.network(
-                                        "https://webservice.flikcar.com/public/${snapshot.data![index].image}",
-                                        fit: BoxFit.fill,
-                                        loadingBuilder:
-                                            (context, child, loadingProgress) {
-                                          if (loadingProgress == null) {
-                                            return child;
-                                          } else {
-                                            return const LoadingWidget();
-                                          }
-                                        },
-                                      ),
-                                    ),
+                                    // SizedBox(
+                                    //   height: 35,
+                                    //   child: Image.network(
+                                    //     "https://webservice.flikcar.com/public/${snapshot.data![index].image}",
+                                    //     fit: BoxFit.fill,
+                                    //     loadingBuilder:
+                                    //         (context, child, loadingProgress) {
+                                    //       if (loadingProgress == null) {
+                                    //         return child;
+                                    //       } else {
+                                    //         return const LoadingWidget();
+                                    //       }
+                                    //     },
+                                    //   ),
+                                    // ),
                                     const SizedBox(height: 4),
                                     Text(snapshot.data![index].name,
                                         style: selectedIndex == index

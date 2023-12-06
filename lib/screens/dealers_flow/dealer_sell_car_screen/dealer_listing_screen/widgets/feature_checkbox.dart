@@ -34,7 +34,8 @@ class _FeatureCheckboxState extends State<FeatureCheckbox> {
                 widget.features[index].isSelected = false;
                 Provider.of<DealerUploadCar>(context, listen: false)
                     .removeFeatures(
-                        feature: widget.feature, id: widget.features[index].id);
+                        feature: widget.feature,
+                        id: widget.features[index].name);
               }
               setState(() {});
               print(widget.features[index].isSelected);

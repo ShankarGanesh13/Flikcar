@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
@@ -37,7 +38,8 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
   String? selectedValue;
   @override
   Widget build(BuildContext context) {
-    List<BuyerCar> cars = context.watch<GetDealerUploadCars>().searchCars;
+    List<FirebaseDealerListedCar> cars =
+        context.watch<GetDealerUploadCars>().allDealerListedCar;
     return Scaffold(
       appBar: CustomAppBar.getAppBar(
         function: () {

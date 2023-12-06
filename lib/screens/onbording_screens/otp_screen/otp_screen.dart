@@ -109,9 +109,9 @@ class _OtpScreenState extends State<OtpScreen> {
                         child: Pinput(
                           length: 6,
                           controller: controller,
-                          androidSmsAutofillMethod:
-                              AndroidSmsAutofillMethod.smsUserConsentApi,
-                          listenForMultipleSmsOnAndroid: true,
+                          // androidSmsAutofillMethod:
+                          //     AndroidSmsAutofillMethod.smsUserConsentApi,
+                          // listenForMultipleSmsOnAndroid: true,
                           defaultPinTheme: defaultPinTheme,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -250,8 +250,6 @@ class _OtpScreenState extends State<OtpScreen> {
     );
     try {
       await auth.signInWithCredential(credential).then((value) => {
-            // ScaffoldMessenger.of(context).showSnackBar(
-            //     MySnackbar.showSnackBar(context, "User logged in sucessfully"))
             FirebaseAuthService.createUserInFirestore(
                 userId: auth.currentUser!.uid,
                 phoneNumber: widget.phoneNumber,

@@ -1,6 +1,7 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
@@ -13,7 +14,7 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class DealerListedCars extends StatelessWidget {
-  final List<BuyerCar> cars;
+  final List<FirebaseDealerListedCar> cars;
   DealerListedCars({super.key, required this.cars});
   static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
   final DateFormat formatter = DateFormat('MMMd');
@@ -26,18 +27,18 @@ class DealerListedCars extends StatelessWidget {
             itemCount: cars.length,
             itemBuilder: (context, index) {
               features = [
-                cars[index].fuel,
-                "${cars[index].driveKms}km",
+                cars[index].fuelType,
+                "${cars[index].kmsDriven}km",
                 cars[index].transmission,
                 cars[index].registrationYear,
               ];
               return GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              DealerListedCarDetailsScreen(car: cars[index])));
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (context) =>
+                  //             DealerListedCarDetailsScreen(car: cars[index])));
                 },
                 child: Container(
                   height: 137,
@@ -61,9 +62,8 @@ class DealerListedCars extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: Image.network(
-                          cars[index].carImages.isNotEmpty
-                              ? "https://webservice.flikcar.com/public/${cars[index].carImages[0].imageUrl}"
-                              : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+                          "",
+                          //cars[index].carImages,
                           fit: BoxFit.fill,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) {
@@ -133,10 +133,10 @@ class DealerListedCars extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 6),
-                          Text(
-                            "₹ ${cars[index].carPrice} ",
-                            style: AppFonts.w700black20,
-                          ),
+                          // Text(
+                          //   "₹ ${cars[index].carPrice} ",
+                          //   style: AppFonts.w700black20,
+                          // ),
                           const SizedBox(height: 4),
                           Row(
                             children: [
@@ -151,12 +151,12 @@ class DealerListedCars extends StatelessWidget {
                                       //     .markAsSold(
                                       //         context: context,
                                       //         carId: cars[index].id.toString());
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  DealerListedCarDetailsScreen(
-                                                      car: cars[index])));
+                                      // Navigator.push(
+                                      //     context,
+                                      //     MaterialPageRoute(
+                                      //         builder: (context) =>
+                                      //             DealerListedCarDetailsScreen(
+                                      //                 car: cars[index])));
                                     },
                                     borderColor: AppColors.s1,
                                     backgroundColor: Colors.white,
@@ -168,13 +168,13 @@ class DealerListedCars extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(cars[index].saleStatus,
-                                      style:
-                                          cars[index].saleStatus == "Available"
-                                              ? AppFonts.w500green14
-                                              : AppFonts.w500red14),
+                                  // Text(cars[index].saleStatus,
+                                  //     style:
+                                  //         cars[index].saleStatus == "Available"
+                                  //             ? AppFonts.w500green14
+                                  //             : AppFonts.w500red14),
                                   Text(
-                                    "Listed on ${formatter.format(DateTime.parse(cars[index].updatedAt))}",
+                                    "Listed on ${formatter.format(DateTime.fromMicrosecondsSinceEpoch(cars[index].createdAt))}",
                                     style: AppFonts.w500black10,
                                   )
                                 ],

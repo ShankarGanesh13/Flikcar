@@ -5,6 +5,7 @@ import 'package:flikcar/screens/account/test_drive/test_drive.dart';
 import 'package:flikcar/screens/account/widgets/connect_with_us.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/auth_service.dart';
+import 'package:flikcar/services/dealer_auth_service.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -147,7 +148,7 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  AuthService.signout(context);
+                  DealerAuthService.dealerLogout(context);
                 },
                 child: Row(
                   children: [

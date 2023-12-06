@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/loading_screen.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/firebase_models/firebase_auction.dart';
 import 'package:flikcar/firebase_models/firebase_car_details.dart';
+import 'package:flikcar/firebase_models/firebase_my_bids.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/bid_textfield.dart';
@@ -30,8 +31,8 @@ class _FirebaseCurrentBidWidgetState extends State<FirebaseCurrentBidWidget> {
     return Column(
       children: [
         StreamBuilder<FirebaseAuction>(
-            stream:
-                FirebaseAuctionService().getAuctionCarByIdStream(carId: "1"),
+            stream: FirebaseAuctionService()
+                .getAuctionCarByIdStream(carId: widget.car.id),
             builder: (context, snapshot) {
               // print("getAuctionCarByIdStream stream builder");
               if (snapshot.data != null) {
@@ -60,6 +61,24 @@ class _FirebaseCurrentBidWidgetState extends State<FirebaseCurrentBidWidget> {
                       ],
                     ),
                     const SizedBox(height: 10),
+                    StreamBuilder<FirebaseMyBids>(
+                        stream: FirebaseAuctionService()
+                            .getMyBidPrice(carId: widget.car.id),
+                        builder: (context, snapshot) {
+                          if (snapshot.data != null) {
+                            return Row(
+                              children: [
+                                Text(
+                                  "Your last bid price ${formatPrice(snapshot.data!.price)}",
+                                  style: AppFonts.w500green14,
+                                ),
+                              ],
+                            );
+                          } else {
+                            return const SizedBox();
+                          }
+                        }),
+                    const SizedBox(height: 10),
                     FirebaseBidTextField(
                       car: snapshot.data!,
                     ),
@@ -82,13 +101,18 @@ class _FirebaseCurrentBidWidgetState extends State<FirebaseCurrentBidWidget> {
         style: AppFonts.w700black20,
       );
     } else {
-      return Text(
-        "Current Bid\n${formatPrice(auction.bid!.price)}",
-        // auction.bid.price == null
-        //     ? "Curreny Bid\n₹${auction.bid!.price}"
-        //     : "Current Bid\n₹${currentbidPrice}",
-        style: AppFonts.w700black20,
-      );
+      return auction.bid != null
+          ? Text(
+              "Current Bid\n${formatPrice(auction.bid!.price)}",
+              // auction.bid.price == null
+              //     ? "Curreny Bid\n₹${auction.bid!.price}"
+              //     : "Current Bid\n₹${currentbidPrice}",
+              style: AppFonts.w700black20,
+            )
+          : Text(
+              "Current Bid \n${formatPrice(auction.startPrice)}",
+              style: AppFonts.w700black20,
+            );
     }
   }
 

@@ -41,7 +41,7 @@ class SelectCarModel extends StatelessWidget {
                   onTap: () {
                     Provider.of<SellingProcessProvider>(context, listen: false)
                         .setCarModel(
-                            modelid: models[index].modelId.toString(),
+                            modelid: models[index].name.toString(),
                             index: index,
                             model: models[index].name);
 

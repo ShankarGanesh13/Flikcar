@@ -1,9 +1,11 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/models/rto_model.dart';
+import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RtoDropdown extends StatelessWidget {
   RtoDropdown({super.key});
@@ -58,8 +60,9 @@ class RtoDropdown extends StatelessWidget {
                   },
                   onChanged: (value) {
                     // selectedBodyId = value;
-                    // Provider.of<DealerUploadCar>(context, listen: false)
-                    //     .getBodyTypeId(id: selectedBodyId!.toString());
+                    Provider.of<DealerUploadCar>(context, listen: false)
+                        .getRtoLocationId(
+                            id: snapshot.data![value!].rtoLocation);
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),

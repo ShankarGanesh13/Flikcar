@@ -15,6 +15,7 @@ import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class DealerListingScreen extends StatefulWidget {
@@ -137,6 +138,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     DetailsDropDown(),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 2018",
                       maxlength: 4,
                       keyboardType: TextInputType.number,
@@ -145,11 +147,12 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       validator: true,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getYearId(year: value);
+                            .getManufacturedYear(year: value);
                       },
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 2020",
                       maxlength: 8,
                       validator: true,
@@ -158,11 +161,12 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       controller: regYearController,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getSellingPrice(price: value);
+                            .getYearId(year: value);
                       },
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 5",
                       maxlength: 8,
                       validator: true,
@@ -171,11 +175,12 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       controller: seatController,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getSellingPrice(price: value);
+                            .getSeatCapacity(capacity: value);
                       },
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 130015",
                       maxlength: 6,
                       validator: true,
@@ -190,6 +195,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 430000",
                       maxlength: 8,
                       validator: true,
@@ -203,6 +209,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 1199",
                       maxlength: 8,
                       validator: false,
@@ -211,11 +218,12 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       controller: engineCCController,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getSellingPrice(price: value);
+                            .getEngineCC(cc: value);
                       },
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 202",
                       maxlength: 8,
                       validator: false,
@@ -224,11 +232,12 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       controller: maxTorqueController,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getSellingPrice(price: value);
+                            .getTorqueDetails(torque: value);
                       },
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 210",
                       maxlength: 8,
                       validator: false,
@@ -242,6 +251,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     ),
                     const SizedBox(height: 20),
                     ListingTextField(
+                      inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 23",
                       maxlength: 8,
                       validator: false,

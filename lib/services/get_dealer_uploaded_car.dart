@@ -1,6 +1,9 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
+import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/dealer_testdrive.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
@@ -19,40 +22,48 @@ class GetDealerUploadCars extends ChangeNotifier {
   final DateTime now = DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   String apiUrl = Env.apiUrl;
+  static FirebaseFirestore firestore = FirebaseFirestore.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
+  List<FirebaseDealerListedCar> allDealerListedCar = [];
 
   getDealerUploadedCars() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('dealerToken');
-    var url = Uri.parse('$apiUrl/dealer/car/list-car');
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
+    CollectionReference collection = firestore
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .collection("listedVehicles");
 
-    var data = jsonDecode(response.body);
-    List result = data["data"] as List;
-    allCars = [];
-    result.forEach(
-      (element) {
-        allCars.add(BuyerCar.fromJson(element));
-      },
-    );
-    filteredCars = allCars;
-    searchCars = allCars;
-    notifyListeners();
+    try {
+      QuerySnapshot querySnapshot = await collection.get();
+
+      allCars = [];
+      querySnapshot.docs.forEach(
+        (DocumentSnapshot document) {
+          Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+          allDealerListedCar = [];
+          allDealerListedCar.add(FirebaseDealerListedCar.fromJson(data));
+        },
+      );
+      print(allDealerListedCar);
+      // filteredCars = allCars;
+      // searchCars = allCars;
+      notifyListeners();
+    } catch (e) {
+      // Handle exceptions, e.g., Firestore errors
+      print("Error fetching dealer uploaded cars: $e");
+    }
   }
 
   filterDealerCars({required String status}) {
-    filteredCars = allCars;
-    debugPrint(status);
+    //   filteredCars = allCars;
+    //   debugPrint(status);
 
-    filteredCars =
-        allCars.where((element) => element.saleStatus == status).toList();
-    if (status == "All Cars") {
-      filteredCars = allCars;
-    }
-    searchCars = filteredCars;
-    notifyListeners();
+    //   filteredCars =
+    //       allCars.where((element) => element.saleStatus == status).toList();
+    //   if (status == "All Cars") {
+    //     filteredCars = allCars;
+    //   }
+    //   searchCars = filteredCars;
+    //   notifyListeners();
   }
 
   getDealerScheduledTestDrive() async {

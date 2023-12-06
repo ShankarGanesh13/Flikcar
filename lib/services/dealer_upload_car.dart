@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -10,6 +11,7 @@ import 'package:flikcar/models/features_model.dart';
 import 'package:flikcar/models/image_model.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
+import 'package:flikcar/screens/sell_car_flow/selling_process/manufacturing_year/manufacturing_year.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/env.dart';
@@ -29,6 +31,7 @@ class DealerUploadCar extends ChangeNotifier {
   String model = "";
   String varient = "";
   String registerationYear = "";
+  String manufacturedYear = "";
   String bodyType = "";
   String fuelType = "";
   String transmisson = "automatic";
@@ -50,6 +53,7 @@ class DealerUploadCar extends ChangeNotifier {
   List<String> selectedSafety = [];
   List<String> selectedEntertainment = [];
   String apiUrl = Env.apiUrl;
+  static FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   changeFeatureIndex(int index) {
     featuresIndex = index;
@@ -84,32 +88,32 @@ class DealerUploadCar extends ChangeNotifier {
 
   getYearId({required String year}) {
     registerationYear = year;
-    print(registerationYear);
+    //print(registerationYear);
   }
 
   getFuelId({required String fuel}) {
     fuelType = fuel;
-    print(fuelType);
+    //print(fuelType);
   }
 
   getBodyTypeId({required String bodyTypeName}) {
     bodyType = bodyTypeName;
-    print(bodyType);
+    // print(bodyType);
   }
 
   getOwnershipId({required String owner}) {
     ownership = owner;
-    print(ownership);
+    // print(ownership);
   }
 
   getColorId({required String colorName}) {
     color = colorName;
-    print(color);
+    // print(color);
   }
 
   getTransmisson({required String trans}) {
     transmisson = trans;
-    print(transmisson);
+    //  print(transmisson);
   }
 
   getKilometerDriven({required String kms}) {
@@ -119,43 +123,48 @@ class DealerUploadCar extends ChangeNotifier {
 
     driveKm = kms;
     // print("----------");
-    print(driveKm);
+    //  print(driveKm);
     // print("----------");
   }
 
   getSellingPrice({required String price}) {
     carPrice = price;
-    print(carPrice);
+    // print(carPrice);
+  }
+
+  getManufacturedYear({required String year}) {
+    manufacturedYear = year;
+    // print(carPrice);
   }
 
   getDescription({required String des}) {
     description = des;
-    print(description);
+    // print(description);
   }
 
   getSeatCapacity({required String capacity}) {
     seat = capacity;
-    print(seat);
+    // print(seat);
   }
 
   getPowerDetails({required String power}) {
     maxPower = power;
-    print(maxPower);
+    // print(maxPower);
   }
 
   getTorqueDetails({required String torque}) {
     maxTorque = torque;
-    print(maxTorque);
+    //  print(maxTorque);
   }
 
   getMileage({required String kmpl}) {
     mileage = kmpl;
-    print(mileage);
+    // print(mileage);
   }
 
   getEngineCC({required String cc}) {
     engineCC = cc;
-    print(engineCC);
+    // print(engineCC);
   }
 
   addFeatures({required String feature, required String id}) {
@@ -164,31 +173,31 @@ class DealerUploadCar extends ChangeNotifier {
       case "comfort":
         {
           selectedComfort.add(id);
-          print(selectedComfort);
+          //   print(selectedComfort);
         }
         break;
       case "safety":
         {
           selectedSafety.add(id);
-          print(selectedSafety);
+          //  print(selectedSafety);
         }
         break;
       case "interior":
         {
           selectedInterior.add(id);
-          print(selectedInterior);
+          //  print(selectedInterior);
         }
         break;
       case "exterior":
         {
           selectedExterior.add(id);
-          print(selectedExterior);
+          //  print(selectedExterior);
         }
         break;
       case "entertainment":
         {
           selectedEntertainment.add(id);
-          print(selectedEntertainment);
+          //    print(selectedEntertainment);
         }
         break;
       default:
@@ -200,7 +209,7 @@ class DealerUploadCar extends ChangeNotifier {
     }
   }
 
-  removeFeatures({required String feature, required int id}) {
+  removeFeatures({required String feature, required String id}) {
     print(feature);
     switch (feature) {
       case "comfort":
@@ -239,20 +248,19 @@ class DealerUploadCar extends ChangeNotifier {
 
   getComfortFeatures() async {
     comfortFeatures = [];
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/comfort');
-    String? dealerToken = sp.getString('dealerToken');
+    try {
+      DocumentReference collection =
+          firestore.collection('car_features').doc("1");
+      DocumentSnapshot documentSnapshot = await collection.get();
+      var data = documentSnapshot.data() as Map<String, dynamic>;
 
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
+      for (var label in data["labels"] as List) {
+        comfortFeatures.add(FeatureModel.fromJson(label));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
 
-    data.forEach((element) {
-      comfortFeatures.add(FeatureModel.fromJson(element));
-    });
     notifyListeners();
   }
 
@@ -262,73 +270,69 @@ class DealerUploadCar extends ChangeNotifier {
     Uri url = Uri.parse('$apiUrl/dealer/car/interior');
     String? dealerToken = sp.getString('dealerToken');
 
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
+    try {
+      DocumentReference collection =
+          firestore.collection('car_features').doc("3");
+      DocumentSnapshot documentSnapshot = await collection.get();
+      var data = documentSnapshot.data() as Map<String, dynamic>;
 
-    data.forEach((element) {
-      interiorFeatures.add(FeatureModel.fromJson(element));
-    });
+      for (var label in data["labels"] as List) {
+        interiorFeatures.add(FeatureModel.fromJson(label));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
     notifyListeners();
   }
 
   getExteriorFeatures() async {
     exteriorFeatures = [];
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/exterior');
-    String? dealerToken = sp.getString('dealerToken');
+    try {
+      DocumentReference collection =
+          firestore.collection('car_features').doc("4");
+      DocumentSnapshot documentSnapshot = await collection.get();
+      var data = documentSnapshot.data() as Map<String, dynamic>;
 
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
-
-    data.forEach((element) {
-      exteriorFeatures.add(FeatureModel.fromJson(element));
-    });
+      for (var label in data["labels"] as List) {
+        exteriorFeatures.add(FeatureModel.fromJson(label));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
     notifyListeners();
   }
 
   getSafetyFeatures() async {
     safetyFeatures = [];
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/safety');
-    String? dealerToken = sp.getString('dealerToken');
+    try {
+      DocumentReference collection =
+          firestore.collection('car_features').doc("2");
+      DocumentSnapshot documentSnapshot = await collection.get();
+      var data = documentSnapshot.data() as Map<String, dynamic>;
 
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
-
-    data.forEach((element) {
-      safetyFeatures.add(FeatureModel.fromJson(element));
-    });
+      for (var label in data["labels"] as List) {
+        safetyFeatures.add(FeatureModel.fromJson(label));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
     notifyListeners();
   }
 
   getEntertainmentFeatures() async {
     entertainmentFeatures = [];
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/entertainment-communications');
-    String? dealerToken = sp.getString('dealerToken');
+    try {
+      DocumentReference collection =
+          firestore.collection('car_features').doc("5");
+      DocumentSnapshot documentSnapshot = await collection.get();
+      var data = documentSnapshot.data() as Map<String, dynamic>;
 
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $dealerToken',
-    });
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
-
-    data.forEach((element) {
-      entertainmentFeatures.add(FeatureModel.fromJson(element));
-    });
+      for (var label in data["labels"] as List) {
+        entertainmentFeatures.add(FeatureModel.fromJson(label));
+      }
+    } catch (e) {
+      print("-----------------$e");
+    }
     notifyListeners();
   }
 
@@ -560,107 +564,111 @@ class DealerUploadCar extends ChangeNotifier {
     allImages.addAll(tyreImages);
   }
 
-  uploadCarToFirestore() async {
+  uploadCarToFirestore({required BuildContext context}) async {
+    final functions = FirebaseFunctions.instance;
     List<Map<String, String>> imageList = allImages
         .map((image) => Map<String, String>.from(image.toJson()))
         .toList();
     FirebaseAuth auth = FirebaseAuth.instance;
 
-    final firestore = FirebaseFirestore.instance;
     Map<String, dynamic> data = {
-      "id": DateTime.now().microsecondsSinceEpoch,
-      "carPrice": carPrice,
-      "status": "ACTIVE",
-      "images": imageList,
-      "properties": {
-        "brand": brand,
-        "model": model,
-        "variant": varient,
-        "fuelType": fuelType,
-        "bodyType": bodyType,
-        "color": color,
-        "seat": seat,
-        "ownerType": ownership,
-        "city": rtoLocation,
-      },
-      "saleStatus": "AVAILABLE",
-      "uploadedBy": auth.currentUser!.uid,
-      "uploadedAt": DateTime.now().microsecondsSinceEpoch,
-      "dealer": {
-        "id": auth.currentUser!.uid,
-        "name": "Dealer",
-        "phone": auth.currentUser!.phoneNumber,
-        "address": "Kolkata",
-      },
+      "userId": auth.currentUser!.uid,
+      "incomingVehicle": {
+        "carPrice": int.parse(carPrice),
+        "status": "ACTIVE",
+        "images": imageList,
+        "properties": {
+          "brand": brand,
+          "model": model,
+          "variant": varient,
+          "fuelType": fuelType,
+          "bodyType": bodyType,
+          "color": color,
+          "seat": int.parse(seat),
+          "ownerType": ownership,
+          "city": rtoLocation,
+          "kmsDriven": int.parse(driveKm),
+          "registrationYear": int.parse(registerationYear),
+          "manufacturedYear": int.parse(manufacturedYear),
+          "maxPower": double.parse(maxPower),
+          "maxTorque": double.parse(maxTorque),
+          "transmission": transmisson,
+          "engineCC": int.parse(engineCC),
+          "mileage": double.parse(mileage),
+          "description": description,
+          "saleStatus": "AVAILABLE",
+          "uploadedBy": auth.currentUser!.uid,
+          "uploadedAt": DateTime.now().microsecondsSinceEpoch,
+          "dealer": {
+            "id": auth.currentUser!.uid,
+            "name": "Dealer",
+            "phone": auth.currentUser!.phoneNumber,
+            "address": "Kolkata",
+          },
+        },
+      }
     };
+    print(data);
     try {
-      await firestore
-          .collection('vehicles')
-          .doc("${DateTime.now().microsecondsSinceEpoch}")
-          .set(data);
+      print("function called");
+      final callable = functions.httpsCallable('createVehicle');
+      final result = await callable(data);
+      if (result.data["status"] == "SUCCESS") {
+        if (context.mounted) {
+          clearData();
+          ScaffoldMessenger.of(context).showSnackBar(
+              MySnackbar.showSnackBar(context, "Car uploaded successfully"));
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 1,
+              ),
+            ),
+            (route) => false,
+          );
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                'Car uploaded successfully',
+                style: AppFonts.w700black16,
+              ),
+              content: Text(
+                "The car details have been uploaded successfully and are now live for the customers.",
+                style: AppFonts.w500black14,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    // FirebaseEvents()
+                    //     .dealerUploadCar(dealerNumber: "dealer number");
+                    // FacebookEvents()
+                    //     .dealerUploadCar(dealerNumber: "dealer number");
+
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DealerFlow(index: 1)),
+                      (route) => false,
+                    );
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+            context, "Something went wrong try again later"));
+      }
     } catch (e) {
       print(e);
+      ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
+          context, "Something went wrong try again later"));
     }
   }
-
-  // uploadCar(context) async {
-  //     if (data["success"] == true) {
-  //       ScaffoldMessenger.of(context).showSnackBar(
-  //           MySnackbar.showSnackBar(context, "Car uploaded successfully"));
-  //       Navigator.pushAndRemoveUntil(
-  //         context,
-  //         MaterialPageRoute(
-  //           builder: (context) => const DealerFlow(
-  //             index: 1,
-  //           ),
-  //         ),
-  //         (route) => false,
-  //       );
-  //       showDialog<String>(
-  //         context: context,
-  //         builder: (BuildContext context) => AlertDialog(
-  //           title: Text(
-  //             'Car uploaded successfully',
-  //             style: AppFonts.w700black16,
-  //           ),
-  //           content: Text(
-  //             "The car details have been uploaded successfully and are now live for the customers.",
-  //             style: AppFonts.w500black14,
-  //           ),
-  //           actions: <Widget>[
-  //             TextButton(
-  //               onPressed: () {
-  //                 // FirebaseEvents()
-  //                 //     .dealerUploadCar(dealerNumber: "dealer number");
-  //                 // FacebookEvents()
-  //                 //     .dealerUploadCar(dealerNumber: "dealer number");
-
-  //                 Navigator.pushAndRemoveUntil(
-  //                   context,
-  //                   MaterialPageRoute(
-  //                       builder: (context) => const DealerFlow(index: 1)),
-  //                   (route) => false,
-  //                 );
-  //               },
-  //               child: const Text('OK'),
-  //             ),
-  //           ],
-  //         ),
-  //       );
-  //       debugPrint("success status code ${data["status"]}");
-  //     } else {
-  //       ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-  //           context, "Something went wrong try again later"));
-  //       debugPrint("error status code ${data["status"]}");
-  //     }
-  //   } catch (error) {
-  //     print("Error: $error");
-  //     ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-  //         context, "Something went wrong try again later"));
-  //   }
-
-  //   clearData();
-  // }
 
   clearData() {
     featuresIndex = 0;
@@ -684,6 +692,7 @@ class DealerUploadCar extends ChangeNotifier {
     //
     otherFileToDisplay = [];
     otherImages = [];
+    allImages = [];
     notifyListeners();
   }
 }

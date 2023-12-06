@@ -44,21 +44,21 @@ class SelectBrand extends StatelessWidget {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
-                                height: 35,
-                                child: Image.network(
-                                  "https://webservice.flikcar.com/public/${snaphot.data![index].image}",
-                                  fit: BoxFit.fill,
-                                  loadingBuilder:
-                                      (context, child, loadingProgress) {
-                                    if (loadingProgress == null) {
-                                      return child;
-                                    } else {
-                                      return const LoadingWidget();
-                                    }
-                                  },
-                                ),
-                              ),
+                              // SizedBox(
+                              //   height: 35,
+                              //   child: Image.network(
+                              //     "https://webservice.flikcar.com/public/${snaphot.data![index].image}",
+                              //     fit: BoxFit.fill,
+                              //     loadingBuilder:
+                              //         (context, child, loadingProgress) {
+                              //       if (loadingProgress == null) {
+                              //         return child;
+                              //       } else {
+                              //         return const LoadingWidget();
+                              //       }
+                              //     },
+                              //   ),
+                              // ),
                               const SizedBox(height: 4),
                               Text(
                                 snaphot.data![index].name,
