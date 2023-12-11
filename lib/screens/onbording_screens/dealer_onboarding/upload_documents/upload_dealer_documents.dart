@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/common_widgets/secondary_button.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/dealer_auction_home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/terms_and_condition.dart';
@@ -32,7 +33,7 @@ class UploadDealerDocuments extends StatefulWidget {
 }
 
 class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
-  int selectedIndex = 0;
+//  int selectedIndex = 0;
   double width = 100;
   final scrollController = ScrollController();
   void scrollToIndex(index) {
@@ -52,76 +53,90 @@ class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
 
   @override
   Widget build(BuildContext context) {
+    int selectedIndex =
+        context.watch<UploadDealerDocumentsProvider>().selectedIndex;
     return Scaffold(
         appBar: CustomAppBar.getDealerOnboardingAppBar(
             title: "Upload Required Documents"),
+        bottomNavigationBar: SafeArea(
+            child: Container(
+          padding: const EdgeInsets.all(15.0),
+          decoration: BoxDecoration(color: Colors.white),
+          child: selectedIndex == 0
+              ? PrimaryButton(
+                  title: "Next",
+                  function: () {
+                    if (formKey.currentState!.validate()) {
+                      if (selectedIndex < 5) {
+                        Provider.of<UploadDealerDocumentsProvider>(context,
+                                listen: false)
+                            .validateImages(
+                                index: selectedIndex, context: context);
+                        // selectedIndex++;
+                        // setState(() {});
+                      } else {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => const TermsAndCondition(),
+                        //     ));
+                        Provider.of<UploadDealerDocumentsProvider>(context,
+                                listen: false)
+                            .validateForm(context);
+                      }
+                    }
+                  },
+                  borderColor: Colors.white,
+                  backgroundColor: const Color(0xff161F31),
+                  textStyle: AppFonts.w500white14)
+              : Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 2.35,
+                        child: PrimaryButton(
+                            borderColor: Colors.white,
+                            backgroundColor: const Color(0xff161F31),
+                            textStyle: AppFonts.w500white14,
+                            title: "Back",
+                            function: () {
+                              Provider.of<UploadDealerDocumentsProvider>(
+                                      context,
+                                      listen: false)
+                                  .backSelectedIndex();
+                            }),
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width / 2.35,
+                        child: PrimaryButton(
+                            borderColor: Colors.white,
+                            backgroundColor: const Color(0xff161F31),
+                            textStyle: AppFonts.w500white14,
+                            title: "Next",
+                            function: () {
+                              if (formKey.currentState!.validate()) {
+                                if (selectedIndex < 6) {
+                                  Provider.of<UploadDealerDocumentsProvider>(
+                                          context,
+                                          listen: false)
+                                      .validateImages(
+                                          index: selectedIndex,
+                                          context: context);
+                                }
+                              }
+                              //  setState(() {});
+                            }),
+                      )
+                    ]),
+        )),
         body: SingleChildScrollView(
           child: Form(
             key: formKey,
             child: Column(children: [
-              Container(
-                height: 49,
-                width: MediaQuery.of(context).size.width,
-                color: const Color.fromARGB(255, 185, 216, 241),
-                child: ListView.builder(
-                  controller: scrollController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 6,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return GestureDetector(
-                      onTap: () {
-                        if (formKey.currentState!.validate()) {
-                          setState(() {
-                            selectedIndex = index;
-                          });
-                          scrollToIndex(selectedIndex);
-                        }
-                      },
-                      child: doucument(
-                          title: UploadDealerDocuments.documentTitle[index],
-                          context: context,
-                          color: selectedIndex == index
-                              ? const Color(0xff45C08D)
-                              : Colors.transparent),
-                    );
-                  },
-                ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
               documentSteps[selectedIndex],
               const SizedBox(
                 height: 20,
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: PrimaryButton(
-                    title: selectedIndex == 5 ? "Submit" : "Next",
-                    function: () {
-                      if (formKey.currentState!.validate()) {
-                        if (selectedIndex < 5) {
-                          scrollToIndex(selectedIndex);
-
-                          selectedIndex++;
-                          setState(() {});
-                        } else {
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => const TermsAndCondition(),
-                          //     ));
-                          Provider.of<UploadDealerDocumentsProvider>(context,
-                                  listen: false)
-                              .validateForm(context);
-                        }
-                      }
-                    },
-                    borderColor: Colors.white,
-                    backgroundColor: const Color(0xff161F31),
-                    textStyle: AppFonts.w500white14),
-              )
             ]),
           ),
         ));

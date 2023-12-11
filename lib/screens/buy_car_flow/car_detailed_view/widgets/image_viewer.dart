@@ -1,5 +1,6 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/image_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_image_viewer/car_image_viewer.dart';
@@ -7,7 +8,7 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class ImageViewer extends StatefulWidget {
-  BuyerCar car;
+  FirebaseBuyerCar car;
   ImageViewer({super.key, required this.car});
 
   @override
@@ -27,7 +28,7 @@ class _ImageViewerState extends State<ImageViewer> {
   List<ImageProvider> _imageProviders = [];
   @override
   Widget build(BuildContext context) {
-    List<ImageModel> images = widget.car.carImages;
+    List<FirebaseImageModel> images = widget.car.images;
 
     return Column(
       children: [
@@ -37,7 +38,7 @@ class _ImageViewerState extends State<ImageViewer> {
                 context,
                 MaterialPageRoute(
                   builder: (context) => CarImageViewer(
-                    images: widget.car.carImages,
+                    images: widget.car.images,
                   ),
                 ));
           },
@@ -45,9 +46,7 @@ class _ImageViewerState extends State<ImageViewer> {
             height: MediaQuery.of(context).size.height / 3.8,
             width: MediaQuery.of(context).size.width,
             child: Image.network(
-              images.isNotEmpty
-                  ? "https://webservice.flikcar.com/public/${images[selectedIndex].imageUrl}"
-                  : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+              images[selectedIndex].imageUrl,
               fit: BoxFit.contain,
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress == null) {
@@ -95,7 +94,7 @@ class _ImageViewerState extends State<ImageViewer> {
                         });
                       },
                       child: Image.network(
-                        "https://webservice.flikcar.com/public/${images[index].imageUrl}",
+                        images[index].imageUrl,
                         fit: BoxFit.cover,
                         loadingBuilder: (context, child, loadingProgress) {
                           if (loadingProgress == null) {
@@ -119,10 +118,8 @@ class _ImageViewerState extends State<ImageViewer> {
 
   getImages() {
     _imageProviders = [];
-    widget.car.carImages.forEach((element) {
-      _imageProviders.add(Image.network(
-              "https://webservice.flikcar.com/public/${element.imageUrl}")
-          .image);
+    widget.car.images.forEach((element) {
+      _imageProviders.add(Image.network(element.imageUrl).image);
     });
   }
 }

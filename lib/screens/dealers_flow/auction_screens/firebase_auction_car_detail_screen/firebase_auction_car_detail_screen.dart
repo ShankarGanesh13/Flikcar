@@ -8,6 +8,7 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_ca
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/current_bid_widget.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_features.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_image_viewer/dealer_car_image_viewer.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_specification.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_image_viewer.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/inspection_report.dart';
@@ -40,41 +41,61 @@ class _FirebaseAuctionCarDetailScreenState
           }
           if (snapshot.data != null) {
             return Scaffold(
-                appBar: CustomAppBar.getAppBarWithContainerSearch(
-                    function2: () {
-                      Navigator.pushAndRemoveUntil(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const DealerFlow(
-                            index: 0,
-                          ),
-                        ),
-                        (route) => false,
-                      );
-                    },
-                    context: context,
-                    function: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const DealerCarListScreen(),
-                          ));
-                    },
-                    back: true),
+                appBar: CustomAppBar.getAppBar(function: () {
+                  Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DealerFlow(
+                        index: 0,
+                      ),
+                    ),
+                    (route) => false,
+                  );
+                }),
+
+                // CustomAppBar.getAppBarWithContainerSearch(
+                //     function2: () {
+                //       Navigator.pushAndRemoveUntil(
+                //         context,
+                //         MaterialPageRoute(
+                //           builder: (context) => const DealerFlow(
+                //             index: 0,
+                //           ),
+                //         ),
+                //         (route) => false,
+                //       );
+                //     },
+                //     context: context,
+                //     function: () {
+                //       Navigator.push(
+                //           context,
+                //           MaterialPageRoute(
+                //             builder: (context) => const DealerCarListScreen(),
+                //           ));
+                //     },
+                //     back: true),
                 body: SingleChildScrollView(
                   child: Column(
                     children: [
                       Container(
                           padding: const EdgeInsets.all(12),
                           width: MediaQuery.of(context).size.width,
-                          // color: const Color.fromARGB(255, 240, 255, 249),
                           decoration:
                               BoxDecoration(gradient: AppColors.gradient),
                           child: Row(
                             children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                },
+                                child: Icon(
+                                  Icons.chevron_left,
+                                  color: AppColors.p2,
+                                ),
+                              ),
                               const SizedBox(width: 10),
                               SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.2,
+                                width: MediaQuery.of(context).size.width / 1.5,
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -90,12 +111,27 @@ class _FirebaseAuctionCarDetailScreenState
                                   ],
                                 ),
                               ),
-                              // const Spacer(),
+                              const Spacer(),
                               // const Icon(Icons.share),
                               // const SizedBox(
                               //   width: 12,
                               // ),
-                              // const Icon(Icons.flag),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              DealerCarImageViewer(
+                                                  images: snapshot
+                                                      .data!.imageModel)));
+                                },
+                                child: Text(
+                                  "View all \nimages",
+                                  style: AppFonts.w500black12,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             ],
                           )),
                       FirebaseDealerImageViewer(

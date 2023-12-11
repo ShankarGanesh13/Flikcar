@@ -1,10 +1,11 @@
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class BuyCarDetails extends StatelessWidget {
-  final BuyerCar car;
+  final FirebaseBuyerCar car;
   const BuyCarDetails({super.key, required this.car});
   static List<String> icondata = [
     "assets/car_details_icon/location.png",
@@ -19,11 +20,11 @@ class BuyCarDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     List data = [
       "City: Kolkata",
-      "Km Driven: ${car.driveKms.toString()}",
-      "Owners: ${car.ownertype}",
-      "Fuel Type: ${car.fuel}",
-      "Reg. Year: ${car.registrationYear}",
-      "Transmission: ${car.transmission}",
+      "Km Driven: ${car.properties.kmsDriven.toString()}",
+      "Owners: ${car.properties.ownerType}",
+      "Fuel Type: ${car.properties.fuelType}",
+      "Reg. Year: ${car.properties.registrationYear}",
+      "Transmission: ${car.properties.transmission}",
     ];
 
     return Padding(
@@ -36,21 +37,21 @@ class BuyCarDetails extends StatelessWidget {
                 "₹ ${car.carPrice} ",
                 style: AppFonts.w700black20,
               ),
-              const Spacer(),
-              Text(
-                "Inspection Score:",
-                style: AppFonts.w500black14,
-              ),
-              const SizedBox(width: 5),
-              const Icon(
-                Icons.star,
-                size: 20,
-              ),
-              const SizedBox(width: 3),
-              Text(
-                "${car.technicianRating} / 5",
-                style: AppFonts.w700black16,
-              )
+              // const Spacer(),
+              // Text(
+              //   "Inspection Score:",
+              //   style: AppFonts.w500black14,
+              // ),
+              // const SizedBox(width: 5),
+              // const Icon(
+              //   Icons.star,
+              //   size: 20,
+              // ),
+              // const SizedBox(width: 3),
+              // Text(
+              //   "${car.properties.technicianRating} / 5",
+              //   style: AppFonts.w700black16,
+              // )
             ],
           ),
           const SizedBox(height: 30),

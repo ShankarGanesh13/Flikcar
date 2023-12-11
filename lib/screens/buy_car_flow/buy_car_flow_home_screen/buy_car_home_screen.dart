@@ -1,6 +1,7 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/buyer_home_screen_header.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/buyer_testimonial.dart';
@@ -10,6 +11,7 @@ import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart'
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
+import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -38,10 +40,10 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
   @override
   Widget build(BuildContext context) {
     // List<BuyerCar> allCars = context.watch<GetCarDetails>().allCars;
-    List<BuyerCarDisplay> fuelCars = context.watch<GetCarDetails>().fuelFilter;
-    List<BuyerCarDisplay> transmissonCars =
+    List<FirebaseBuyerCar> fuelCars = context.watch<GetCarDetails>().fuelFilter;
+    List<FirebaseBuyerCar> transmissonCars =
         context.watch<GetCarDetails>().transmissonFilter..shuffle();
-    List<BuyerCarDisplay> bodytypeCars =
+    List<FirebaseBuyerCar> bodytypeCars =
         context.watch<GetCarDetails>().bodyTypeFilter;
     int fuelIndex = context.watch<GetCarDetails>().fuelIndex;
     int transmissonIndex = context.watch<GetCarDetails>().transmissonIndex;
@@ -54,9 +56,7 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
             Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(
-                  index: 0,
-                ),
+                builder: (context) => StartScreen(),
               ),
               (route) => false,
             );

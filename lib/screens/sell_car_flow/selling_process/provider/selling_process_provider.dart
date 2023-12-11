@@ -217,6 +217,7 @@ class SellingProcessProvider extends ChangeNotifier {
 
   void bookInspection({required BuildContext context}) {
     try {
+      String id = DateTime.now().millisecondsSinceEpoch.toString();
       CollectionReference collection =
           FirebaseFirestore.instance.collection('sell_vehicle_enquiries');
       var requestBody = {
@@ -224,10 +225,12 @@ class SellingProcessProvider extends ChangeNotifier {
         "model": "${list[1]}",
         "registrationYear": "$registerationYear",
         "phone": "$contactNumber",
-        "status": "IN-PROGRESS"
+        "status": "IN-PROGRESS",
+        "id": id,
       };
+      print(requestBody);
 
-      collection.add(requestBody).then((value) {
+      collection.doc(id).set(requestBody).then((value) {
         if (context.mounted) {
           clearData();
           ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
@@ -261,7 +264,7 @@ class SellingProcessProvider extends ChangeNotifier {
         }
       });
     } catch (e) {
-      print("-------------------$e");
+      debugPrint("-------------------$e");
       ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
         context,
         "Failed to upload car, please try again later",

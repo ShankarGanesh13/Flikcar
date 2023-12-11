@@ -1,3 +1,4 @@
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -5,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class DealerUploadCarDetails extends StatelessWidget {
-  final BuyerCar car;
+  final FirebaseBuyerCar car;
   const DealerUploadCarDetails({super.key, required this.car});
   static List<String> icondata = [
     "assets/car_details_icon/location.png",
@@ -20,11 +21,11 @@ class DealerUploadCarDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     List data = [
       "City: Kolkata",
-      "Km Driven: ${car.driveKms.toString()}",
-      "Owners: ${car.ownertype}",
-      "Fuel Type: ${car.fuel}",
-      "Engine: ${car.registrationYear}",
-      "Transmission: ${car.transmission}"
+      "Km Driven: ${car.properties.kmsDriven.toString()}",
+      "Owners: ${car.properties.ownerType}",
+      "Fuel Type: ${car.properties.fuelType}",
+      "Engine: ${car.properties.registrationYear}",
+      "Transmission: ${car.properties.transmission}"
     ];
     final DateFormat formatter = DateFormat('MMMd');
 
@@ -42,7 +43,7 @@ class DealerUploadCarDetails extends StatelessWidget {
                           ? AppFonts.w500green14
                           : AppFonts.w500red14),
                   Text(
-                    "Listed on ${formatter.format(DateTime.parse(car.updatedAt))}",
+                    "Listed on ${formatter.format(DateTime.fromMillisecondsSinceEpoch(car.updatedAt))}",
                     style: AppFonts.w500black12,
                   )
                 ],

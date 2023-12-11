@@ -25,13 +25,13 @@ class WishlistCard extends StatelessWidget {
     ];
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => CarDetailedView(
-                      car: Provider.of<GetCarDetails>(context, listen: false)
-                          .getCarById(id: car.id.toString()),
-                    )));
+        // Navigator.push(
+        //     context,
+        //     MaterialPageRoute(
+        //         builder: (context) => CarDetailedView(
+        //               car: Provider.of<GetCarDetails>(context, listen: false)
+        //                   .getCarById(id: car.id.toString()),
+        //             )));
       },
       child: Container(
         margin: const EdgeInsets.only(left: 15, right: 15, bottom: 20),

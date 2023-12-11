@@ -44,18 +44,18 @@ class UpcomingTestDriveCard extends StatelessWidget {
                       ];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => CarDetailedView(
-                                  car: Provider.of<GetCarDetails>(context)
-                                      .getCarById(
-                                          id: testdrive[index]
-                                              .car
-                                              .id
-                                              .toString()),
-                                ),
-                              ));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => CarDetailedView(
+                          //         car: Provider.of<GetCarDetails>(context)
+                          //             .getCarById(
+                          //                 id: testdrive[index]
+                          //                     .car
+                          //                     .id
+                          //                     .toString()),
+                          //       ),
+                          //     ));
                         },
                         child: Container(
                           height: 351,

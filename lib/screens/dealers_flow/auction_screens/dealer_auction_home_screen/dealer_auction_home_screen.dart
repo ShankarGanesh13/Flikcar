@@ -11,68 +11,31 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_scr
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_listed_car_firebase.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
+import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
+import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DealerAuctionHomeScreen extends StatefulWidget {
+class DealerAuctionHomeScreen extends StatelessWidget {
   const DealerAuctionHomeScreen({super.key});
 
   @override
-  State<DealerAuctionHomeScreen> createState() =>
-      _DealerAuctionHomeScreenState();
-}
-
-class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    // Provider.of<AuctionService>(context, listen: false).connectToSocket();
-    // Provider.of<AuctionService>(context, listen: false).getAuctionCars();
-    // Provider.of<AuctionService>(context, listen: false).getMyBid();
-
-    // Provider.of<AuctionService>(context, listen: false).connectSocket();
-    loading();
-    super.initState();
-  }
-
-  bool _isLoading = true;
-
-  loading() {
-    Future.delayed(const Duration(seconds: 5), () {
-      if (mounted) {
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    List<AuctionCar> auctionCars = [];
-    //context.watch<AuctionService>().auctionCars;
-
     return Scaffold(
       backgroundColor: const Color(0xff171717),
-      appBar: CustomAppBar.getAppBarWithContainerSearch(
-          function2: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const DealerFlow(index: 0)));
-          },
-          back: false,
-          context: context,
-          function: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => const DealerCarListScreen()));
-          }),
+      appBar: CustomAppBar.getAppBar(function: () {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => StartScreen(),
+          ),
+          (route) => false,
+        );
+      }),
       body: SingleChildScrollView(
         child: Column(children: [
           const DealerHeader(),
@@ -88,78 +51,68 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
             ),
             child: Column(
               children: [
-                Padding(
-                  padding:
-                      const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-                  child: Column(children: [
-                    PrimaryButton(
-                      title: "View All Cars",
-                      function: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const DealerCarListScreen()));
-                      },
-                      backgroundColor: AppColors.s1,
-                      borderColor: Colors.transparent,
-                      textStyle: AppFonts.w500white14,
-                    ),
-                    const SizedBox(height: 20),
-                  ]),
-                ),
+                // Padding(
+                //   padding:
+                //       const EdgeInsets.only(top: 15.0, left: 15, right: 15),
+                //   child: Column(children: [
+                //     PrimaryButton(
+                //       title: "View All Cars",
+                //       function: () {
+                //         Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //                 builder: (context) =>
+                //                     const DealerCarListScreen()));
+                //       },
+                //       backgroundColor: AppColors.s1,
+                //       borderColor: Colors.transparent,
+                //       textStyle: AppFonts.w500white14,
+                //     ),
+                //     const SizedBox(height: 20),
+                //   ]),
+                // ),
                 Column(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.all(15.0),
+                      padding: EdgeInsets.only(left: 15.0, top: 25),
                       child: Heading1(title1: "Auctions House", title2: ""),
                     ),
-                    // auctionCars.isNotEmpty
-                    //     ? ListView.builder(
-                    //         itemCount: auctionCars.length,
-                    //         shrinkWrap: true,
-                    //         physics: const NeverScrollableScrollPhysics(),
-                    //         itemBuilder: (context, index) {
-                    //           return DealerCarListCard(car: auctionCars[index]);
-                    //         })
-                    // : SizedBox(
-                    //     height: 300,
-                    //     child: Center(
-                    //       child: _isLoading
-                    //           ? const LoadingWidget()
-                    //           : Text(
-                    //               "No cars found",
-                    //               style: AppFonts.w700black16,
-                    //             ),
-                    //     )),
                     StreamBuilder<List<FirebaseAuction?>>(
                       stream: FirebaseAuctionService().getAuctionCarsStream(),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return SizedBox(
+                          return const SizedBox(
                               height: 300,
-                              child: Center(
-                                child: _isLoading
-                                    ? const LoadingWidget()
-                                    : Text(
-                                        "No cars found",
-                                        style: AppFonts.w700black16,
-                                      ),
-                              ));
+                              child:
+                                  Center(child: CircularProgressIndicator()));
                         } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else if (snapshot.data == null ||
-                            snapshot.data!.isEmpty) {
+                          debugPrint("=================${snapshot.error}");
                           return SizedBox(
                               height: 300,
                               child: Center(
-                                child: _isLoading
-                                    ? const LoadingWidget()
-                                    : Text(
-                                        "No cars found",
-                                        style: AppFonts.w700black16,
-                                      ),
+                                child: Text(
+                                  "Error",
+                                  style: AppFonts.w700black16,
+                                ),
+                              ));
+                        } else if (snapshot.data == null) {
+                          return SizedBox(
+                              height: 300,
+                              child: Center(
+                                child: Text(
+                                  "No cars found",
+                                  style: AppFonts.w700black16,
+                                ),
+                              ));
+                        } else if (snapshot.data!.isEmpty) {
+                          return SizedBox(
+                              height: 300,
+                              child: Center(
+                                child: Text(
+                                  "No cars found",
+                                  style: AppFonts.w700black16,
+                                ),
                               ));
                         } else {
                           return ListView.builder(
@@ -184,11 +137,4 @@ class _DealerAuctionHomeScreenState extends State<DealerAuctionHomeScreen> {
       ),
     );
   }
-
-  // Widget loading() {
-  //   Future.delayed(Duration(seconds: 10), () {
-  //     return Text("No cars found");
-  //   });
-  //   return SizedBox();
-  // }
 }

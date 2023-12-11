@@ -1,4 +1,6 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
+import 'package:flikcar/firebase_models/firebase_car_details.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';
@@ -9,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CarDetailBottomNav extends StatelessWidget {
-  final BuyerCar car;
+  final FirebaseBuyerCar car;
   const CarDetailBottomNav({super.key, required this.car});
 
   @override
@@ -35,7 +37,7 @@ class CarDetailBottomNav extends StatelessWidget {
 
                 Uri phoneno = Uri(
                   scheme: 'tel',
-                  path: '+91${car.dealerPhoneNumber}',
+                  path: '+91${car.owner.phone}',
                 );
                 if (await launchUrl(phoneno)) {
                 } else {
@@ -54,13 +56,13 @@ class CarDetailBottomNav extends StatelessWidget {
               icon: Icons.watch_later,
               title: "Schedule Test Drive",
               function: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => ScheduleTestDrive(
-                        car: car,
-                      ),
-                    ));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //       builder: (context) => ScheduleTestDrive(
+                //         car: car,
+                //       ),
+                //     ));
               },
             )
           ]),

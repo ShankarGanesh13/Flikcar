@@ -1,3 +1,4 @@
+import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/document_textField.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
@@ -29,6 +30,10 @@ class AddressDetails extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: Column(
         children: [
+          const Heading1(title1: "Address Details", title2: ""),
+          const SizedBox(
+            height: 15,
+          ),
           // Container(
           //     height: 180,
           //     width: MediaQuery.of(context).size.width,
@@ -104,7 +109,7 @@ class AddressDetails extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "Address Proof Image (required)*",
+                    "Address Proof Image*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

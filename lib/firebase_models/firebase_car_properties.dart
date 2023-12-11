@@ -63,18 +63,19 @@ class FirebaseCarProperties {
 
   factory FirebaseCarProperties.fromJson(Map<String, dynamic> json) {
     print('firebase car properties from json called');
+    print(json["carDescription"]);
     return FirebaseCarProperties(
       manufacturingYear: json['manufacturingYear']?.toString() ?? 'N/A',
       brand: json['brand'] ?? 'N/A',
-      registerationYear: json['registerationYear']?.toString() ?? 'N/A',
+      registerationYear: json['registrationYear']?.toString() ?? 'N/A',
       bodyType: json['bodyType'] ?? 'N/A',
       exterior: List<String>.from(json['exterior'] ?? []),
       safety: List<String>.from(json['safety'] ?? []),
       seat: json['seat']?.toString() ?? 'N/A',
       variant: json['variant'] ?? 'N/A',
-      maxPower: json['maxPower']?.toString() ?? 'N/A',
+      maxPower: json['maxPower']?.toString() ?? '-',
       noc: json['noc']?.toString() ?? 'N/A',
-      mileage: json['mileage']?.toString() ?? 'N/A',
+      mileage: json['mileage']?.toString() ?? '-',
       entertainment: List<String>.from(json['entertainment'] ?? []),
       comfort: List<String>.from(json['comfort'] ?? []),
       fuelType: json['fuelType'] ?? 'N/A',
@@ -82,10 +83,10 @@ class FirebaseCarProperties {
       transmission: json['transmission'] ?? 'N/A',
       city: json['city'] ?? 'N/A',
       rtoLocation: json['rtoLocation'] ?? 'N/A',
-      engineCC: json['engineCC']?.toString() ?? 'N/A',
+      engineCC: json['engineCC']?.toString() ?? '-',
       kmsDriven: json['kmsDriven']?.toString() ?? 'N/A',
       interior: List<String>.from(json['interior'] ?? []),
-      maxTorque: json['maxTorque']?.toString() ?? 'N/A',
+      maxTorque: json['maxTorque']?.toString() ?? '-',
       inspectionScore: json['inspectionScore']?.toString() ?? 'N/A',
       model: json['model'] ?? 'N/A',
       inspectionReport: json['inspectionReport'] ?? 'N/A',

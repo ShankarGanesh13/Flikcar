@@ -5,7 +5,7 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class ImageList extends StatelessWidget {
-  final List<ImageModel> currentImages;
+  final List<FirebaseImageModel> currentImages;
   const ImageList({super.key, required this.currentImages});
 
   final int selectedIndex = 0;

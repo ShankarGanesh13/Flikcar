@@ -39,14 +39,13 @@ void main() async {
 
   await Firebase.initializeApp();
   // FacebookAppEvents();
+  FirebaseAuthService.getDealerDetails();
   await FirebaseAppCheck.instance.activate(
       androidProvider: AndroidProvider.playIntegrity,
       appleProvider: AppleProvider.debug);
   FirebaseAuth firebase = FirebaseAuth.instance;
 
   await Hive.initFlutter();
-
-  //FirebaseAuthService().getDealerDetails();
 
 //  FacebookEvents();
   GetCarDetails();
@@ -98,21 +97,24 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-  // Future<bool> isLoggedIn(context) async {
-  //   final SharedPreferences sp = await SharedPreferences.getInstance();
-  //   final bool? loggedIn = sp.getBool('isLoggedIn');
-  //   Provider.of<CheckInternetProvider>(context, listen: false)
-  //       .startStreaming(context);
-
-  //   if (loggedIn == true) {
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
 //keytool -genkey -v -keystore %userprofile%\upload-keystore.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias upload
 // Your Android App Bundle is signed with the wrong key. Ensure that your App Bundle is signed with the correct signing key and try again. Your app bundle is expected to be signed with the certificate with fingerprint:
-// SHA1: 18:80:B7:7C:C0:C4:5A:59:E2:E1:AB:45:E0:50:23:C0:D7:B6:0D:BD
 // but the certificate used to sign the app bundle that you uploaded has fingerprint:
-// SHA1: 9B:A6:90:C1:5F:3B:5B:A0:86:BD:FA:14:FD:24:23:2C:68:AF:EF:DE
+// Variant: debug
+// Config: debug
+// Store: C:\Users\M123\.android\debug.keystore
+// Alias: AndroidDebugKey
+// MD5: 1B:99:94:29:12:E7:41:2E:84:CA:D9:FF:F1:20:50:73
+// SHA1: 5C:E7:F2:4A:B3:16:27:7B:84:B5:9F:B5:99:BC:E8:00:90:77:23:71
+// SHA-256: 69:F6:41:BA:58:5F:54:19:8D:E4:7C:67:9F:AF:D9:09:79:D2:24:D1:F1:6E:A1:CF:1E:AB:19:54:BC:AF:FA:CC
+// Valid until: Wednesday, May 7, 2053
+// ----------
+// Variant: release
+// Config: release
+// Store: C:\Users\M123\Projects\Flikcar\android\app\upload-keystore.jks
+// Alias: upload
+// MD5: EC:7B:25:25:E3:A9:59:F9:71:FD:23:35:C7:D1:86:AD
+// SHA1: 18:80:B7:7C:C0:C4:5A:59:E2:E1:AB:45:E0:50:23:C0:D7:B6:0D:BD
+// SHA-256: B5:0C:EB:34:4D:92:D8:FC:45:E9:67:39:DE:8A:50:66:E2:65:72:D4:D3:0B:9B:06:ED:BC:EA:CD:61:0A:CA:07
+// Valid until: Friday, December 16, 2050

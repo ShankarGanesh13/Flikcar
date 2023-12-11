@@ -22,25 +22,10 @@ class MyBidsScreen extends StatefulWidget {
 }
 
 class _MyBidsScreenState extends State<MyBidsScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    // Provider.of<AuctionService>(context, listen: false).getMyBid();
-    // WidgetsBinding.instance.addPostFrameCallback((_) {
-    //   Provider.of<AuctionService>(context, listen: false).filterMyBids();
-    // });
-
-    super.initState();
-  }
-
   bool live = true;
 
   @override
   Widget build(BuildContext context) {
-    List<AuctionCar> cars = [];
-    //context.watch<AuctionService>().liveMyBidsCars;
-    List<AuctionCar> yourWinnings = [];
-    // context.watch<AuctionService>().yourWinnings;
     return Scaffold(
       appBar: CustomAppBar.getAppBar(
         function: () {
@@ -153,32 +138,38 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
                       );
                     }
                   })
-              : yourWinnings.isNotEmpty
-                  ? ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: yourWinnings.length,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemBuilder: (context, index) {
-                        return WinningCard(car: yourWinnings[index]);
-                      })
-                  : Column(
-                      children: [
-                        const SizedBox(
-                          height: 30,
-                        ),
-                        Text(
-                          "No cars to show",
-                          style: AppFonts.w700black16,
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "Here you can find all the cars where you have placed bids",
-                          style: AppFonts.w500dark212,
-                        )
-                      ],
-                    )
+              : FutureBuilder<List<FirebaseAuction>>(
+                  future: FirebaseAuctionService().myWinnings(),
+                  builder: (context, snapshot) {
+                    if (snapshot.data != null) {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return WinningCard(car: snapshot.data![index]);
+                          });
+                    } else {
+                      return Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            "No cars to show",
+                            style: AppFonts.w700black16,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Here you can find all the cars where you have placed bids",
+                            style: AppFonts.w500dark212,
+                          )
+                        ],
+                      );
+                    }
+                  })
 
           //   const DealerCarListCard()
         ]),

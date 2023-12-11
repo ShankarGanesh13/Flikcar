@@ -1,5 +1,8 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data'; // Import this to use Uint8List
+
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:file_picker/file_picker.dart';
@@ -13,6 +16,7 @@ import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/manufacturing_year/manufacturing_year.dart';
 import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/env.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -492,10 +496,22 @@ class DealerUploadCar extends ChangeNotifier {
 
     for (var file in files) {
       try {
+        // Compress the image before uploading
+        List<int> compressedBytes = await FlutterImageCompress.compressWithList(
+          file.readAsBytesSync(),
+          minHeight: 800,
+          minWidth: 600,
+          quality: 70,
+        );
+
+        // Convert List<int> to Uint8List
+        Uint8List compressedUint8List = Uint8List.fromList(compressedBytes);
+
         String fileName = DateTime.now().millisecondsSinceEpoch.toString();
         Reference storageReference = storage.ref().child('$fileName.jpg');
 
-        UploadTask uploadTask = storageReference.putFile(file);
+        // Upload the compressed image
+        UploadTask uploadTask = storageReference.putData(compressedUint8List);
 
         TaskSnapshot taskSnapshot = await uploadTask.whenComplete(() => null);
 
@@ -507,7 +523,7 @@ class DealerUploadCar extends ChangeNotifier {
         // Handle errors if needed
       }
     }
-    // print("||||||||||||||||||||||||||||||||||||||||||||||||||||||$imageUrls");
+
     return imageUrls;
   }
 
@@ -565,11 +581,13 @@ class DealerUploadCar extends ChangeNotifier {
   }
 
   uploadCarToFirestore({required BuildContext context}) async {
+    Map<String, dynamic> dealer = await FirebaseAuthService.getDealerDetails();
     final functions = FirebaseFunctions.instance;
     List<Map<String, String>> imageList = allImages
         .map((image) => Map<String, String>.from(image.toJson()))
         .toList();
     FirebaseAuth auth = FirebaseAuth.instance;
+    // print("===============================${int.parse(maxPower)}");
 
     Map<String, dynamic> data = {
       "userId": auth.currentUser!.uid,
@@ -586,24 +604,25 @@ class DealerUploadCar extends ChangeNotifier {
           "color": color,
           "seat": int.parse(seat),
           "ownerType": ownership,
-          "city": rtoLocation,
+          "city": "Kolkata",
+          "RTOlocation": rtoLocation,
           "kmsDriven": int.parse(driveKm),
           "registrationYear": int.parse(registerationYear),
           "manufacturedYear": int.parse(manufacturedYear),
-          "maxPower": double.parse(maxPower),
-          "maxTorque": double.parse(maxTorque),
+          "maxPower": maxPower != "" ? int.parse(maxPower) : null,
+          "maxTorque": maxTorque != "" ? int.parse(maxTorque) : null,
           "transmission": transmisson,
-          "engineCC": int.parse(engineCC),
-          "mileage": double.parse(mileage),
+          "engineCC": engineCC != "" ? int.parse(engineCC) : null,
+          "mileage": mileage != "" ? int.parse(mileage) : null,
           "description": description,
           "saleStatus": "AVAILABLE",
           "uploadedBy": auth.currentUser!.uid,
           "uploadedAt": DateTime.now().millisecondsSinceEpoch,
           "dealer": {
             "id": auth.currentUser!.uid,
-            "name": "Dealer",
-            "phone": auth.currentUser!.phoneNumber,
-            "address": "Kolkata",
+            "name": dealer["name"],
+            "phone": dealer["phoneNumber"],
+            "address": dealer["shopAddress"],
           },
         },
       }
@@ -618,53 +637,48 @@ class DealerUploadCar extends ChangeNotifier {
           clearData();
           ScaffoldMessenger.of(context).showSnackBar(
               MySnackbar.showSnackBar(context, "Car uploaded successfully"));
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const DealerFlow(
-                index: 1,
-              ),
-            ),
-            (route) => false,
-          );
-          showDialog<String>(
-            context: context,
-            builder: (BuildContext context) => AlertDialog(
-              title: Text(
-                'Car uploaded successfully',
-                style: AppFonts.w700black16,
-              ),
-              content: Text(
-                "The car details have been uploaded successfully and are now live for the customers.",
-                style: AppFonts.w500black14,
-              ),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    // FirebaseEvents()
-                    //     .dealerUploadCar(dealerNumber: "dealer number");
-                    // FacebookEvents()
-                    //     .dealerUploadCar(dealerNumber: "dealer number");
-
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DealerFlow(index: 1)),
-                      (route) => false,
-                    );
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   MaterialPageRoute(
+          //     builder: (context) => const DealerFlow(
+          //       index: 1,
+          //     ),
+          //   ),
+          //   (route) => false,
+          // );
+          // showDialog<String>(
+          //   context: context,
+          //   builder: (BuildContext context) => AlertDialog(
+          //     title: Text(
+          //       'Car uploaded successfully',
+          //       style: AppFonts.w700black16,
+          //     ),
+          //     content: Text(
+          //       "The car details have been uploaded successfully and are now live for the customers.",
+          //       style: AppFonts.w500black14,
+          //     ),
+          //     actions: <Widget>[
+          //       TextButton(
+          //         onPressed: () {
+          //           Navigator.pushAndRemoveUntil(
+          //             context,
+          //             MaterialPageRoute(
+          //                 builder: (context) => const DealerFlow(index: 1)),
+          //             (route) => false,
+          //           );
+          //         },
+          //         child: const Text('OK'),
+          //       ),
+          //     ],
+          //   ),
+          // );
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
             context, "Something went wrong try again later"));
       }
     } catch (e) {
-      print(e);
+      print("=================$e");
       ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
           context, "Something went wrong try again later"));
     }

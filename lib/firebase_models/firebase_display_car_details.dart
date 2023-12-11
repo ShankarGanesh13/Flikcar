@@ -34,7 +34,7 @@ class FirebaseDisplayCar {
   factory FirebaseDisplayCar.fromJson(Map<String, dynamic> json) {
     return FirebaseDisplayCar(
       id: json['id'] ?? '',
-      registrationYear: json['registerationYear'] ?? 0,
+      registrationYear: json['registrationYear'] ?? 0,
       variant: json['variant'] ?? '',
       city: json['city'] ?? '',
       ownerType: json['ownerType'] ?? '',

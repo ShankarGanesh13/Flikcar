@@ -30,11 +30,11 @@ class SelectBrandCard extends StatelessWidget {
             // ),
             // const SizedBox(height: 15),
             FutureBuilder<List<BrandModelVarient>>(
-                future: GetBrandModelVarient.getBrandModelVarientCust(),
+                future: GetBrandModelVarient.getBrandModelVarient(),
                 builder: (context, snapshot) {
                   if (snapshot.data != null) {
                     return Wrap(
-                      spacing: 25,
+                      spacing: 20,
                       runSpacing: 15,
                       children: List.generate(
                         snapshot.data!.length,
@@ -50,12 +50,12 @@ class SelectBrandCard extends StatelessWidget {
                                     models: snapshot.data![index].models);
                           },
                           child: Container(
-                              padding: const EdgeInsets.only(top: 5, bottom: 5),
-                              height: 70,
-                              width: 95,
+                              padding: const EdgeInsets.only(top: 0, bottom: 0),
+                              height: 30,
+                              width: 105,
                               decoration: BoxDecoration(
                                 color: selectedIndex == index
-                                    ? Colors.white
+                                    ? AppColors.p2
                                     : Colors.white,
                                 border: Border.all(
                                   width: 2,
@@ -63,7 +63,7 @@ class SelectBrandCard extends StatelessWidget {
                                       ? AppColors.p2
                                       : AppColors.grey,
                                 ),
-                                borderRadius: BorderRadius.circular(10),
+                                borderRadius: BorderRadius.circular(4),
                               ),
                               child: Center(
                                 child: Column(
@@ -84,11 +84,11 @@ class SelectBrandCard extends StatelessWidget {
                                     //     },
                                     //   ),
                                     // ),
-                                    const SizedBox(height: 4),
+
                                     Text(snapshot.data![index].name,
                                         style: selectedIndex == index
-                                            ? AppFonts.w500black10
-                                            : AppFonts.w500black10),
+                                            ? AppFonts.w500white12
+                                            : AppFonts.w500black12),
                                   ],
                                 ),
                               )),

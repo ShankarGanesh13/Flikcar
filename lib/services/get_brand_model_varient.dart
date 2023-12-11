@@ -86,54 +86,6 @@ class GetBrandModelVarient {
     return fuelTypes;
   }
 
-  static Future<List<BrandModelVarient>> getBrandModelVarientCust() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    List<BrandModelVarient> brands = [];
-    Uri url = Uri.parse(
-      '$apiUrl/dealer/car/brand-model-variant',
-    );
-
-    String? userToken = sp.getString('userToken');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $userToken',
-    });
-
-    var body = jsonDecode(response.body);
-    var data = body["data"] as List;
-
-    brands = [];
-    data.forEach((element) {
-      brands.add(BrandModelVarient.fromJson(element));
-    });
-
-    return brands;
-  }
-
-  // static Future<List<BrandModelVarient>> getBrandModelVarient() async {
-  //   final SharedPreferences sp = await SharedPreferences.getInstance();
-  //   List<BrandModelVarient> brands = [];
-  //   Uri url = Uri.parse(
-  //     '$apiUrl/dealer/car/brand-model-variant',
-  //   );
-
-  //   String? dealerToken = sp.getString('dealerToken');
-
-  //   var response = await http.get(url, headers: {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': 'Bearer $dealerToken',
-  //   });
-  //   var body = jsonDecode(response.body);
-  //   var data = body["data"] as List;
-  //   brands = [];
-  //   data.forEach((element) {
-  //     brands.add(BrandModelVarient.fromJson(element));
-  //   });
-
-  //   return brands;
-  // }
-
   static Future<List<BrandModelVarient>> getBrandModelVarient() async {
     List<BrandModelVarient> brands = [];
     print("get brand model variant");
@@ -172,12 +124,15 @@ class GetBrandModelVarient {
   static Future<List<Rto>> getRto() async {
     final SharedPreferences sp = await SharedPreferences.getInstance();
     List<Rto> rto = [];
+    print(apiUrl);
 
     Uri url = Uri.parse(
       '$apiUrl/rto',
     );
+    print(url);
 
     String? dealerToken = sp.getString('dealerToken');
+    print(dealerToken);
 
     var response = await http.get(url, headers: {
       'Content-Type': 'application/json',

@@ -22,6 +22,7 @@ class FirebaseAuctionService {
   }
 
   Stream<List<FirebaseAuction?>> getAuctionCarsStream() {
+    debugPrint("---------------------------------get auction cars as stream");
     CollectionReference collection = firestore.collection("auctions");
     return collection.snapshots().map(
       (QuerySnapshot querySnapshot) {
@@ -64,6 +65,7 @@ class FirebaseAuctionService {
   }
 
   Stream<List<FirebaseAuction>> getMyBids() {
+    myWinnings();
     CollectionReference collection = firestore.collection("auctions");
     CollectionReference userMyBidCollection = firestore
         .collection("users")
@@ -76,17 +78,18 @@ class FirebaseAuctionService {
 
         for (QueryDocumentSnapshot queryDocumentSnapshot
             in querySnapshot.docs) {
-          // Check if the document exists in the user's "bids" collection
           DocumentSnapshot userBidDoc =
               await userMyBidCollection.doc(queryDocumentSnapshot.id).get();
 
           if (userBidDoc.exists) {
-            // If the document exists, add the auction to the filtered list
-            filteredAuctions.add(
-              FirebaseAuction.fromJson(
-                queryDocumentSnapshot.data() as Map<String, dynamic>,
-              ),
-            );
+            FirebaseAuction auction = FirebaseAuction.fromJson(
+                queryDocumentSnapshot.data() as Map<String, dynamic>);
+
+            // Check if the auction has not ended
+            if (DateTime.fromMillisecondsSinceEpoch(auction.endTime)
+                .isAfter(DateTime.now())) {
+              filteredAuctions.add(auction);
+            }
           }
         }
 
@@ -97,6 +100,35 @@ class FirebaseAuctionService {
       // You can choose to throw an error or return an empty list based on your needs.
       return [];
     });
+  }
+
+  Future<List<FirebaseAuction>> myWinnings() async {
+    CollectionReference collection = firestore.collection("auctions");
+    List<FirebaseAuction> winningAuctions = [];
+
+    // Fetch all auctions
+    QuerySnapshot auctionSnapshots = await collection.get();
+
+    // Iterate through each auction
+    for (QueryDocumentSnapshot auctionDoc in auctionSnapshots.docs) {
+      FirebaseAuction auction =
+          FirebaseAuction.fromJson(auctionDoc.data() as Map<String, dynamic>);
+
+      // Check if the auction has ended
+      if (DateTime.fromMillisecondsSinceEpoch(auction.endTime)
+          .isBefore(DateTime.now())) {
+        // Get the latest bid for this auction
+        FirebaseAuction car =
+            FirebaseAuction.fromJson(auctionDoc.data() as Map<String, dynamic>);
+        if (car.bid != null) {
+          if (car.bid!.bidder.userId == auth.currentUser!.uid) {
+            winningAuctions.add(car);
+          }
+        }
+      }
+    }
+
+    return winningAuctions;
   }
 
   Stream<FirebaseMyBids> getMyBidPrice({required String carId}) {
@@ -147,12 +179,11 @@ class FirebaseAuctionService {
   }) async {
     try {
       if (currentBid + 999 < bidAmount) {
-        // Initialize Cloud Functions
         final functions = FirebaseFunctions.instance;
+        print("+++++++++++++++++++++++++++++++++++++++++$auctionId");
 
-        // Prepare data for the bid
         final data = {
-          "auctionId": auctionId,
+          "auctionId": auctionId.toString(),
           "bidPrice": bidAmount,
           "user": {
             "userId": userId,

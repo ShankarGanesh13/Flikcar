@@ -19,13 +19,13 @@ class FirebaseDealerImageViewer extends StatefulWidget {
 class _FirebaseDealerImageViewerState extends State<FirebaseDealerImageViewer> {
   @override
   void initState() {
-    getImages();
     // TODO: implement initState
+    getImages();
     super.initState();
   }
 
   int selectedIndex = 0;
-  List<ImageProvider> _imageProviders = [];
+  static List<ImageProvider> _imageProviders = [];
 
   @override
   Widget build(BuildContext context) {
@@ -35,27 +35,36 @@ class _FirebaseDealerImageViewerState extends State<FirebaseDealerImageViewer> {
       children: [
         GestureDetector(
           onTap: () {
-            // MultiImageProvider multiImageProvider =
-            //     MultiImageProvider(_imageProviders);
-            // showImageViewerPager(context, multiImageProvider,
-            //     backgroundColor: Colors.white,
-            //     closeButtonColor: Colors.black,
-            //     swipeDismissible: true,
-            //     useSafeArea: true,
-            //     doubleTapZoomable: true);
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        DealerCarImageViewer(images: images)));
+            MultiImageProvider multiImageProvider = MultiImageProvider(
+                _imageProviders,
+                initialIndex: selectedIndex);
+            showImageViewerPager(context, multiImageProvider,
+                backgroundColor: Colors.white,
+                closeButtonColor: Colors.black,
+                swipeDismissible: true,
+                useSafeArea: true,
+                doubleTapZoomable: true);
+          },
+          onHorizontalDragEnd: (details) {
+            if (details.primaryVelocity! > 0) {
+              // Swiped right
+              if (selectedIndex > 0) {
+                selectedIndex--;
+              }
+            } else if (details.primaryVelocity! < 0) {
+              // Swiped left
+              if (selectedIndex < images.length - 1) {
+                selectedIndex = selectedIndex + 1;
+              }
+            }
+            setState(() {});
+            print("===================${selectedIndex}");
           },
           child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,
             width: MediaQuery.of(context).size.width,
             child: Image.network(
-              images.isNotEmpty
-                  ? '${images[selectedIndex].imageUrl}'
-                  : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+              '${images[selectedIndex].imageUrl}',
               fit: BoxFit.contain,
               loadingBuilder: (context, child, loadingProgress) {
                 if (loadingProgress == null) {

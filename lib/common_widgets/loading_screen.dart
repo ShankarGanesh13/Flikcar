@@ -10,27 +10,38 @@ class LoadingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getAppBarWithContainerSearch(
-          function2: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const DealerFlow(
-                  index: 0,
-                ),
-              ),
-              (route) => false,
-            );
-          },
-          context: context,
-          function: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const DealerCarListScreen(),
-                ));
-          },
-          back: true),
+      appBar: CustomAppBar.getAppBar(function: () {
+        Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const DealerFlow(
+              index: 0,
+            ),
+          ),
+          (route) => false,
+        );
+      }),
+      // CustomAppBar.getAppBarWithContainerSearch(
+      //     function2: () {
+      //       Navigator.pushAndRemoveUntil(
+      //         context,
+      //         MaterialPageRoute(
+      //           builder: (context) => const DealerFlow(
+      //             index: 0,
+      //           ),
+      //         ),
+      //         (route) => false,
+      //       );
+      //     },
+      //     context: context,
+      //     function: () {
+      //       Navigator.push(
+      //           context,
+      //           MaterialPageRoute(
+      //             builder: (context) => const DealerCarListScreen(),
+      //           ));
+      //     },
+      //     back: true),
       body: const Column(children: [
         SizedBox(
           height: 130,

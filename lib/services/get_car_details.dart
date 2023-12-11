@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/env.dart';
@@ -7,12 +9,13 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class GetCarDetails extends ChangeNotifier {
-  List<BuyerCarDisplay> displayCars = [];
+  List<FirebaseBuyerCar> displayCars = [];
   List<BuyerCarDisplay> similarCars = [];
+  FirebaseFirestore firebase = FirebaseFirestore.instance;
 
-  List<BuyerCarDisplay> fuelFilter = [];
-  List<BuyerCarDisplay> transmissonFilter = [];
-  List<BuyerCarDisplay> bodyTypeFilter = [];
+  List<FirebaseBuyerCar> fuelFilter = [];
+  List<FirebaseBuyerCar> transmissonFilter = [];
+  List<FirebaseBuyerCar> bodyTypeFilter = [];
   int fuelIndex = -1;
   int transmissonIndex = -1;
   int bodyIndex = -1;
@@ -34,11 +37,12 @@ class GetCarDetails extends ChangeNotifier {
     List result = data["data"] as List;
     if (displayCars.length < 12) {
       result.forEach((e) {
-        displayCars.add(BuyerCarDisplay.fromJson(e));
+        displayCars.add(FirebaseBuyerCar.fromJson(e));
       });
     }
     fuelFilter = displayCars
-        .where((element) => element.transmission.toLowerCase() == "manual")
+        .where((element) =>
+            element.properties.transmission.toLowerCase() == "manual")
         .toList();
 
     transmissonFilter.shuffle();
@@ -57,7 +61,8 @@ class GetCarDetails extends ChangeNotifier {
           // print(filter);
           fuelFilter = displayCars
               .where((element) =>
-                  element.fuelType.toLowerCase() == filter.toLowerCase())
+                  element.properties.fuelType.toLowerCase() ==
+                  filter.toLowerCase())
               .toList();
           fuelIndex = index;
           notifyListeners();
@@ -68,7 +73,8 @@ class GetCarDetails extends ChangeNotifier {
           // print(filter);
           transmissonFilter = displayCars
               .where((element) =>
-                  element.transmission.toLowerCase() == filter.toLowerCase())
+                  element.properties.transmission.toLowerCase() ==
+                  filter.toLowerCase())
               .toList();
           transmissonIndex = index;
           notifyListeners();
@@ -80,7 +86,8 @@ class GetCarDetails extends ChangeNotifier {
 
           bodyTypeFilter = displayCars
               .where((element) =>
-                  element.bodyType.toLowerCase() == filter.toLowerCase())
+                  element.properties.bodyType.toLowerCase() ==
+                  filter.toLowerCase())
               .toList();
           bodyIndex = index;
           notifyListeners();
@@ -142,6 +149,16 @@ class GetCarDetails extends ChangeNotifier {
       });
     }
     return car;
+  }
+
+  Future<List<FirebaseBuyerCar>> getBuyerCarDetails() async {
+    List<FirebaseBuyerCar> allCars = [];
+    QuerySnapshot query = await firebase.collection("vehicles").get();
+    for (var doc in query.docs) {
+      allCars
+          .add(FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
+    }
+    return allCars;
   }
 
   Future<List<BuyerCarDisplay>> getCarAtTheStore({required String id}) async {

@@ -72,17 +72,17 @@ class ViewAllCarsAtStore extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CarDetailedView(
-                                            car: Provider.of<GetCarDetails>(
-                                                    context,
-                                                    listen: false)
-                                                .getCarById(
-                                          id: snapshot.data![index].id
-                                              .toString(),
-                                        ))));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => CarDetailedView(
+                            //                 car: Provider.of<GetCarDetails>(
+                            //                         context,
+                            //                         listen: false)
+                            //                     .getCarById(
+                            //               id: snapshot.data![index].id
+                            //                   .toString(),
+                            //             ))));
                           },
                           child: FilterAppliedCard(
                               compare: false, car: snapshot.data![index]),

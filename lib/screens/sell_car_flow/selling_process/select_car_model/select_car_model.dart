@@ -51,7 +51,7 @@ class SelectCarModel extends StatelessWidget {
                     padding: const EdgeInsets.only(
                         top: 8, bottom: 8, left: 4, right: 4),
                     height: 40,
-                    width: MediaQuery.of(context).size.width / 2.3,
+                    width: MediaQuery.of(context).size.width / 2.4,
                     decoration: BoxDecoration(
                       color:
                           selectedIndex != index ? Colors.white : AppColors.p2,
@@ -64,8 +64,8 @@ class SelectCarModel extends StatelessWidget {
                       child: Text(
                         models[index].name,
                         style: selectedIndex == index
-                            ? AppFonts.w500white14
-                            : AppFonts.w500black14,
+                            ? AppFonts.w500white12
+                            : AppFonts.w500black12,
                         maxLines: 1,
                       ),
                     ),

@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/document_textField.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
@@ -20,6 +21,10 @@ class PanDetails extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: Column(
         children: [
+          const Heading1(title1: "PAN Card Details", title2: ""),
+          const SizedBox(
+            height: 15,
+          ),
           Container(
               width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(15),
@@ -55,7 +60,7 @@ class PanDetails extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "PAN card (required)*",
+                    "PAN card image*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

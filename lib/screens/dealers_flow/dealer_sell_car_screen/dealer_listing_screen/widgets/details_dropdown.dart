@@ -47,7 +47,7 @@ class DetailsDropDown extends StatelessWidget {
                         borderSide: BorderSide(color: AppColors.p1)),
                   ),
                   hint: Text(
-                    "Select fuel type*",
+                    "Select fuel type",
                     style: AppFonts.w500dark214,
                   ),
                   value: selectedFuel,
@@ -120,7 +120,7 @@ class DetailsDropDown extends StatelessWidget {
                         borderSide: BorderSide(color: AppColors.p1)),
                   ),
                   hint: Text(
-                    "Select body type*",
+                    "Select body type",
                     style: AppFonts.w500dark214,
                   ),
                   value: selectedBody,
@@ -352,7 +352,7 @@ class DetailsDropDown extends StatelessWidget {
                 borderSide: BorderSide(color: AppColors.p1)),
           ),
           hint: Text(
-            "Select transmisson type*",
+            "Select transmisson type",
             style: AppFonts.w500dark214,
           ),
           value: selectedTransmisson,

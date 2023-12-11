@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/widgets/upload_image.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -23,6 +24,10 @@ class _DealershipDetailsState extends State<DealershipDetails> {
       padding: const EdgeInsets.all(15.0),
       child: Column(
         children: [
+          const Heading1(title1: "Dealership Details", title2: ""),
+          const SizedBox(
+            height: 15,
+          ),
           Container(
               height: 241,
               width: MediaQuery.of(context).size.width,
@@ -41,7 +46,7 @@ class _DealershipDetailsState extends State<DealershipDetails> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Shop Photo (required)*",
+                    "Shop Photo*",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(

@@ -41,6 +41,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
   //shopimage
   String pincode = "";
   String apiUrl = Env.apiUrl;
+  int selectedIndex = 0;
 
   pickFile({required BuildContext context, required String imageType}) async {
     try {
@@ -174,6 +175,98 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
             builder: (context) => const TermsAndCondition(),
           ));
     }
+  }
+
+  backSelectedIndex() {
+    if (selectedIndex > 0) {
+      selectedIndex--;
+      notifyListeners();
+    }
+  }
+
+  validateImages({required int index, required BuildContext context}) {
+    print(index);
+    switch (index) {
+      case 0:
+        print("pan");
+        if (panImagePath == "") {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 2),
+              backgroundColor: Color(0xFF45C08D),
+              content: Text(
+                "Please upload all the required images",
+              ),
+            ),
+          );
+        } else {
+          selectedIndex++;
+        }
+      case 1:
+        print("adddress front");
+        if (addressFrontImagePath == "" || addressBAckImagePath == "") {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 2),
+              backgroundColor: Color(0xFF45C08D),
+              content: Text(
+                "Please upload all the required images ",
+              ),
+            ),
+          );
+        } else {
+          selectedIndex++;
+        }
+      case 2:
+        if (tradeLicencePath == "") {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 2),
+              backgroundColor: Color(0xFF45C08D),
+              content: Text(
+                "Please upload all the required images",
+              ),
+            ),
+          );
+        } else {
+          selectedIndex++;
+        }
+      case 3:
+        if (dealershipImagePath == "") {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 2),
+              backgroundColor: Color(0xFF45C08D),
+              content: Text(
+                "Please upload all the required images ",
+              ),
+            ),
+          );
+        } else {
+          selectedIndex++;
+        }
+      case 4:
+        if (cancelChequePath == "") {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              duration: Duration(seconds: 2),
+              backgroundColor: Color(0xFF45C08D),
+              content: Text(
+                "Please upload all the required images ",
+              ),
+            ),
+          );
+        } else {
+          selectedIndex++;
+        }
+      case 5:
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const TermsAndCondition(),
+            ));
+    }
+    notifyListeners();
   }
 
   getDocumentNumber(

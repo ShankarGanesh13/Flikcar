@@ -8,7 +8,7 @@ import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class CarImageViewer extends StatefulWidget {
-  final List<ImageModel> images;
+  final List<FirebaseImageModel> images;
   const CarImageViewer({super.key, required this.images});
 
   @override
@@ -18,12 +18,12 @@ class CarImageViewer extends StatefulWidget {
 class _CarImageViewerState extends State<CarImageViewer> {
   @override
   void initState() {
-    setImages(imageType: "1");
+    setImages(imageType: imagetype[0]);
     // getImages();
     super.initState();
   }
 
-  List<ImageModel> currentImages = [];
+  List<FirebaseImageModel> currentImages = [];
 
   int selectedIndex = 0;
   List<String> imageSection = [
@@ -33,6 +33,15 @@ class _CarImageViewerState extends State<CarImageViewer> {
     "Tyres",
     "Others",
     "Dents",
+  ];
+  List<String> imagetype = [
+    "EXT",
+    "INT",
+    "ENGINE",
+    "TYRE",
+    "THUMB",
+    "OTHER",
+    "DENT",
   ];
 
   @override

@@ -281,18 +281,11 @@ class _FilterAppliedState extends State<FilterApplied> {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => CarDetailedView(
-                                          car: Provider.of<GetCarDetails>(
-                                                  context,
-                                                  listen: false)
-                                              .getCarById(
-                                                  id: allCars[index]
-                                                      .id
-                                                      .toString()),
-                                        )));
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) =>
+                            //             CarDetailedView(car: car)));
                           },
                           child: FilterAppliedCard(
                             compare: compare,

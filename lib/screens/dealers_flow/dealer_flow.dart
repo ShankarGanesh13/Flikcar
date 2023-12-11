@@ -4,6 +4,7 @@ import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_sell_
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/my_bids_screen.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/my_schedule_screen.dart';
 import 'package:flikcar/services/auction_services.dart';
+import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -36,60 +37,54 @@ class _DealerFlowState extends State<DealerFlow> {
   ];
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () async {
-        //  Provider.of<AuctionService>(context, listen: false).disconnectSocket();
-        return true;
-      },
-      child: Scaffold(
-        bottomNavigationBar: Container(
-          color: AppColors.s1,
-          child: SafeArea(
-            child: CustomNavigationBar(
-              iconSize: 22.0,
-              selectedColor: const Color(0xff9A2870),
-              strokeColor: const Color(0x30040307),
-              unSelectedColor: Colors.white,
-              backgroundColor: AppColors.s1,
-              elevation: 0,
-              items: [
-                navBarItems(
-                  imagePath: "assets/auction_icon.png",
-                  title: "Auction House",
-                  index: 0,
-                ),
-                navBarItems(
-                  imagePath: "assets/sell_car_icon.png",
-                  title: "Sell Car",
-                  index: 1,
-                ),
-                navBarItems(
-                  imagePath: "assets/car_details_icon/my_schedule.png",
-                  title: "My Schedule",
-                  index: 2,
-                ),
-                navBarItems(
-                  imagePath: "assets/car_details_icon/Group.png",
-                  title: "My Bids",
-                  index: 3,
-                ),
-                navBarItems(
-                  imagePath: "assets/account_icon.png",
-                  title: "Account",
-                  index: 4,
-                )
-              ],
-              currentIndex: _currentIndex,
-              onTap: (index) {
-                setState(() {
-                  _currentIndex = index;
-                });
-              },
-            ),
+    return Scaffold(
+      bottomNavigationBar: Container(
+        color: AppColors.s1,
+        child: SafeArea(
+          child: CustomNavigationBar(
+            iconSize: 22.0,
+            selectedColor: const Color(0xff9A2870),
+            strokeColor: const Color(0x30040307),
+            unSelectedColor: Colors.white,
+            backgroundColor: AppColors.s1,
+            elevation: 0,
+            items: [
+              navBarItems(
+                imagePath: "assets/auction_icon.png",
+                title: "Auction House",
+                index: 0,
+              ),
+              navBarItems(
+                imagePath: "assets/sell_car_icon.png",
+                title: "Sell Car",
+                index: 1,
+              ),
+              navBarItems(
+                imagePath: "assets/car_details_icon/my_schedule.png",
+                title: "My Schedule",
+                index: 2,
+              ),
+              navBarItems(
+                imagePath: "assets/car_details_icon/Group.png",
+                title: "My Bids",
+                index: 3,
+              ),
+              navBarItems(
+                imagePath: "assets/account_icon.png",
+                title: "Account",
+                index: 4,
+              )
+            ],
+            currentIndex: _currentIndex,
+            onTap: (index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
           ),
         ),
-        body: pages.elementAt(_currentIndex),
       ),
+      body: pages.elementAt(_currentIndex),
     );
   }
 

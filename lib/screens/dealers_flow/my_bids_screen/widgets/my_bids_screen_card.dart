@@ -105,8 +105,11 @@ class MyBidsScreenCard extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 3),
-                  Text("${car.carDetails.model} ${car.carDetails.variant}",
-                      style: AppFonts.w700s116),
+                  Text(
+                    "${car.carDetails.model} ${car.carDetails.variant}",
+                    style: AppFonts.w700s116,
+                    maxLines: 1,
+                  ),
                   const SizedBox(height: 4),
                   Wrap(
                     spacing: 4,

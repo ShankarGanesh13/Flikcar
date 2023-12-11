@@ -14,6 +14,26 @@ class FirebaseInspectionReport extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.all(15),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        const Heading1(title1: "Description", title2: ""),
+        const SizedBox(
+          height: 8,
+        ),
+        car.properties.carDescription == "N/A"
+            ? Text(
+                "Data not available",
+                style: AppFonts.w500dark214,
+              )
+            : SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  car.properties.carDescription,
+                  style: AppFonts.w500dark214,
+                  textAlign: TextAlign.justify,
+                ),
+              ),
+        const SizedBox(
+          height: 20,
+        ),
         const Heading1(title1: "Inspection report", title2: ""),
         const SizedBox(
           height: 8,
@@ -44,29 +64,29 @@ class FirebaseInspectionReport extends StatelessWidget {
     );
   }
 
-  Widget inspectionRating({required String title, required String rating}) {
-    return Padding(
-      padding: const EdgeInsets.only(top: 10.0),
-      child: Row(
-        children: [
-          Text(
-            title,
-            style: AppFonts.w700black14,
-          ),
-          const Spacer(),
-          Text(
-            rating,
-            style: AppFonts.w700black14,
-          ),
-          const SizedBox(
-            width: 5,
-          ),
-          const Icon(Icons.star),
-          const SizedBox(
-            width: 90,
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget inspectionRating({required String title, required String rating}) {
+  //   return Padding(
+  //     padding: const EdgeInsets.only(top: 10.0),
+  //     child: Row(
+  //       children: [
+  //         Text(
+  //           title,
+  //           style: AppFonts.w700black14,
+  //         ),
+  //         const Spacer(),
+  //         Text(
+  //           rating,
+  //           style: AppFonts.w700black14,
+  //         ),
+  //         const SizedBox(
+  //           width: 5,
+  //         ),
+  //         const Icon(Icons.star),
+  //         const SizedBox(
+  //           width: 90,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 }

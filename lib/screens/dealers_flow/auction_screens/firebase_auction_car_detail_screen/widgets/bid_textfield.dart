@@ -50,14 +50,19 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
     if (endTime.isBefore(now)) {
       // Auction has ended
       print("auction ended");
-      return Text(
-        "Auction has ended",
-        style: AppFonts.w500red14,
+      return Row(
+        children: [
+          Text(
+            "Auction has ended",
+            style: AppFonts.w500red14,
+          ),
+        ],
       );
     } else if (startTime.isBefore(now) && endTime.isAfter(now)) {
       // Auction is ongoing
       print("ongoing");
       return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           OngoingTimer2(
             endTime: endTime,
@@ -111,28 +116,6 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
                       : widget.car.startPrice,
                   carId: widget.car.id,
                 ),
-                // BuyNavButton(
-                //   icon: Icons.chevron_right,
-                //   title: "Place Bid",
-                //   function: () {
-                //     if (controller.text != "") {
-                //       FirebaseAuctionService().placeBid(
-                //           auctionId: "1",
-                //           currentBid: widget.car.bid!.price,
-                //           bidAmount: int.parse(currentText),
-                //           userId: "ub_3424",
-                //           controller: controller,
-                //           phone: "9884341528",
-                //           context: context,
-                //           firstName: "",
-                //           lastName: "");
-                //     } else {
-                //       ScaffoldMessenger.of(context).showSnackBar(
-                //           MySnackbar.showSnackBar(
-                //               context, "Bid amount cannot be empty"));
-                //     }
-                //   },
-                // )
               ]),
             ),
           ),

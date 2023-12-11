@@ -1,10 +1,11 @@
 import 'package:flikcar/common_widgets/heading1.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class CarSpecification extends StatelessWidget {
-  final BuyerCar car;
+  final FirebaseBuyerCar car;
   const CarSpecification({super.key, required this.car});
   static List<String> specifications = [
     "Mileage",
@@ -18,12 +19,12 @@ class CarSpecification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> carSpec = [
-      "${car.mileage} kmpl",
-      "${car.engine} cc",
-      "${car.maxPower} bhp",
-      "${car.maxTorque} Nm",
-      "${car.seat}",
-      "${car.color}"
+      "${car.properties.mileage} kmpl",
+      "${car.properties.engineCC} cc",
+      "${car.properties.maxPower} bhp",
+      "${car.properties.torque} Nm",
+      "${car.properties.seat}",
+      "${car.properties.color}"
     ];
     return Padding(
       padding: const EdgeInsets.all(15.0),

@@ -41,6 +41,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
   TextEditingController maxTorqueController = TextEditingController();
   TextEditingController maxPowerController = TextEditingController();
   TextEditingController mileageController = TextEditingController();
+  TextEditingController rtoController = TextEditingController();
 
   TextEditingController kmsController = TextEditingController();
   TextEditingController sellingPriceController = TextEditingController();
@@ -132,10 +133,24 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                   children: [
                     const SizedBox(height: 15),
                     const BrandVarientModelDropDown(),
-                    const SizedBox(height: 20),
-                    RtoDropdown(),
+                    //  const SizedBox(height: 20),
+                    //   RtoDropdown(),
                     const SizedBox(height: 20),
                     DetailsDropDown(),
+                    const SizedBox(height: 20),
+                    ListingTextField(
+                      inputType: [],
+                      hint: "Eg. WB 07",
+                      maxlength: 5,
+                      keyboardType: TextInputType.number,
+                      title: "RTO location*",
+                      controller: rtoController,
+                      validator: true,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getManufacturedYear(year: value);
+                      },
+                    ),
                     const SizedBox(height: 20),
                     ListingTextField(
                       inputType: [FilteringTextInputFormatter.digitsOnly],
@@ -181,7 +196,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     const SizedBox(height: 20),
                     ListingTextField(
                       inputType: [FilteringTextInputFormatter.digitsOnly],
-                      hint: "Eg. 130015",
+                      hint: "Eg. 13015",
                       maxlength: 6,
                       validator: true,
                       keyboardType: TextInputType.number,
@@ -199,7 +214,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       hint: "Eg. 430000",
                       maxlength: 8,
                       validator: true,
-                      title: "Selling Price*",
+                      title: "Selling Price",
                       keyboardType: TextInputType.number,
                       controller: sellingPriceController,
                       onChanged: (value) {

@@ -1,5 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/car_specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
@@ -17,7 +18,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DealerListedCarDetailsScreen extends StatelessWidget {
-  final BuyerCar car;
+  final FirebaseBuyerCar car;
   const DealerListedCarDetailsScreen({super.key, required this.car});
 
   @override
@@ -116,11 +117,11 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        car.brand,
+                        car.properties.brand,
                         style: AppFonts.w700black16,
                       ),
                       Text(
-                        car.model,
+                        car.properties.model,
                         style: AppFonts.w500dark214,
                       ),
                     ],
@@ -147,23 +148,23 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
           CarSpecification(
             car: car,
           ),
-          Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: PrimaryButton(
-                title: "View All Specification",
-                function: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CarSpecificationScreen(car: car),
-                      ));
-                },
-                borderColor: Colors.white,
-                backgroundColor: AppColors.p2,
-                textStyle: AppFonts.w500white14),
-          ),
+          // Padding(
+          //   padding: const EdgeInsets.all(15.0),
+          //   child: PrimaryButton(
+          //       title: "View All Specification",
+          //       function: () {
+          //         Navigator.push(
+          //             context,
+          //             MaterialPageRoute(
+          //               builder: (context) => CarSpecificationScreen(car:  car),
+          //             ));
+          //       },
+          //       borderColor: Colors.white,
+          //       backgroundColor: AppColors.p2,
+          //       textStyle: AppFonts.w500white14),
+          // ),
 
-          const SizedBox(height: 100),
+          const SizedBox(height: 40),
         ]),
       ),
     );

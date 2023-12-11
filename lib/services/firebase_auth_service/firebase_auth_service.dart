@@ -13,7 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseAuthService {
   String receivedID = "";
-  FirebaseAuth auth = FirebaseAuth.instance;
+  static FirebaseAuth auth = FirebaseAuth.instance;
 
   static Future<void> createUserInFirestore(
       {required String? userId,
@@ -124,9 +124,7 @@ class FirebaseAuthService {
     }
   }
 
-  getDealerDetails() async {
-    var dealerBox = await Hive.openBox<Map<String, dynamic>>('dealer');
-
+  static Future<Map<String, dynamic>> getDealerDetails() async {
     DocumentSnapshot doc = await FirebaseFirestore.instance
         .collection('users')
         .doc(auth.currentUser!.uid)
@@ -138,13 +136,8 @@ class FirebaseAuthService {
       "name": json["dealerOnboardFormData"]["name"],
       "shopAddress": json["dealerOnboardFormData"]["shopAddress"],
     };
+    print(data);
 
-    // Store the data in the Hive box
-    await dealerBox.put('dealerData', data);
-
-    // Close the box when done
-    await dealerBox.close();
-
-    // Return the data
+    return data;
   }
 }

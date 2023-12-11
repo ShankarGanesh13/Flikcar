@@ -94,7 +94,7 @@ class FirebaseDealerCarDetails extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 3.2,
                               child: Text(
                                 data[index],
-                                style: AppFonts.w500black10,
+                                style: AppFonts.w500black12,
                               ),
                             )
                           ],

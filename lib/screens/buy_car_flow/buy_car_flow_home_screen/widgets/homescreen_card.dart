@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
@@ -19,7 +20,7 @@ class HomeScreenCard extends StatefulWidget {
   final bool filterButton;
   final String filter;
   final List<String> filters;
-  final List<BuyerCarDisplay> cars;
+  final List<FirebaseBuyerCar> cars;
   final int selectedindex;
 
   const HomeScreenCard({
@@ -118,23 +119,23 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     List<String> features = [
-                      widget.cars[index].fuelType,
-                      "${widget.cars[index].driveKms} kms",
-                      "${widget.cars[index].registerationYear}",
-                      widget.cars[index].transmission,
+                      widget.cars[index].properties.fuelType,
+                      "${widget.cars[index].properties.kmsDriven} kms",
+                      "${widget.cars[index].properties.registrationYear}",
+                      widget.cars[index].properties.transmission,
                     ];
                     return GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CarDetailedView(
-                                car: Provider.of<GetCarDetails>(context,
-                                        listen: false)
-                                    .getCarById(
-                                        id: widget.cars[index].id.toString()),
-                              ),
-                            ));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => CarDetailedView(
+                        //         car: Provider.of<GetCarDetails>(context,
+                        //                 listen: false)
+                        //             .getCarById(
+                        //                 id: widget.cars[index].id.toString()),
+                        //       ),
+                        //     ));
                       },
                       child: Container(
                         height: 361,
@@ -164,9 +165,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                     topRight: Radius.circular(15),
                                   ),
                                   child: Image.network(
-                                    widget.cars[index].images.isNotEmpty
-                                        ? "https://webservice.flikcar.com/public/${widget.cars[index].images[0]}"
-                                        : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
+                                    "${widget.cars[index].images[0].imageUrl}",
                                     fit: BoxFit.fill,
                                     loadingBuilder:
                                         (context, child, loadingProgress) {
@@ -193,13 +192,14 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                     children: [
                                       SizedBox(
                                         width: 160,
-                                        child: Text(widget.cars[index].brand,
+                                        child: Text(
+                                            widget.cars[index].properties.brand,
                                             maxLines: 1,
                                             style: AppFonts.w500dark214),
                                       ),
                                       const Spacer(),
                                       Text(
-                                        "₹ ${widget.cars[index].price}",
+                                        "₹ ${widget.cars[index].carPrice}",
                                         style: AppFonts.w700s140,
                                       ),
                                     ],
@@ -212,7 +212,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                       SizedBox(
                                         width: 170,
                                         child: Text(
-                                            "${widget.cars[index].model} ${widget.cars[index].variant}",
+                                            "${widget.cars[index].properties.model} ${widget.cars[index].properties.variant}",
                                             maxLines: 1,
                                             style: AppFonts.w700s140),
                                       ),
@@ -270,7 +270,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                         Uri phoneno = Uri(
                                           scheme: 'tel',
                                           path:
-                                              '+91${widget.cars[index].dealer.phone}',
+                                              '+91${widget.cars[index].owner.phone}',
                                         );
                                         if (await launchUrl(phoneno)) {
                                         } else {
