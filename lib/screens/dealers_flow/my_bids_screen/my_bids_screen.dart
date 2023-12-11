@@ -141,15 +141,17 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
               : FutureBuilder<List<FirebaseAuction>>(
                   future: FirebaseAuctionService().myWinnings(),
                   builder: (context, snapshot) {
-                    if (snapshot.data != null) {
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return WinningCard(car: snapshot.data![index]);
-                          });
-                    } else {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Column(
+                        children: [
+                          SizedBox(
+                            height: 50,
+                          ),
+                          Center(child: CircularProgressIndicator())
+                        ],
+                      );
+                    }
+                    if (snapshot.data == null) {
                       return Column(
                         children: [
                           const SizedBox(
@@ -168,6 +170,33 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
                           )
                         ],
                       );
+                    } else if (snapshot.data!.isEmpty) {
+                      return Column(
+                        children: [
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          Text(
+                            "No cars to show",
+                            style: AppFonts.w700black16,
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "Here you can find all the cars where you have placed bids",
+                            style: AppFonts.w500dark212,
+                          )
+                        ],
+                      );
+                    } else {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return WinningCard(car: snapshot.data![index]);
+                          });
                     }
                   })
 

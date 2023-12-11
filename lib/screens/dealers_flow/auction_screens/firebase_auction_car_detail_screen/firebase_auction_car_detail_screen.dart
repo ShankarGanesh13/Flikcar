@@ -165,7 +165,7 @@ class _FirebaseAuctionCarDetailScreenState
                       ),
 
                       const SizedBox(
-                        height: 25,
+                        height: 70,
                       ),
                       // const DealerCarCard(
                       //   filters: [],
