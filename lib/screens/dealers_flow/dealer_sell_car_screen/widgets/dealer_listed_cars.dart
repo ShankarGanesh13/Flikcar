@@ -62,9 +62,9 @@ class DealerListedCars extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(5),
                         child: Image.network(
-                          "",
+                          cars[index].imagePath,
                           //cars[index].carImages,
-                          fit: BoxFit.fill,
+                          fit: BoxFit.contain,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) {
                               return child;
@@ -133,10 +133,10 @@ class DealerListedCars extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 6),
-                          // Text(
-                          //   "₹ ${cars[index].carPrice} ",
-                          //   style: AppFonts.w700black20,
-                          // ),
+                          Text(
+                            "₹ ${cars[index].carPrice} ",
+                            style: AppFonts.w700black20,
+                          ),
                           const SizedBox(height: 4),
                           Row(
                             children: [
@@ -151,12 +151,12 @@ class DealerListedCars extends StatelessWidget {
                                       //     .markAsSold(
                                       //         context: context,
                                       //         carId: cars[index].id.toString());
-                                      // Navigator.push(
-                                      //     context,
-                                      //     MaterialPageRoute(
-                                      //         builder: (context) =>
-                                      //             DealerListedCarDetailsScreen(
-                                      //                 car: cars[index])));
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  DealerListedCarDetailsScreen(
+                                                      carId: cars[index].id)));
                                     },
                                     borderColor: AppColors.s1,
                                     backgroundColor: Colors.white,
@@ -168,11 +168,14 @@ class DealerListedCars extends StatelessWidget {
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  // Text(cars[index].saleStatus,
-                                  //     style:
-                                  //         cars[index].saleStatus == "Available"
-                                  //             ? AppFonts.w500green14
-                                  //             : AppFonts.w500red14),
+                                  cars[index].status.toLowerCase() ==
+                                          "available"
+                                      ? Text("Available",
+                                          style: AppFonts.w500green14)
+                                      : Text(
+                                          "Sold Out",
+                                          style: AppFonts.w500red14,
+                                        ),
                                   Text(
                                     "Listed on ${formatter.format(DateTime.fromMillisecondsSinceEpoch(cars[index].createdAt))}",
                                     style: AppFonts.w500black10,

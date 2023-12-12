@@ -270,7 +270,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                         Uri phoneno = Uri(
                                           scheme: 'tel',
                                           path:
-                                              '+91${widget.cars[index].owner.phone}',
+                                              '+91${widget.cars[index].properties.dealer.phone}',
                                         );
                                         if (await launchUrl(phoneno)) {
                                         } else {
@@ -290,8 +290,8 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    widget.cars[index].saleStatus,
-                                    style: (widget.cars[index].saleStatus)
+                                    widget.cars[index].status,
+                                    style: (widget.cars[index].status)
                                                 .toLowerCase() ==
                                             "available"
                                         ? AppFonts.w500green12

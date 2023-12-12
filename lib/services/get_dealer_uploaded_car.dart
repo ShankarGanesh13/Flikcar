@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/dealer_testdrive.dart';
@@ -34,15 +35,15 @@ class GetDealerUploadCars extends ChangeNotifier {
 
     try {
       QuerySnapshot querySnapshot = await collection.get();
-
+      print(auth.currentUser!.uid);
+      allDealerListedCar = [];
       allCars = [];
-      querySnapshot.docs.forEach(
-        (DocumentSnapshot document) {
-          Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-          allDealerListedCar = [];
-          allDealerListedCar.add(FirebaseDealerListedCar.fromJson(data));
-        },
-      );
+      for (var doc in querySnapshot.docs) {
+        Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
+
+        allDealerListedCar.add(FirebaseDealerListedCar.fromJson(data));
+      }
+
       print(allDealerListedCar);
       // filteredCars = allCars;
       // searchCars = allCars;
@@ -147,6 +148,28 @@ class GetDealerUploadCars extends ChangeNotifier {
         ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
             context, "Car status changed successfully"));
       }
+    }
+  }
+
+  static Future<FirebaseBuyerCar?> getDealerCarById(
+      {required String carId}) async {
+    try {
+      print(carId);
+      DocumentReference doc = firestore.collection('vehicles').doc(carId);
+
+      DocumentSnapshot snapshot = await doc.get();
+      var data = snapshot.data() as Map<String, dynamic>;
+
+      if (snapshot.exists) {
+        return FirebaseBuyerCar.fromJson(
+            snapshot.data() as Map<String, dynamic>);
+      } else {
+        return null;
+      }
+    } catch (e) {
+      print(e);
+      debugPrint("error in getDealerCarById");
+      return null;
     }
   }
 }

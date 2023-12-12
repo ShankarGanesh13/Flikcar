@@ -37,7 +37,7 @@ class CarDetailBottomNav extends StatelessWidget {
 
                 Uri phoneno = Uri(
                   scheme: 'tel',
-                  path: '+91${car.owner.phone}',
+                  path: '+91${car.properties.dealer.phone}',
                 );
                 if (await launchUrl(phoneno)) {
                 } else {

@@ -26,13 +26,6 @@ class DealerListingScreen extends StatefulWidget {
 }
 
 class _DealerListingScreenState extends State<DealerListingScreen> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    GetBrandModelVarient.getRto();
-    super.initState();
-  }
-
   String? selectedValue;
   TextEditingController regYearController = TextEditingController();
   TextEditingController manuYearController = TextEditingController();
@@ -142,13 +135,13 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       inputType: [],
                       hint: "Eg. WB 07",
                       maxlength: 5,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       title: "RTO location*",
                       controller: rtoController,
                       validator: true,
                       onChanged: (value) {
                         Provider.of<DealerUploadCar>(context, listen: false)
-                            .getManufacturedYear(year: value);
+                            .getRtoLocationId(id: rtoController.text);
                       },
                     ),
                     const SizedBox(height: 20),
@@ -214,7 +207,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                       hint: "Eg. 430000",
                       maxlength: 8,
                       validator: true,
-                      title: "Selling Price",
+                      title: "Selling Price*",
                       keyboardType: TextInputType.number,
                       controller: sellingPriceController,
                       onChanged: (value) {

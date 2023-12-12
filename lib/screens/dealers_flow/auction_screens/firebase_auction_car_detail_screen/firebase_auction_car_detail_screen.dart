@@ -40,144 +40,151 @@ class _FirebaseAuctionCarDetailScreenState
             return const LoadingScreen();
           }
           if (snapshot.data != null) {
-            return Scaffold(
-                appBar: CustomAppBar.getAppBar(function: () {
-                  Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const DealerFlow(
-                        index: 0,
-                      ),
-                    ),
-                    (route) => false,
-                  );
-                }),
-
-                // CustomAppBar.getAppBarWithContainerSearch(
-                //     function2: () {
-                //       Navigator.pushAndRemoveUntil(
-                //         context,
-                //         MaterialPageRoute(
-                //           builder: (context) => const DealerFlow(
-                //             index: 0,
-                //           ),
-                //         ),
-                //         (route) => false,
-                //       );
-                //     },
-                //     context: context,
-                //     function: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (context) => const DealerCarListScreen(),
-                //           ));
-                //     },
-                //     back: true),
-                body: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Container(
-                          padding: const EdgeInsets.all(12),
-                          width: MediaQuery.of(context).size.width,
-                          decoration:
-                              BoxDecoration(gradient: AppColors.gradient),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Icon(
-                                  Icons.chevron_left,
-                                  color: AppColors.p2,
-                                ),
-                              ),
-                              const SizedBox(width: 10),
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width / 1.5,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      snapshot.data!.properties.brand,
-                                      style: AppFonts.w500dark214,
-                                    ),
-                                    Text(
-                                      "${snapshot.data!.properties.model} ${snapshot.data!.properties.variant}",
-                                      style: AppFonts.w700black16,
-                                      maxLines: 1,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const Spacer(),
-                              // const Icon(Icons.share),
-                              // const SizedBox(
-                              //   width: 12,
-                              // ),
-                              GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              DealerCarImageViewer(
-                                                  images: snapshot
-                                                      .data!.imageModel)));
-                                },
-                                child: Text(
-                                  "View all \nimages",
-                                  style: AppFonts.w500black12,
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
-                            ],
-                          )),
-                      FirebaseDealerImageViewer(
-                        carImages: snapshot.data!.imageModel,
-                      ),
-
-                      Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: FirebaseCurrentBidWidget(
-                          car: snapshot.data!,
+            return GestureDetector(
+              onTap: () {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              child: Scaffold(
+                  appBar: CustomAppBar.getAppBar(function: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DealerFlow(
+                          index: 0,
                         ),
                       ),
+                      (route) => false,
+                    );
+                  }),
 
-                      FirebaseDealerCarDetails(
-                        car: snapshot.data!,
-                      ),
+                  // CustomAppBar.getAppBarWithContainerSearch(
+                  //     function2: () {
+                  //       Navigator.pushAndRemoveUntil(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //           builder: (context) => const DealerFlow(
+                  //             index: 0,
+                  //           ),
+                  //         ),
+                  //         (route) => false,
+                  //       );
+                  //     },
+                  //     context: context,
+                  //     function: () {
+                  //       Navigator.push(
+                  //           context,
+                  //           MaterialPageRoute(
+                  //             builder: (context) => const DealerCarListScreen(),
+                  //           ));
+                  //     },
+                  //     back: true),
+                  body: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Container(
+                            padding: const EdgeInsets.all(12),
+                            width: MediaQuery.of(context).size.width,
+                            decoration:
+                                BoxDecoration(gradient: AppColors.gradient),
+                            child: Row(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Icon(
+                                    Icons.chevron_left,
+                                    color: AppColors.p2,
+                                  ),
+                                ),
+                                const SizedBox(width: 10),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width / 1.5,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        snapshot.data!.properties.brand,
+                                        style: AppFonts.w500dark214,
+                                      ),
+                                      Text(
+                                        "${snapshot.data!.properties.model} ${snapshot.data!.properties.variant}",
+                                        style: AppFonts.w700black16,
+                                        maxLines: 1,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const Spacer(),
+                                // const Icon(Icons.share),
+                                // const SizedBox(
+                                //   width: 12,
+                                // ),
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                DealerCarImageViewer(
+                                                    images: snapshot
+                                                        .data!.imageModel)));
+                                  },
+                                  child: Text(
+                                    "View All \nImages",
+                                    style: AppFonts.w500black12,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        FirebaseDealerImageViewer(
+                          carImages: snapshot.data!.imageModel,
+                        ),
 
-                      FirebaseInspectionReport(car: snapshot.data!),
+                        Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: FirebaseCurrentBidWidget(
+                            car: snapshot.data!,
+                          ),
+                        ),
 
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      FirebaseDealerCarFeatures(
-                        car: snapshot.data!,
-                      ),
-                      const SizedBox(
-                        height: 15,
-                      ),
-                      FirebaseDealerCarSpecification(
-                        car: snapshot.data!,
-                      ),
+                        FirebaseDealerCarDetails(
+                          car: snapshot.data!,
+                        ),
 
-                      const SizedBox(
-                        height: 70,
-                      ),
-                      // const DealerCarCard(
-                      //   filters: [],
-                      //   title: "Auctions ending soon",
-                      //   filterButton: false,
-                      // ),
-                      // const SizedBox(
-                      //   height: 30,
-                      // ),
-                    ],
-                  ),
-                ));
+                        FirebaseInspectionReport(car: snapshot.data!),
+
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        FirebaseDealerCarFeatures(
+                          car: snapshot.data!,
+                        ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        FirebaseDealerCarSpecification(
+                          car: snapshot.data!,
+                        ),
+
+                        const SizedBox(
+                          height: 70,
+                        ),
+                        // const DealerCarCard(
+                        //   filters: [],
+                        //   title: "Auctions ending soon",
+                        //   filterButton: false,
+                        // ),
+                        // const SizedBox(
+                        //   height: 30,
+                        // ),
+                      ],
+                    ),
+                  )),
+            );
           } else {
             return const ErrorScreen();
           }

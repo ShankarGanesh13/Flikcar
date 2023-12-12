@@ -44,13 +44,13 @@ class DealerImageList extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 15.0),
               child: SizedBox(
-                height: MediaQuery.of(context).size.height / 4,
+                height: MediaQuery.of(context).size.height / 3.5,
                 width: MediaQuery.of(context).size.width,
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Image.network(
                     '${currentImages[index].imageUrl}',
-                    fit: BoxFit.fill,
+                    fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                           decoration: BoxDecoration(

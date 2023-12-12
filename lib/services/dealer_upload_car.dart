@@ -76,6 +76,8 @@ class DealerUploadCar extends ChangeNotifier {
 
   getRtoLocationId({required String id}) {
     rtoLocation = id;
+    print(rtoLocation);
+
     //    print(brand);
   }
 
@@ -616,6 +618,11 @@ class DealerUploadCar extends ChangeNotifier {
           "mileage": mileage != "" ? int.parse(mileage) : null,
           "description": description,
           "saleStatus": "AVAILABLE",
+          "comfort": selectedComfort,
+          "exterior": selectedExterior,
+          "entertainment": selectedEntertainment,
+          "safety": selectedSafety,
+          "interior": selectedInterior,
           "uploadedBy": auth.currentUser!.uid,
           "uploadedAt": DateTime.now().millisecondsSinceEpoch,
           "dealer": {
@@ -627,51 +634,52 @@ class DealerUploadCar extends ChangeNotifier {
         },
       }
     };
-    print(data);
+
     try {
       print("function called");
       final callable = functions.httpsCallable('createVehicle');
       final result = await callable(data);
+      debugPrint("${result.data}");
       if (result.data["status"] == "SUCCESS") {
         if (context.mounted) {
-          clearData();
           ScaffoldMessenger.of(context).showSnackBar(
               MySnackbar.showSnackBar(context, "Car uploaded successfully"));
-          // Navigator.pushAndRemoveUntil(
-          //   context,
-          //   MaterialPageRoute(
-          //     builder: (context) => const DealerFlow(
-          //       index: 1,
-          //     ),
-          //   ),
-          //   (route) => false,
-          // );
-          // showDialog<String>(
-          //   context: context,
-          //   builder: (BuildContext context) => AlertDialog(
-          //     title: Text(
-          //       'Car uploaded successfully',
-          //       style: AppFonts.w700black16,
-          //     ),
-          //     content: Text(
-          //       "The car details have been uploaded successfully and are now live for the customers.",
-          //       style: AppFonts.w500black14,
-          //     ),
-          //     actions: <Widget>[
-          //       TextButton(
-          //         onPressed: () {
-          //           Navigator.pushAndRemoveUntil(
-          //             context,
-          //             MaterialPageRoute(
-          //                 builder: (context) => const DealerFlow(index: 1)),
-          //             (route) => false,
-          //           );
-          //         },
-          //         child: const Text('OK'),
-          //       ),
-          //     ],
-          //   ),
-          // );
+          clearData();
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const DealerFlow(
+                index: 1,
+              ),
+            ),
+            (route) => false,
+          );
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: Text(
+                'Car uploaded successfully',
+                style: AppFonts.w700black16,
+              ),
+              content: Text(
+                "The car details have been uploaded successfully and are now live for the customers.",
+                style: AppFonts.w500black14,
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DealerFlow(index: 1)),
+                      (route) => false,
+                    );
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
         }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(

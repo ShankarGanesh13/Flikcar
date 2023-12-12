@@ -24,7 +24,7 @@ class RtoDropdown extends StatelessWidget {
           height: 10,
         ),
         FutureBuilder<List<Rto>>(
-            future: GetBrandModelVarient.getRto(),
+            future: null,
             builder: (context, snapshot) {
               if (snapshot.data != null) {
                 return DropdownButtonFormField2(

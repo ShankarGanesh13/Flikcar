@@ -68,13 +68,13 @@ class DealerCarListCardFirebase extends StatelessWidget {
               ),
               child: SizedBox(
                 width: MediaQuery.of(context).size.width,
-                height: 181,
+                height: 191,
                 child: Image.network(
                   car.carDetails.imagePath.isNotEmpty
                       //? 'https://webservice.flikcar.com/public/${car.carDetails.imagePath}'
                       ? car.carDetails.imagePath
                       : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) {
                       return child;

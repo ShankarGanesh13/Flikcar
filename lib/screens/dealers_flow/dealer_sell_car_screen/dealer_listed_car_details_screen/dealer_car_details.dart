@@ -14,18 +14,20 @@ class DealerUploadCarDetails extends StatelessWidget {
     "assets/car_details_icon/owner.png",
     "assets/car_details_icon/fuel_type.png",
     "assets/car_details_icon/calendar.png",
-    "assets/car_details_icon/transmisson.png"
+    "assets/car_details_icon/transmisson.png",
+    // "assets/car_details_icon/location.png",
   ];
 
   @override
   Widget build(BuildContext context) {
     List data = [
-      "City: Kolkata",
+      "RTO location: ${car.properties.RTOlocation.toUpperCase()}",
       "Km Driven: ${car.properties.kmsDriven.toString()}",
       "Owners: ${car.properties.ownerType}",
       "Fuel Type: ${car.properties.fuelType}",
-      "Engine: ${car.properties.registrationYear}",
-      "Transmission: ${car.properties.transmission}"
+      "Reg. Year: ${car.properties.registrationYear}",
+      "Transmission: ${car.properties.transmission}",
+      //  "RTO location: ${car.properties.RTOlocation}"
     ];
     final DateFormat formatter = DateFormat('MMMd');
 
@@ -38,12 +40,13 @@ class DealerUploadCarDetails extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(car.saleStatus,
-                      style: car.saleStatus == "Available"
-                          ? AppFonts.w500green14
-                          : AppFonts.w500red14),
+                  Text(car.properties.saleStatus,
+                      style:
+                          car.properties.saleStatus.toLowerCase() == "available"
+                              ? AppFonts.w500green14
+                              : AppFonts.w500red14),
                   Text(
-                    "Listed on ${formatter.format(DateTime.fromMillisecondsSinceEpoch(car.updatedAt))}",
+                    "Listed on ${formatter.format(DateTime.fromMillisecondsSinceEpoch(car.properties.uploadedAt))}",
                     style: AppFonts.w500black12,
                   )
                 ],
@@ -65,7 +68,7 @@ class DealerUploadCarDetails extends StatelessWidget {
               runSpacing: 15,
               crossAxisAlignment: WrapCrossAlignment.start,
               children: List.generate(
-                  6,
+                  data.length,
                   (index) => SizedBox(
                         width: MediaQuery.of(context).size.width / 2.25,
                         child: Row(
@@ -93,7 +96,7 @@ class DealerUploadCarDetails extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 3.15,
                               child: Text(
                                 data[index],
-                                style: AppFonts.w500black10,
+                                style: AppFonts.w500black12,
                               ),
                             )
                           ],

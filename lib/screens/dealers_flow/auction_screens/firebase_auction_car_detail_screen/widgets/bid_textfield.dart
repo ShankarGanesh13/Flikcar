@@ -10,6 +10,7 @@ import 'package:flikcar/services/firebase_auction_service/firebase_auction_servi
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +50,7 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
 
     if (endTime.isBefore(now)) {
       // Auction has ended
-      print("auction ended");
+      debugPrint("auction ended");
       return Row(
         children: [
           Text(
@@ -60,7 +61,7 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
       );
     } else if (startTime.isBefore(now) && endTime.isAfter(now)) {
       // Auction is ongoing
-      print("ongoing");
+      debugPrint("ongoing");
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -80,6 +81,9 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
                   child: TextFormField(
                     controller: controller,
                     keyboardType: TextInputType.number,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.digitsOnly,
+                    ],
                     cursorColor: Colors.black,
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.only(
@@ -104,10 +108,22 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
                     style: AppFonts.w500black14,
                     maxLength: 11,
                     onChanged: (value) {
-                      print(value);
+                      debugPrint(value);
+                      setState(() {});
                     },
                   ),
                 ),
+                controller.text.isNotEmpty
+                    ? GestureDetector(
+                        onTap: () {
+                          controller.clear();
+                        },
+                        child: const Icon(
+                          Icons.close,
+                          size: 18,
+                        ),
+                      )
+                    : const SizedBox(),
                 const Spacer(),
                 PlaceBidButton(
                   controller: controller,
@@ -126,7 +142,7 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
         ],
       );
     } else {
-      print("upcoming");
+      debugPrint("upcoming");
       // Auction is upcoming
       return Padding(
         padding: const EdgeInsets.only(bottom: 15.0),

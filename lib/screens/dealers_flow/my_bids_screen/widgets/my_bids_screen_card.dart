@@ -72,7 +72,7 @@ class MyBidsScreenCard extends StatelessWidget {
                 height: 181,
                 child: Image.network(
                   car.carDetails.imagePath,
-                  fit: BoxFit.cover,
+                  fit: BoxFit.contain,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) {
                       return child;

@@ -1,91 +1,97 @@
+import 'package:flikcar/firebase_models/firebase_car_owner.dart';
+
 class FirebaseBuyerCarProperties {
-  final String brand;
-  final String model;
-  final String variant;
-  final String fuelType;
-  final String bodyType;
-  final String color;
-  final String seat;
-  final String ownerType;
-  final String city;
-  final String rto;
-
-  final String carDescription; // optional can be an empty string
-  final int kmsDriven;
-  final int registrationYear;
-  final String transmission;
-  final int? engineCC;
-  final String? maxPower;
-  final String? mileage;
-  final String? torque;
-  final bool? noc; // optional
-
-  final int manufacturedYear;
-  final String rtoLocation;
-
+  String RTOlocation;
+  String bodyType;
+  String brand;
+  String city;
+  String color;
   List<String> comfort;
-  List<String> entertainment;
+  String description;
+  int engineCC;
   List<String> exterior;
-  List<String> safety;
+  String fuelType;
   List<String> interior;
+  int kmsDriven;
+  int manufacturedYear;
+  int maxPower;
+  int? torque;
+  int? mileage;
+  String model;
+  String ownerType;
+  int registrationYear;
+  List<String> safety;
+  List<String> entertainment;
+
+  String saleStatus;
+  int seat;
+  String transmission;
+  int uploadedAt;
+  String uploadedBy;
+  String variant;
+  FirebaseCarOwner dealer;
 
   FirebaseBuyerCarProperties({
-    required this.brand,
-    required this.model,
-    required this.variant,
-    required this.fuelType,
+    required this.RTOlocation,
     required this.bodyType,
-    required this.color,
-    required this.seat,
-    required this.ownerType,
+    required this.brand,
     required this.city,
-    required this.carDescription,
-    required this.kmsDriven,
-    required this.registrationYear,
-    required this.transmission,
-    required this.engineCC,
-    required this.maxPower,
-    required this.mileage,
-    required this.torque,
-    required this.noc,
-    required this.manufacturedYear,
-    required this.rtoLocation,
+    required this.color,
     required this.comfort,
-    required this.entertainment,
+    required this.description,
+    required this.engineCC,
     required this.exterior,
-    required this.safety,
+    required this.fuelType,
     required this.interior,
-    required this.rto,
+    required this.kmsDriven,
+    required this.manufacturedYear,
+    required this.maxPower,
+    this.torque,
+    this.mileage,
+    required this.model,
+    required this.ownerType,
+    required this.registrationYear,
+    required this.safety,
+    required this.saleStatus,
+    required this.seat,
+    required this.transmission,
+    required this.uploadedAt,
+    required this.uploadedBy,
+    required this.variant,
+    required this.dealer,
+    required this.entertainment,
   });
 
   factory FirebaseBuyerCarProperties.fromJson(Map<String, dynamic> json) {
     return FirebaseBuyerCarProperties(
-      brand: json['brand'] ?? '',
-      model: json['model'] ?? '',
-      variant: json['variant'] ?? '',
-      fuelType: json['fuelType'] ?? '',
+      RTOlocation: json['RTOlocation'] ?? '',
       bodyType: json['bodyType'] ?? '',
-      color: json['color'] ?? '',
-      seat: json['seat'] ?? '',
-      ownerType: json['ownerType'] ?? '',
+      brand: json['brand'] ?? '',
       city: json['city'] ?? '',
-      carDescription: json['carDescription'] ?? '',
-      kmsDriven: json['kmsDriven'] ?? 0,
-      registrationYear: json['registrationYear'] ?? 0,
-      transmission: json['transmission'] ?? '',
-      engineCC: json['engineCC'] ?? 0,
-      maxPower: json['maxPower'] ?? '',
-      mileage: json['mileage'] ?? '',
-      torque: json['torque'] ?? '',
-      rto: json["rtoLocation"] ?? "",
-      noc: json['noc'] ?? false,
-      manufacturedYear: json['manufacturedYear'] ?? 0,
-      rtoLocation: json['rtoLocation'] ?? '',
+      color: json['color'] ?? '',
       comfort: List<String>.from(json['comfort'] ?? []),
-      entertainment: List<String>.from(json['entertainment'] ?? []),
+      description: json['description'] ?? '',
+      engineCC: json['engineCC'] ?? 0,
       exterior: List<String>.from(json['exterior'] ?? []),
-      safety: List<String>.from(json['safety'] ?? []),
+      fuelType: json['fuelType'] ?? '',
       interior: List<String>.from(json['interior'] ?? []),
+      kmsDriven: json['kmsDriven'] ?? 0,
+      manufacturedYear: json['manufacturedYear'] ?? 0,
+      maxPower: json['maxPower'] ?? 0,
+      torque: json['maxTorque'],
+      mileage: json['mileage'],
+      model: json['model'] ?? '',
+      ownerType: json['ownerType'] ?? '',
+      registrationYear: json['registrationYear'] ?? 0,
+      safety: List<String>.from(json['safety'] ?? []),
+      saleStatus: json['saleStatus'] ?? '',
+      seat: json['seat'] ?? 0,
+      transmission: json['transmission'] ?? '',
+      uploadedAt: json['uploadedAt'] ?? 0,
+      uploadedBy: json['uploadedBy'] ?? '',
+      variant: json['variant'] ?? '',
+      entertainment: List<String>.from(json['entertainment'] ?? []),
+      dealer: FirebaseCarOwner.fromJson(json['dealer'] ?? <String, dynamic>{}),
     );
   }
 }

@@ -74,7 +74,7 @@ class DealerAuctionHomeScreen extends StatelessWidget {
                 Column(
                   children: [
                     const Padding(
-                      padding: EdgeInsets.only(left: 15.0, top: 25),
+                      padding: EdgeInsets.only(left: 15.0, top: 25, bottom: 15),
                       child: Heading1(title1: "Auctions House", title2: ""),
                     ),
                     StreamBuilder<List<FirebaseAuction?>>(
