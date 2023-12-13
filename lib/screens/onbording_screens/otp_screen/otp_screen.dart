@@ -3,7 +3,6 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
-import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/utils/colors.dart';

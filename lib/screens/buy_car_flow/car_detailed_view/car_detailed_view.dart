@@ -1,27 +1,18 @@
-import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
-import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/models/buyer_car_display.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_specifications/car_specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_detail_bottom_nav.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_features.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/image_viewer.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/buy_car_flow/view_all_cars_at_store/view_all_cars_at_store.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../../../services/get_car_details.dart';
+import 'package:intl/intl.dart';
 
 class CarDetailedView extends StatelessWidget {
   final FirebaseBuyerCar car;
@@ -29,9 +20,6 @@ class CarDetailedView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<BuyerCarDisplay> similarCars =
-        context.watch<GetCarDetails>().similarCars;
-
     return Scaffold(
       appBar: CustomAppBar.getAppBarWithContainerSearch(
         back: true,
@@ -132,7 +120,7 @@ class CarDetailedView extends StatelessWidget {
             car: car,
           ),
 
-          const SizedBox(height: 20),
+          const SizedBox(height: 80),
           // similarCars.isNotEmpty
           //     ? HomeScreenCard(
           //         title: "Similar Cars You Might Like",

@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/firebase_models/firebase_auction.dart';
-import 'package:flikcar/firebase_models/firebase_car_details.dart';
+import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flikcar/firebase_models/firebase_my_bids.dart';
+import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseAuctionService {
@@ -145,7 +146,7 @@ class FirebaseAuctionService {
     );
   }
 
-  Future<FirebaseCarDetails?> getAuctionCarDetails(
+  Future<FirebaseAuctionCarDetails?> getAuctionCarDetails(
       {required String carId}) async {
     try {
       DocumentSnapshot docSnapshot =
@@ -154,9 +155,9 @@ class FirebaseAuctionService {
       if (docSnapshot.exists) {
         Map<String, dynamic>? data = docSnapshot.data() as Map<String, dynamic>;
 
-        FirebaseCarDetails carDetails = FirebaseCarDetails.fromJson(data);
+        FirebaseAuctionCarDetails carDetails =
+            FirebaseAuctionCarDetails.fromJson(data);
 
-        print(carDetails);
         return carDetails;
       }
     } catch (e) {
@@ -164,6 +165,11 @@ class FirebaseAuctionService {
     }
 
     return null;
+  }
+
+  static Map<String, dynamic>? dealerDetails;
+  static getDealerDetails() async {
+    dealerDetails = await FirebaseAuthService.getDealerDetails();
   }
 
   Future<String> placeBid({
@@ -188,7 +194,7 @@ class FirebaseAuctionService {
           "user": {
             "userId": userId,
             "phone": phone,
-            "firstName": firstName,
+            "firstName": dealerDetails != null ? dealerDetails!["name"] : "",
             "lastName": lastName,
           },
         };

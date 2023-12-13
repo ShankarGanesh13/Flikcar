@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
-import 'package:flikcar/firebase_models/firebase_car_details.dart';
+import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 
@@ -9,7 +9,6 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_scr
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/upcoming_timer2.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/bid_textfield.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/current_bid_widget.dart';
-import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class FirebaseDealerCarDetails extends StatelessWidget {
-  final FirebaseCarDetails car;
+  final FirebaseAuctionCarDetails car;
 
   FirebaseDealerCarDetails({super.key, required this.car});
   static List<String> icondata = [

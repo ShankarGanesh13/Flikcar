@@ -3,7 +3,7 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_sell_car_screen.dart';
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/my_bids_screen.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/my_schedule_screen.dart';
-import 'package:flikcar/services/auction_services.dart';
+import 'package:flikcar/screens/dealers_flow/one_click_buy_screen/one_click_buy_screen.dart';
 import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
@@ -30,10 +30,10 @@ class _DealerFlowState extends State<DealerFlow> {
 
   List<Widget> pages = [
     const DealerAuctionHomeScreen(),
-    const DealerSellCarScreen(),
-    const MyScheduleScreen(),
+    const OneClickBuyScreen(),
     const MyBidsScreen(),
-    const DealerAccountScreen(),
+    const DealerSellCarScreen(),
+    DealerAccountScreen(),
   ];
   @override
   Widget build(BuildContext context) {
@@ -55,18 +55,18 @@ class _DealerFlowState extends State<DealerFlow> {
                 index: 0,
               ),
               navBarItems(
-                imagePath: "assets/sell_car_icon.png",
-                title: "Sell Car",
+                imagePath: "assets/car_details_icon/one_click_buy_ icon.png",
+                title: "OCB",
                 index: 1,
-              ),
-              navBarItems(
-                imagePath: "assets/car_details_icon/my_schedule.png",
-                title: "My Schedule",
-                index: 2,
               ),
               navBarItems(
                 imagePath: "assets/car_details_icon/Group.png",
                 title: "My Bids",
+                index: 2,
+              ),
+              navBarItems(
+                imagePath: "assets/sell_car_icon.png",
+                title: "Sell Car",
                 index: 3,
               ),
               navBarItems(

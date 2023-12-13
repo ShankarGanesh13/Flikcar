@@ -3,6 +3,7 @@ import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class BuyCarDetails extends StatelessWidget {
   final FirebaseBuyerCar car;
@@ -34,7 +35,7 @@ class BuyCarDetails extends StatelessWidget {
           Row(
             children: [
               Text(
-                "₹ ${car.carPrice} ",
+                "₹ ${formatPrice(int.parse(car.carPrice))} ",
                 style: AppFonts.w700black20,
               ),
               // const Spacer(),
@@ -93,7 +94,7 @@ class BuyCarDetails extends StatelessWidget {
                               width: MediaQuery.of(context).size.width / 3.15,
                               child: Text(
                                 data[index],
-                                style: AppFonts.w500black10,
+                                style: AppFonts.w500black12,
                               ),
                             )
                           ],
@@ -104,5 +105,14 @@ class BuyCarDetails extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatPrice(int price) {
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'en_IN',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(price);
   }
 }

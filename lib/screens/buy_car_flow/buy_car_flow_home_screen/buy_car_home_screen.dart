@@ -31,7 +31,7 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
   @override
   void initState() {
     // TODO: implement initState
-    Provider.of<BuyCarProvider>(context, listen: false).getCustomerTestdrive();
+    //  Provider.of<BuyCarProvider>(context, listen: false).getCustomerTestdrive();
     Provider.of<GetCarDetails>(context, listen: false)
         .filterCars(filterType: "all", filter: "all", index: 0);
     super.initState();

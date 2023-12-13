@@ -9,7 +9,6 @@ import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/timer_text.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/firebase_auction_car_detail_screen.dart';
-import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';

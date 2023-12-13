@@ -1,4 +1,4 @@
-class FirebaseCarProperties {
+class FirebaseAuctionCarProperties {
   String brand;
   String bodyType;
   List<String> exterior;
@@ -29,7 +29,7 @@ class FirebaseCarProperties {
   String kmsDriven;
   String maxTorque;
 
-  FirebaseCarProperties({
+  FirebaseAuctionCarProperties({
     required this.manufacturingYear,
     required this.brand,
     required this.registerationYear,
@@ -61,10 +61,10 @@ class FirebaseCarProperties {
     this.roadTaxValidity,
   });
 
-  factory FirebaseCarProperties.fromJson(Map<String, dynamic> json) {
+  factory FirebaseAuctionCarProperties.fromJson(Map<String, dynamic> json) {
     print('firebase car properties from json called');
     print(json["carDescription"]);
-    return FirebaseCarProperties(
+    return FirebaseAuctionCarProperties(
       manufacturingYear: json['manufacturingYear']?.toString() ?? 'N/A',
       brand: json['brand'] ?? 'N/A',
       registerationYear: json['registrationYear']?.toString() ?? 'N/A',

@@ -12,6 +12,7 @@ import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -126,16 +127,12 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                     ];
                     return GestureDetector(
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => CarDetailedView(
-                        //         car: Provider.of<GetCarDetails>(context,
-                        //                 listen: false)
-                        //             .getCarById(
-                        //                 id: widget.cars[index].id.toString()),
-                        //       ),
-                        //     ));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  CarDetailedView(car: widget.cars[index]),
+                            ));
                       },
                       child: Container(
                         height: 361,
@@ -199,7 +196,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                       ),
                                       const Spacer(),
                                       Text(
-                                        "₹ ${widget.cars[index].carPrice}",
+                                        "₹ ${formatPrice(int.parse(widget.cars[index].carPrice))}",
                                         style: AppFonts.w700s140,
                                       ),
                                     ],
@@ -290,8 +287,9 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                   ),
                                   const Spacer(),
                                   Text(
-                                    widget.cars[index].status,
-                                    style: (widget.cars[index].status)
+                                    widget.cars[index].properties.saleStatus,
+                                    style: (widget.cars[index].properties
+                                                    .saleStatus)
                                                 .toLowerCase() ==
                                             "available"
                                         ? AppFonts.w500green12
@@ -321,5 +319,14 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
         )
       ],
     );
+  }
+
+  String formatPrice(int price) {
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'en_IN',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(price);
   }
 }

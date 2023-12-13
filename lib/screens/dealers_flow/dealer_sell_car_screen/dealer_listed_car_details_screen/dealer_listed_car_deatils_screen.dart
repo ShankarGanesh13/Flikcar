@@ -25,8 +25,8 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<FirebaseBuyerCar?>(
-        future: GetDealerUploadCars.getDealerCarById(carId: carId),
+    return StreamBuilder<FirebaseBuyerCar?>(
+        stream: GetDealerUploadCars().getDealerCarStream(carId: carId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const LoadingScreen();
@@ -89,14 +89,24 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                           ),
                           BuyNavButton(
                             icon: Icons.check,
-                            title: snapshot.data!.status == "Available"
+                            title: snapshot.data!.properties.saleStatus
+                                        .toLowerCase() ==
+                                    "available"
                                 ? "Mark as Sold"
                                 : "Mark Available",
                             function: () {
-                              // Provider.of<GetDealerUploadCars>(context,
-                              //         listen: false)
-                              //     .markAsSold(
-                              //         context: context, carId: car.id.toString());
+                              if (snapshot.data!.properties.saleStatus
+                                      .toLowerCase() ==
+                                  "available") {
+                                Provider.of<GetDealerUploadCars>(context,
+                                        listen: false)
+                                    .markAsSold(context: context, carId: carId);
+                              } else {
+                                Provider.of<GetDealerUploadCars>(context,
+                                        listen: false)
+                                    .markAsAvailable(
+                                        context: context, carId: carId);
+                              }
                               // Navigator.push(
                               //     context,
                               //     MaterialPageRoute(
@@ -179,7 +189,7 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                   //       textStyle: AppFonts.w500white14),
                   // ),
 
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 60),
                 ]),
               ),
             );

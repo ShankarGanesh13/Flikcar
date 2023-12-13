@@ -1,10 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/edit_profile/edit_profile.dart';
 import 'package:flikcar/screens/account/sell_request/sell_request.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
 import 'package:flikcar/screens/account/widgets/connect_with_us.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/services/dealer_auth_service.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -20,6 +20,7 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
+  FirebaseAuth auth = FirebaseAuth.instance;
   String? name = "";
   @override
   Widget build(BuildContext context) {
@@ -41,34 +42,38 @@ class _AccountScreenState extends State<AccountScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FutureBuilder(
-                  future: getCustomerPhone(),
-                  builder: (context, snapshot) {
-                    if (snapshot.data != null) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => EditProfile(
-                                  phoneNumber: snapshot.data!,
-                                ),
-                              ));
-                        },
-                        child: profileDetails(
-                            title: name == "" || name == null
-                                ? "Your Phone Number"
-                                : name.toString(),
-                            subtitle: snapshot.data!,
-                            icon: Icons.edit),
-                      );
-                    } else {
-                      return profileDetails(
-                          title: "User",
-                          subtitle: "9874563210",
-                          icon: Icons.edit);
-                    }
-                  }),
+              // FutureBuilder(
+              //     future: getCustomerPhone(),
+              //     builder: (context, snapshot) {
+              //       if (snapshot.data != null) {
+              //         return GestureDetector(
+              //           onTap: () {
+              //             Navigator.push(
+              //                 context,
+              //                 MaterialPageRoute(
+              //                   builder: (context) => EditProfile(
+              //                     phoneNumber: snapshot.data!,
+              //                   ),
+              //                 ));
+              //           },
+              //           child: profileDetails(
+              //               title: name == "" || name == null
+              //                   ? "Your Phone Number"
+              //                   : name.toString(),
+              //               subtitle: snapshot.data!,
+              //               icon: Icons.edit),
+              //         );
+              //       } else {
+              //         return profileDetails(
+              //             title: "User",
+              //             subtitle: "9874563210",
+              //             icon: Icons.edit);
+              //       }
+              //     }),
+              profileDetails(
+                  title: "Phone Number",
+                  subtitle: auth.currentUser!.phoneNumber!,
+                  icon: Icons.abc),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -196,10 +201,10 @@ class _AccountScreenState extends State<AccountScreen> {
                 ],
               ),
               const Spacer(),
-              Icon(
-                icon,
-                weight: 700,
-              )
+              // Icon(
+              //   icon,
+              //   weight: 700,
+              // )
             ],
           ),
         ),
@@ -211,12 +216,12 @@ class _AccountScreenState extends State<AccountScreen> {
     );
   }
 
-  Future<String> getCustomerPhone() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? phone = sp.getString('custPhone');
-    name = sp.getString("userName");
-    return phone!;
-  }
+  // Future<String> getCustomerPhone() async {
+  //   SharedPreferences sp = await SharedPreferences.getInstance();
+  //   final String? phone = sp.getString('custPhone');
+  //   name = sp.getString("userName");
+  //   return phone!;
+  // }
 
   openUrl({required String url}) async {
     final Uri _url = Uri.parse(url);

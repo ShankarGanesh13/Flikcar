@@ -23,7 +23,7 @@ class DealerDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: CustomAppBar.getDealerOnboardingAppBar(
-            title: "Create Flikcar Dealer Account"),
+            context: context, title: "Create Flikcar Dealer Account"),
         body: SingleChildScrollView(
           child: Form(
             key: _formKey,

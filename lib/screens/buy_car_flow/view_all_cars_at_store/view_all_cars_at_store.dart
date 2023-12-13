@@ -1,14 +1,19 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
+import 'package:flikcar/common_widgets/error_screen.dart';
+import 'package:flikcar/common_widgets/loading_screen.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
+import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
+import 'package:flikcar/screens/buy_car_flow/view_all_cars_at_store/widgets/store_cars_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ViewAllCarsAtStore extends StatelessWidget {
   final String dealerId;
@@ -57,9 +62,8 @@ class ViewAllCarsAtStore extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            FutureBuilder<List<BuyerCarDisplay>>(
-              future: Provider.of<GetCarDetails>(context, listen: false)
-                  .getCarAtTheStore(id: dealerId),
+            FutureBuilder<List<FirebaseDealerListedCar>>(
+              future: GetCarDetails().getCarsInStore(dealerId: dealerId),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const LoadingWidget();
@@ -72,20 +76,26 @@ class ViewAllCarsAtStore extends StatelessWidget {
                       itemBuilder: (context, index) {
                         return GestureDetector(
                           onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) => CarDetailedView(
-                            //                 car: Provider.of<GetCarDetails>(
-                            //                         context,
-                            //                         listen: false)
-                            //                     .getCarById(
-                            //               id: snapshot.data![index].id
-                            //                   .toString(),
-                            //             ))));
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => FutureBuilder<
+                                            FirebaseBuyerCar?>(
+                                        future: GetCarDetails().getCarById(
+                                            carId: snapshot.data![index].id),
+                                        builder: (context, snapshot) {
+                                          if (snapshot.connectionState ==
+                                              ConnectionState.waiting) {
+                                            return const LoadingScreen();
+                                          } else if (snapshot.data == null) {
+                                            return const ErrorScreen();
+                                          } else {
+                                            return CarDetailedView(
+                                                car: snapshot.data!);
+                                          }
+                                        })));
                           },
-                          child: FilterAppliedCard(
-                              compare: false, car: snapshot.data![index]),
+                          child: StoreCarsCard(car: snapshot.data![index]),
                         );
                       });
                 } else {

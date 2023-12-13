@@ -7,7 +7,6 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_scr
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/widgets/my_bids_screen_card.dart';
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/widgets/winning_card.dart';
-import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';

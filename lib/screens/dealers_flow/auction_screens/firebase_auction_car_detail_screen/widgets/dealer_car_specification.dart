@@ -1,11 +1,11 @@
 import 'package:flikcar/common_widgets/heading1.dart';
-import 'package:flikcar/firebase_models/firebase_car_details.dart';
+import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseDealerCarSpecification extends StatelessWidget {
-  final FirebaseCarDetails car;
+  final FirebaseAuctionCarDetails car;
   const FirebaseDealerCarSpecification({super.key, required this.car});
   static List<String> specifications = [
     "Mileage",

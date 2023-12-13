@@ -1,6 +1,6 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/firebase_models/firebase_car_details.dart';
+import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/schedule_test_drive.dart';

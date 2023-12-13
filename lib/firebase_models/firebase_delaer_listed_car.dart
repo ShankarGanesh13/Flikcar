@@ -10,7 +10,6 @@ class FirebaseDealerListedCar {
   String status;
   String carPrice;
   String imagePath;
-
   int createdAt;
 
   FirebaseDealerListedCar({

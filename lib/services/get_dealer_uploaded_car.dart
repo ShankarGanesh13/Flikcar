@@ -27,31 +27,23 @@ class GetDealerUploadCars extends ChangeNotifier {
   static FirebaseAuth auth = FirebaseAuth.instance;
   List<FirebaseDealerListedCar> allDealerListedCar = [];
 
-  getDealerUploadedCars() async {
+  Stream<List<FirebaseDealerListedCar>> getDealerUploadedCars() {
     CollectionReference collection = firestore
         .collection('users')
         .doc(auth.currentUser!.uid)
         .collection("listedVehicles");
 
-    try {
-      QuerySnapshot querySnapshot = await collection.get();
-      print(auth.currentUser!.uid);
-      allDealerListedCar = [];
-      allCars = [];
+    return collection.snapshots().map((querySnapshot) {
+      List<FirebaseDealerListedCar> allDealerListedCar = [];
+
       for (var doc in querySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
         allDealerListedCar.add(FirebaseDealerListedCar.fromJson(data));
       }
 
-      print(allDealerListedCar);
-      // filteredCars = allCars;
-      // searchCars = allCars;
-      notifyListeners();
-    } catch (e) {
-      // Handle exceptions, e.g., Firestore errors
-      print("Error fetching dealer uploaded cars: $e");
-    }
+      return allDealerListedCar;
+    });
   }
 
   filterDealerCars({required String status}) {
@@ -119,57 +111,64 @@ class GetDealerUploadCars extends ChangeNotifier {
   }
 
   markAsSold({required BuildContext context, required String carId}) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/mark-as-sold');
-    String? dealerToken = sp.getString('dealerToken');
-    var body = {
-      "carId": carId,
-    };
-    var response = await http.post(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": 'Bearer $dealerToken',
-      },
-      body: json.encode(body),
-    );
-    var data = json.decode(response.body);
-    if (data["status"] == 200) {
-      if (context.mounted) {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DealerFlow(
-              index: 1,
-            ),
-          ),
-          (route) => false,
-        );
-        ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-            context, "Car status changed successfully"));
-      }
+    DocumentReference doc = firestore.collection('vehicles').doc(carId);
+    DocumentReference doc2 = firestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("listedVehicles")
+        .doc(carId);
+    try {
+      DocumentSnapshot snapshot = await doc.get();
+      DocumentSnapshot snapshot2 = await doc2.get();
+
+      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+      Map<String, dynamic>? data2 = snapshot2.data() as Map<String, dynamic>?;
+      data2!["status"] = 'SOLD_OUT';
+
+      data!['properties']['saleStatus'] = 'SOLD_OUT';
+      await doc2.update(data2);
+      await doc.update(data);
+    } catch (e) {
+      debugPrint("$e");
+      debugPrint("error in changing car status");
     }
   }
 
-  static Future<FirebaseBuyerCar?> getDealerCarById(
-      {required String carId}) async {
+  markAsAvailable(
+      {required BuildContext context, required String carId}) async {
+    DocumentReference doc = firestore.collection('vehicles').doc(carId);
+    DocumentReference doc2 = firestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("listedVehicles")
+        .doc(carId);
     try {
-      print(carId);
-      DocumentReference doc = firestore.collection('vehicles').doc(carId);
-
       DocumentSnapshot snapshot = await doc.get();
-      var data = snapshot.data() as Map<String, dynamic>;
+      DocumentSnapshot snapshot2 = await doc2.get();
 
+      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+      Map<String, dynamic>? data2 = snapshot2.data() as Map<String, dynamic>?;
+      data2!["status"] = 'AVAILABLE';
+
+      data!['properties']['saleStatus'] = 'AVAILABLE';
+      await doc2.update(data2);
+      await doc.update(data);
+    } catch (e) {
+      debugPrint("$e");
+      debugPrint("error in changing car status");
+    }
+  }
+
+  Stream<FirebaseBuyerCar?> getDealerCarStream({required String carId}) {
+    DocumentReference doc = firestore.collection('vehicles').doc(carId);
+
+    return doc.snapshots().map((snapshot) {
       if (snapshot.exists) {
         return FirebaseBuyerCar.fromJson(
             snapshot.data() as Map<String, dynamic>);
       } else {
         return null;
       }
-    } catch (e) {
-      print(e);
-      debugPrint("error in getDealerCarById");
-      return null;
-    }
+    });
   }
 }

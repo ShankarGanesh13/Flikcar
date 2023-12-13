@@ -2,7 +2,6 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';

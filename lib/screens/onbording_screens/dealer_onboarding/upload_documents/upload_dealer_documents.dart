@@ -57,7 +57,7 @@ class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
         context.watch<UploadDealerDocumentsProvider>().selectedIndex;
     return Scaffold(
         appBar: CustomAppBar.getDealerOnboardingAppBar(
-            title: "Upload Required Documents"),
+            context: context, title: "Upload Required Documents"),
         bottomNavigationBar: SafeArea(
             child: Container(
           padding: const EdgeInsets.all(15.0),

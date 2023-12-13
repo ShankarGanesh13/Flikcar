@@ -6,7 +6,6 @@ import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_detai
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_phone_number.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/start_screen/widgets/option_card.dart';
-import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/services/firebase_events.dart';

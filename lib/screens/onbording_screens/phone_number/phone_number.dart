@@ -2,7 +2,6 @@ import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
-import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';

@@ -27,12 +27,12 @@ class FilterApplied extends StatefulWidget {
 class _FilterAppliedState extends State<FilterApplied> {
   @override
   void initState() {
-    // TODO: implement initState
-    Provider.of<SearchService>(context, listen: false).showFilterResult();
-    Provider.of<SearchService>(context, listen: false).getFuelTypes();
-    Provider.of<SearchService>(context, listen: false).getBodyTypes();
-    Provider.of<SearchService>(context, listen: false).getOwnerTypes();
-    Provider.of<SearchService>(context, listen: false).getBrandAndModels();
+    // Provider.of<SearchService>(context, listen: false).showFilterResult();
+    //   Provider.of<SearchService>(context, listen: false).getFuelTypes();
+    //   Provider.of<SearchService>(context, listen: false).getBodyTypes();
+    //   Provider.of<SearchService>(context, listen: false).getOwnerTypes();
+    //   Provider.of<SearchService>(context, listen: false).getBrandAndModels();    // TODO: implement initState
+
     loading();
     super.initState();
   }
@@ -53,8 +53,7 @@ class _FilterAppliedState extends State<FilterApplied> {
 
   @override
   Widget build(BuildContext context) {
-    bool compare = context.watch<BuyCarProvider>().compare;
-    allCars = context.watch<SearchService>().searchedCarList;
+    allCars = [];
     List<String> filterApplied = context.watch<SearchService>().appliedFilters;
 
     return Scaffold(
@@ -80,53 +79,6 @@ class _FilterAppliedState extends State<FilterApplied> {
               Provider.of<SearchService>(context, listen: false)
                   .clearAllFilter();
             }),
-        bottomNavigationBar: compare
-            ? SafeArea(
-                child: Container(
-                  padding: const EdgeInsets.only(
-                      top: 8, bottom: 8, left: 20, right: 20),
-                  height: 52,
-                  width: MediaQuery.of(context).size.width,
-                  color: const Color(0xff161F31),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 3,
-                        child: PrimaryButton(
-                            title: "Back",
-                            backgroundColor: AppColors.p2,
-                            borderColor: Colors.transparent,
-                            function: () {
-                              Provider.of<BuyCarProvider>(context,
-                                      listen: false)
-                                  .compareCars();
-                            },
-                            textStyle: AppFonts.w500white14),
-                      ),
-                      const SizedBox(width: 20),
-                      /////////////////
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 3,
-                        child: PrimaryButton(
-                            title: "Compare",
-                            backgroundColor: AppColors.p2,
-                            borderColor: Colors.transparent,
-                            function: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //       builder: (context) => const CompareScreen(car1: ,),
-                              //     ));
-                            },
-                            textStyle: AppFonts.w500white14),
-                      ),
-                      //////////////////
-                    ],
-                  ),
-                ),
-              )
-            : const SizedBox(),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -280,18 +232,19 @@ class _FilterAppliedState extends State<FilterApplied> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                          onTap: () {
-                            // Navigator.push(
-                            //     context,
-                            //     MaterialPageRoute(
-                            //         builder: (context) =>
-                            //             CarDetailedView(car: car)));
-                          },
-                          child: FilterAppliedCard(
-                            compare: compare,
-                            car: allCars[index],
-                          ),
-                        );
+                            onTap: () {
+                              // Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) =>
+                              //             CarDetailedView(car: car)));
+                            },
+                            child: Container()
+                            // FilterAppliedCard(
+                            //   compare: compare,
+                            //   car: allCars[index],
+                            // ),
+                            );
                       })
                   : Padding(
                       padding: const EdgeInsets.only(top: 120),

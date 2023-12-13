@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
@@ -8,7 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DealerAccountScreen extends StatelessWidget {
-  const DealerAccountScreen({super.key});
+  DealerAccountScreen({super.key});
+
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -30,21 +33,24 @@ class DealerAccountScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              FutureBuilder(
-                  future: getDealerPhone(),
-                  builder: (context, snapshot) {
-                    if (snapshot.data != null) {
-                      return profileDetails(
-                        title: "Your Phone Number",
-                        subtitle: "+91 ${snapshot.data}",
-                      );
-                    } else {
-                      return profileDetails(
-                        title: "Your Phone Number",
-                        subtitle: "+91 987461230",
-                      );
-                    }
-                  }),
+              // FutureBuilder(
+              //     future: getDealerPhone(),
+              //     builder: (context, snapshot) {
+              //       if (snapshot.data != null) {
+              //         return profileDetails(
+              //           title: "Your Phone Number",
+              //           subtitle: "+91 ${snapshot.data}",
+              //         );
+              //       } else {
+              //         return profileDetails(
+              //           title: "Your Phone Number",
+              //           subtitle: "+91 987461230",
+              //         );
+              //       }
+              //     }),
+              profileDetails(
+                  title: "Phone Number",
+                  subtitle: auth.currentUser!.phoneNumber!),
 
               // GestureDetector(
               //   onTap: () {

@@ -19,7 +19,8 @@ class _TermsAndConditionState extends State<TermsAndCondition> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar.getDealerOnboardingAppBar(title: ""),
+      appBar:
+          CustomAppBar.getDealerOnboardingAppBar(title: "", context: context),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

@@ -1,16 +1,14 @@
 import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/models/buyer_car_display.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
 import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'dart:math';
 
 class GetCarDetails extends ChangeNotifier {
   List<FirebaseBuyerCar> displayCars = [];
-  List<BuyerCarDisplay> similarCars = [];
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   List<FirebaseBuyerCar> fuelFilter = [];
@@ -21,32 +19,73 @@ class GetCarDetails extends ChangeNotifier {
   int bodyIndex = -1;
   String apiUrl = Env.apiUrl;
 
-  getAllDisplayCars() async {
-    displayCars = [];
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-
-    var url = Uri.parse('$apiUrl/buy-car/get-all-car');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-
-    var data = jsonDecode(response.body);
-    List result = data["data"] as List;
-    if (displayCars.length < 12) {
-      result.forEach((e) {
-        displayCars.add(FirebaseBuyerCar.fromJson(e));
-      });
+  getAllBuyerCars() async {
+    CollectionReference collection = firebase.collection("vehicles");
+    try {
+      QuerySnapshot query = await collection.get();
+      for (var doc in query.docs) {
+        displayCars
+            .add(FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
+      }
+      // getBuyerCars();
+      print(displayCars);
+    } catch (e) {
+      debugPrint("$e");
+      debugPrint("error in get all buyer cars");
     }
-    fuelFilter = displayCars
-        .where((element) =>
-            element.properties.transmission.toLowerCase() == "manual")
+  }
+
+  getBuyerCars() async {
+    CollectionReference collection = firebase.collection("vehicles");
+
+    // Use the limit method to retrieve only 10 documents
+    QuerySnapshot query = await collection.limit(10).get();
+
+    // Get all cars from the collection
+    displayCars = query.docs
+        .map((doc) =>
+            FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>))
         .toList();
 
-    transmissonFilter.shuffle();
-    notifyListeners();
+    print(displayCars);
+  }
+
+  Future<FirebaseBuyerCar?> getCarById({required String carId}) async {
+    try {
+      DocumentReference docRef = firebase.collection("vehicles").doc(carId);
+      DocumentSnapshot snapshot = await docRef.get();
+
+      if (snapshot.exists) {
+        return FirebaseBuyerCar.fromJson(
+            snapshot.data() as Map<String, dynamic>);
+      } else {
+        return null; // Document does not exist
+      }
+    } catch (e) {
+      debugPrint("$e");
+      debugPrint("error in getCarById");
+      return null;
+    }
+  }
+
+  Future<List<FirebaseDealerListedCar>> getCarsInStore(
+      {required String dealerId}) async {
+    List<FirebaseDealerListedCar> cars = [];
+    CollectionReference collection =
+        firebase.collection("users").doc(dealerId).collection("listedVehicles");
+    try {
+      QuerySnapshot query = await collection.get();
+      for (var doc in query.docs) {
+        cars.add(FirebaseDealerListedCar.fromJson(
+            doc.data() as Map<String, dynamic>));
+      }
+      // getBuyerCars();
+    } catch (e) {
+      debugPrint("$e");
+      debugPrint("error in get all buyer cars");
+    }
+    print(cars);
+    return cars;
   }
 
   filterCars(
@@ -116,95 +155,5 @@ class GetCarDetails extends ChangeNotifier {
         }
         break;
     }
-  }
-
-  Future<BuyerCar> getCarById({required String id}) async {
-    similarCars = [];
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-
-    final queryParameters = {'id': id};
-    final url = Uri.https(
-      'webservice.flikcar.com',
-      '/api/web/buy-car/cars/view/',
-      queryParameters,
-    );
-    var response = await http.get(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-    );
-
-    var data = jsonDecode(response.body);
-
-    var result = data["data"]["vehicle"];
-    BuyerCar car = BuyerCar.fromJson(result);
-    var bestmatch = data["data"]["bestMatchCars"] as List;
-
-    if (bestmatch.isNotEmpty) {
-      bestmatch.forEach((element) {
-        similarCars.add(BuyerCarDisplay.fromJson(element));
-      });
-    }
-    return car;
-  }
-
-  Future<List<FirebaseBuyerCar>> getBuyerCarDetails() async {
-    List<FirebaseBuyerCar> allCars = [];
-    QuerySnapshot query = await firebase.collection("vehicles").get();
-    for (var doc in query.docs) {
-      allCars
-          .add(FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
-    }
-    return allCars;
-  }
-
-  Future<List<BuyerCarDisplay>> getCarAtTheStore({required String id}) async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-
-    var url = Uri.parse("$apiUrl/store/search-car");
-    Map<String, dynamic> body = {
-      "index": 0.5043553213209293,
-      "id": id,
-      "brand": [],
-      "model": [],
-      "fuel": [],
-      "city": "",
-      "bodytype": [],
-      "seats": [],
-      "transmission": [],
-      "owners": [],
-      "drivenkm": "",
-      "modelyear": "",
-      "budget": "",
-      "page": 1
-    };
-
-    var response = await http.post(
-      url,
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer $token',
-      },
-      body: jsonEncode(body),
-    );
-
-    var data = jsonDecode(response.body);
-
-    var result = data["data"] as List;
-
-    List<BuyerCarDisplay> cars = [];
-
-    if (result.isNotEmpty) {
-      for (var i = 0; i < result.length; i++) {
-        cars.add(
-          BuyerCarDisplay.fromJson(result[i]),
-        );
-      }
-    }
-    return cars;
   }
 }

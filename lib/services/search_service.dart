@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:cloud_functions/cloud_functions.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/body_type_model.dart';
 import 'package:flikcar/models/buyer_car_display.dart';
 import 'package:flikcar/models/fuel_type_model.dart';
@@ -26,9 +28,9 @@ class SearchService extends ChangeNotifier {
   List<int> kmsDrivenFilter = [];
   List<int> modelyearFilter = [];
   List<int> budgetFilter = [];
-  List<BuyerCarDisplay> allCars = [];
+  List<FirebaseBuyerCar> allCars = [];
   List<String> appliedFilters = [];
-  List<BuyerCarDisplay> searchedCarList = [];
+  List<FirebaseBuyerCar> searchedCarList = [];
   int sort = -1;
   String apiUrl = Env.apiUrl;
 
@@ -42,12 +44,12 @@ class SearchService extends ChangeNotifier {
 
   sortList() {
     if (sort == 0) {
-      searchedCarList.sort((a, b) => a.price.compareTo(b.price));
+      searchedCarList.sort((a, b) => a.carPrice.compareTo(b.carPrice));
 
       searchedCarList.forEach((element) {});
     }
     if (sort == 1) {
-      searchedCarList.sort((a, b) => b.price.compareTo(a.price));
+      searchedCarList.sort((a, b) => b.carPrice.compareTo(a.carPrice));
     }
     notifyListeners();
   }
@@ -201,6 +203,49 @@ class SearchService extends ChangeNotifier {
     print(transmissionFilter);
   }
 
+  firebaseSearch() {
+    final functions = FirebaseFunctions.instance;
+    final callable = functions.httpsCallable('createVehicle');
+    var data = {
+      "location": "string",
+      "bodyTypes": {
+        "hatchback": false,
+        "suv": false,
+        "muv": false,
+        "sedan": false,
+      },
+      "fuelTypes": {
+        "biodiesel": false,
+        "cng": false,
+        "diesel": false,
+        "petrol": false,
+        "liquidpetroleumgas": false,
+      },
+      "ownerTypes": {
+        "firstowner": false,
+        "secondowner": false,
+        "thirdowner": false,
+        "fourthowner": false,
+      },
+      "seatingCapacity": {
+        '4seater': false,
+        '5seater': false,
+        '6seater': false,
+        '7seater': false,
+        '8seater': false,
+        '9seater': false,
+        '10seater': false,
+      },
+      "transmissionType": {
+        "automatic": false,
+        "manual": false,
+      },
+      "modelYear": null,
+      "kmsDriven": null,
+      "budget": null,
+    };
+  }
+
   showFilterResult() async {
     allCars = [];
     final SharedPreferences sp = await SharedPreferences.getInstance();
@@ -243,7 +288,7 @@ class SearchService extends ChangeNotifier {
     var allData = data["data"] as List;
 
     for (var i = 0; i < allData.length; i++) {
-      allCars.add(BuyerCarDisplay.fromJson(allData[i]));
+      allCars.add(FirebaseBuyerCar.fromJson(allData[i]));
       // BuyerCar car = BuyerCar.fromJson(allData[i]);
       // print(car.registrationYear);
     }
@@ -296,7 +341,7 @@ class SearchService extends ChangeNotifier {
     print(data.length);
 
     for (var i = 0; i < allData.length; i++) {
-      allCars.add(BuyerCarDisplay.fromJson(allData[i]));
+      allCars.add(FirebaseBuyerCar.fromJson(allData[i]));
       // BuyerCar car = BuyerCar.fromJson(allData[i]);
       // print(car.registrationYear);
     }
@@ -399,7 +444,7 @@ class SearchService extends ChangeNotifier {
     // print(data.length);
 
     for (var i = 0; i < allData.length; i++) {
-      allCars.add(BuyerCarDisplay.fromJson(allData[i]));
+      allCars.add(FirebaseBuyerCar.fromJson(allData[i]));
       // BuyerCar car = BuyerCar.fromJson(allData[i]);
       // print(car.registrationYear);
     }
@@ -412,7 +457,7 @@ class SearchService extends ChangeNotifier {
   searchFunction(String query) {
     searchedCarList = allCars;
     searchedCarList = allCars
-        .where((item) => item.model.toLowerCase().contains(
+        .where((item) => item.properties.model.toLowerCase().contains(
               query.toLowerCase(),
             ))
         .toList();

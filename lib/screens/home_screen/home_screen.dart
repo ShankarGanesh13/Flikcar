@@ -17,17 +17,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    // Provider.of<GetCarDetails>(context, listen: false).getWishlistCars();
-
-    Provider.of<GetCarDetails>(context, listen: false).getAllDisplayCars();
-
-    print("init state called");
-    // TODO: implement initState
-    super.initState();
-  }
-
   int _currentIndex = 0;
 
   List<Widget> pages = [
@@ -36,12 +25,11 @@ class _HomeScreenState extends State<HomeScreen> {
     const WishlistScreen(),
     const AccountScreen(),
   ];
-  // @override
-  // void initState() {
-  //   Provider.of<CheckInternetProvider>(context, listen: false)
-  //       .startStreaming(context);
-  //   super.initState();
-  // }
+  @override
+  void initState() {
+    Provider.of<GetCarDetails>(context, listen: false).getAllBuyerCars();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -2,15 +2,15 @@ import 'package:flikcar/firebase_models/firebase_car_owner.dart';
 import 'package:flikcar/firebase_models/firebase_car_properties.dart';
 import 'package:flikcar/models/image_model.dart';
 
-class FirebaseCarDetails {
+class FirebaseAuctionCarDetails {
   String id;
-  FirebaseCarProperties properties;
+  FirebaseAuctionCarProperties properties;
   int carPrice;
   List<FirebaseImageModel> imageModel;
   String status;
   // FirebaseCarOwner owner;
 
-  FirebaseCarDetails({
+  FirebaseAuctionCarDetails({
     required this.id,
     required this.properties,
     required this.carPrice,
@@ -18,10 +18,10 @@ class FirebaseCarDetails {
     required this.status,
     //   required this.owner,
   });
-  factory FirebaseCarDetails.fromJson(Map<String, dynamic> json) {
-    return FirebaseCarDetails(
+  factory FirebaseAuctionCarDetails.fromJson(Map<String, dynamic> json) {
+    return FirebaseAuctionCarDetails(
       id: json['id'] as String,
-      properties: FirebaseCarProperties.fromJson(json['properties']),
+      properties: FirebaseAuctionCarProperties.fromJson(json['properties']),
       carPrice: json['carPrice'] ?? 0,
       imageModel: (json['images'] as List<dynamic>?)
               ?.map(

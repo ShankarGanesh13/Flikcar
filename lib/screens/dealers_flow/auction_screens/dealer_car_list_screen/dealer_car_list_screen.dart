@@ -3,7 +3,6 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
-import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';

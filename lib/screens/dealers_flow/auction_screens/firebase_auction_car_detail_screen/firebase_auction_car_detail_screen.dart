@@ -1,7 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/error_screen.dart';
 import 'package:flikcar/common_widgets/loading_screen.dart';
-import 'package:flikcar/firebase_models/firebase_car_details.dart';
+import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:flikcar/firebase_models/firebase_my_bids.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/bid_textfield.dart';
@@ -18,6 +18,7 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class FirebaseAuctionCarDetailScreen extends StatefulWidget {
   final String carId;
@@ -31,8 +32,15 @@ class FirebaseAuctionCarDetailScreen extends StatefulWidget {
 class _FirebaseAuctionCarDetailScreenState
     extends State<FirebaseAuctionCarDetailScreen> {
   @override
+  void initState() {
+    FirebaseAuctionService.getDealerDetails();
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder<FirebaseCarDetails?>(
+    return FutureBuilder<FirebaseAuctionCarDetails?>(
         future:
             FirebaseAuctionService().getAuctionCarDetails(carId: widget.carId),
         builder: (context, snapshot) {

@@ -4,18 +4,12 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_image_viewer/widgets/dealer_image_list.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/listing_car_images.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_sell_car_screen.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
-import 'package:flikcar/services/auction_services.dart';
-import 'package:flikcar/services/auth_service.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/get_car_details.dart';
@@ -25,21 +19,17 @@ import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:upgrader/upgrader.dart';
-
-import 'screens/onbording_screens/dealer_onboarding/dealer_details.dart';
-import 'services/firebase_auth_service/firebase_auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
   // FacebookAppEvents();
-  FirebaseAuthService.getDealerDetails();
+
   await FirebaseAppCheck.instance.activate(
       androidProvider: AndroidProvider.playIntegrity,
       appleProvider: AppleProvider.debug);
@@ -60,7 +50,6 @@ void main() async {
         ChangeNotifierProvider(create: (context) => WishlistService()),
         ChangeNotifierProvider(create: (context) => GetCarDetails()),
         ChangeNotifierProvider(create: (context) => SearchService()),
-        //  ChangeNotifierProvider(create: (context) => AuctionService()),
         ChangeNotifierProvider(create: (context) => GetDealerUploadCars()),
         ChangeNotifierProvider(
             create: (context) => UploadDealerDocumentsProvider()),

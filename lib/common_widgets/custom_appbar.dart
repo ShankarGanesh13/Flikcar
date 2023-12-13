@@ -1,7 +1,7 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/services/auction_services.dart';
+import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -205,21 +205,29 @@ class CustomAppBar {
   }
 
   static PreferredSizeWidget getDealerOnboardingAppBar(
-      {required String title}) {
+      {required String title, required, required BuildContext context}) {
     return AppBar(
       automaticallyImplyLeading: false,
       shadowColor: Colors.transparent,
       backgroundColor: AppColors.s1,
       title: Row(
         children: [
-          Container(
-            margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
-            height: 41,
-            width: 70,
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                fit: BoxFit.contain,
-                image: AssetImage("assets/flikcar_logo2.png"),
+          GestureDetector(
+            onTap: () {
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => StartScreen()),
+                  (route) => false);
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 0, top: 8, bottom: 15),
+              height: 41,
+              width: 70,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  fit: BoxFit.contain,
+                  image: AssetImage("assets/flikcar_logo2.png"),
+                ),
               ),
             ),
           ),

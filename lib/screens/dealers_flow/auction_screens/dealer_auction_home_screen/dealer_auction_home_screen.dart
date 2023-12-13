@@ -12,7 +12,6 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_scr
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
-import 'package:flikcar/services/auction_services.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/utils/colors.dart';
