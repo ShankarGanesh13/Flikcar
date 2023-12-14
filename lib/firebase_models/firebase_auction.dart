@@ -9,6 +9,8 @@ class FirebaseAuction {
   final FirebaseBid? bid;
   final int endPrice;
   final int endTime;
+  final int? oneClickBuyPrice;
+  final bool isSoldOut;
 
   FirebaseAuction({
     required this.id,
@@ -18,6 +20,8 @@ class FirebaseAuction {
     this.bid,
     required this.endPrice,
     required this.endTime,
+    this.oneClickBuyPrice,
+    required this.isSoldOut,
   });
 
   factory FirebaseAuction.fromJson(Map<String, dynamic> json) {
@@ -33,6 +37,8 @@ class FirebaseAuction {
           : null,
       endPrice: json['endPrice'] ?? 0,
       endTime: json['endTime'] ?? 0,
+      oneClickBuyPrice: json["oneClickBuyPrice"],
+      isSoldOut: json["isSoldOut"],
     );
   }
 }

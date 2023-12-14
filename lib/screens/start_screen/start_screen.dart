@@ -29,6 +29,8 @@ class _StartScreenState extends State<StartScreen> {
     // TODO: implement initState
     Provider.of<CheckInternetProvider>(context, listen: false)
         .startStreaming(context);
+    FirebaseAuthService().startListeningToStatus(context);
+
     super.initState();
   }
 

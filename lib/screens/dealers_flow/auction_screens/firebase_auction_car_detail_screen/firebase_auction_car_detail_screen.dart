@@ -199,25 +199,6 @@ class _FirebaseAuctionCarDetailScreenState
         });
   }
 
-  Widget bidButton({required IconData icon, required Function() function}) {
-    return GestureDetector(
-      onTap: function,
-      child: Container(
-        height: 40,
-        width: 40,
-        decoration: BoxDecoration(
-            color: const Color(0xffffffff),
-            borderRadius: BorderRadius.circular(4)),
-        child: Icon(
-          icon,
-          size: 24,
-          weight: 900,
-          color: Color(0xff606060),
-        ),
-      ),
-    );
-  }
-
   String formatPrice(int price) {
     final currencyFormatter =
         NumberFormat.currency(locale: 'en_IN', symbol: '', decimalDigits: 0);

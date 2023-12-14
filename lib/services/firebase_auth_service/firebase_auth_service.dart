@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
@@ -119,9 +121,50 @@ class FirebaseAuthService {
         break;
       default:
         // Handle other cases or navigate to a default screen
-        print("++++++++++++++++++++invalid type");
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const NotVerifiedDealer(),
+          ),
+        );
         break;
     }
+  }
+
+  Stream<String?> listenToStatus() {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(auth.currentUser!.uid)
+        .snapshots()
+        .map((doc) {
+      var data = doc.data() as Map<String, dynamic>;
+      return data["userTypeStatus"] as String?;
+    }).handleError((error) {
+      debugPrint('Error listening to user status: $error');
+      // Handle the error appropriately (e.g., show a message to the user)
+    });
+  }
+
+  StreamSubscription<String?>? statusSubscription;
+  String? currentStatus;
+
+  void handleStatusChange(
+      {required String? newStatus, required BuildContext context}) async {
+    final SharedPreferences sp = await SharedPreferences.getInstance();
+    await sp.setString('userType', newStatus!);
+
+    debugPrint('Updated User status: $newStatus');
+  }
+
+  void startListeningToStatus(context) {
+    debugPrint("Started listening to user status");
+    statusSubscription = listenToStatus().listen(
+      (newStatus) => handleStatusChange(newStatus: newStatus, context: context),
+      onError: (error) {
+        debugPrint('Error in user status subscription: $error');
+        // Handle the error appropriately (e.g., show a message to the user)
+      },
+    );
   }
 
   static Future<Map<String, dynamic>> getDealerDetails() async {

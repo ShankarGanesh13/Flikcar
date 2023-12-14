@@ -119,9 +119,14 @@ class DealerAuctionHomeScreen extends StatelessWidget {
                               itemCount: snapshot.data!.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-                                return DealerCarListCardFirebase(
-                                  car: snapshot.data![index]!,
-                                );
+                                if (snapshot.data![index]!.oneClickBuyPrice ==
+                                    null) {
+                                  return DealerCarListCardFirebase(
+                                    car: snapshot.data![index]!,
+                                  );
+                                } else {
+                                  return const SizedBox();
+                                }
                               });
                         }
                       },

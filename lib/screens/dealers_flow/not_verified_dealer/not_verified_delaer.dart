@@ -39,7 +39,7 @@ class NotVerifiedDealer extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  "( Once your profile is verified please logout and try again )",
+                  "( Once your profile is verified please restart the application )",
                   style: AppFonts.w500black14,
                   textAlign: TextAlign.center,
                 ),

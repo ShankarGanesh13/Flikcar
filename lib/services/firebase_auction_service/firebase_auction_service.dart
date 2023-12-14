@@ -5,7 +5,9 @@ import 'package:flikcar/firebase_models/firebase_auction.dart';
 import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flikcar/firebase_models/firebase_my_bids.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
+import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseAuctionService {
@@ -45,6 +47,24 @@ class FirebaseAuctionService {
             )
             .where((auction) => auction != null)
             .toList();
+      },
+    );
+  }
+
+  Stream<List<FirebaseAuction?>> getOcbCarsStream() {
+    debugPrint("-------------------------------get ocb auction cars as stream");
+    CollectionReference collection = firestore.collection("auctions");
+
+    return collection.snapshots().map(
+      (QuerySnapshot querySnapshot) {
+        return querySnapshot.docs.map(
+          (QueryDocumentSnapshot queryDocumentSnapshot) {
+            final auctionData =
+                queryDocumentSnapshot.data() as Map<String, dynamic>;
+
+            return FirebaseAuction.fromJson(auctionData);
+          },
+        ).toList();
       },
     );
   }
@@ -248,6 +268,73 @@ class FirebaseAuctionService {
       );
       debugPrint('Unexpected error calling Cloud Function: $e');
       return "FAILED";
+    }
+  }
+
+  oneClickBuy(
+      {required String carId,
+      required int price,
+      required BuildContext context}) async {
+    CollectionReference collection = firestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("oneClickBuyVehicles");
+    DocumentReference vehicleDoc = firestore.collection("auctions").doc(carId);
+
+    var data2 = {
+      "bidder": {
+        "firstName": dealerDetails!["name"] ?? "",
+        "lastName": "",
+        "phone": auth.currentUser!.phoneNumber,
+        "userId": auth.currentUser!.uid,
+      },
+      "id": "",
+      "placedTime": DateTime.now().millisecondsSinceEpoch,
+      "price": price,
+    };
+    var data = {
+      "vehicleId": carId,
+      "updatedAt": DateTime.now().millisecondsSinceEpoch,
+      "price": price
+    };
+    try {
+      await Future.wait([
+        vehicleDoc.set({"latestBid": data2}, SetOptions(merge: true)),
+        vehicleDoc.set({"isSoldOut": true}, SetOptions(merge: true)),
+        collection.doc(carId).set(data)
+      ]);
+      if (context.mounted) {
+        Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(builder: (context) => const DealerFlow(index: 1)),
+            (route) => false);
+
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text(
+                'Booking Completed Successfully',
+                style: AppFonts.w700black16,
+              ),
+              content: Text(
+                'Thank you for purchasing with us, our support team will contact you shortly',
+                style: AppFonts.w500black14,
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
+      }
+    } catch (e) {
+      debugPrint("error in one-click buy: $e");
     }
   }
 }

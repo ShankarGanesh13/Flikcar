@@ -12,6 +12,8 @@ import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_p
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/facebook_events.dart';
+import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
+import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
@@ -29,7 +31,7 @@ void main() async {
 
   await Firebase.initializeApp();
   // FacebookAppEvents();
-
+  //FirebaseAuthService().startListeningToStatus();
   await FirebaseAppCheck.instance.activate(
       androidProvider: AndroidProvider.playIntegrity,
       appleProvider: AppleProvider.debug);
