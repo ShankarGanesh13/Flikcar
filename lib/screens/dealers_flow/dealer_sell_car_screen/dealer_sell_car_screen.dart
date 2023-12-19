@@ -76,7 +76,7 @@ class _DealerSellCarScreenState extends State<DealerSellCarScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const SizedBox(
-                        height: 20,
+                        height: 5,
                       ),
                       PrimaryButton(
                         title: "List a Car",

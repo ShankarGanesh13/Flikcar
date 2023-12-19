@@ -6,9 +6,8 @@ import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/firebase_models/firebase_auction.dart';
 import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_auction_home_screen/widgets/dealer_header.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_list_card.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/dealer_car_listed_car_firebase.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/view_all_auction_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/auction_car_card.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
@@ -50,26 +49,26 @@ class DealerAuctionHomeScreen extends StatelessWidget {
             ),
             child: Column(
               children: [
-                // Padding(
-                //   padding:
-                //       const EdgeInsets.only(top: 15.0, left: 15, right: 15),
-                //   child: Column(children: [
-                //     PrimaryButton(
-                //       title: "View All Cars",
-                //       function: () {
-                //         Navigator.push(
-                //             context,
-                //             MaterialPageRoute(
-                //                 builder: (context) =>
-                //                     const DealerCarListScreen()));
-                //       },
-                //       backgroundColor: AppColors.s1,
-                //       borderColor: Colors.transparent,
-                //       textStyle: AppFonts.w500white14,
-                //     ),
-                //     const SizedBox(height: 20),
-                //   ]),
-                // ),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: 20.0, left: 15, right: 15),
+                  child: Column(children: [
+                    PrimaryButton(
+                      title: "View All Cars",
+                      function: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const ViewAllAuctionScreen()));
+                      },
+                      backgroundColor: AppColors.s1,
+                      borderColor: Colors.transparent,
+                      textStyle: AppFonts.w500white14,
+                    ),
+                    const SizedBox(height: 10),
+                  ]),
+                ),
                 Column(
                   children: [
                     const Padding(
@@ -121,7 +120,7 @@ class DealerAuctionHomeScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 if (snapshot.data![index]!.oneClickBuyPrice ==
                                     null) {
-                                  return DealerCarListCardFirebase(
+                                  return AuctionCarCard(
                                     car: snapshot.data![index]!,
                                   );
                                 } else {

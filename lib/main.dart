@@ -4,6 +4,7 @@ import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/custom_video_player.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
@@ -65,7 +66,9 @@ void main() async {
         ),
         home: UpgradeAlert(
           upgrader: Upgrader(dialogStyle: UpgradeDialogStyle.material),
-          child: firebase.currentUser != null ? StartScreen() : PhoneNumber(),
+          child: firebase.currentUser != null
+              ? CustomVideoPlayerPage()
+              : PhoneNumber(),
         ),
       ),
     ),

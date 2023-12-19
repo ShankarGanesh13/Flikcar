@@ -1,23 +1,22 @@
 import 'dart:async';
 
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/ongoing_timer2.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/view_all_auction_cars/widget/ongoing_timer.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
-class UpcomingTimer2 extends StatefulWidget {
+class UpcomingTimer extends StatefulWidget {
   final DateTime startTime;
   final DateTime endTime;
 
-  const UpcomingTimer2(
+  const UpcomingTimer(
       {Key? key, required this.startTime, required this.endTime})
       : super(key: key);
 
   @override
-  State<UpcomingTimer2> createState() => _UpcomingTimerState();
+  State<UpcomingTimer> createState() => _UpcomingTimerState();
 }
 
-class _UpcomingTimerState extends State<UpcomingTimer2> {
+class _UpcomingTimerState extends State<UpcomingTimer> {
   late Duration _remainingTime;
   late Timer _timer;
   bool _auctionStarted = false;
@@ -67,12 +66,12 @@ class _UpcomingTimerState extends State<UpcomingTimer2> {
   @override
   Widget build(BuildContext context) {
     return _auctionStarted
-        ? OngoingTimer2(startTime: widget.startTime, endTime: widget.endTime)
-        : Row(
+        ? OngoingTimer(startTime: widget.startTime, endTime: widget.endTime)
+        : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Auction Starts in: ",
+                "Auction Starts in:",
                 style: AppFonts.w500green14,
               ),
               Text(

@@ -1,6 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/view_all_auction_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flutter/material.dart';
 

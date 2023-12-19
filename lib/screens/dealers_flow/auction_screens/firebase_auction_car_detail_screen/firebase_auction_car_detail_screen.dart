@@ -3,7 +3,7 @@ import 'package:flikcar/common_widgets/error_screen.dart';
 import 'package:flikcar/common_widgets/loading_screen.dart';
 import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:flikcar/firebase_models/firebase_my_bids.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/dealer_car_list_screen.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/view_all_auction_screen.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/bid_textfield.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/current_bid_widget.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_details.dart';

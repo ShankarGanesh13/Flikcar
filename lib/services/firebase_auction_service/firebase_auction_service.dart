@@ -51,6 +51,69 @@ class FirebaseAuctionService {
     );
   }
 
+  Stream<List<FirebaseAuction?>> getLiveAuctionCarsStream() {
+    debugPrint(
+        "---------------------------------get live auction cars as stream");
+    CollectionReference collection = firestore.collection("auctions");
+
+    return collection.snapshots().map(
+      (QuerySnapshot querySnapshot) {
+        final currentTime = DateTime.now();
+
+        return querySnapshot.docs
+            .map(
+              (QueryDocumentSnapshot queryDocumentSnapshot) {
+                final auctionData =
+                    queryDocumentSnapshot.data() as Map<String, dynamic>;
+
+                final startTime = DateTime.fromMillisecondsSinceEpoch(
+                    auctionData['startTime']);
+                final endTime =
+                    DateTime.fromMillisecondsSinceEpoch(auctionData['endTime']);
+
+                if (currentTime.isAfter(startTime) &&
+                    currentTime.isBefore(endTime)) {
+                  return FirebaseAuction.fromJson(auctionData);
+                } else {
+                  return null;
+                }
+              },
+            )
+            .where((auction) => auction != null)
+            .toList();
+      },
+    );
+  }
+
+  Stream<List<FirebaseAuction?>> getUpcomingAuctionCarsStream() {
+    debugPrint(
+        "---------------------------------get upcoming auction cars as stream");
+    CollectionReference collection = firestore.collection("auctions");
+
+    return collection.snapshots().map(
+      (QuerySnapshot querySnapshot) {
+        final currentTime = DateTime.now();
+
+        return querySnapshot.docs
+            .map(
+              (QueryDocumentSnapshot queryDocumentSnapshot) {
+                final auctionData =
+                    queryDocumentSnapshot.data() as Map<String, dynamic>;
+
+                final startTime = DateTime.fromMillisecondsSinceEpoch(
+                    auctionData['startTime']);
+
+                return startTime.isAfter(currentTime)
+                    ? FirebaseAuction.fromJson(auctionData)
+                    : null;
+              },
+            )
+            .where((auction) => auction != null)
+            .toList();
+      },
+    );
+  }
+
   Stream<List<FirebaseAuction?>> getOcbCarsStream() {
     debugPrint("-------------------------------get ocb auction cars as stream");
     CollectionReference collection = firestore.collection("auctions");

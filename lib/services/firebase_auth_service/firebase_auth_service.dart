@@ -141,7 +141,6 @@ class FirebaseAuthService {
       return data["userTypeStatus"] as String?;
     }).handleError((error) {
       debugPrint('Error listening to user status: $error');
-      // Handle the error appropriately (e.g., show a message to the user)
     });
   }
 
