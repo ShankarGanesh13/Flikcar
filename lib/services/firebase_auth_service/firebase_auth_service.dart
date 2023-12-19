@@ -7,10 +7,8 @@ import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/not_verified_dealer/not_verified_delaer.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/onbording_screens/dealer_onboarding/dealer_details.dart';
-import 'package:flikcar/screens/onbording_screens/otp_screen/otp_screen.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseAuthService {
@@ -178,7 +176,7 @@ class FirebaseAuthService {
       "name": json["dealerOnboardFormData"]["name"],
       "shopAddress": json["dealerOnboardFormData"]["shopAddress"],
     };
-    print(data);
+    debugPrint("$data");
 
     return data;
   }

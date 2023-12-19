@@ -1,6 +1,5 @@
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
-import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +11,7 @@ class FirebaseInspectionReport extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(15),
+      padding: const EdgeInsets.all(15),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         const Heading1(title1: "Description", title2: ""),
         const SizedBox(

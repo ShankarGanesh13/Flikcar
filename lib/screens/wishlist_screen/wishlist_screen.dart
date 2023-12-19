@@ -2,7 +2,6 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/wishlist_screen/widgets/wishlist_card.dart';
 import 'package:flikcar/services/wishlist_service.dart';
@@ -42,7 +41,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<BuyerCar> wishlistCars = context.watch<WishlistService>().wishlistCars;
+    List wishlistCars = context.watch<WishlistService>().wishlistCars;
     return Scaffold(
       appBar: CustomAppBar.getAppBar(
         function: () {
@@ -91,9 +90,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return WishlistCard(
-                      car: wishlistCars[index],
-                    );
+                    return Container();
                   })
         ]),
       ),

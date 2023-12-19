@@ -1,15 +1,13 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
-import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/models/image_model.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_image_viewer/dealer_car_image_viewer.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class FirebaseDealerImageViewer extends StatefulWidget {
-  List<FirebaseImageModel> carImages;
-  FirebaseDealerImageViewer({super.key, required this.carImages});
+  final List<FirebaseImageModel> carImages;
+  const FirebaseDealerImageViewer({super.key, required this.carImages});
 
   @override
   State<FirebaseDealerImageViewer> createState() =>
@@ -20,9 +18,13 @@ class _FirebaseDealerImageViewerState extends State<FirebaseDealerImageViewer> {
   @override
   void initState() {
     // TODO: implement initState
+    pageController = PageController(initialPage: selectedIndex);
+
     getImages();
     super.initState();
   }
+
+  late PageController pageController;
 
   int selectedIndex = 0;
   static List<ImageProvider> _imageProviders = [];
@@ -36,42 +38,45 @@ class _FirebaseDealerImageViewerState extends State<FirebaseDealerImageViewer> {
         GestureDetector(
           onTap: () {
             MultiImageProvider multiImageProvider = MultiImageProvider(
-                _imageProviders,
-                initialIndex: selectedIndex);
-            showImageViewerPager(context, multiImageProvider,
-                backgroundColor: Colors.white,
-                closeButtonColor: Colors.black,
-                swipeDismissible: true,
-                useSafeArea: true,
-                doubleTapZoomable: true);
-          },
-          onHorizontalDragEnd: (details) {
-            if (details.primaryVelocity! > 0) {
-              // Swiped right
-              if (selectedIndex > 0) {
-                selectedIndex--;
-              }
-            } else if (details.primaryVelocity! < 0) {
-              // Swiped left
-              if (selectedIndex < images.length - 1) {
-                selectedIndex = selectedIndex + 1;
-              }
-            }
-            setState(() {});
-            print("===================${selectedIndex}");
+              _imageProviders,
+              initialIndex: selectedIndex,
+            );
+            showImageViewerPager(
+              context,
+              multiImageProvider,
+              backgroundColor: Colors.white,
+              closeButtonColor: Colors.black,
+              swipeDismissible: true,
+              useSafeArea: true,
+              doubleTapZoomable: true,
+            );
           },
           child: SizedBox(
             height: MediaQuery.of(context).size.height / 4,
-            width: MediaQuery.of(context).size.width,
-            child: Image.network(
-              '${images[selectedIndex].imageUrl}',
-              fit: BoxFit.contain,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                } else {
-                  return const LoadingWidget();
-                }
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: images.length,
+              onPageChanged: (index) {
+                selectedIndex = index;
+
+                setState(() {});
+              },
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height / 4,
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.network(
+                    '${images[selectedIndex].imageUrl}',
+                    fit: BoxFit.contain,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return const LoadingWidget();
+                      }
+                    },
+                  ),
+                );
               },
             ),
           ),
@@ -106,6 +111,11 @@ class _FirebaseDealerImageViewerState extends State<FirebaseDealerImageViewer> {
                       onTap: () {
                         setState(() {
                           selectedIndex = index;
+                          pageController.animateToPage(
+                            selectedIndex,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
                         });
                       },
                       child: Image.network(

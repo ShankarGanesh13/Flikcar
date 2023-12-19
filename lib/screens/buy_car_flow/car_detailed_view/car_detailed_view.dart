@@ -6,7 +6,7 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_detai
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_features.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/image_viewer.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifications.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_applied/view_all_buyer_cars_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/view_all_cars_at_store/view_all_cars_at_store.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -39,7 +39,7 @@ class CarDetailedView extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const FilterApplied(),
+                builder: (context) => const ViewAllBuyerCarsScreen(),
               ));
         },
       ),

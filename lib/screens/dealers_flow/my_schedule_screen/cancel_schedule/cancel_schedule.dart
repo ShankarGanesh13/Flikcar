@@ -2,7 +2,6 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/cancel_schedule/widgets/cancel_reason.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/cancel_reason/cancel_reason.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';

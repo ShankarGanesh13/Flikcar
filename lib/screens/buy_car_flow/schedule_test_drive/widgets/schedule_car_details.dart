@@ -1,19 +1,20 @@
 import 'package:flikcar/common_widgets/loading_widget.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ScheduleCarDetails extends StatelessWidget {
-  final BuyerCar car;
+  final FirebaseBuyerCar car;
   const ScheduleCarDetails({super.key, required this.car});
   static List<String> features = ["Petrol", "13000kms", "2014", "Manual"];
   @override
   Widget build(BuildContext context) {
     features = [
-      car.fuel,
-      "${car.driveKms}km",
-      car.registrationYear,
-      car.transmission
+      car.properties.fuelType,
+      "${car.properties.kmsDriven}km",
+      car.properties.registrationYear.toString(),
+      car.properties.transmission
     ];
     return Row(
       children: [
@@ -26,10 +27,8 @@ class ScheduleCarDetails extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8),
               child: Image.network(
-                car.carImages.isNotEmpty
-                    ? "https://webservice.flikcar.com/public/${car.carImages[0].imageUrl}"
-                    : "https://developers.google.com/static/maps/documentation/maps-static/images/error-image-generic.png",
-                fit: BoxFit.cover,
+                car.images[0].imageUrl,
+                fit: BoxFit.fill,
                 loadingBuilder: (context, child, loadingProgress) {
                   if (loadingProgress == null) {
                     return child;
@@ -47,7 +46,17 @@ class ScheduleCarDetails extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: Text(
-                car.model,
+                car.properties.brand,
+                style: AppFonts.w700dark216,
+              ),
+            ),
+            const SizedBox(
+              height: 2,
+            ),
+            SizedBox(
+              width: MediaQuery.of(context).size.width / 2,
+              child: Text(
+                car.properties.model,
                 style: AppFonts.w700black16,
               ),
             ),
@@ -71,12 +80,21 @@ class ScheduleCarDetails extends StatelessWidget {
               ),
             ),
             Text(
-              "₹${car.carPrice}",
+              "₹ ${formatPrice(int.parse(car.carPrice))}",
               style: AppFonts.w700black20,
             ),
           ],
         )
       ],
     );
+  }
+
+  String formatPrice(int price) {
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'en_IN',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(price);
   }
 }

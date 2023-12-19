@@ -19,7 +19,69 @@ class GetCarDetails extends ChangeNotifier {
   int bodyIndex = -1;
   String apiUrl = Env.apiUrl;
 
+  filterCars(
+      {required String filterType,
+      required String filter,
+      required int index}) {
+    debugPrint("${displayCars.length}");
+    switch (filterType) {
+      case "fuel":
+        {
+          fuelFilter = displayCars
+              .where((element) =>
+                  element.properties.fuelType.toLowerCase() ==
+                  filter.toLowerCase())
+              .toList();
+          fuelIndex = index;
+          notifyListeners();
+          break;
+        }
+      case "transmisson":
+        {
+          transmissonFilter = displayCars
+              .where((element) =>
+                  element.properties.transmission.toLowerCase() ==
+                  filter.toLowerCase())
+              .toList();
+          transmissonIndex = index;
+          notifyListeners();
+          break;
+        }
+      case "bodyType":
+        {
+          bodyTypeFilter = displayCars
+              .where((element) =>
+                  element.properties.bodyType.toLowerCase() ==
+                  filter.toLowerCase())
+              .toList();
+          bodyIndex = index;
+          notifyListeners();
+          break;
+        }
+      case "all":
+        {
+          bodyIndex = -1;
+          fuelIndex = -1;
+          transmissonIndex = -1;
+          bodyTypeFilter = displayCars;
+          fuelFilter = displayCars;
+
+          transmissonFilter = displayCars;
+          // notifyListeners();
+          break;
+        }
+      default:
+        {
+          print("Invalid choice");
+          print(filter);
+        }
+        break;
+    }
+  }
+
   getAllBuyerCars() async {
+    debugPrint("get all buyer cars called");
+    displayCars = [];
     CollectionReference collection = firebase.collection("vehicles");
     try {
       QuerySnapshot query = await collection.get();
@@ -27,26 +89,10 @@ class GetCarDetails extends ChangeNotifier {
         displayCars
             .add(FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
       }
-      // getBuyerCars();
-      print(displayCars);
     } catch (e) {
       debugPrint("$e");
       debugPrint("error in get all buyer cars");
     }
-  }
-
-  getBuyerCars() async {
-    CollectionReference collection = firebase.collection("vehicles");
-
-    // Use the limit method to retrieve only 10 documents
-    QuerySnapshot query = await collection.limit(10).get();
-
-    // Get all cars from the collection
-    displayCars = query.docs
-        .map((doc) =>
-            FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>))
-        .toList();
-
     print(displayCars);
   }
 
@@ -86,74 +132,5 @@ class GetCarDetails extends ChangeNotifier {
     }
     print(cars);
     return cars;
-  }
-
-  filterCars(
-      {required String filterType,
-      required String filter,
-      required int index}) {
-    debugPrint("${displayCars.length}");
-    switch (filterType) {
-      case "fuel":
-        {
-          // print("fuel");
-          // print(filter);
-          fuelFilter = displayCars
-              .where((element) =>
-                  element.properties.fuelType.toLowerCase() ==
-                  filter.toLowerCase())
-              .toList();
-          fuelIndex = index;
-          notifyListeners();
-        }
-      case "transmisson":
-        {
-          // print("transmisson");
-          // print(filter);
-          transmissonFilter = displayCars
-              .where((element) =>
-                  element.properties.transmission.toLowerCase() ==
-                  filter.toLowerCase())
-              .toList();
-          transmissonIndex = index;
-          notifyListeners();
-        }
-      case "bodyType":
-        {
-          // print("bodyType");
-          // print(filter);
-
-          bodyTypeFilter = displayCars
-              .where((element) =>
-                  element.properties.bodyType.toLowerCase() ==
-                  filter.toLowerCase())
-              .toList();
-          bodyIndex = index;
-          notifyListeners();
-        }
-      case "all":
-        {
-          // print("all");
-          // print(filter);
-          bodyIndex = -1;
-          fuelIndex = -1;
-          transmissonIndex = -1;
-          bodyTypeFilter = displayCars;
-          // fuelFilter = allCars
-          //     .where(
-          //         (element) => element.transmission.toLowerCase() == "manual")
-          //     .toList();
-          transmissonFilter = displayCars;
-
-          // bodyTypeFilter.shuffle();
-          // fuelFilter.shuffle();
-        }
-      default:
-        {
-          print("Invalid choice");
-          print(filter);
-        }
-        break;
-    }
   }
 }

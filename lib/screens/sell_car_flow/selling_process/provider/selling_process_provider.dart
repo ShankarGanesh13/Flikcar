@@ -5,11 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/car_condition/car_condition.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/splash_screen.dart/splash_screen.dart';
-import 'package:flikcar/services/facebook_events.dart';
-import 'package:flikcar/services/firebase_events.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,24 +28,6 @@ class SellingProcessProvider extends ChangeNotifier {
 
   int brandIndex = -1;
   int modelIndex = -1;
-  // late String selectedLocation;
-  // late String fuelType;
-  // late String transmissonType;
-  // late String varient;
-  // late String carOwnership;
-  // late String kilometersDriven;
-  // late String sellingTime;
-  // late String carCondition;
-  // String minExpectedPrice = "";
-  // String maxExpectedPrice = "";
-  // int sellingTimeIndex = -1;
-  // int kilometersDrivenIndex = -1;
-  // int carOwnershipIndex = -1;
-  // int fuelTypeIndex = -1;
-  // int transmissonTypeIndex = -1;
-  // int varientIndex = -1;
-  // int locationIndex = -1;
-  // int carConditionIndex = -1;
 
   List<String> list = ["", "", "", "", "", "", "", "", "", ""];
 
@@ -195,18 +173,6 @@ class SellingProcessProvider extends ChangeNotifier {
         }
         break;
 
-      // case 4:
-      //   {
-      //     controller.animateToPage(2,
-      //         duration: const Duration(milliseconds: 200),
-      //         curve: Curves.bounceInOut);
-
-      //     counter = 3;
-      //     notifyListeners();
-      //     print("pc4");
-      //   }
-      //   break;
-
       default:
         {
           print("Invalid choice");
@@ -226,6 +192,7 @@ class SellingProcessProvider extends ChangeNotifier {
         "registrationYear": "$registerationYear",
         "phone": "$contactNumber",
         "status": "IN-PROGRESS",
+        "createdAt": DateTime.now().millisecondsSinceEpoch,
         "id": id,
       };
       print(requestBody);
@@ -277,22 +244,8 @@ class SellingProcessProvider extends ChangeNotifier {
     selectedBrandId = "";
     registerationYear = "";
     selectedModelId = "";
-    // selectedLocation = "";
-    // fuelType = "";
-    // carOwnership = "";
-    // kilometersDriven = "";
-    // sellingTime = "";
-    // varientIndex = -1;
-    //  locationIndex = -1;
     brandIndex = -1;
-
     modelIndex = -1;
-    // sellingTimeIndex = -1;
-    // kilometersDrivenIndex = -1;
-    // carOwnershipIndex = -1;
-    // fuelTypeIndex = -1;
-    // transmissonTypeIndex = -1;
-    // varientIndex = -1;
 
     list = ["", "", "", "", "", "", "", "", "", ""];
     notifyListeners();

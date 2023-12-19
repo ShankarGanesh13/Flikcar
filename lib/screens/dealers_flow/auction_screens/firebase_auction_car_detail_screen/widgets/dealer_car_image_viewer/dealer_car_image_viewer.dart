@@ -1,16 +1,16 @@
-import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
-import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/models/image_model.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_image_viewer/widgets/image_list.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_image_viewer/widgets/dealer_image_list.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_image_viewer/widgets/video_thumbnail.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 
 class DealerCarImageViewer extends StatefulWidget {
   final List<FirebaseImageModel> images;
-  const DealerCarImageViewer({super.key, required this.images});
+  final List<FirebaseVideoModel> videos;
+  const DealerCarImageViewer(
+      {super.key, required this.images, required this.videos});
 
   @override
   State<DealerCarImageViewer> createState() => _DealerCarImageViewerState();
@@ -28,6 +28,7 @@ class _DealerCarImageViewerState extends State<DealerCarImageViewer> {
 
   int selectedIndex = 0;
   List<String> imageSection = [
+    "Videos",
     "Exterior",
     "Interior",
     "Engine",
@@ -36,6 +37,7 @@ class _DealerCarImageViewerState extends State<DealerCarImageViewer> {
     "Dents",
   ];
   List<String> imageTypes = [
+    "",
     "ext",
     "int",
     "engine",
@@ -74,9 +76,11 @@ class _DealerCarImageViewerState extends State<DealerCarImageViewer> {
                         onTap: () {
                           setState(() {
                             selectedIndex = index;
-                            setImages(
-                              imageType: imageTypes[selectedIndex],
-                            );
+                            if (selectedIndex != 0) {
+                              setImages(
+                                imageType: imageTypes[selectedIndex],
+                              );
+                            }
                           });
                         },
                         child: doucument(
@@ -96,24 +100,39 @@ class _DealerCarImageViewerState extends State<DealerCarImageViewer> {
         padding: const EdgeInsets.only(left: 15.0, right: 15, top: 3),
         child: Column(children: [
           Expanded(
-            child: currentImages.isNotEmpty
-                ? DealerImageList(
-                    currentImages: currentImages,
-                  )
-                : Column(
-                    children: [
-                      const SizedBox(
-                        height: 100,
-                      ),
-                      Center(
-                        child: Text(
-                          "No Images Found",
-                          style: AppFonts.w500black14,
-                        ),
-                      ),
-                    ],
-                  ),
-          )
+              child: selectedIndex != 0
+                  ? currentImages.isNotEmpty
+                      ? DealerImageList(
+                          currentImages: currentImages,
+                        )
+                      : Column(
+                          children: [
+                            const SizedBox(
+                              height: 100,
+                            ),
+                            Center(
+                              child: Text(
+                                "No Images Found",
+                                style: AppFonts.w500black14,
+                              ),
+                            ),
+                          ],
+                        )
+                  : widget.videos.isNotEmpty
+                      ? VideoThumbnail(videos: widget.videos)
+                      : Column(
+                          children: [
+                            const SizedBox(
+                              height: 100,
+                            ),
+                            Center(
+                              child: Text(
+                                "No Videos Found",
+                                style: AppFonts.w500black14,
+                              ),
+                            ),
+                          ],
+                        ))
         ]),
       ),
     );

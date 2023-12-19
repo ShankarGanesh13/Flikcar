@@ -1,10 +1,7 @@
 import 'dart:convert';
 
 import 'package:flikcar/common_widgets/snackbar.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/services/facebook_events.dart';
-import 'package:flikcar/services/firebase_events.dart';
-import 'package:flikcar/services/get_car_details.dart';
+
 import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +9,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class WishlistService extends ChangeNotifier {
-  List<BuyerCar> wishlistCars = [];
+  List wishlistCars = [];
   String apiUrl = Env.apiUrl;
 
   addToWishlist({required BuildContext context, required int carId}) async {
@@ -101,8 +98,8 @@ class WishlistService extends ChangeNotifier {
 
       if (data["status"] == 200) {
         result.forEach((e) async {
-          BuyerCar car = BuyerCar.fromJson(e["dealerVehicle"]);
-          wishlistCars.add(car..isFavourite = true);
+          // BuyerCar car = BuyerCar.fromJson(e["dealerVehicle"]);
+          // wishlistCars.add(car..isFavourite = true);
         });
       } else {
         print('Request failed with status: ${response.statusCode}');

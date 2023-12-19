@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flikcar/models/auction_car_model.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 

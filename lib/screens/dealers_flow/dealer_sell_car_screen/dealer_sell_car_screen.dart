@@ -3,7 +3,6 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/dealer_listing_screen.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/widgets/dealer_listed_car_card.dart';

@@ -3,8 +3,7 @@ import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/models/buyer_car_display.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
+
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
@@ -49,7 +48,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
   bool _isLoading = true;
 
   loading() {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         setState(() {
           _isLoading = false;
@@ -190,9 +189,10 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                       SizedBox(
                                         width: 160,
                                         child: Text(
-                                            widget.cars[index].properties.brand,
-                                            maxLines: 1,
-                                            style: AppFonts.w500dark214),
+                                          widget.cars[index].properties.brand,
+                                          maxLines: 1,
+                                          style: AppFonts.w500dark214,
+                                        ),
                                       ),
                                       const Spacer(),
                                       Text(
@@ -209,9 +209,10 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                       SizedBox(
                                         width: 170,
                                         child: Text(
-                                            "${widget.cars[index].properties.model} ${widget.cars[index].properties.variant}",
-                                            maxLines: 1,
-                                            style: AppFonts.w700s140),
+                                          "${widget.cars[index].properties.model} ${widget.cars[index].properties.variant}",
+                                          maxLines: 1,
+                                          style: AppFonts.w700s140,
+                                        ),
                                       ),
                                       const Spacer(),
                                     ],

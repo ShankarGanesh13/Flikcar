@@ -1,24 +1,18 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
-import 'package:flikcar/screens/buy_car_flow/confirm_test_drive/confirm_test_drive.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
-import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/car_location.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_car_details.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_data.dart';
-import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_time_slot.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/view_dealer_details.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/book_evaluation/widgets/car_details.dart';
-import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class ScheduleTestDrive extends StatelessWidget {
-  final BuyerCar car;
+  final FirebaseBuyerCar car;
   const ScheduleTestDrive({super.key, required this.car});
 
   @override
@@ -80,12 +74,12 @@ class ScheduleTestDrive extends StatelessWidget {
                 PrimaryButton(
                     title: "Confirm Test Drive",
                     function: () {
-                      Provider.of<BuyCarProvider>(context, listen: false)
-                          .bookTestDrive(
-                        vehicleId: car.id,
-                        context: context,
-                        dealerId: int.parse(car.dealerId),
-                      );
+                      // Provider.of<BuyCarProvider>(context, listen: false)
+                      //     .bookTestDrive(
+                      //   vehicleId: car.id,
+                      //   context: context,
+                      //   dealerId: int.parse(car.dealerId),
+                      //   );
                     },
                     borderColor: Colors.transparent,
                     backgroundColor: AppColors.p2,

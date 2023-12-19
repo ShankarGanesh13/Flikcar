@@ -1,37 +1,34 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
-import 'package:flikcar/common_widgets/primary_button.dart';
-import 'package:flikcar/models/buyer_car_display.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_detailed_view.dart';
-import 'package:flikcar/screens/buy_car_flow/compare_screen/compare_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/sort_pop_up.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
-import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/search_service.dart';
-import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class FilterApplied extends StatefulWidget {
-  const FilterApplied({super.key});
+class ViewAllBuyerCarsScreen extends StatefulWidget {
+  const ViewAllBuyerCarsScreen({super.key});
 
   @override
-  State<FilterApplied> createState() => _FilterAppliedState();
+  State<ViewAllBuyerCarsScreen> createState() => _ViewAllBuyerCarsScreenState();
 }
 
-class _FilterAppliedState extends State<FilterApplied> {
+class _ViewAllBuyerCarsScreenState extends State<ViewAllBuyerCarsScreen> {
   @override
   void initState() {
-    // Provider.of<SearchService>(context, listen: false).showFilterResult();
+    //   Provider.of<SearchService>(context, listen: false).showFilterResult();
     //   Provider.of<SearchService>(context, listen: false).getFuelTypes();
     //   Provider.of<SearchService>(context, listen: false).getBodyTypes();
     //   Provider.of<SearchService>(context, listen: false).getOwnerTypes();
-    //   Provider.of<SearchService>(context, listen: false).getBrandAndModels();    // TODO: implement initState
+    //   Provider.of<SearchService>(context, listen: false).getBrandAndModels();
+    Provider.of<SearchService>(context, listen: false).getBrandModelVarient();
+    Provider.of<SearchService>(context, listen: false).filterCars();
 
     loading();
     super.initState();
@@ -40,7 +37,7 @@ class _FilterAppliedState extends State<FilterApplied> {
   bool _isLoading = true;
 
   loading() {
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 2), () {
       if (mounted) {
         setState(() {
           _isLoading = false;
@@ -49,12 +46,12 @@ class _FilterAppliedState extends State<FilterApplied> {
     });
   }
 
-  List<BuyerCarDisplay> allCars = [];
-
   @override
   Widget build(BuildContext context) {
-    allCars = [];
-    List<String> filterApplied = context.watch<SearchService>().appliedFilters;
+    List<String> filterApplied =
+        context.watch<SearchService>().allSelectedFilters;
+    List<FirebaseBuyerCar> allCars =
+        context.watch<SearchService>().filteredCars;
 
     return Scaffold(
         appBar: CustomAppBar.getAppBarWithSearch(
@@ -87,33 +84,13 @@ class _FilterAppliedState extends State<FilterApplied> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // GestureDetector(
-                    //   onTap: () {
-                    //     Provider.of<BuyCarProvider>(context, listen: false)
-                    //         .compareCars();
-                    //   },
-                    //   child: menu(
-                    //       image: "assets/car_details_icon/car_compare.png",
-                    //       title: "Compare",
-                    //       color: compare == true
-                    //           ? const Color(0xff45C08D)
-                    //           : const Color(0xff161F31),
-                    //       style: compare == true
-                    //           ? AppFonts.w700p216
-                    //           : AppFonts.w700s116),
-                    // ),
-                    // Container(
-                    //   width: 2,
-                    //   height: 20,
-                    //   color: const Color(0xffE0E0E0),
-                    // ),
                     GestureDetector(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const FilterScreen(),
-                            ));
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //       builder: (context) => const FilterScreen(),
+                        //     ));
                       },
                       child: menu(
                           image: "assets/car_details_icon/filter.png",
@@ -126,39 +103,38 @@ class _FilterAppliedState extends State<FilterApplied> {
                       height: 20,
                       color: const Color(0xffE0E0E0),
                     ),
-
                     GestureDetector(
                       onTap: () {
                         print("pressed");
-                        showDialog<String>(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Sort By'),
-                            content: const SortPopUp(),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () =>
-                                    Navigator.pop(context, 'Cancel'),
-                                child: Text(
-                                  'Close',
-                                  style: AppFonts.w500p215,
-                                ),
-                              ),
-                              TextButton(
-                                onPressed: () {
-                                  Provider.of<SearchService>(context,
-                                          listen: false)
-                                      .sortList();
-                                  Navigator.pop(context);
-                                },
-                                child: Text(
-                                  'OK',
-                                  style: AppFonts.w500p215,
-                                ),
-                              ),
-                            ],
-                          ),
-                        );
+                        // showDialog<String>(
+                        //   context: context,
+                        //   builder: (BuildContext context) => AlertDialog(
+                        //     title: const Text('Sort By'),
+                        //     content: const SortPopUp(),
+                        //     actions: <Widget>[
+                        //       TextButton(
+                        //         onPressed: () =>
+                        //             Navigator.pop(context, 'Cancel'),
+                        //         child: Text(
+                        //           'Close',
+                        //           style: AppFonts.w500p215,
+                        //         ),
+                        //       ),
+                        //       TextButton(
+                        //         onPressed: () {
+                        //           Provider.of<SearchService>(context,
+                        //                   listen: false)
+                        //               .sortList();
+                        //           Navigator.pop(context);
+                        //         },
+                        //         child: Text(
+                        //           'OK',
+                        //           style: AppFonts.w500p215,
+                        //         ),
+                        //       ),
+                        //     ],
+                        //   ),
+                        // );
                       },
                       child: menu(
                           image: "assets/car_details_icon/sort.png",
@@ -207,23 +183,23 @@ class _FilterAppliedState extends State<FilterApplied> {
                       ),
                     )
                   : const SizedBox(),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 15,
-                  ),
-                  Text(
-                    "${allCars.length} ",
-                    style: AppFonts.w700black16,
-                  ),
-                  Text(
-                    "Flikcar Certified Cars Found",
-                    style: AppFonts.w500black14,
-                  ),
-                ],
-              ),
+              // Row(
+              //   children: [
+              //     const SizedBox(
+              //       width: 15,
+              //     ),
+              //     Text(
+              //       "${allCars.length} ",
+              //       style: AppFonts.w700black16,
+              //     ),
+              //     Text(
+              //       "Flikcar Certified Cars Found",
+              //       style: AppFonts.w500black14,
+              //     ),
+              //   ],
+              // ),
               const SizedBox(
-                height: 20,
+                height: 10,
               ),
               allCars.isNotEmpty
                   ? ListView.builder(
@@ -232,19 +208,18 @@ class _FilterAppliedState extends State<FilterApplied> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         return GestureDetector(
-                            onTap: () {
-                              // Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) =>
-                              //             CarDetailedView(car: car)));
-                            },
-                            child: Container()
-                            // FilterAppliedCard(
-                            //   compare: compare,
-                            //   car: allCars[index],
-                            // ),
-                            );
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      CarDetailedView(car: allCars[index]),
+                                ));
+                          },
+                          child: FilterAppliedCard(
+                            car: allCars[index],
+                          ),
+                        );
                       })
                   : Padding(
                       padding: const EdgeInsets.only(top: 120),
@@ -309,10 +284,7 @@ class _FilterAppliedState extends State<FilterApplied> {
               width: 4,
             ),
             GestureDetector(
-              onTap: () {
-                Provider.of<SearchService>(context, listen: false)
-                    .removeFilter(filter: title);
-              },
+              onTap: () {},
               child: const Icon(
                 Icons.close,
                 color: Colors.black,

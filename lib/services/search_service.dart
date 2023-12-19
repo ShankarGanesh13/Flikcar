@@ -1,38 +1,45 @@
-import 'dart:convert';
-import 'package:cloud_functions/cloud_functions.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/models/body_type_model.dart';
-import 'package:flikcar/models/buyer_car_display.dart';
+import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/models/fuel_type_model.dart';
 import 'package:flikcar/models/owner_type_model.dart';
-import 'package:flikcar/models/search_req_model.dart';
-import 'package:flikcar/utils/env.dart';
-import 'package:http/http.dart' as http;
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/models/car_brand_model.dart';
+import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SearchService extends ChangeNotifier {
-  List<CarBrandModel> brandAndModel = [];
-  List<FuelTypeModel> fuel = [];
+  List<FuelTypeModel> fuelTypes = [];
   List<BodyTypeModel> bodyType = [];
-  List<OwnerTypeModel> ownership = [];
-  List<int> brandFilter = [];
-  List<int> modelFilter = [];
-  List<int> fuelFilter = [];
-  List<int> bodytypeFilter = [];
-  List<int> seatsFilter = [];
-  List<String> transmissionFilter = [];
-  List<int> ownersFilter = [];
-  List<int> kmsDrivenFilter = [];
-  List<int> modelyearFilter = [];
-  List<int> budgetFilter = [];
-  List<FirebaseBuyerCar> allCars = [];
-  List<String> appliedFilters = [];
-  List<FirebaseBuyerCar> searchedCarList = [];
+  List<OwnerTypeModel> ownershipType = [];
+
+  List<String> allSelectedFilters = [];
+
+  List<String> selectedBodyTypeFilters = [];
+  List<String> selectedFuelTypeFilters = [];
+  List<String> selectedOwnershipTypeFilters = [];
+  List<String> selectedTransmissionTypeFilters = [];
+  List<String> selectedBrand = [];
+  List<String> selectedModel = [];
+
+  List<BrandModelVarient> brandModel = [];
+  List<Model> models = [];
+
+  int? maxYear;
+  int? minYear;
+  int? maxPrice;
+  int? minPrice;
+
+  //List<FirebaseBuyerCar> searchedCarList = [];
+
+  List<TransmissionType> transmissonType = [
+    TransmissionType(transmissionType: "Automatic", id: 1, isSelected: false),
+    TransmissionType(transmissionType: "Manual", id: 2, isSelected: false),
+  ];
+
+  List<FirebaseBuyerCar> filteredCars = [];
+
   int sort = -1;
-  String apiUrl = Env.apiUrl;
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   //////////
   ///
@@ -42,435 +49,160 @@ class SearchService extends ChangeNotifier {
     notifyListeners();
   }
 
+  getSelectedFuelTypeFilter({required String fuelFilter}) {
+    if (!selectedFuelTypeFilters.contains(fuelFilter)) {
+      selectedFuelTypeFilters.add(fuelFilter);
+    } else {
+      selectedFuelTypeFilters.remove(fuelFilter);
+    }
+    debugPrint("$selectedFuelTypeFilters");
+  }
+
+  getSelectedBodyTypeFilter({required String bodyTypeFilter}) {
+    if (!selectedBodyTypeFilters.contains(bodyTypeFilter)) {
+      selectedBodyTypeFilters.add(bodyTypeFilter);
+    } else {
+      selectedBodyTypeFilters.remove(bodyTypeFilter);
+    }
+    debugPrint("$selectedBodyTypeFilters");
+  }
+
+  getSelectedTransmissionTypeFilter({required String transmissionFilter}) {
+    if (!selectedTransmissionTypeFilters.contains(transmissionFilter)) {
+      selectedTransmissionTypeFilters.add(transmissionFilter);
+    } else {
+      selectedTransmissionTypeFilters.remove(transmissionFilter);
+    }
+    debugPrint("$selectedTransmissionTypeFilters");
+  }
+
+  getSelectedOwnerTypeFilter({required String ownershipFilter}) {
+    if (!selectedOwnershipTypeFilters.contains(ownershipFilter)) {
+      selectedOwnershipTypeFilters.add(ownershipFilter);
+    } else {
+      selectedOwnershipTypeFilters.remove(ownershipFilter);
+    }
+    debugPrint("$selectedOwnershipTypeFilters");
+  }
+
+  getMaxMinPrice({required int max, required int min}) {
+    maxPrice = max;
+    minPrice = min;
+  }
+
+  getMaxMinYear({required int max, required int min}) {
+    maxYear = max;
+    minYear = min;
+  }
+
+  getBrandModelVarient() async {
+    brandModel = await GetBrandModelVarient.getBrandModelVarient();
+  }
+
+  getSelectedBrand({required String brand}) {
+    if (!selectedBrand.contains(brand)) {
+      selectedBrand.add(brand);
+    } else {
+      selectedBrand.remove(brand);
+    }
+    debugPrint("$selectedBrand");
+  }
+
+  getSelectedModel({required String model}) {
+    if (!selectedModel.contains(model)) {
+      selectedModel.add(model);
+    } else {
+      selectedModel.remove(model);
+    }
+    debugPrint("$selectedModel");
+  }
+
   sortList() {
     if (sort == 0) {
-      searchedCarList.sort((a, b) => a.carPrice.compareTo(b.carPrice));
+      filteredCars.sort((a, b) => a.carPrice.compareTo(b.carPrice));
 
-      searchedCarList.forEach((element) {});
+      //  filteredCars.forEach((element) {});
     }
     if (sort == 1) {
-      searchedCarList.sort((a, b) => b.carPrice.compareTo(a.carPrice));
+      filteredCars.sort((a, b) => b.carPrice.compareTo(a.carPrice));
     }
     notifyListeners();
   }
 
-  ///
-  getBrandAndModels() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-    List<CarBrandModel> carModel = [];
-    var url = Uri.parse('$apiUrl/cars/make-model');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    var data = jsonDecode(response.body);
-    List result = data["data"] as List;
-    for (var i = 0; i < result.length; i++) {
-      carModel.add(
-        CarBrandModel.fromJson(result[i]),
-      );
-    }
-    brandAndModel = carModel;
-    notifyListeners();
-  }
-
-  getFuelTypes() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-    fuel = [];
-    var url = Uri.parse('$apiUrl/cars/fuel');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    var data = jsonDecode(response.body);
-    List result = data["data"] as List;
-    for (var i = 0; i < result.length; i++) {
-      fuel.add(
-        FuelTypeModel.fromJson(result[i]),
-      );
-    }
-
-    notifyListeners();
-  }
-
-  getBodyTypes() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-    bodyType = [];
-    var url = Uri.parse('$apiUrl/cars/body-type');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    var data = jsonDecode(response.body);
-    List result = data["data"] as List;
-    for (var i = 0; i < result.length; i++) {
-      bodyType.add(
-        BodyTypeModel.fromJson(result[i]),
-      );
-    }
-
-    notifyListeners();
-  }
-
-  getOwnerTypes() async {
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-    ownership = [];
-    var url = Uri.parse('$apiUrl/cars/owner');
-
-    var response = await http.get(url, headers: {
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token',
-    });
-    var data = jsonDecode(response.body);
-    List result = data["data"] as List;
-    for (var i = 0; i < result.length; i++) {
-      ownership.add(
-        OwnerTypeModel.fromJson(result[i]),
-      );
-    }
-
-    notifyListeners();
-  }
-
-  addBrandFilter({required List<CarBrandModel> brands}) {
-    brandFilter = [];
-    brands.forEach((element) {
-      brandFilter.add(element.id);
-    });
-
-    notifyListeners();
-    print(brandFilter);
-  }
-
-  addmodelFilter({required List<CarModel> models}) {
-    modelFilter = [];
-    models.forEach((element) {
-      modelFilter.add(element.id);
-    });
-
-    notifyListeners();
-    print(modelFilter);
-  }
-
-  addBudgetFilter({required int min, required int max}) {
-    budgetFilter = [min, max];
-    notifyListeners();
-    print(budgetFilter);
-  }
-
-  addFuelFilter({required List<int> fuel}) {
-    fuelFilter = fuel;
-    print(fuelFilter);
-    notifyListeners();
-  }
-
-  addBodytypeFilter({required List<int> bodyType}) {
-    bodytypeFilter = bodyType;
-    notifyListeners();
-    print(bodytypeFilter);
-  }
-
-  addOwnersFilter({required List<int> owner}) {
-    ownersFilter = owner;
-    notifyListeners();
-  }
-
-  addKmsDrivenFilter({required int min, required int max}) {
-    kmsDrivenFilter = [min, max];
-    notifyListeners();
-  }
-
-  addModelYearFilter({required List<String> year}) {
-    modelyearFilter = [];
-    year.forEach((element) {
-      modelyearFilter.add(int.parse(element));
-    });
-    print(modelyearFilter);
-    print(modelyearFilter.length);
-    notifyListeners();
-  }
-
-  addTransmissonFilter({required String transmission}) {
-    transmissionFilter = [transmission];
-    notifyListeners();
-    print(transmissionFilter);
-  }
-
-  firebaseSearch() {
-    final functions = FirebaseFunctions.instance;
-    final callable = functions.httpsCallable('createVehicle');
-    var data = {
-      "location": "string",
-      "bodyTypes": {
-        "hatchback": false,
-        "suv": false,
-        "muv": false,
-        "sedan": false,
-      },
-      "fuelTypes": {
-        "biodiesel": false,
-        "cng": false,
-        "diesel": false,
-        "petrol": false,
-        "liquidpetroleumgas": false,
-      },
-      "ownerTypes": {
-        "firstowner": false,
-        "secondowner": false,
-        "thirdowner": false,
-        "fourthowner": false,
-      },
-      "seatingCapacity": {
-        '4seater': false,
-        '5seater': false,
-        '6seater': false,
-        '7seater': false,
-        '8seater': false,
-        '9seater': false,
-        '10seater': false,
-      },
-      "transmissionType": {
-        "automatic": false,
-        "manual": false,
-      },
-      "modelYear": null,
-      "kmsDriven": null,
-      "budget": null,
-    };
-  }
-
-  showFilterResult() async {
-    allCars = [];
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-    var url = Uri.parse('$apiUrl/web/buy-car/cars/search-car');
-    SearchReqModel body = SearchReqModel(
-      brand: brandFilter,
-      model: modelFilter,
-      bodytype: bodytypeFilter,
-      seats: [],
-      city: "",
-      fuel: fuelFilter,
-      transmission: transmissionFilter,
-      owners: ownersFilter,
-      modelyear: modelyearFilter,
-      drivenkm: kmsDrivenFilter,
-      budget: budgetFilter,
-    );
-    print("brand ${body.brand}");
-    print("model ${body.model}");
-    print("bodyType ${body.bodytype}");
-    print("fuel ${body.fuel}");
-    print("transmisson ${body.transmission}");
-    print("owner ${body.owners}");
-    print("modelYear ${body.modelyear}");
-    print("driveKm ${body.drivenkm}");
-    print("budget ${body.budget}");
-
-    var response = await http.post(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": 'Bearer $token',
-      },
-      body: json.encode(body),
-    );
-    print("function called");
-    var data = json.decode(response.body);
-
-    var allData = data["data"] as List;
-
-    for (var i = 0; i < allData.length; i++) {
-      allCars.add(FirebaseBuyerCar.fromJson(allData[i]));
-      // BuyerCar car = BuyerCar.fromJson(allData[i]);
-      // print(car.registrationYear);
-    }
-    searchedCarList = allCars;
-    notifyListeners();
-    print("car list length ${allCars.length}");
-  }
-
-  clearAllFilter() async {
-    allCars = [];
-    brandFilter = [];
-    modelFilter = [];
-    bodytypeFilter = [];
-    fuelFilter = [];
-    transmissionFilter = [];
-    ownersFilter = [];
-    modelyearFilter = [];
-    kmsDrivenFilter = [];
-    budgetFilter = [];
-    appliedFilters = [];
-    getBrandAndModels();
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-    var url = Uri.parse('$apiUrl/web/buy-car/cars/search-car');
-    SearchReqModel body = SearchReqModel(
-      brand: brandFilter,
-      model: modelFilter,
-      bodytype: bodytypeFilter,
-      seats: [],
-      fuel: fuelFilter,
-      transmission: transmissionFilter,
-      owners: ownersFilter,
-      modelyear: modelyearFilter,
-      drivenkm: kmsDrivenFilter,
-      budget: budgetFilter,
-      city: "",
-    );
-
-    var response = await http.post(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": 'Bearer $token',
-      },
-      body: json.encode(body),
-    );
-    var data = json.decode(response.body);
-
-    var allData = data["data"] as List;
-    print(data.length);
-
-    for (var i = 0; i < allData.length; i++) {
-      allCars.add(FirebaseBuyerCar.fromJson(allData[i]));
-      // BuyerCar car = BuyerCar.fromJson(allData[i]);
-      // print(car.registrationYear);
-    }
-    searchedCarList = allCars;
-    notifyListeners();
-    print("car list length ${allCars.length}");
-  }
-
-  getAppliedFilters() {
-    appliedFilters = [];
-    if (brandFilter.isNotEmpty) {
-      appliedFilters.add("Brand");
-    }
-    if (modelFilter.isNotEmpty) {
-      appliedFilters.add("Model");
-    }
-    if (fuelFilter.isNotEmpty) {
-      appliedFilters.add("Fuel type");
-    }
-    if (bodytypeFilter.isNotEmpty) {
-      appliedFilters.add("Body type");
-    }
-    if (transmissionFilter.isNotEmpty) {
-      appliedFilters.add("Transmisson");
-    }
-    if (ownersFilter.isNotEmpty) {
-      appliedFilters.add("Ownership");
-    }
-    if (kmsDrivenFilter.isNotEmpty) {
-      appliedFilters.add("Kms driven");
-    }
-    if (modelyearFilter.isNotEmpty) {
-      appliedFilters.add("Model year");
-    }
-    if (budgetFilter.isNotEmpty) {
-      appliedFilters.add("Budget");
-    }
-
-    print(appliedFilters);
-  }
-
-  removeFilter({required String filter}) async {
-    appliedFilters.remove(filter);
-    if (filter == "Brand") {
-      brandFilter = [];
-    }
-    if (filter == "Model") {
-      modelFilter = [];
-    }
-    if (filter == "Fuel type") {
-      fuelFilter = [];
-    }
-    if (filter == "Body type") {
-      bodytypeFilter = [];
-    }
-    if (filter == "Transmisson") {
-      transmissionFilter = [];
-    }
-    if (filter == "Ownership") {
-      ownersFilter = [];
-    }
-    if (filter == "Kms driven") {
-      kmsDrivenFilter = [];
-    }
-    if (filter == "Model year") {
-      modelyearFilter = [];
-    }
-    if (filter == "Budget") {
-      budgetFilter = [];
-    }
-    notifyListeners();
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    final String? token = sp.getString('userToken');
-    var url = Uri.parse('$apiUrl/web/buy-car/cars/search-car');
-
-    SearchReqModel body = SearchReqModel(
-        brand: brandFilter,
-        model: modelFilter,
-        bodytype: bodytypeFilter,
-        seats: [],
-        fuel: fuelFilter,
-        transmission: transmissionFilter,
-        owners: ownersFilter,
-        modelyear: modelyearFilter,
-        drivenkm: kmsDrivenFilter,
-        budget: budgetFilter,
-        city: "");
-
-    var response = await http.post(
-      url,
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": 'Bearer $token',
-      },
-      body: json.encode(body),
-    );
-    var data = json.decode(response.body);
-    allCars = [];
-    var allData = data["data"] as List;
-    // print(data.length);
-
-    for (var i = 0; i < allData.length; i++) {
-      allCars.add(FirebaseBuyerCar.fromJson(allData[i]));
-      // BuyerCar car = BuyerCar.fromJson(allData[i]);
-      // print(car.registrationYear);
-    }
-    searchedCarList = allCars;
-    debugPrint("car list length ${allCars.length}");
-
-    notifyListeners();
-  }
+  clearAllFilter() async {}
 
   searchFunction(String query) {
-    searchedCarList = allCars;
-    searchedCarList = allCars
-        .where((item) => item.properties.model.toLowerCase().contains(
-              query.toLowerCase(),
-            ))
-        .toList();
+    // searchedCarList = allCars;
+    // searchedCarList = allCars
+    //     .where((item) => item.properties.model.toLowerCase().contains(
+    //           query.toLowerCase(),
+    //         ))
+    //     .toList();
+    // notifyListeners();
+  }
+
+  filterCars() async {
+    debugPrint("filter cars called");
+    filteredCars = [];
+    CollectionReference collection = firestore.collection("vehicles");
+
+    try {
+      QuerySnapshot query = await collection.get();
+      for (var doc in query.docs) {
+        var car = FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
+
+        // Apply filters
+        if ((minYear == null || car.properties.registrationYear >= minYear!) &&
+                (maxYear == null ||
+                    car.properties.registrationYear <= maxYear!) &&
+                //
+                (minPrice == null || int.parse(car.carPrice) >= minPrice!) &&
+                (maxPrice == null || int.parse(car.carPrice) <= maxPrice!) &&
+                //
+                (selectedFuelTypeFilters.isEmpty ||
+                    selectedFuelTypeFilters
+                        .contains(car.properties.fuelType)) &&
+                //
+                (selectedModel.isEmpty ||
+                    selectedModel.contains(car.properties.model)) &&
+                (selectedBrand.isEmpty ||
+                    selectedBrand.contains(car.properties.brand)) &&
+                //
+                (selectedOwnershipTypeFilters.isEmpty ||
+                    selectedOwnershipTypeFilters
+                        .contains(car.properties.ownerType)) &&
+                //
+                (selectedTransmissionTypeFilters.isEmpty ||
+                    selectedTransmissionTypeFilters
+                        .contains(car.properties.transmission)) &&
+                //
+                (selectedBodyTypeFilters.isEmpty ||
+                    selectedBodyTypeFilters.contains(car.properties.bodyType))
+            //
+            ) {
+          filteredCars.add(car);
+        }
+      }
+    } catch (e) {
+      debugPrint("$e");
+      debugPrint("error in  filter cars");
+    }
+    notifyListeners();
+    debugPrint("filtered cars---------------------- $filteredCars");
+  }
+
+  getFuelType() async {
+    fuelTypes = await GetBrandModelVarient.getFuelType();
+    notifyListeners();
+  }
+
+  getBodyType() async {
+    bodyType = await GetBrandModelVarient.getBodyType();
+    notifyListeners();
+  }
+
+  getownership() async {
+    ownershipType = await GetBrandModelVarient.getownership();
     notifyListeners();
   }
 }
-// List<int> brandFilter = [];
-//   List<int> modelFilter = [];
-//   List<int> fuelFilter = [];
-//   List<int> bodytypeFilter = [];
-//   List<int> seatsFilter = [];
-//   List<String> transmissionFilter = [];
-//   List<int> ownersFilter = [];
-//   List<int> kmsDrivenFilter = [];
-//   List<int> modelyearFilter = [];
-//   List<int> budgetFilter = [];

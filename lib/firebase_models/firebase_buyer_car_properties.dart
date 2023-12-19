@@ -8,13 +8,13 @@ class FirebaseBuyerCarProperties {
   String color;
   List<String> comfort;
   String description;
-  int engineCC;
+  int? engineCC;
   List<String> exterior;
   String fuelType;
   List<String> interior;
   int kmsDriven;
   int manufacturedYear;
-  int maxPower;
+  int? maxPower;
   int? torque;
   int? mileage;
   String model;
@@ -39,13 +39,13 @@ class FirebaseBuyerCarProperties {
     required this.color,
     required this.comfort,
     required this.description,
-    required this.engineCC,
+    this.engineCC,
     required this.exterior,
     required this.fuelType,
     required this.interior,
     required this.kmsDriven,
     required this.manufacturedYear,
-    required this.maxPower,
+    this.maxPower,
     this.torque,
     this.mileage,
     required this.model,
@@ -70,14 +70,14 @@ class FirebaseBuyerCarProperties {
       city: json['city'] ?? '',
       color: json['color'] ?? '',
       comfort: List<String>.from(json['comfort'] ?? []),
-      description: json['description'] ?? '',
-      engineCC: json['engineCC'] ?? 0,
+      description: json['carDescription'] ?? '',
+      engineCC: json['engineCC'],
       exterior: List<String>.from(json['exterior'] ?? []),
       fuelType: json['fuelType'] ?? '',
       interior: List<String>.from(json['interior'] ?? []),
       kmsDriven: json['kmsDriven'] ?? 0,
       manufacturedYear: json['manufacturedYear'] ?? 0,
-      maxPower: json['maxPower'] ?? 0,
+      maxPower: json['maxPower'],
       torque: json['maxTorque'],
       mileage: json['mileage'],
       model: json['model'] ?? '',

@@ -1,6 +1,6 @@
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
+import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ViewDealerDeatils extends StatelessWidget {
-  final BuyerCar car;
+  final FirebaseBuyerCar car;
   const ViewDealerDeatils({super.key, required this.car});
 
   @override
@@ -38,7 +38,7 @@ class ViewDealerDeatils extends StatelessWidget {
               style: AppFonts.w700s140,
             ),
             Text(
-              car.dealerName.toString(),
+              car.properties.dealer.name.toString(),
               style: AppFonts.w500black14,
             ),
           ],
@@ -60,7 +60,7 @@ class ViewDealerDeatils extends StatelessWidget {
               style: AppFonts.w700s140,
             ),
             Text(
-              car.dealerPhoneNumber.toString(),
+              car.properties.dealer.phone.toString(),
               style: AppFonts.w500black14,
             ),
           ],
@@ -84,7 +84,7 @@ class ViewDealerDeatils extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width / 1.5,
               child: Text(
-                car.dealerAddress == null ? "N.A" : car.dealerAddress!,
+                car.properties.dealer.address,
                 style: AppFonts.w500black14,
               ),
             ),
@@ -104,7 +104,7 @@ class ViewDealerDeatils extends StatelessWidget {
               //     dealerPhone: car.dealerPhoneNumber!);
               Uri phoneno = Uri(
                 scheme: 'tel',
-                path: '+91${car.dealerPhoneNumber}',
+                path: '+91${car.properties.dealer.phone}',
               );
               if (await launchUrl(phoneno)) {
               } else {

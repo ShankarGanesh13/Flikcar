@@ -7,6 +7,7 @@ class FirebaseAuctionCarDetails {
   FirebaseAuctionCarProperties properties;
   int carPrice;
   List<FirebaseImageModel> imageModel;
+  List<FirebaseVideoModel> videos;
   String status;
   // FirebaseCarOwner owner;
 
@@ -16,6 +17,7 @@ class FirebaseAuctionCarDetails {
     required this.carPrice,
     required this.imageModel,
     required this.status,
+    required this.videos,
     //   required this.owner,
   });
   factory FirebaseAuctionCarDetails.fromJson(Map<String, dynamic> json) {
@@ -29,6 +31,11 @@ class FirebaseAuctionCarDetails {
               .toList() ??
           [],
       status: json['status'] as String,
+      videos: (json['videos'] as List<dynamic>?)
+              ?.map(
+                  (e) => FirebaseVideoModel.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
       //   owner: FirebaseCarOwner.fromJson(json['owner']),
     );
   }

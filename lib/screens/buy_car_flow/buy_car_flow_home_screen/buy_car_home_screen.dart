@@ -2,14 +2,11 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/buyer_home_screen_header.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/buyer_testimonial.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/homescreen_card.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/widgets/upcoming_test_drive_card.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
-import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
-import 'package:flikcar/screens/home_screen/home_screen.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_applied/view_all_buyer_cars_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/widgets/frequent_question.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/get_car_details.dart';
@@ -17,8 +14,6 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
-import '../../../models/buyer_car_display.dart';
 
 class BuyCarHomeScreen extends StatefulWidget {
   const BuyCarHomeScreen({super.key});
@@ -42,9 +37,10 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
     // List<BuyerCar> allCars = context.watch<GetCarDetails>().allCars;
     List<FirebaseBuyerCar> fuelCars = context.watch<GetCarDetails>().fuelFilter;
     List<FirebaseBuyerCar> transmissonCars =
-        context.watch<GetCarDetails>().transmissonFilter..shuffle();
+        context.watch<GetCarDetails>().transmissonFilter;
     List<FirebaseBuyerCar> bodytypeCars =
         context.watch<GetCarDetails>().bodyTypeFilter;
+    fuelCars.shuffle();
     int fuelIndex = context.watch<GetCarDetails>().fuelIndex;
     int transmissonIndex = context.watch<GetCarDetails>().transmissonIndex;
     int bodyIndex = context.watch<GetCarDetails>().bodyIndex;
@@ -64,8 +60,10 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
           back: false,
           context: context,
           function: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const FilterApplied()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ViewAllBuyerCarsScreen()));
           }),
       body: SingleChildScrollView(
         child: Column(children: [
@@ -92,7 +90,8 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const FilterApplied()));
+                                builder: (context) =>
+                                    const ViewAllBuyerCarsScreen()));
                       },
                       backgroundColor: AppColors.s1,
                       borderColor: Colors.transparent,
@@ -101,7 +100,6 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
                     const SizedBox(height: 20),
                   ]),
                 ),
-                UpcomingTestDriveCard(),
                 const SizedBox(height: 20),
                 HomeScreenCard(
                   title: "Cars by body type",

@@ -1,4 +1,5 @@
 import 'package:flikcar/models/fuel_type_model.dart';
+import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -13,85 +14,55 @@ class FuelTypeFilter extends StatefulWidget {
 }
 
 class _FuelTypeFilterState extends State<FuelTypeFilter> {
-  int selectedIndex = -1;
+  List<FuelTypeModel> fuelTypes = [];
   @override
   Widget build(BuildContext context) {
-    List<FuelTypeModel> fuelType = context.watch<SearchService>().fuel;
+    fuelTypes = context.watch<SearchService>().fuelTypes;
 
     return Padding(
       padding: const EdgeInsets.all(12.0),
       child: SizedBox(
-        width: MediaQuery.of(context).size.width / 2,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              "Fuel Type",
-              style: AppFonts.w500dark214,
-            ),
-            const SizedBox(height: 10),
-            Text(
-              selectedIndex == -1
-                  ? "No fuel type selected"
-                  : fuelType[selectedIndex].fuelType,
-              style: AppFonts.w700black16,
-            ),
-            const SizedBox(height: 30),
-            Text(
-              "Suggestions",
-              style: AppFonts.w700black16,
-            ),
-            const SizedBox(height: 20),
-            Wrap(
-                direction: Axis.vertical,
-                runSpacing: 20,
-                spacing: 20,
-                children: List.generate(
-                  5,
-                  (index) => SizedBox(
-                    width: 200,
-                    child: GestureDetector(
-                      onTap: () {
+          width: MediaQuery.of(context).size.width / 2,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Text(
+                "Fuel Types",
+                style: AppFonts.w700black16,
+              ),
+              const SizedBox(height: 10),
+              ListView.builder(
+                shrinkWrap: true,
+                itemCount: fuelTypes.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    height: 45,
+                    child: CheckboxListTile(
+                      contentPadding:
+                          const EdgeInsets.only(left: 0, right: 0, top: 0),
+                      activeColor: AppColors.p2,
+                      title: Text(
+                        fuelTypes[index].fuelType,
+                        style: AppFonts.w500black14,
+                      ),
+                      value: fuelTypes[index].isSelected,
+                      onChanged: (bool? value) {
                         setState(() {
-                          selectedIndex = index;
+                          fuelTypes[index].isSelected = value!;
                         });
                         Provider.of<SearchService>(context, listen: false)
-                            .addFuelFilter(fuel: [fuelType[selectedIndex].id]);
+                            .getSelectedFuelTypeFilter(
+                                fuelFilter: fuelTypes[index].fuelType);
+                        // SearchService().getSelectedFuelTypeFilter(
+                        //     fuelFilter: fuelTypes[index].fuelType);
                       },
-                      child: Row(
-                        children: [
-                          Container(
-                            height: 15,
-                            width: 15,
-                            decoration: BoxDecoration(
-                                border: Border.all(color: Color(0xff161F31))),
-                            child: Center(
-                                child: Icon(
-                              Icons.check,
-                              size: 14,
-                              color: selectedIndex == index
-                                  ? AppColors.s1
-                                  : Colors.transparent,
-                              weight: 2,
-                            )),
-                          ),
-                          const SizedBox(width: 10),
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width / 2.4,
-                            child: Text(
-                              fuelType[index].fuelType,
-                              maxLines: 1,
-                              style: AppFonts.w500dark214,
-                            ),
-                          )
-                        ],
-                      ),
                     ),
-                  ),
-                ))
-          ],
-        ),
-      ),
+                  );
+                },
+              ),
+            ],
+          )),
     );
   }
 }

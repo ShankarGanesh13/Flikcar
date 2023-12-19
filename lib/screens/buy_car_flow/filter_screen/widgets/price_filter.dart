@@ -20,7 +20,7 @@ class _PriceFilterState extends State<PriceFilter> {
     symbol: '₹ ',
   );
   //  print(format.format(100000000));//10,00,00,000.00
-  double _lowerValue = 200000;
+  double _lowerValue = 100000;
 
   double _upperValue = 750000;
 
@@ -51,6 +51,7 @@ class _PriceFilterState extends State<PriceFilter> {
             height: 250,
             width: 180,
             child: FlutterSlider(
+              step: const FlutterSliderStep(step: 1000),
               axis: Axis.vertical,
               trackBar: FlutterSliderTrackBar(
                 inactiveTrackBar: BoxDecoration(
@@ -60,7 +61,7 @@ class _PriceFilterState extends State<PriceFilter> {
                 ),
                 activeTrackBar: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
-                    color: Color(0xff161F31)),
+                    color: const Color(0xff161F31)),
               ),
               tooltip: FlutterSliderTooltip(
                   leftPrefix: Text(
@@ -84,13 +85,13 @@ class _PriceFilterState extends State<PriceFilter> {
                     color: Color(0xff45C08D),
                   ))),
               handler: FlutterSliderHandler(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: const CircleAvatar(
                     radius: 7,
                     backgroundColor: Color(0xff45C08D),
                   )),
               rightHandler: FlutterSliderHandler(
-                  decoration: BoxDecoration(),
+                  decoration: const BoxDecoration(),
                   child: const CircleAvatar(
                     radius: 7,
                     backgroundColor: Color(0xff45C08D),
@@ -119,7 +120,7 @@ class _PriceFilterState extends State<PriceFilter> {
               ),
               values: [_lowerValue, _upperValue],
               max: 7500000,
-              min: 200000,
+              min: 100000,
               rangeSlider: true,
               onDragging: (handlerIndex, lowerValue, upperValue) {
                 setState(() {
@@ -127,8 +128,8 @@ class _PriceFilterState extends State<PriceFilter> {
                   _upperValue = upperValue;
                 });
                 Provider.of<SearchService>(context, listen: false)
-                    .addBudgetFilter(
-                        min: _lowerValue.toInt(), max: _upperValue.toInt());
+                    .getMaxMinPrice(
+                        max: upperValue.toInt(), min: lowerValue.toInt());
               },
             ),
           ),

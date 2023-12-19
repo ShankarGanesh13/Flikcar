@@ -14,8 +14,6 @@ class BodyTypeFilter extends StatefulWidget {
 
 class _BodyTypeFilterState extends State<BodyTypeFilter> {
   @override
-  int selectedIndex = -1;
-  @override
   Widget build(BuildContext context) {
     List<BodyTypeModel> bodyType = context.watch<SearchService>().bodyType;
     return Padding(
@@ -23,66 +21,42 @@ class _BodyTypeFilterState extends State<BodyTypeFilter> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            "Body Type",
-            style: AppFonts.w500dark214,
-          ),
           const SizedBox(height: 10),
           Text(
-            selectedIndex == -1
-                ? "No body type selected"
-                : bodyType[selectedIndex].bodyType,
-            style: AppFonts.w700black14,
-          ),
-          const SizedBox(height: 30),
-          Text(
-            "Suggestions",
+            "Body Type",
             style: AppFonts.w700black16,
           ),
-          const SizedBox(height: 20),
-          Wrap(
-              direction: Axis.vertical,
-              runSpacing: 20,
-              spacing: 20,
-              children: List.generate(
-                4,
-                (index) => SizedBox(
-                  width: 200,
-                  child: GestureDetector(
-                    onTap: () {
+          const SizedBox(height: 10),
+          SizedBox(
+            width: MediaQuery.of(context).size.width / 2,
+            child: ListView.builder(
+              shrinkWrap: true,
+              itemCount: bodyType.length,
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  height: 45,
+                  child: CheckboxListTile(
+                    contentPadding:
+                        const EdgeInsets.only(left: 0, right: 0, top: 0),
+                    activeColor: AppColors.p2,
+                    title: Text(
+                      bodyType[index].bodyType,
+                      style: AppFonts.w500black14,
+                    ),
+                    value: bodyType[index].isSelected,
+                    onChanged: (bool? value) {
                       setState(() {
-                        selectedIndex = index;
+                        bodyType[index].isSelected = value!;
                       });
                       Provider.of<SearchService>(context, listen: false)
-                          .addBodytypeFilter(bodyType: [bodyType[index].id]);
+                          .getSelectedBodyTypeFilter(
+                              bodyTypeFilter: bodyType[index].bodyType);
                     },
-                    child: Row(
-                      children: [
-                        Container(
-                          height: 15,
-                          width: 15,
-                          decoration: BoxDecoration(
-                              border: Border.all(color: Color(0xff161F31))),
-                          child: Center(
-                              child: Icon(
-                            Icons.check,
-                            size: 14,
-                            color: selectedIndex == index
-                                ? AppColors.s1
-                                : Colors.transparent,
-                            weight: 2,
-                          )),
-                        ),
-                        const SizedBox(width: 10),
-                        Text(
-                          bodyType[index].bodyType,
-                          style: AppFonts.w500dark214,
-                        )
-                      ],
-                    ),
                   ),
-                ),
-              ))
+                );
+              },
+            ),
+          ),
         ],
       ),
     );

@@ -1,5 +1,5 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_applied/filter_applied.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_applied/view_all_buyer_cars_screen.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/facebook_events.dart';

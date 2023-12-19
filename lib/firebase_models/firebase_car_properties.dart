@@ -62,8 +62,6 @@ class FirebaseAuctionCarProperties {
   });
 
   factory FirebaseAuctionCarProperties.fromJson(Map<String, dynamic> json) {
-    print('firebase car properties from json called');
-    print(json["carDescription"]);
     return FirebaseAuctionCarProperties(
       manufacturingYear: json['manufacturingYear']?.toString() ?? 'N/A',
       brand: json['brand'] ?? 'N/A',

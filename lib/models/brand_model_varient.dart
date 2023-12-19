@@ -1,8 +1,10 @@
 class BrandModelVarient {
   String name;
   List<Model> models;
+  bool isSelected;
 
-  BrandModelVarient({required this.name, required this.models});
+  BrandModelVarient(
+      {required this.name, required this.models, this.isSelected = false});
 
   factory BrandModelVarient.fromJson(Map<String, dynamic> json) {
     var modelList = json['models'] as List;
@@ -19,10 +21,12 @@ class BrandModelVarient {
 class Model {
   String name;
   List<Varient> varients;
+  bool isSelected;
 
   Model({
     required this.name,
     required this.varients,
+    this.isSelected = false,
   });
 
   factory Model.fromJson(Map<String, dynamic> json) {

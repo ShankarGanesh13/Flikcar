@@ -1,7 +1,6 @@
 import 'package:expansion_tile_group/expansion_tile_group.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';

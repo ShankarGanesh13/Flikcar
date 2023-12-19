@@ -120,9 +120,6 @@ class _KilometersDrivenFilterState extends State<KilometersDrivenFilter> {
                   _lowerValue = lowerValue;
                   _upperValue = upperValue;
                 });
-                Provider.of<SearchService>(context, listen: false)
-                    .addKmsDrivenFilter(
-                        min: _lowerValue.toInt(), max: _upperValue.toInt());
               },
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/firebase_models/firebase_auction.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/view_all_auction_cars/widget/auction_car_card.dart';
+import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/auction_car_card.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -15,7 +15,7 @@ class ViewAllAuctionScreen extends StatefulWidget {
 }
 
 class _ViewAllAuctionScreenState extends State<ViewAllAuctionScreen> {
-  bool live = false;
+  bool live = true;
 
   @override
   Widget build(BuildContext context) {

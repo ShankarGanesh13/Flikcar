@@ -1,11 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/models/dealer_testdrive.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/my_schedule_screen/new_testdrive_card.dart';
-import 'package:flikcar/screens/dealers_flow/my_schedule_screen/schedule_screen_card/schedule_screen_card.dart';
-import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -31,8 +27,7 @@ class _MyScheduleScreenState extends State<MyScheduleScreen> {
 
   @override
   Widget build(BuildContext context) {
-    List<DealerTestDrive> testdrive =
-        context.watch<GetDealerUploadCars>().filteredDealerTestDrive;
+    List testdrive = [];
     return Scaffold(
       appBar: CustomAppBar.getAppBar(
         function: () {
@@ -116,9 +111,7 @@ class _MyScheduleScreenState extends State<MyScheduleScreen> {
                         shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: testdrive.length,
-                        itemBuilder: (context, index) => NewTestDriveCard(
-                              testDrive: testdrive[index],
-                            ))
+                        itemBuilder: (context, index) => Container())
                     : Padding(
                         padding: const EdgeInsets.only(top: 60.0),
                         child: Text(

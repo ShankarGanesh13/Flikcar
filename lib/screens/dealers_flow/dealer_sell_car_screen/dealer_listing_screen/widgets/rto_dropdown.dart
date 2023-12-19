@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/models/rto_model.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/services/get_brand_model_varient.dart';
@@ -9,7 +10,7 @@ import 'package:provider/provider.dart';
 
 class RtoDropdown extends StatelessWidget {
   RtoDropdown({super.key});
-  int? selectedRto;
+  String? selectedRto;
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +18,16 @@ class RtoDropdown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "RTO Location",
+          "RTO Location *",
           style: AppFonts.w700black16,
         ),
         const SizedBox(
           height: 10,
         ),
         FutureBuilder<List<Rto>>(
-            future: null,
+            future: GetBrandModelVarient.getRtoLocations(),
             builder: (context, snapshot) {
+              print(snapshot.data);
               if (snapshot.data != null) {
                 return DropdownButtonFormField2(
                   isExpanded: true,
@@ -46,9 +48,8 @@ class RtoDropdown extends StatelessWidget {
                   value: selectedRto,
                   items: snapshot.data!
                       .map((item) => DropdownMenuItem(
-                            value: item.id,
-                            child: Text(
-                                "${item.rtoLocation} ( ${item.rtoCode} )",
+                            value: item.rtoCode,
+                            child: Text("${item.rtoName} ( ${item.rtoCode} )",
                                 style: AppFonts.w500black14),
                           ))
                       .toList(),
@@ -59,10 +60,8 @@ class RtoDropdown extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) {
-                    // selectedBodyId = value;
                     Provider.of<DealerUploadCar>(context, listen: false)
-                        .getRtoLocationId(
-                            id: snapshot.data![value!].rtoLocation);
+                        .getRtoLocationId(id: value.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),

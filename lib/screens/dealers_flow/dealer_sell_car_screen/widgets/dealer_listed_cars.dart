@@ -2,9 +2,7 @@ import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_applied/widget/filter_applied_card.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
+
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listed_car_details_screen/dealer_listed_car_deatils_screen.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/colors.dart';

@@ -1,8 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/firebase_models/firebase_auction.dart';
-import 'package:flikcar/firebase_models/firebase_my_bids.dart';
-import 'package:flikcar/models/auction_car_model.dart';
+
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/widgets/my_bids_screen_card.dart';
 import 'package:flikcar/screens/dealers_flow/my_bids_screen/widgets/winning_card.dart';
@@ -104,18 +103,12 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
               ? StreamBuilder<List<FirebaseAuction>>(
                   stream: FirebaseAuctionService().getMyBids(),
                   builder: (context, snapshot) {
+                    //  print(snapshot.data!.isEmpty);
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const LoadingWidget();
                     }
-                    if (snapshot.data != null) {
-                      return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.length,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) {
-                            return MyBidsScreenCard(car: snapshot.data![index]);
-                          });
-                    } else {
+                    if (snapshot.data == null ||
+                        snapshot.data!.isEmpty == true) {
                       return Column(
                         children: [
                           const SizedBox(
@@ -134,6 +127,14 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
                           )
                         ],
                       );
+                    } else {
+                      return ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemBuilder: (context, index) {
+                            return MyBidsScreenCard(car: snapshot.data![index]);
+                          });
                     }
                   })
               : FutureBuilder<List<FirebaseAuction>>(

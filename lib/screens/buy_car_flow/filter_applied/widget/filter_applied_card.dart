@@ -1,19 +1,16 @@
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/models/buyer_car_display.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class FilterAppliedCard extends StatefulWidget {
-  final bool compare;
   final FirebaseBuyerCar car;
-  const FilterAppliedCard(
-      {super.key, required this.compare, required this.car});
+  const FilterAppliedCard({super.key, required this.car});
 
   @override
   State<FilterAppliedCard> createState() => _FilterAppliedCardState();
@@ -49,7 +46,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
               borderRadius: BorderRadius.circular(5)),
           child: Row(children: [
             SizedBox(
-              width: MediaQuery.of(context).size.width / 2.4,
+              width: MediaQuery.of(context).size.width / 2.5,
               height: 104,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
@@ -77,24 +74,6 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                           width: MediaQuery.of(context).size.width / 3.2,
                           child: Text(widget.car.properties.brand,
                               style: AppFonts.w500dark214)),
-
-                      const SizedBox(
-                        width: 4,
-                      ),
-                      // SizedBox(
-                      //   height: 20,
-                      //   width: 20,
-                      //   child: FavoriteButton(
-                      //     iconColor: const Color(0xffE0E0E0),
-                      //     iconDisabledColor: const Color(0xffE0E0E0),
-                      //     valueChanged: (_) {
-                      //       Provider.of<WishlistService>(context, listen: false)
-                      //           .addToWishlist(
-                      //               carId: widget.car.id, context: context);
-                      //     },
-                      //     iconSize: 20,
-                      //   ),
-                      // ),
                       Text(
                         widget.car.properties.saleStatus,
                         style:
@@ -140,7 +119,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    "₹ ${widget.car.carPrice}",
+                    "₹ ${formatPrice(int.parse(widget.car.carPrice))}",
                     style: AppFonts.w700black20,
                   )
                 ],
@@ -148,43 +127,17 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
             )
           ]),
         ),
-        widget.compare
-            ? Container(
-                padding: const EdgeInsets.only(left: 15),
-                width: 200,
-                child: GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      isSelected = isSelected == false ? true : false;
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      Container(
-                        height: 15,
-                        width: 15,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: const Color(0xff161F31))),
-                        child: Center(
-                            child: Icon(
-                          Icons.check,
-                          size: 14,
-                          color: isSelected ? AppColors.s1 : Colors.transparent,
-                          weight: 2,
-                        )),
-                      ),
-                      const SizedBox(width: 10),
-                      Text(
-                        "Select to compare",
-                        style: AppFonts.w500dark214,
-                      )
-                    ],
-                  ),
-                ),
-              )
-            : const SizedBox(),
         const SizedBox(height: 20)
       ],
     );
+  }
+
+  String formatPrice(int price) {
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'en_IN',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(price);
   }
 }

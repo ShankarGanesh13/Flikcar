@@ -1,7 +1,6 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/body_type_filter.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/colors_filter.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/fuel_type_filter.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/kilometers_driven_filter.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/make_model_filter.dart';
@@ -10,13 +9,10 @@ import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/price_filter.
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/transmisson_filter.dart';
 import 'package:flikcar/screens/buy_car_flow/filter_screen/widgets/year_filter.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
-import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_xlider/flutter_xlider.dart';
 import 'package:provider/provider.dart';
 
 class FilterScreen extends StatefulWidget {
@@ -25,7 +21,7 @@ class FilterScreen extends StatefulWidget {
     "Make & Model",
     "Budget",
     "Year",
-    "Kms Driven",
+    // "Kms Driven",
     "Fuel Type",
     "Body Type",
     "Transmission",
@@ -37,12 +33,24 @@ class FilterScreen extends StatefulWidget {
 }
 
 class _FilterScreenState extends State<FilterScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    Provider.of<SearchService>(context, listen: false).getFuelType();
+    Provider.of<SearchService>(context, listen: false).getBodyType();
+
+    Provider.of<SearchService>(context, listen: false).getownership();
+
+    super.initState();
+  }
+
   int selectedIndex = 0;
   static List<Widget> filterWidgets = [
     const MakeModelFilters(),
     const PriceFilter(),
     const YearFilter(),
-    const KilometersDrivenFilter(),
+    // const KilometersDrivenFilter(),
     const FuelTypeFilter(),
     const BodyTypeFilter(),
     const TransmissionFilter(),
@@ -97,11 +105,9 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: PrimaryButton(
                         title: "Show Result",
                         function: () {
+                          //   Navigator.pop(context);
                           Provider.of<SearchService>(context, listen: false)
-                              .showFilterResult();
-                          Provider.of<SearchService>(context, listen: false)
-                              .getAppliedFilters();
-                          Navigator.pop(context);
+                              .filterCars();
                         },
                         borderColor: Colors.transparent,
                         backgroundColor: AppColors.p2,
@@ -165,7 +171,6 @@ class _FilterScreenState extends State<FilterScreen> {
                                   setState(() {
                                     selectedIndex = index;
                                   });
-                                  print(selectedIndex);
                                 },
                                 child: Container(
                                   height: 57,

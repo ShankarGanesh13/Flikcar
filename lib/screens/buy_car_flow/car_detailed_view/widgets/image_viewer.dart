@@ -1,15 +1,13 @@
 import 'package:easy_image_viewer/easy_image_viewer.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
 import 'package:flikcar/models/image_model.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_image_viewer/car_image_viewer.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
 
 class ImageViewer extends StatefulWidget {
-  FirebaseBuyerCar car;
-  ImageViewer({super.key, required this.car});
+  final FirebaseBuyerCar car;
+  const ImageViewer({super.key, required this.car});
 
   @override
   State<ImageViewer> createState() => _ImageViewerState();
@@ -18,12 +16,14 @@ class ImageViewer extends StatefulWidget {
 class _ImageViewerState extends State<ImageViewer> {
   @override
   void initState() {
+    pageController = PageController(initialPage: selectedIndex);
     getImages();
 
     // TODO: implement initState
     super.initState();
   }
 
+  late PageController pageController;
   int selectedIndex = 0;
   List<ImageProvider> _imageProviders = [];
   @override
@@ -34,29 +34,46 @@ class _ImageViewerState extends State<ImageViewer> {
       children: [
         GestureDetector(
           onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => CarImageViewer(
-                    images: widget.car.images,
-                  ),
-                ));
+            MultiImageProvider multiImageProvider = MultiImageProvider(
+              _imageProviders,
+              initialIndex: selectedIndex,
+            );
+            showImageViewerPager(
+              context,
+              multiImageProvider,
+              backgroundColor: Colors.white,
+              closeButtonColor: Colors.black,
+              swipeDismissible: true,
+              useSafeArea: true,
+              doubleTapZoomable: true,
+            );
           },
           child: SizedBox(
-            height: MediaQuery.of(context).size.height / 3.8,
-            width: MediaQuery.of(context).size.width,
-            child: Image.network(
-              images[selectedIndex].imageUrl,
-              fit: BoxFit.contain,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                } else {
-                  return Container(
-                      decoration: BoxDecoration(
-                          border: Border.all(color: AppColors.grey)),
-                      child: const LoadingWidget());
-                }
+            height: MediaQuery.of(context).size.height / 4,
+            child: PageView.builder(
+              controller: pageController,
+              itemCount: images.length,
+              onPageChanged: (index) {
+                selectedIndex = index;
+
+                setState(() {});
+              },
+              itemBuilder: (context, index) {
+                return SizedBox(
+                  height: MediaQuery.of(context).size.height / 4,
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.network(
+                    '${images[selectedIndex].imageUrl}',
+                    fit: BoxFit.contain,
+                    loadingBuilder: (context, child, loadingProgress) {
+                      if (loadingProgress == null) {
+                        return child;
+                      } else {
+                        return const LoadingWidget();
+                      }
+                    },
+                  ),
+                );
               },
             ),
           ),
@@ -91,6 +108,11 @@ class _ImageViewerState extends State<ImageViewer> {
                       onTap: () {
                         setState(() {
                           selectedIndex = index;
+                          pageController.animateToPage(
+                            selectedIndex,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeInOut,
+                          );
                         });
                       },
                       child: Image.network(

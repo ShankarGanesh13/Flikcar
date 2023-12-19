@@ -28,7 +28,7 @@ class GetBrandModelVarient {
             documentSnapshot.data() as Map<String, dynamic>));
       }
     } catch (e) {
-      print("--------ggggg--------$e");
+      debugPrint("--------ggggg--------$e");
     }
     // debugPrint("$bodyType");
     return bodyType;
@@ -44,7 +44,7 @@ class GetBrandModelVarient {
             documentSnapshot.data() as Map<String, dynamic>));
       }
     } catch (e) {
-      print("---------bbbb--------$e");
+      debugPrint("---------bbbb--------$e");
     }
     // debugPrint("$ownership");
 
@@ -61,7 +61,7 @@ class GetBrandModelVarient {
             documentSnapshot.data() as Map<String, dynamic>));
       }
     } catch (e) {
-      print("-----------qqqqq------$e");
+      debugPrint("-----------qqqqq------$e");
     }
     //  debugPrint("$colors");
 
@@ -87,7 +87,7 @@ class GetBrandModelVarient {
 
   static Future<List<BrandModelVarient>> getBrandModelVarient() async {
     List<BrandModelVarient> brands = [];
-    print("get brand model variant");
+    debugPrint("get brand model variant");
     try {
       CollectionReference collection =
           firestore.collection('brand_model_variants');
@@ -103,46 +103,17 @@ class GetBrandModelVarient {
     return brands;
   }
 
-  // static Future<List<SeatsModel>> getSeats() async {
-  //   List<SeatsModel> seats = [];
-  //   try {
-  //     CollectionReference collection = firestore.collection('seats');
-  //     QuerySnapshot querySnapshot = await collection.get();
-  //     for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
-  //       seats.add(SeatsModel.fromJson(
-  //           documentSnapshot.data() as Map<String, dynamic>));
-  //     }
-  //   } catch (e) {
-  //     print("-----------------$e");
-  //   }
-  //   //  debugPrint("$seats");
-
-  //   return seats;
-  // }
-
-  // static Future<List<Rto>> getRto() async {
-  //   final SharedPreferences sp = await SharedPreferences.getInstance();
-  //   List<Rto> rto = [];
-  //   print(apiUrl);
-
-  //   Uri url = Uri.parse(
-  //     '$apiUrl/rto',
-  //   );
-  //   print(url);
-
-  //   String? dealerToken = sp.getString('dealerToken');
-  //   print(dealerToken);
-
-  //   var response = await http.get(url, headers: {
-  //     'Content-Type': 'application/json',
-  //     'Authorization': 'Bearer $dealerToken',
-  //   });
-  //   var body = jsonDecode(response.body);
-  //   List<dynamic> data = body["data"] as List;
-  //   for (var i = 0; i < data.length; i++) {
-  //     rto.add(Rto.fromJson(data[i]));
-  //   }
-
-  //   return rto;
-  // }
+  static Future<List<Rto>> getRtoLocations() async {
+    List<Rto> rto = [];
+    try {
+      CollectionReference collection = firestore.collection('rtoLocations');
+      QuerySnapshot querySnapshot = await collection.get();
+      for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+        rto.add(Rto.fromJson(documentSnapshot.data() as Map<String, dynamic>));
+      }
+    } catch (e) {
+      debugPrint("error om getting rto locations $e");
+    }
+    return rto;
+  }
 }

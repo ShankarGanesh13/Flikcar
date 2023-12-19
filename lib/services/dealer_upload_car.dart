@@ -7,21 +7,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cloud_functions/cloud_functions.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/features_model.dart';
 import 'package:flikcar/models/image_model.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/kilometers_driven/kilometers_driven.dart';
-import 'package:flikcar/screens/sell_car_flow/selling_process/manufacturing_year/manufacturing_year.dart';
-import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
-import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/env.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 class DealerUploadCar extends ChangeNotifier {
@@ -216,7 +210,7 @@ class DealerUploadCar extends ChangeNotifier {
   }
 
   removeFeatures({required String feature, required String id}) {
-    print(feature);
+    debugPrint(feature);
     switch (feature) {
       case "comfort":
         {
@@ -272,9 +266,6 @@ class DealerUploadCar extends ChangeNotifier {
 
   getinteriorFeatures() async {
     interiorFeatures = [];
-    final SharedPreferences sp = await SharedPreferences.getInstance();
-    Uri url = Uri.parse('$apiUrl/dealer/car/interior');
-    String? dealerToken = sp.getString('dealerToken');
 
     try {
       DocumentReference collection =
@@ -503,7 +494,7 @@ class DealerUploadCar extends ChangeNotifier {
           file.readAsBytesSync(),
           minHeight: 800,
           minWidth: 600,
-          quality: 70,
+          quality: 65,
         );
 
         // Convert List<int> to Uint8List

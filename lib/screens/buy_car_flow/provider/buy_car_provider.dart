@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:flikcar/common_widgets/snackbar.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/models/customer_testdrive.dart';
-import 'package:flikcar/models/dealer_testdrive.dart';
+
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/services/facebook_events.dart';
 import 'package:flikcar/services/firebase_events.dart';
@@ -23,9 +21,9 @@ class BuyCarProvider extends ChangeNotifier {
   int testDriveCancellingReasonIndex = -1;
   int testDriveDateIndex = 0;
   int testDriveTimeSlotIndex = -1;
-  List<CustomerTestDrive> testDriveCars = [];
-  List<CustomerTestDrive> upcomingTestDriveCars = [];
-  List<CustomerTestDrive> filterTestDriveCars = [];
+  List testDriveCars = [];
+  List upcomingTestDriveCars = [];
+  List filterTestDriveCars = [];
 
   DateTime now = DateTime.now();
 
@@ -114,9 +112,7 @@ class BuyCarProvider extends ChangeNotifier {
       data.forEach((element) {
         //   print(element);
         if (element["vehicle"] != null) {
-          testDriveCars.add(
-            CustomerTestDrive.fromJson(element),
-          );
+          testDriveCars.add("");
         }
       });
     }

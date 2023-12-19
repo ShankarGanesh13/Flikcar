@@ -1,20 +1,14 @@
-import 'dart:io';
-
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flikcar/screens/buy_car_flow/filter_screen/filter_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/custom_video_player.dart';
 import 'package:flikcar/screens/home_screen/provider/check_internet_provider.dart';
-import 'package:flikcar/screens/onbording_screens/dealer_onboarding/upload_documents/upload_dealer_documents.dart';
 import 'package:flikcar/screens/onbording_screens/phone_number/phone_number.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/evaluation_provider.dart';
 import 'package:flikcar/screens/sell_car_flow/selling_process/provider/selling_process_provider.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
-import 'package:flikcar/services/facebook_events.dart';
-import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
-import 'package:flikcar/services/firebase_auth_service/firebase_auth_service.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/services/upload_dealer_documents_provider.dart';
@@ -22,7 +16,6 @@ import 'package:flikcar/services/search_service.dart';
 import 'package:flikcar/services/wishlist_service.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:upgrader/upgrader.dart';
@@ -37,8 +30,6 @@ void main() async {
       androidProvider: AndroidProvider.playIntegrity,
       appleProvider: AppleProvider.debug);
   FirebaseAuth firebase = FirebaseAuth.instance;
-
-  await Hive.initFlutter();
 
 //  FacebookEvents();
   GetCarDetails();
@@ -66,9 +57,7 @@ void main() async {
         ),
         home: UpgradeAlert(
           upgrader: Upgrader(dialogStyle: UpgradeDialogStyle.material),
-          child: firebase.currentUser != null
-              ? CustomVideoPlayerPage()
-              : PhoneNumber(),
+          child: firebase.currentUser != null ? StartScreen() : PhoneNumber(),
         ),
       ),
     ),

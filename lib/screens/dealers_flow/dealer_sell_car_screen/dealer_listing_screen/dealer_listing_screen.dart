@@ -131,19 +131,8 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     const SizedBox(height: 20),
                     DetailsDropDown(),
                     const SizedBox(height: 20),
-                    ListingTextField(
-                      inputType: [],
-                      hint: "Eg. WB 07",
-                      maxlength: 5,
-                      keyboardType: TextInputType.text,
-                      title: "RTO location*",
-                      controller: rtoController,
-                      validator: true,
-                      onChanged: (value) {
-                        Provider.of<DealerUploadCar>(context, listen: false)
-                            .getRtoLocationId(id: rtoController.text);
-                      },
-                    ),
+
+                    RtoDropdown(),
                     const SizedBox(height: 20),
                     ListingTextField(
                       inputType: [FilteringTextInputFormatter.digitsOnly],

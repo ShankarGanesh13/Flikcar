@@ -1,14 +1,11 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/firebase_models/firebase_auction.dart';
-import 'package:flikcar/models/auction_car_model.dart';
-import 'package:flikcar/screens/dealers_flow/auction_screens/dealer_car_list_screen/widget/auction_car_card.dart';
 import 'package:flikcar/screens/dealers_flow/one_click_buy_screen/widgets/ocb_card.dart';
 import 'package:flikcar/screens/dealers_flow/one_click_buy_screen/widgets/ocb_header.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 
 class OneClickBuyScreen extends StatelessWidget {
   const OneClickBuyScreen({super.key});

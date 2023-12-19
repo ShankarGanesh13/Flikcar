@@ -347,30 +347,30 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
         "shopAddress": dealerShopAddress,
         "shopName": dealerShopName,
         "tradeLicenseNumber": tradeLicenceNumber,
-        "docImagePath": [
+        "docsImagePath": [
           {
             "type": "pan",
-            "url": panImagePath,
+            "path": panImagePath,
           },
           {
             "type": "addressProofFront",
-            "url": addressFrontImagePath,
+            "path": addressFrontImagePath,
           },
           {
             "type": "addressProofBack",
-            "url": addressBAckImagePath,
+            "path": addressBAckImagePath,
           },
           {
             "type": "tradeLicense",
-            "url": tradeLicencePath,
+            "path": tradeLicencePath,
           },
           {
             "type": "cancelledCheque",
-            "url": cancelChequePath,
+            "path": cancelChequePath,
           },
           {
             "type": "shop",
-            "url": dealershipImagePath,
+            "path": dealershipImagePath,
           },
         ]
       };

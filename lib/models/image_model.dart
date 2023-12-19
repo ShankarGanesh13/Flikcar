@@ -1,16 +1,3 @@
-class ImageModel {
-  String imageUrl;
-  String imageType;
-  ImageModel({required this.imageType, required this.imageUrl});
-
-  factory ImageModel.fromJson(Map<String, dynamic> image) {
-    return ImageModel(
-      imageType: image["image_type_id"].toString(),
-      imageUrl: image["path"],
-    );
-  }
-}
-
 class FirebaseImageModel {
   String imageUrl;
   String imageType;
@@ -27,5 +14,23 @@ class FirebaseImageModel {
       'path': imageUrl,
       'type': imageType,
     };
+  }
+}
+
+class FirebaseVideoModel {
+  String videoUrl;
+  String videoType;
+  String thumbnailUrl;
+  FirebaseVideoModel(
+      {required this.videoType,
+      required this.videoUrl,
+      required this.thumbnailUrl});
+
+  factory FirebaseVideoModel.fromJson(Map<String, dynamic> video) {
+    return FirebaseVideoModel(
+      videoType: video["type"].toString(),
+      videoUrl: video["path"],
+      thumbnailUrl: video["thumb"],
+    );
   }
 }

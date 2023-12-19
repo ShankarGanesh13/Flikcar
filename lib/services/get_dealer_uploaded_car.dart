@@ -5,9 +5,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
-import 'package:flikcar/models/buyer_car_model.dart';
-import 'package:flikcar/models/dealer_testdrive.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -15,11 +12,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 class GetDealerUploadCars extends ChangeNotifier {
-  List<BuyerCar> allCars = [];
-  List<BuyerCar> filteredCars = [];
-  List<BuyerCar> searchCars = [];
-  List<DealerTestDrive> dealerTestDrive = [];
-  List<DealerTestDrive> filteredDealerTestDrive = [];
+  List allCars = [];
+  List filteredCars = [];
+  List searchCars = [];
+  List dealerTestDrive = [];
+  List filteredDealerTestDrive = [];
   final DateTime now = DateTime.now();
   final DateFormat formatter = DateFormat('yyyy-MM-dd');
   String apiUrl = Env.apiUrl;
@@ -75,7 +72,7 @@ class GetDealerUploadCars extends ChangeNotifier {
       List result = data["data"] as List;
       result.forEach((element) {
         if (element["vehicle"] != null) {
-          dealerTestDrive.add(DealerTestDrive.fromJson(element));
+          //  dealerTestDrive.add(DealerTestDrive.fromJson(element));
         }
       });
       filteredDealerTestDrive = dealerTestDrive;
@@ -85,16 +82,16 @@ class GetDealerUploadCars extends ChangeNotifier {
 
   filterTestDrive({required String filter}) {
     if (filter == "Today") {
-      filteredDealerTestDrive = dealerTestDrive
-          .where((element) => element.testDriveDate == formatter.format(now))
-          .toList();
+      // filteredDealerTestDrive = dealerTestDrive
+      //     .where((element) => element.testDriveDate == formatter.format(now))
+      //     .toList();
     }
     if (filter == "Tomorrow") {
-      filteredDealerTestDrive = dealerTestDrive
-          .where((element) =>
-              element.testDriveDate ==
-              formatter.format(now.add(const Duration(days: 1))))
-          .toList();
+      //  filteredDealerTestDrive = dealerTestDrive
+      // .where((element) =>
+      //     element.testDriveDate ==
+      //     formatter.format(now.add(const Duration(days: 1))))
+      // .toList();
     }
     if (filter == "All") {
       filteredDealerTestDrive = dealerTestDrive;
@@ -104,9 +101,9 @@ class GetDealerUploadCars extends ChangeNotifier {
 
   searchDealerUploadCars({required String query}) {
     searchCars = filteredCars;
-    searchCars = filteredCars
-        .where((element) => element.model.toLowerCase().contains(query))
-        .toList();
+    // searchCars = filteredCars
+    //     .where((element) => element.model.toLowerCase().contains(query))
+    //     .toList();
     notifyListeners();
   }
 

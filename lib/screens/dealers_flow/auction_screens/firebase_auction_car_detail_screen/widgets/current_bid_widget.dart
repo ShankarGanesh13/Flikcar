@@ -1,21 +1,16 @@
-import 'package:flikcar/common_widgets/loading_screen.dart';
 import 'package:flikcar/common_widgets/loading_widget.dart';
 import 'package:flikcar/firebase_models/firebase_auction.dart';
 import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:flikcar/firebase_models/firebase_my_bids.dart';
-import 'package:flikcar/models/auction_car_model.dart';
-import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/nav_button.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/bid_textfield.dart';
 import 'package:flikcar/services/firebase_auction_service/firebase_auction_service.dart';
-import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:provider/provider.dart';
 
 class FirebaseCurrentBidWidget extends StatefulWidget {
   final FirebaseAuctionCarDetails car;
-  FirebaseCurrentBidWidget({super.key, required this.car});
+  const FirebaseCurrentBidWidget({super.key, required this.car});
 
   @override
   State<FirebaseCurrentBidWidget> createState() =>
@@ -36,6 +31,7 @@ class _FirebaseCurrentBidWidgetState extends State<FirebaseCurrentBidWidget> {
               // print("getAuctionCarByIdStream stream builder");
               if (snapshot.data != null) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,18 +56,25 @@ class _FirebaseCurrentBidWidgetState extends State<FirebaseCurrentBidWidget> {
                       ],
                     ),
                     const SizedBox(height: 10),
+                    Text(
+                      "Customer expected price ${formatPrice(widget.car.carPrice)}",
+                      style: AppFonts.w500black14,
+                    ),
                     StreamBuilder<FirebaseMyBids>(
                         stream: FirebaseAuctionService()
                             .getMyBidPrice(carId: widget.car.id),
                         builder: (context, snapshot) {
                           if (snapshot.data != null) {
-                            return Row(
-                              children: [
-                                Text(
-                                  "Your last bid price ${formatPrice(snapshot.data!.price)}",
-                                  style: AppFonts.w500green14,
-                                ),
-                              ],
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 10.0),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "Your last bid price ${formatPrice(snapshot.data!.price)}",
+                                    style: AppFonts.w500green14,
+                                  ),
+                                ],
+                              ),
                             );
                           } else {
                             return const SizedBox();
