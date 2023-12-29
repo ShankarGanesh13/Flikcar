@@ -2,7 +2,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/test_drive/widgets/cancelled_test_drive.dart';
 import 'package:flikcar/screens/account/test_drive/widgets/interested_test_drive.dart';
 import 'package:flikcar/screens/account/test_drive/widgets/upcoming.dart';
-import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/screens/buy_car_flow/provider/test_drive_service.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -34,7 +34,7 @@ class _AccountTestDriveState extends State<AccountTestDrive> {
 
   @override
   Widget build(BuildContext context) {
-    List testDrive = context.watch<BuyCarProvider>().filterTestDriveCars;
+    List testDrive = context.watch<TestDriveService>().filterTestDriveCars;
     return Scaffold(
       appBar: CustomAppBar.getAppBar(
         function: () {
@@ -82,7 +82,7 @@ class _AccountTestDriveState extends State<AccountTestDrive> {
                 (index) => GestureDetector(
                       onTap: () {
                         selectedIndex = index;
-                        Provider.of<BuyCarProvider>(context, listen: false)
+                        Provider.of<TestDriveService>(context, listen: false)
                             .filterTestDrive(filter: testDrives[index]);
                         setState(() {});
                       },

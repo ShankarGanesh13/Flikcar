@@ -17,6 +17,10 @@
 // class UpcomingTestDriveCard extends StatelessWidget {
 //   UpcomingTestDriveCard({super.key});
 //   final DateFormat formatter = DateFormat('MMMEd');
+//      testdrive[index].car.fuel,
+//                         "${testdrive[index].car.driveKms} kms",
+//                         "${testdrive[index].car.registrationYear}",
+//                         testdrive[index].car.transmission,
 //   @override
 //   Widget build(BuildContext context) {
 //     return testdrive.isNotEmpty

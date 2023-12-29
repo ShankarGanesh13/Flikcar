@@ -2,6 +2,7 @@ import 'package:custom_navigation_bar/custom_navigation_bar.dart';
 import 'package:flikcar/screens/account/account_screen.dart';
 import 'package:flikcar/screens/buy_car_flow/buy_car_flow_home_screen/buy_car_home_screen.dart';
 import 'package:flikcar/screens/sell_car_flow/sell_home_screen/sell_car_home_screen.dart';
+import 'package:flikcar/screens/textdrive_schedule/testdrive_schedule.dart';
 import 'package:flikcar/screens/wishlist_screen/wishlist_screen.dart';
 import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/utils/colors.dart';
@@ -22,12 +23,11 @@ class _HomeScreenState extends State<HomeScreen> {
   List<Widget> pages = [
     const BuyCarHomeScreen(),
     const SellCarHomeScreen(),
-    const WishlistScreen(),
+    const TestdriveSchedules(),
     const AccountScreen(),
   ];
   @override
   void initState() {
-    print("---------------------------");
     Provider.of<GetCarDetails>(context, listen: false).getAllBuyerCars();
     super.initState();
   }
@@ -57,8 +57,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 index: 1,
               ),
               navBarItems(
-                imagePath: "assets/wishlist_icon.png",
-                title: "Wishlist",
+                imagePath: "assets/car_details_icon/my_schedule.png",
+                title: "Test Drives",
                 index: 2,
               ),
               navBarItems(

@@ -1,7 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
-import 'package:flikcar/screens/buy_car_flow/provider/buy_car_provider.dart';
+import 'package:flikcar/screens/buy_car_flow/provider/test_drive_service.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_car_details.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/schedule_data.dart';
 import 'package:flikcar/screens/buy_car_flow/schedule_test_drive/widgets/view_dealer_details.dart';
@@ -74,12 +74,11 @@ class ScheduleTestDrive extends StatelessWidget {
                 PrimaryButton(
                     title: "Confirm Test Drive",
                     function: () {
-                      // Provider.of<BuyCarProvider>(context, listen: false)
-                      //     .bookTestDrive(
-                      //   vehicleId: car.id,
-                      //   context: context,
-                      //   dealerId: int.parse(car.dealerId),
-                      //   );
+                      Provider.of<TestDriveService>(context, listen: false)
+                          .bookTestDrive(
+                        context: context,
+                        car: car,
+                      );
                     },
                     borderColor: Colors.transparent,
                     backgroundColor: AppColors.p2,

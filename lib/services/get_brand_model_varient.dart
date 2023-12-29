@@ -15,7 +15,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class GetBrandModelVarient {
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
-  static String apiUrl = Env.apiUrl;
 
   static Future<List<BodyTypeModel>> getBodyType() async {
     List<BodyTypeModel> bodyType = [];

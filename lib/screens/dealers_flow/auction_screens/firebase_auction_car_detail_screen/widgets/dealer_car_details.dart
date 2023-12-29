@@ -37,8 +37,8 @@ class FirebaseDealerCarDetails extends StatelessWidget {
       "Fuel Type: ${car.properties.fuelType}",
       "Reg. Year: ${car.properties.registerationYear}",
       "Transmission: ${car.properties.transmission}",
-      "Road Tax \nValidity: ${car.properties.roadTaxValidity == null ? "N/A" : formatter.format(DateTime.fromMillisecondsSinceEpoch(car.properties.roadTaxValidity!))}",
-      "Insurance\nValidity: ${car.properties.insuranceValidity == null ? "N/A" : formatter.format(DateTime.fromMillisecondsSinceEpoch(car.properties.insuranceValidity!))}",
+      "Road Tax \nValidity: ${car.properties.roadTaxValidity == null ? "Life Time" : formatter.format(DateTime.fromMillisecondsSinceEpoch(car.properties.roadTaxValidity!))}",
+      "Insurance\nValidity: ${car.properties.insuranceValidity == null ? "Life Time" : formatter.format(DateTime.fromMillisecondsSinceEpoch(car.properties.insuranceValidity!))}",
       "NOC: ${car.properties.noc}",
       "RTO Location: ${car.properties.rtoLocation}"
     ];

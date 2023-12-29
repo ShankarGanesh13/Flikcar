@@ -13,6 +13,7 @@ class FirebaseDisplayCar {
   final String imagePath;
   final String color;
   final String bodyType;
+  final int? price;
 
   FirebaseDisplayCar({
     required this.id,
@@ -29,6 +30,7 @@ class FirebaseDisplayCar {
     required this.imagePath,
     required this.color,
     required this.bodyType,
+    this.price,
   });
 
   factory FirebaseDisplayCar.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,25 @@ class FirebaseDisplayCar {
       imagePath: json['imagePath'] ?? '',
       color: json['color'] ?? '',
       bodyType: json['bodyType'] ?? '',
+      price: json["price"],
     );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'registrationYear': registrationYear,
+      'variant': variant,
+      'city': city,
+      'ownerType': ownerType,
+      'model': model,
+      'seat': seat,
+      'brand': brand,
+      'kmsDriven': kmsDriven,
+      'transmission': transmission,
+      'fuelType': fuelType,
+      'imagePath': imagePath,
+      'color': color,
+      'bodyType': bodyType,
+    };
   }
 }

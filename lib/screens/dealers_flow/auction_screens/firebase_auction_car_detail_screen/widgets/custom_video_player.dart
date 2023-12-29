@@ -43,10 +43,9 @@ class _CustomVideoPlayerPageState extends State<CustomVideoPlayerPage> {
     return Scaffold(
       appBar: CustomAppBar.appBarWithBack(context: context),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(
-            height: 200,
-          ),
           Stack(
             alignment: Alignment.center,
             children: [

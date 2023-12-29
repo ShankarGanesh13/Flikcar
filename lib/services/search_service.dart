@@ -22,7 +22,6 @@ class SearchService extends ChangeNotifier {
   List<String> selectedModel = [];
 
   List<BrandModelVarient> brandModel = [];
-  List<Model> models = [];
 
   int? maxYear;
   int? minYear;
@@ -37,6 +36,7 @@ class SearchService extends ChangeNotifier {
   ];
 
   List<FirebaseBuyerCar> filteredCars = [];
+  List<FirebaseBuyerCar> searchedCarList = [];
 
   int sort = -1;
   FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -106,6 +106,7 @@ class SearchService extends ChangeNotifier {
       selectedBrand.remove(brand);
     }
     debugPrint("$selectedBrand");
+    notifyListeners();
   }
 
   getSelectedModel({required String model}) {
@@ -115,6 +116,7 @@ class SearchService extends ChangeNotifier {
       selectedModel.remove(model);
     }
     debugPrint("$selectedModel");
+    notifyListeners();
   }
 
   sortList() {
@@ -129,20 +131,121 @@ class SearchService extends ChangeNotifier {
     notifyListeners();
   }
 
-  clearAllFilter() async {}
+  clearAllFilter() async {
+    allSelectedFilters = [];
+    selectedBodyTypeFilters = [];
+    selectedFuelTypeFilters = [];
+    selectedOwnershipTypeFilters = [];
+    selectedTransmissionTypeFilters = [];
+    selectedBrand = [];
+    selectedModel = [];
+    brandModel = [];
+    maxYear = null;
+    minYear = null;
+    maxPrice = null;
+    minPrice = null;
+
+    notifyListeners();
+    filterCars();
+  }
 
   searchFunction(String query) {
-    // searchedCarList = allCars;
-    // searchedCarList = allCars
-    //     .where((item) => item.properties.model.toLowerCase().contains(
-    //           query.toLowerCase(),
-    //         ))
-    //     .toList();
-    // notifyListeners();
+    searchedCarList = filteredCars;
+    searchedCarList = filteredCars
+        .where((item) => item.properties.model.toLowerCase().contains(
+              query.toLowerCase(),
+            ))
+        .toList();
+    notifyListeners();
+  }
+
+  removeFilter({required String type, required String filter}) {
+    switch (type) {
+      case "brand":
+        {
+          selectedBrand.remove(filter);
+
+          brandModel.forEach((element) {
+            if (element.name == filter) {
+              element.isSelected = false;
+            }
+          });
+        }
+        break;
+      case "model":
+        {
+          selectedModel.remove(filter);
+          // brandModel.forEach((element) {
+          //   if (element.name == filter) {
+          //     element.isSelected = false;
+          //   }
+          // });
+        }
+        break;
+      case "year":
+        {
+          maxYear = null;
+          minYear = null;
+        }
+        break;
+      case "price":
+        {
+          minPrice = null;
+          maxPrice = null;
+        }
+        break;
+      case "fuel":
+        {
+          selectedFuelTypeFilters.remove(filter);
+          fuelTypes.forEach((element) {
+            if (element.fuelType == filter) {
+              element.isSelected = false;
+            }
+          });
+        }
+        break;
+      case "body":
+        {
+          bodyType.remove(filter);
+          bodyType.forEach((element) {
+            if (element.bodyType == filter) {
+              element.isSelected = false;
+            }
+          });
+        }
+        break;
+      case "transmission":
+        {
+          selectedTransmissionTypeFilters.remove(filter);
+          transmissonType.forEach((element) {
+            if (element.transmissionType == filter) {
+              element.isSelected = false;
+            }
+          });
+        }
+        break;
+      case "owner":
+        {
+          selectedOwnershipTypeFilters.remove(filter);
+          ownershipType.forEach((element) {
+            if (element.ownerType == filter) {
+              element.isSelected = false;
+            }
+          });
+        }
+        break;
+      default:
+        {
+          debugPrint("+++++++++++++++++++++++invalid choice");
+        }
+    }
+    notifyListeners();
+    filterCars();
   }
 
   filterCars() async {
     debugPrint("filter cars called");
+    searchedCarList = [];
     filteredCars = [];
     CollectionReference collection = firestore.collection("vehicles");
 
@@ -187,6 +290,7 @@ class SearchService extends ChangeNotifier {
       debugPrint("$e");
       debugPrint("error in  filter cars");
     }
+    searchedCarList = filteredCars;
     notifyListeners();
     debugPrint("filtered cars---------------------- $filteredCars");
   }

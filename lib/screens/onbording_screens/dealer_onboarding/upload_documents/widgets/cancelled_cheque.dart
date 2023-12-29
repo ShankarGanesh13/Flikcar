@@ -22,6 +22,9 @@ class CancelledCheque extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: Column(
         children: [
+          const SizedBox(
+            height: 8,
+          ),
           const Heading1(title1: "Bank Details", title2: ""),
           const SizedBox(
             height: 15,
@@ -61,7 +64,7 @@ class CancelledCheque extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "Cancelled Cheque (required)*",
+                    "Cancelled Cheque *",
                     style: AppFonts.w700black16,
                   ),
                   const SizedBox(
@@ -93,7 +96,6 @@ class CancelledCheque extends StatelessWidget {
             height: 30,
           ),
           Container(
-            height: 150,
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.all(15),
             decoration: BoxDecoration(

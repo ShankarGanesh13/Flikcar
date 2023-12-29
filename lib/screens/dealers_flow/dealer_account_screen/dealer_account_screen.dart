@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/screens/account/test_drive/test_drive.dart';
+import 'package:flikcar/screens/dealers_flow/dealer_account_screen/view_dealer_testdrives.dart/view_dealer_testdrives.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/services/dealer_auth_service.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -52,19 +53,19 @@ class DealerAccountScreen extends StatelessWidget {
                   title: "Phone Number",
                   subtitle: auth.currentUser!.phoneNumber!),
 
-              // GestureDetector(
-              //   onTap: () {
-              //     Navigator.push(
-              //         context,
-              //         MaterialPageRoute(
-              //           builder: (context) => const AccountTestDrive(),
-              //         ));
-              //   },
-              //   child: profileDetails(
-              //       title: "Wishlisted Vehicles",
-              //       subtitle: "View your shortlisted vehicles",
-              //       icon: Icons.chevron_right),
-              // ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ViewDealerTestDrives(),
+                      ));
+                },
+                child: profileDetails(
+                    title: "Test Drives",
+                    subtitle: "View your all booked test drives",
+                    icon: Icons.chevron_right),
+              ),
               GestureDetector(
                 onTap: () {
                   openUrl(
@@ -187,6 +188,9 @@ class DealerAccountScreen extends StatelessWidget {
                     )
                   ],
                 ),
+              ),
+              const SizedBox(
+                height: 80,
               )
             ],
           ),

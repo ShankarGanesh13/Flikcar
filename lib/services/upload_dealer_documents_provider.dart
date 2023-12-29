@@ -184,7 +184,10 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
     }
   }
 
-  validateImages({required int index, required BuildContext context}) {
+  validateImages({
+    required int index,
+    required BuildContext context,
+  }) {
     print(index);
     switch (index) {
       case 0:
@@ -347,7 +350,7 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
         "shopAddress": dealerShopAddress,
         "shopName": dealerShopName,
         "tradeLicenseNumber": tradeLicenceNumber,
-        "docsImagePath": [
+        "docsImagePaths": [
           {
             "type": "pan",
             "path": panImagePath,

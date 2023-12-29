@@ -187,7 +187,7 @@ class CustomAppBar {
                       ),
                       counterText: "",
                       counterStyle: const TextStyle(color: Colors.transparent),
-                      hintText: "Search for Cars",
+                      hintText: "Search for Cars by Models",
                       prefixIcon: const Icon(Icons.search),
                     ),
                     onChanged: (value) {

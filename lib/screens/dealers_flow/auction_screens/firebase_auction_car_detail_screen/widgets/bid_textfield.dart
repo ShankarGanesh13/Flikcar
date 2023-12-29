@@ -67,7 +67,7 @@ class _FirebaseBidTextFieldState extends State<FirebaseBidTextField> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               padding:
-                  const EdgeInsets.only(left: 0, right: 0, bottom: 10, top: 5),
+                  const EdgeInsets.only(left: 0, right: 0, bottom: 5, top: 5),
               child: Row(children: [
                 SizedBox(
                   width: MediaQuery.of(context).size.width / 2,

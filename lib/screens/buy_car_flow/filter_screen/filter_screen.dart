@@ -65,7 +65,8 @@ class _FilterScreenState extends State<FilterScreen> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => const HomeScreen(index: 0)));
+                  builder: (context) => const HomeScreen(index: 0),
+                ));
           },
         ),
         bottomNavigationBar: Container(
@@ -105,7 +106,7 @@ class _FilterScreenState extends State<FilterScreen> {
                     child: PrimaryButton(
                         title: "Show Result",
                         function: () {
-                          //   Navigator.pop(context);
+                          Navigator.pop(context);
                           Provider.of<SearchService>(context, listen: false)
                               .filterCars();
                         },

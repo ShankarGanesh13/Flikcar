@@ -74,18 +74,18 @@ class _AccountScreenState extends State<AccountScreen> {
                   title: "Phone Number",
                   subtitle: auth.currentUser!.phoneNumber!,
                   icon: Icons.abc),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const AccountTestDrive()));
-                },
-                child: profileDetails(
-                    title: "Test Drives",
-                    subtitle: "View and manage your test drives",
-                    icon: Icons.chevron_right),
-              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => const AccountTestDrive()));
+              //   },
+              //   child: profileDetails(
+              //       title: "Test Drives",
+              //       subtitle: "View and manage your test drives",
+              //       icon: Icons.chevron_right),
+              // ),
               GestureDetector(
                 onTap: () {
                   openUrl(url: "https://www.flikcar.com/about-us/");

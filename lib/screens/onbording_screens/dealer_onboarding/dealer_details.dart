@@ -21,124 +21,129 @@ class DealerDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: CustomAppBar.getDealerOnboardingAppBar(
-            context: context, title: "Create Flikcar Dealer Account"),
-        body: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Heading1(
-                      title1: "You have to be a dealer to",
-                      title2: "access this feature"),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  textField(
-                      context: context,
-                      title: "Name *",
-                      hint: "Enter Your Name",
-                      minLength: 3,
-                      controller: nameController,
-                      maxLength: 20),
-                  textField(
-                      context: context,
-                      title: "Email *",
-                      hint: "Enter Your Email",
-                      minLength: 8,
-                      controller: emailController,
-                      maxLength: 30),
-                  textField(
-                      context: context,
-                      title: "Shop Name *",
-                      hint: "Enter Your Shop Name",
-                      minLength: 5,
-                      controller: shopNameController,
-                      maxLength: 30),
-                  textField(
-                      context: context,
-                      title: "Shop Address *",
-                      hint: "Enter Your Shop Address",
-                      minLength: 5,
-                      controller: addressController,
-                      maxLength: 80),
-                  textField(
-                      context: context,
-                      title: "Pincode *",
-                      hint: "Enter Your Pincode",
-                      minLength: 4,
-                      controller: pincodeController,
-                      maxLength: 7),
-                  textField(
-                      context: context,
-                      title: "GST number (optional)",
-                      controller: gstController,
-                      hint: "Enter Your GST number",
-                      minLength: 0,
-                      maxLength: 20),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  PrimaryButton(
-                      title: "Next",
-                      function: () {
-                        if (_formKey.currentState!.validate()) {
-                          Provider.of<UploadDealerDocumentsProvider>(context,
-                                  listen: false)
-                              .getBasicDetails(
-                                  pincod: pincodeController.text,
-                                  name: nameController.text,
-                                  email: emailController.text,
-                                  gstNumber: gstController.text,
-                                  address: addressController.text,
-                                  shopName: shopNameController.text);
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const UploadDealerDocuments(),
-                              ));
-                        }
-                      },
-                      borderColor: Colors.transparent,
-                      backgroundColor: AppColors.s1,
-                      textStyle: AppFonts.w500white14),
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      DealerAuthService.dealerLogout(context);
-                    },
-                    child: Row(
-                      children: [
-                        const Spacer(),
-                        const Icon(Icons.logout),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          "Logout",
-                          style: AppFonts.w500black12,
-                        ),
-                      ],
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+          appBar: CustomAppBar.getDealerOnboardingAppBar(
+              context: context, title: "Create Flikcar Dealer Account"),
+          body: SingleChildScrollView(
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 15,
                     ),
-                  ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                ],
+                    const Heading1(
+                        title1: "You have to be a dealer to",
+                        title2: "access this feature"),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    textField(
+                        context: context,
+                        title: "Name *",
+                        hint: "Enter Your Name",
+                        minLength: 3,
+                        controller: nameController,
+                        maxLength: 20),
+                    textField(
+                        context: context,
+                        title: "Email *",
+                        hint: "Enter Your Email",
+                        minLength: 8,
+                        controller: emailController,
+                        maxLength: 30),
+                    textField(
+                        context: context,
+                        title: "Shop Name *",
+                        hint: "Enter Your Shop Name",
+                        minLength: 5,
+                        controller: shopNameController,
+                        maxLength: 30),
+                    textField(
+                        context: context,
+                        title: "Shop Address *",
+                        hint: "Enter Your Shop Address",
+                        minLength: 5,
+                        controller: addressController,
+                        maxLength: 80),
+                    textField(
+                        context: context,
+                        title: "Pincode *",
+                        hint: "Enter Your Pincode",
+                        minLength: 4,
+                        controller: pincodeController,
+                        maxLength: 7),
+                    textField(
+                        context: context,
+                        title: "GST number (optional)",
+                        controller: gstController,
+                        hint: "Enter Your GST number",
+                        minLength: 0,
+                        maxLength: 20),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    PrimaryButton(
+                        title: "Next",
+                        function: () {
+                          if (_formKey.currentState!.validate()) {
+                            Provider.of<UploadDealerDocumentsProvider>(context,
+                                    listen: false)
+                                .getBasicDetails(
+                                    pincod: pincodeController.text,
+                                    name: nameController.text,
+                                    email: emailController.text,
+                                    gstNumber: gstController.text,
+                                    address: addressController.text,
+                                    shopName: shopNameController.text);
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const UploadDealerDocuments(),
+                                ));
+                          }
+                        },
+                        borderColor: Colors.transparent,
+                        backgroundColor: AppColors.s1,
+                        textStyle: AppFonts.w500white14),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        DealerAuthService.dealerLogout(context);
+                      },
+                      child: Row(
+                        children: [
+                          const Spacer(),
+                          const Icon(Icons.logout),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            "Logout",
+                            style: AppFonts.w500black12,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ));
+          )),
+    );
   }
 
   Widget textField(

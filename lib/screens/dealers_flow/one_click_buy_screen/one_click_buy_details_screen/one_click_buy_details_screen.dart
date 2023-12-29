@@ -131,7 +131,7 @@ class _FirebaseAuctionCarDetailScreenState
                                                       .data!.imageModel)));
                                 },
                                 child: Text(
-                                  "View All \nImages",
+                                  "All Images\nVideos",
                                   style: AppFonts.w500black12,
                                   textAlign: TextAlign.center,
                                 ),

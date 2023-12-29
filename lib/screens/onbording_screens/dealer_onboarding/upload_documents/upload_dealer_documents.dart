@@ -55,91 +55,96 @@ class _UploadDealerDocumentsState extends State<UploadDealerDocuments> {
   Widget build(BuildContext context) {
     int selectedIndex =
         context.watch<UploadDealerDocumentsProvider>().selectedIndex;
-    return Scaffold(
-        appBar: CustomAppBar.getDealerOnboardingAppBar(
-            context: context, title: "Upload Required Documents"),
-        bottomNavigationBar: SafeArea(
-            child: Container(
-          padding: const EdgeInsets.all(15.0),
-          decoration: BoxDecoration(color: Colors.white),
-          child: selectedIndex == 0
-              ? PrimaryButton(
-                  title: "Next",
-                  function: () {
-                    if (formKey.currentState!.validate()) {
-                      if (selectedIndex < 5) {
-                        Provider.of<UploadDealerDocumentsProvider>(context,
-                                listen: false)
-                            .validateImages(
-                                index: selectedIndex, context: context);
-                        // selectedIndex++;
-                        // setState(() {});
-                      } else {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //       builder: (context) => const TermsAndCondition(),
-                        //     ));
-                        Provider.of<UploadDealerDocumentsProvider>(context,
-                                listen: false)
-                            .validateForm(context);
+    return GestureDetector(
+      onTap: () {
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
+      child: Scaffold(
+          appBar: CustomAppBar.getDealerOnboardingAppBar(
+              context: context, title: "Upload Required Documents"),
+          bottomNavigationBar: SafeArea(
+              child: Container(
+            padding: const EdgeInsets.all(15.0),
+            decoration: BoxDecoration(color: Colors.white),
+            child: selectedIndex == 0
+                ? PrimaryButton(
+                    title: "Next",
+                    function: () {
+                      if (formKey.currentState!.validate()) {
+                        if (selectedIndex < 5) {
+                          Provider.of<UploadDealerDocumentsProvider>(context,
+                                  listen: false)
+                              .validateImages(
+                                  index: selectedIndex, context: context);
+                          // selectedIndex++;
+                          // setState(() {});
+                        } else {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => const TermsAndCondition(),
+                          //     ));
+                          Provider.of<UploadDealerDocumentsProvider>(context,
+                                  listen: false)
+                              .validateForm(context);
+                        }
                       }
-                    }
-                  },
-                  borderColor: Colors.white,
-                  backgroundColor: const Color(0xff161F31),
-                  textStyle: AppFonts.w500white14)
-              : Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.35,
-                        child: PrimaryButton(
-                            borderColor: Colors.white,
-                            backgroundColor: const Color(0xff161F31),
-                            textStyle: AppFonts.w500white14,
-                            title: "Back",
-                            function: () {
-                              Provider.of<UploadDealerDocumentsProvider>(
-                                      context,
-                                      listen: false)
-                                  .backSelectedIndex();
-                            }),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width / 2.35,
-                        child: PrimaryButton(
-                            borderColor: Colors.white,
-                            backgroundColor: const Color(0xff161F31),
-                            textStyle: AppFonts.w500white14,
-                            title: "Next",
-                            function: () {
-                              if (formKey.currentState!.validate()) {
-                                if (selectedIndex < 6) {
-                                  Provider.of<UploadDealerDocumentsProvider>(
-                                          context,
-                                          listen: false)
-                                      .validateImages(
-                                          index: selectedIndex,
-                                          context: context);
+                    },
+                    borderColor: Colors.white,
+                    backgroundColor: const Color(0xff161F31),
+                    textStyle: AppFonts.w500white14)
+                : Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2.35,
+                          child: PrimaryButton(
+                              borderColor: Colors.white,
+                              backgroundColor: const Color(0xff161F31),
+                              textStyle: AppFonts.w500white14,
+                              title: "Back",
+                              function: () {
+                                Provider.of<UploadDealerDocumentsProvider>(
+                                        context,
+                                        listen: false)
+                                    .backSelectedIndex();
+                              }),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2.35,
+                          child: PrimaryButton(
+                              borderColor: Colors.white,
+                              backgroundColor: const Color(0xff161F31),
+                              textStyle: AppFonts.w500white14,
+                              title: "Next",
+                              function: () {
+                                if (formKey.currentState!.validate()) {
+                                  if (selectedIndex < 6) {
+                                    Provider.of<UploadDealerDocumentsProvider>(
+                                            context,
+                                            listen: false)
+                                        .validateImages(
+                                            index: selectedIndex,
+                                            context: context);
+                                  }
                                 }
-                              }
-                              //  setState(() {});
-                            }),
-                      )
-                    ]),
-        )),
-        body: SingleChildScrollView(
-          child: Form(
-            key: formKey,
-            child: Column(children: [
-              documentSteps[selectedIndex],
-              const SizedBox(
-                height: 20,
-              ),
-            ]),
-          ),
-        ));
+                                //  setState(() {});
+                              }),
+                        )
+                      ]),
+          )),
+          body: SingleChildScrollView(
+            child: Form(
+              key: formKey,
+              child: Column(children: [
+                documentSteps[selectedIndex],
+                const SizedBox(
+                  height: 20,
+                ),
+              ]),
+            ),
+          )),
+    );
   }
 
   Widget doucument(
