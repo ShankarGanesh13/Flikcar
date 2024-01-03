@@ -22,14 +22,12 @@ class FirebaseBuyerCarProperties {
   int registrationYear;
   List<String> safety;
   List<String> entertainment;
-
   String saleStatus;
   int seat;
   String transmission;
   int uploadedAt;
   String uploadedBy;
   String variant;
-  FirebaseCarOwner dealer;
 
   FirebaseBuyerCarProperties({
     required this.RTOlocation,
@@ -58,7 +56,6 @@ class FirebaseBuyerCarProperties {
     required this.uploadedAt,
     required this.uploadedBy,
     required this.variant,
-    required this.dealer,
     required this.entertainment,
   });
 
@@ -91,7 +88,6 @@ class FirebaseBuyerCarProperties {
       uploadedBy: json['uploadedBy'] ?? '',
       variant: json['variant'] ?? '',
       entertainment: List<String>.from(json['entertainment'] ?? []),
-      dealer: FirebaseCarOwner.fromJson(json['dealer'] ?? <String, dynamic>{}),
     );
   }
 }

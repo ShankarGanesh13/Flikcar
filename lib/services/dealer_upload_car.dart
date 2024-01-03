@@ -616,12 +616,12 @@ class DealerUploadCar extends ChangeNotifier {
           "interior": selectedInterior,
           "uploadedBy": auth.currentUser!.uid,
           "uploadedAt": DateTime.now().millisecondsSinceEpoch,
-          "dealer": {
-            "id": auth.currentUser!.uid,
-            "name": dealer["name"],
-            "phone": dealer["phoneNumber"],
-            "address": dealer["shopAddress"],
-          },
+        },
+        "dealer": {
+          "id": auth.currentUser!.uid,
+          "name": dealer["name"],
+          "phone": dealer["phoneNumber"],
+          "address": dealer["shopAddress"],
         },
       }
     };

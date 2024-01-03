@@ -59,7 +59,7 @@ class TestDriveService extends ChangeNotifier {
       },
       "venue": "STORE",
       "customerId": auth.currentUser!.uid,
-      "dealerId": car.properties.dealer.id,
+      "dealerId": car.dealer.id,
     };
     try {
       final callable = functions.httpsCallable('createTestDrive');

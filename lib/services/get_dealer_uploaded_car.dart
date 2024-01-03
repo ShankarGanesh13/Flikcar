@@ -161,6 +161,7 @@ class GetDealerUploadCars extends ChangeNotifier {
 
     return doc.snapshots().map((snapshot) {
       if (snapshot.exists) {
+        print(snapshot.data());
         return FirebaseBuyerCar.fromJson(
             snapshot.data() as Map<String, dynamic>);
       } else {

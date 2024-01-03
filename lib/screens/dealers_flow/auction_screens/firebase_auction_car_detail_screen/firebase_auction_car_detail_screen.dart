@@ -1,6 +1,7 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/error_screen.dart';
 import 'package:flikcar/common_widgets/loading_screen.dart';
+import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/firebase_models/firebase_auction_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/current_bid_widget.dart';
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_details.dart';
@@ -15,6 +16,7 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FirebaseAuctionCarDetailScreen extends StatefulWidget {
   final String carId;
@@ -175,9 +177,26 @@ class _FirebaseAuctionCarDetailScreenState
                         FirebaseDealerCarSpecification(
                           car: snapshot.data!,
                         ),
-
                         const SizedBox(
-                          height: 70,
+                          height: 15,
+                        ),
+                        snapshot.data!.pdfUrl != null
+                            ? Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: PrimaryButton(
+                                    title: "Download PDF",
+                                    function: () {
+                                      openUrl(
+                                          url: snapshot.data!.pdfUrl!,
+                                          context: context);
+                                    },
+                                    borderColor: AppColors.s1,
+                                    backgroundColor: AppColors.s1,
+                                    textStyle: AppFonts.w500white14),
+                              )
+                            : const SizedBox(),
+                        const SizedBox(
+                          height: 80,
                         ),
                         // const DealerCarCard(
                         //   filters: [],
@@ -201,5 +220,13 @@ class _FirebaseAuctionCarDetailScreenState
     final currencyFormatter =
         NumberFormat.currency(locale: 'en_IN', symbol: '', decimalDigits: 0);
     return currencyFormatter.format(price);
+  }
+
+  openUrl({required String url, required BuildContext context}) async {
+    // final String _url = Uri.encodeFull(
+    //     url);
+    if (!await launch(url)) {
+      throw Exception('PDF cannot be downloaded');
+    }
   }
 }

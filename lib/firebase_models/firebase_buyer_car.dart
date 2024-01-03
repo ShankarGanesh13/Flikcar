@@ -8,6 +8,7 @@ class FirebaseBuyerCar {
   String carPrice;
   List<FirebaseImageModel> images;
   FirebaseBuyerCarProperties properties;
+  FirebaseCarOwner dealer;
 
   String status;
 
@@ -17,6 +18,7 @@ class FirebaseBuyerCar {
     required this.images,
     required this.properties,
     required this.status,
+    required this.dealer,
   });
 
   factory FirebaseBuyerCar.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ class FirebaseBuyerCar {
       properties: FirebaseBuyerCarProperties.fromJson(
           json['properties'] ?? <String, dynamic>{}),
       status: json['status'] ?? '',
+      dealer: FirebaseCarOwner.fromJson(json['dealer'] ?? <String, dynamic>{}),
     );
   }
 }

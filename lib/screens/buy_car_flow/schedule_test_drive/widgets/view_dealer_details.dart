@@ -38,7 +38,7 @@ class ViewDealerDeatils extends StatelessWidget {
               style: AppFonts.w700s140,
             ),
             Text(
-              car.properties.dealer.name.toString(),
+              car.dealer.name.toString(),
               style: AppFonts.w500black14,
             ),
           ],
@@ -60,7 +60,7 @@ class ViewDealerDeatils extends StatelessWidget {
               style: AppFonts.w700s140,
             ),
             Text(
-              car.properties.dealer.phone.toString(),
+              car.dealer.phone.toString(),
               style: AppFonts.w500black14,
             ),
           ],
@@ -84,7 +84,7 @@ class ViewDealerDeatils extends StatelessWidget {
             SizedBox(
               width: MediaQuery.of(context).size.width / 1.5,
               child: Text(
-                car.properties.dealer.address,
+                car.dealer.address,
                 style: AppFonts.w500black14,
               ),
             ),
@@ -104,7 +104,7 @@ class ViewDealerDeatils extends StatelessWidget {
               //     dealerPhone: car.dealerPhoneNumber!);
               Uri phoneno = Uri(
                 scheme: 'tel',
-                path: '+91${car.properties.dealer.phone}',
+                path: '+91${car.dealer.phone}',
               );
               if (await launchUrl(phoneno)) {
               } else {

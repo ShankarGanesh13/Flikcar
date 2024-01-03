@@ -1,3 +1,6 @@
+import 'dart:io';
+import 'package:http/http.dart' as http;
+
 import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/error_screen.dart';
 import 'package:flikcar/common_widgets/loading_screen.dart';
@@ -16,7 +19,9 @@ import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class OneClickBuyDetailScreen extends StatefulWidget {
   final String carId;
@@ -131,7 +136,7 @@ class _FirebaseAuctionCarDetailScreenState
                                                       .data!.imageModel)));
                                 },
                                 child: Text(
-                                  "All Images\nVideos",
+                                  "All Images\n& Videos",
                                   style: AppFonts.w500black12,
                                   textAlign: TextAlign.center,
                                 ),
@@ -177,7 +182,25 @@ class _FirebaseAuctionCarDetailScreenState
                         car: snapshot.data!,
                       ),
                       const SizedBox(
-                        height: 70,
+                        height: 15,
+                      ),
+                      snapshot.data!.pdfUrl != null
+                          ? Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: PrimaryButton(
+                                  title: "Download PDF",
+                                  function: () {
+                                    openUrl(
+                                        url: snapshot.data!.pdfUrl!,
+                                        context: context);
+                                  },
+                                  borderColor: AppColors.s1,
+                                  backgroundColor: AppColors.s1,
+                                  textStyle: AppFonts.w500white14),
+                            )
+                          : const SizedBox(),
+                      const SizedBox(
+                        height: 80,
                       ),
                     ],
                   ),
@@ -205,5 +228,12 @@ class _FirebaseAuctionCarDetailScreenState
         );
       },
     );
+  }
+
+  openUrl({required String url, required BuildContext context}) async {
+    final String _url = Uri.encodeFull(url);
+    if (!await launch(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }

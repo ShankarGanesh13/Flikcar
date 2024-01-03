@@ -60,6 +60,7 @@ class RtoDropdown extends StatelessWidget {
                     return null;
                   },
                   onChanged: (value) {
+                    debugPrint(value);
                     Provider.of<DealerUploadCar>(context, listen: false)
                         .getRtoLocationId(id: value.toString());
                   },

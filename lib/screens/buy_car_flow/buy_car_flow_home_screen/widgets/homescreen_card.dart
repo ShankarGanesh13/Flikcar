@@ -268,7 +268,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                         Uri phoneno = Uri(
                                           scheme: 'tel',
                                           path:
-                                              '+91${widget.cars[index].properties.dealer.phone}',
+                                              '+91${widget.cars[index].dealer.phone}',
                                         );
                                         if (await launchUrl(phoneno)) {
                                         } else {

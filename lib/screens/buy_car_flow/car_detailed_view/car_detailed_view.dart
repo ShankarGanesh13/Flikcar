@@ -108,7 +108,7 @@ class CarDetailedView extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ViewAllCarsAtStore(
-                                      dealerId: car!.properties.dealer.id,
+                                      dealerId: car!.dealer.id,
                                     )));
                       },
                       borderColor: Colors.white,

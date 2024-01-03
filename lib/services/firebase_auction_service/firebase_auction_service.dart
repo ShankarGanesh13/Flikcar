@@ -240,6 +240,7 @@ class FirebaseAuctionService {
 
         FirebaseAuctionCarDetails carDetails =
             FirebaseAuctionCarDetails.fromJson(data);
+        debugPrint(carDetails.id);
 
         return carDetails;
       }
