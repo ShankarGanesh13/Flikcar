@@ -86,14 +86,12 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                           ),
                           BuyNavButton(
                             icon: Icons.check,
-                            title: snapshot.data!.properties.saleStatus
-                                        .toLowerCase() ==
+                            title: snapshot.data!.status.toLowerCase() ==
                                     "available"
                                 ? "Mark as Sold"
                                 : "Mark Available",
                             function: () {
-                              if (snapshot.data!.properties.saleStatus
-                                      .toLowerCase() ==
+                              if (snapshot.data!.status.toLowerCase() ==
                                   "available") {
                                 Provider.of<GetDealerUploadCars>(context,
                                         listen: false)

@@ -99,7 +99,7 @@ class _FirebaseCurrentBidWidgetState extends State<FirebaseCurrentBidWidget> {
     if (DateTime.fromMillisecondsSinceEpoch(auction.endTime)
         .isBefore(DateTime.now())) {
       return Text(
-        "Final Bid\n₹${auction.bid!.price}",
+        "Final Bid\n${formatPrice(auction.bid!.price)}",
         style: AppFonts.w700black20,
       );
     } else {

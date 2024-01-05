@@ -39,11 +39,12 @@ class DealerUploadCarDetails extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(car.properties.saleStatus,
-                      style:
-                          car.properties.saleStatus.toLowerCase() == "available"
-                              ? AppFonts.w500green14
-                              : AppFonts.w500red14),
+                  car.status.toLowerCase() == "available"
+                      ? Text("Available", style: AppFonts.w500green14)
+                      : Text(
+                          "Sold Out",
+                          style: AppFonts.w500red14,
+                        ),
                   Text(
                     "Listed on ${formatter.format(DateTime.fromMillisecondsSinceEpoch(car.properties.uploadedAt))}",
                     style: AppFonts.w500black12,
@@ -52,7 +53,7 @@ class DealerUploadCarDetails extends StatelessWidget {
               ),
               const Spacer(),
               Text(
-                "₹ ${car.carPrice}",
+                "₹ ${formatPrice(int.parse(car.carPrice))}",
                 style: AppFonts.w700black20,
               ),
             ],
@@ -106,5 +107,14 @@ class DealerUploadCarDetails extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  String formatPrice(int price) {
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'en_IN',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(price);
   }
 }

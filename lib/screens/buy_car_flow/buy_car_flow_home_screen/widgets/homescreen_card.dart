@@ -40,7 +40,9 @@ class HomeScreenCard extends StatefulWidget {
 class _HomeScreenCardState extends State<HomeScreenCard> {
   @override
   void initState() {
+    //  widget.cars.shuffle();
     loading();
+
     // TODO: implement initState
     super.initState();
   }
@@ -162,7 +164,7 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                   ),
                                   child: Image.network(
                                     "${widget.cars[index].images[0].imageUrl}",
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.contain,
                                     loadingBuilder:
                                         (context, child, loadingProgress) {
                                       if (loadingProgress == null) {
@@ -287,15 +289,14 @@ class _HomeScreenCardState extends State<HomeScreenCard> {
                                     ),
                                   ),
                                   const Spacer(),
-                                  Text(
-                                    widget.cars[index].properties.saleStatus,
-                                    style: (widget.cars[index].properties
-                                                    .saleStatus)
-                                                .toLowerCase() ==
-                                            "available"
-                                        ? AppFonts.w500green12
-                                        : AppFonts.w500red12,
-                                  )
+                                  widget.cars[index].status.toLowerCase() ==
+                                          "available"
+                                      ? Text("Available",
+                                          style: AppFonts.w500green14)
+                                      : Text(
+                                          "Sold Out",
+                                          style: AppFonts.w500red14,
+                                        ),
                                 ],
                               ),
                             )

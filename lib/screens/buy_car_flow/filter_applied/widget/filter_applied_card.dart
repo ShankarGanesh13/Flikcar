@@ -52,7 +52,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                 borderRadius: BorderRadius.circular(5),
                 child: Image.network(
                   widget.car.images[0].imageUrl,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.contain,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) {
                       return child;
@@ -75,12 +75,10 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                           child: Text(widget.car.properties.brand,
                               style: AppFonts.w500dark214)),
                       Text(
-                        widget.car.properties.saleStatus,
-                        style:
-                            (widget.car.properties.saleStatus).toLowerCase() ==
-                                    "available"
-                                ? AppFonts.w500green12
-                                : AppFonts.w500red12,
+                        widget.car.status,
+                        style: (widget.car.status).toLowerCase() == "available"
+                            ? AppFonts.w500green12
+                            : AppFonts.w500red12,
                       )
                     ],
                   ),

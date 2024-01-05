@@ -447,6 +447,21 @@ class DealerUploadCar extends ChangeNotifier {
           displayFiles!.add(File(element.path.toString()));
         });
 
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              duration: const Duration(seconds: 5),
+              backgroundColor: const Color(0xFF45C08D),
+              content: const Text("Images Uploading"),
+              action: SnackBarAction(
+                label: 'Dismiss',
+                textColor: Colors.white,
+                onPressed: () {},
+              ),
+            ),
+          );
+        }
+
         images.addAll(
             await uploadImagesToFirestore(files: displayFiles, type: type));
 
@@ -456,17 +471,6 @@ class DealerUploadCar extends ChangeNotifier {
       print(e);
     }
 
-    if (images.isNotEmpty) {
-      if (context.mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            duration: Duration(seconds: 2),
-            backgroundColor: Color(0xFF45C08D),
-            content: Text("Image Selected"),
-          ),
-        );
-      }
-    }
     if (images.isEmpty) {
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -586,7 +590,7 @@ class DealerUploadCar extends ChangeNotifier {
       "userId": auth.currentUser!.uid,
       "incomingVehicle": {
         "carPrice": int.parse(carPrice),
-        "status": "ACTIVE",
+        "status": "AVAILABLE",
         "images": imageList,
         "properties": {
           "brand": brand,

@@ -2,6 +2,7 @@ import 'package:flikcar/common_widgets/custom_appbar.dart';
 import 'package:flikcar/common_widgets/loading_screen.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
+import 'package:flikcar/screens/buy_car_flow/car_detailed_view/car_image_viewer/car_image_viewer.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/buy_car_details.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_detail_bottom_nav.dart';
 import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/car_features.dart';
@@ -59,7 +60,7 @@ class CarDetailedView extends StatelessWidget {
                       children: [
                         const SizedBox(width: 10),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 1.3,
+                          width: MediaQuery.of(context).size.width / 1.35,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -76,20 +77,18 @@ class CarDetailedView extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        // FavoriteButton(
-                        //   iconSize: 30,
-                        //   isFavorite: car.properties.isFavourite,
-                        //   iconColor: const Color.fromARGB(255, 255, 0, 0),
-                        //   iconDisabledColor: const Color.fromARGB(255, 138, 138, 138),
-                        //   valueChanged: (_) {
-                        //     Provider.of<WishlistService>(context, listen: false)
-                        //         .addRemoveWishlist(
-                        //             carId: snapshot.data!.id, context: context);
-                        //     // Provider.of<GetCarDetails>(context, listen: false)
-                        //     //     .changeWishlistStatus(carId: car.id);
-                        //   },
-                        // ),
-                        // const Icon(Icons.flag),
+                        GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          CarImageViewer(images: car!.images)));
+                            },
+                            child: Text(
+                              "View All\nImages",
+                              style: AppFonts.w500black12,
+                            ))
                       ],
                     )),
                 ImageViewer(

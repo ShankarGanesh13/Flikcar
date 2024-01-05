@@ -104,9 +104,10 @@ class _MyBidsScreenState extends State<MyBidsScreen> {
                   builder: (context, snapshot) {
                     //  print(snapshot.data!.isEmpty);
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const LoadingWidget();
-                    }
-                    if (snapshot.data == null ||
+                      return const Padding(
+                          padding: EdgeInsets.only(top: 50),
+                          child: LoadingWidget());
+                    } else if (snapshot.data == null ||
                         snapshot.data!.isEmpty == true) {
                       return Column(
                         children: [

@@ -122,7 +122,7 @@ class DealerListedCarCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    "₹ ${car.carPrice} ",
+                    "₹ ${formatPrice(int.parse(car.carPrice))} ",
                     style: AppFonts.w700black20,
                   ),
                   const SizedBox(height: 4),
@@ -175,5 +175,14 @@ class DealerListedCarCard extends StatelessWidget {
             )
           ]),
         ));
+  }
+
+  String formatPrice(int price) {
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'en_IN',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(price);
   }
 }

@@ -40,7 +40,7 @@ class _BuyCarHomeScreenState extends State<BuyCarHomeScreen> {
         context.watch<GetCarDetails>().transmissonFilter;
     List<FirebaseBuyerCar> bodytypeCars =
         context.watch<GetCarDetails>().bodyTypeFilter;
-    fuelCars.shuffle();
+
     int fuelIndex = context.watch<GetCarDetails>().fuelIndex;
     int transmissonIndex = context.watch<GetCarDetails>().transmissonIndex;
     int bodyIndex = context.watch<GetCarDetails>().bodyIndex;

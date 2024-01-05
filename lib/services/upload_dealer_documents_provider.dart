@@ -65,10 +65,15 @@ class UploadDealerDocumentsProvider extends ChangeNotifier {
       //selectImage(imageType: imageType, pickedFilePath: pickedFile!.path!);
       if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            duration: Duration(seconds: 2),
-            backgroundColor: Color(0xFF45C08D),
-            content: Text("Image Selected"),
+          SnackBar(
+            duration: const Duration(seconds: 5),
+            backgroundColor: const Color(0xFF45C08D),
+            content: const Text("Image Uploading, Please wait"),
+            action: SnackBarAction(
+              label: 'Dismiss',
+              textColor: Colors.white,
+              onPressed: () {},
+            ),
           ),
         );
       }

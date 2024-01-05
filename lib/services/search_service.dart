@@ -121,13 +121,13 @@ class SearchService extends ChangeNotifier {
 
   sortList() {
     if (sort == 0) {
-      filteredCars.sort((a, b) => a.carPrice.compareTo(b.carPrice));
+      filteredCars
+          .sort((a, b) => int.parse(a.carPrice) - int.parse(b.carPrice));
+    } else if (sort == 1) {
+      filteredCars
+          .sort((a, b) => int.parse(b.carPrice) - int.parse(a.carPrice));
+    }
 
-      //  filteredCars.forEach((element) {});
-    }
-    if (sort == 1) {
-      filteredCars.sort((a, b) => b.carPrice.compareTo(a.carPrice));
-    }
     notifyListeners();
   }
 
@@ -139,7 +139,7 @@ class SearchService extends ChangeNotifier {
     selectedTransmissionTypeFilters = [];
     selectedBrand = [];
     selectedModel = [];
-    brandModel = [];
+    // brandModel = [];
     maxYear = null;
     minYear = null;
     maxPrice = null;

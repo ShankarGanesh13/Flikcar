@@ -49,8 +49,8 @@ class ImageList extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(5),
                   child: Image.network(
-                    'https://webservice.flikcar.com/public/${currentImages[index].imageUrl}',
-                    fit: BoxFit.fill,
+                    '${currentImages[index].imageUrl}',
+                    fit: BoxFit.contain,
                     errorBuilder: (context, error, stackTrace) {
                       return Container(
                           decoration: BoxDecoration(
@@ -79,9 +79,7 @@ class ImageList extends StatelessWidget {
   getImages() {
     _imageProviders = [];
     currentImages.forEach((element) {
-      _imageProviders.add(Image.network(
-              "https://webservice.flikcar.com/public/${element.imageUrl}")
-          .image);
+      _imageProviders.add(Image.network("${element.imageUrl}").image);
     });
   }
 }

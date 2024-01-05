@@ -58,8 +58,8 @@ class _OtpScreenState extends State<OtpScreen> {
     return Scaffold(
         appBar: CustomAppBar.getAppBar(
           function: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => StartScreen()));
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => StartScreen()));
           },
         ),
         body: SingleChildScrollView(
@@ -195,6 +195,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   borderColor: Colors.transparent,
                   textStyle: AppFonts.w500white14,
                   function: () {
+                    print("1234560------------------");
                     verifyOTPCode(otp: controller.text);
                     // AuthService.verifyOtp(
                     //     phoneNumber: phoneNumber,

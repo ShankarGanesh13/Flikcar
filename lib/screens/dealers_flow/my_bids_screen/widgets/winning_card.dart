@@ -9,6 +9,7 @@ import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_ca
 import 'package:flikcar/screens/dealers_flow/auction_screens/firebase_auction_car_detail_screen/widgets/dealer_car_details.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -38,7 +39,7 @@ class WinningCard extends StatelessWidget {
       child: Container(
         height: 380,
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(bottom: 8),
+        padding: const EdgeInsets.only(bottom: 8),
         margin: const EdgeInsets.only(right: 15, bottom: 30, top: 5, left: 15),
         decoration: BoxDecoration(
           boxShadow: const [
@@ -120,12 +121,12 @@ class WinningCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Final Bid ₹${car.bid!.price}",
+                    "Final Bid ₹${formatPrice(car.bid!.price)}",
                     style: AppFonts.w700black20,
                   ),
                   const SizedBox(height: 6),
                   Text(
-                    "Your last bid price ₹${car.bid!.price}",
+                    "Your last bid price ₹${formatPrice(car.bid!.price)}",
                     style: AppFonts.w500green14,
                   ),
                 ],
@@ -177,5 +178,14 @@ class WinningCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String formatPrice(int price) {
+    final currencyFormatter = NumberFormat.currency(
+      locale: 'en_IN',
+      symbol: '',
+      decimalDigits: 0,
+    );
+    return currencyFormatter.format(price);
   }
 }

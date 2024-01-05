@@ -37,7 +37,15 @@ class BuyCarDetails extends StatelessWidget {
                 "₹ ${formatPrice(int.parse(car.carPrice))} ",
                 style: AppFonts.w700black20,
               ),
-              // const Spacer(),
+
+              const Spacer(),
+
+              car.status.toLowerCase() == "available"
+                  ? Text("Available", style: AppFonts.w500green14)
+                  : Text(
+                      "Sold Out",
+                      style: AppFonts.w500red14,
+                    ),
               // Text(
               //   "Inspection Score:",
               //   style: AppFonts.w500black14,

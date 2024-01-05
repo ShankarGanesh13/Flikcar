@@ -75,7 +75,7 @@ class _CarImageViewerState extends State<CarImageViewer> {
                           setState(() {
                             selectedIndex = index;
                             setImages(
-                              imageType: (index + 1).toString(),
+                              imageType: imagetype[(index)],
                             );
                           });
                         },
@@ -150,9 +150,11 @@ class _CarImageViewerState extends State<CarImageViewer> {
   }
 
   setImages({required String imageType}) {
+    print(imageType);
     currentImages = widget.images
         .where((element) => element.imageType == imageType)
         .toList();
+    print(currentImages);
     setState(() {});
   }
 }

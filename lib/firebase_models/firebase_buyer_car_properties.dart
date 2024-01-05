@@ -22,7 +22,6 @@ class FirebaseBuyerCarProperties {
   int registrationYear;
   List<String> safety;
   List<String> entertainment;
-  String saleStatus;
   int seat;
   String transmission;
   int uploadedAt;
@@ -50,7 +49,6 @@ class FirebaseBuyerCarProperties {
     required this.ownerType,
     required this.registrationYear,
     required this.safety,
-    required this.saleStatus,
     required this.seat,
     required this.transmission,
     required this.uploadedAt,
@@ -81,7 +79,7 @@ class FirebaseBuyerCarProperties {
       ownerType: json['ownerType'] ?? '',
       registrationYear: json['registrationYear'] ?? 0,
       safety: List<String>.from(json['safety'] ?? []),
-      saleStatus: json['saleStatus'] ?? '',
+      //    saleStatus: json['saleStatus'] ?? '',
       seat: json['seat'] ?? 0,
       transmission: json['transmission'] ?? '',
       uploadedAt: json['uploadedAt'] ?? 0,

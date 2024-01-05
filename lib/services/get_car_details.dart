@@ -4,6 +4,7 @@ import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
 import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart' as http;
 import 'dart:math';
 
@@ -67,7 +68,15 @@ class GetCarDetails extends ChangeNotifier {
           fuelFilter = displayCars;
 
           transmissonFilter = displayCars;
-          // notifyListeners();
+          SchedulerBinding.instance.addPostFrameCallback((_) {
+            // fuelFilter = displayCars
+            //     .where((element) =>
+            //         element.properties.transmission.toLowerCase() ==
+            //         "automatic".toLowerCase())
+            //     .toList();
+            notifyListeners();
+          });
+
           break;
         }
       default:
@@ -93,7 +102,7 @@ class GetCarDetails extends ChangeNotifier {
       debugPrint("$e");
       debugPrint("error in get all buyer cars");
     }
-    print(displayCars);
+    debugPrint("$displayCars");
   }
 
   Future<FirebaseBuyerCar?> getCarById({required String carId}) async {
@@ -130,7 +139,7 @@ class GetCarDetails extends ChangeNotifier {
       debugPrint("$e");
       debugPrint("error in get all buyer cars");
     }
-    print(cars);
+    debugPrint("$cars");
     return cars;
   }
 }

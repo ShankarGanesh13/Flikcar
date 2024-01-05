@@ -29,6 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     Provider.of<GetCarDetails>(context, listen: false).getAllBuyerCars();
+
     super.initState();
   }
 

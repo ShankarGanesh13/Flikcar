@@ -122,7 +122,7 @@ class GetDealerUploadCars extends ChangeNotifier {
       Map<String, dynamic>? data2 = snapshot2.data() as Map<String, dynamic>?;
       data2!["status"] = 'SOLD_OUT';
 
-      data!['properties']['saleStatus'] = 'SOLD_OUT';
+      data!['status'] = 'SOLD_OUT';
       await doc2.update(data2);
       await doc.update(data);
     } catch (e) {
@@ -147,7 +147,7 @@ class GetDealerUploadCars extends ChangeNotifier {
       Map<String, dynamic>? data2 = snapshot2.data() as Map<String, dynamic>?;
       data2!["status"] = 'AVAILABLE';
 
-      data!['properties']['saleStatus'] = 'AVAILABLE';
+      data!['status'] = 'AVAILABLE';
       await doc2.update(data2);
       await doc.update(data);
     } catch (e) {
@@ -161,7 +161,7 @@ class GetDealerUploadCars extends ChangeNotifier {
 
     return doc.snapshots().map((snapshot) {
       if (snapshot.exists) {
-        print(snapshot.data());
+        //      print(snapshot.data());
         return FirebaseBuyerCar.fromJson(
             snapshot.data() as Map<String, dynamic>);
       } else {
