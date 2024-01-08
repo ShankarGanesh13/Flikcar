@@ -40,7 +40,7 @@ class HomeScreenCard extends StatefulWidget {
 class _HomeScreenCardState extends State<HomeScreenCard> {
   @override
   void initState() {
-    //  widget.cars.shuffle();
+    widget.cars.shuffle();
     loading();
 
     // TODO: implement initState

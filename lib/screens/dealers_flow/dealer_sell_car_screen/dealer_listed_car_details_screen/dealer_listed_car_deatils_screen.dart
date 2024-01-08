@@ -10,6 +10,7 @@ import 'package:flikcar/screens/buy_car_flow/car_detailed_view/widgets/specifica
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listed_car_details_screen/dealer_car_details.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/edit_dealer_uploaded_car/edit_dealer_uploaded_car.dart';
+import 'package:flikcar/services/get_car_details.dart';
 import 'package:flikcar/services/get_dealer_uploaded_car.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
@@ -146,11 +147,47 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          // const Spacer(),
-                          // const Icon(Icons.share),
-                          // const SizedBox(
-                          //   width: 12,
-                          // ),
+                          const Spacer(),
+                          IconButton(
+                            icon: const Icon(
+                              Icons.delete,
+                            ),
+                            onPressed: () {
+                              showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Delete Car'),
+                                  content: Text(
+                                    "Are sure you want to delete the car",
+                                    style: AppFonts.w500dark214,
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'Cancel'),
+                                      child: Text(
+                                        'Close',
+                                        style: AppFonts.w500p215,
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {
+                                        GetDealerUploadCars().deleteCar(
+                                            context: context, carId: carId);
+                                        Navigator.pop(context);
+                                        Navigator.pop(context);
+                                      },
+                                      child: Text(
+                                        'OK',
+                                        style: AppFonts.w500p215,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
+
                           // const Icon(Icons.flag),
                         ],
                       )),

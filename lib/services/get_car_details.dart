@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikcar/firebase_models/firebase_buyer_car.dart';
 import 'package:flikcar/firebase_models/firebase_delaer_listed_car.dart';
@@ -6,10 +5,11 @@ import 'package:flikcar/utils/env.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:http/http.dart' as http;
-import 'dart:math';
 
 class GetCarDetails extends ChangeNotifier {
   List<FirebaseBuyerCar> displayCars = [];
+  List<FirebaseBuyerCar> displayCars2 = [];
+
   FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   List<FirebaseBuyerCar> fuelFilter = [];
@@ -65,7 +65,7 @@ class GetCarDetails extends ChangeNotifier {
           fuelIndex = -1;
           transmissonIndex = -1;
           bodyTypeFilter = displayCars;
-          fuelFilter = displayCars;
+          fuelFilter = displayCars2;
 
           transmissonFilter = displayCars;
           SchedulerBinding.instance.addPostFrameCallback((_) {
@@ -89,11 +89,12 @@ class GetCarDetails extends ChangeNotifier {
   }
 
   getAllBuyerCars() async {
+    getBuyerCarsShuffled();
     debugPrint("get all buyer cars called");
     displayCars = [];
     CollectionReference collection = firebase.collection("vehicles");
     try {
-      QuerySnapshot query = await collection.get();
+      QuerySnapshot query = await collection.limit(12).get();
       for (var doc in query.docs) {
         displayCars
             .add(FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
@@ -103,6 +104,24 @@ class GetCarDetails extends ChangeNotifier {
       debugPrint("error in get all buyer cars");
     }
     debugPrint("$displayCars");
+  }
+
+  getBuyerCarsShuffled() async {
+    debugPrint("get buyer cars shuffled called");
+    displayCars2 = [];
+    CollectionReference collection = firebase.collection("vehicles");
+    try {
+      QuerySnapshot query = await collection.limit(12).get();
+      for (var doc in query.docs) {
+        displayCars2
+            .add(FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
+      }
+    } catch (e) {
+      debugPrint("$e");
+      debugPrint("error in get all buyer cars");
+    }
+    displayCars2.shuffle();
+    debugPrint("$displayCars2");
   }
 
   Future<FirebaseBuyerCar?> getCarById({required String carId}) async {

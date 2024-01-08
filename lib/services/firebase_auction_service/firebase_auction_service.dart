@@ -149,7 +149,6 @@ class FirebaseAuctionService {
   }
 
   Stream<List<FirebaseAuction>> getMyBids() {
-    myWinnings();
     CollectionReference collection = firestore.collection("auctions");
     CollectionReference userMyBidCollection = firestore
         .collection("users")

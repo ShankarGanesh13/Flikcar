@@ -36,7 +36,9 @@ class GetDealerUploadCars extends ChangeNotifier {
       for (var doc in querySnapshot.docs) {
         Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
 
-        allDealerListedCar.add(FirebaseDealerListedCar.fromJson(data));
+        if (data['status'] != "INACTIVE") {
+          allDealerListedCar.add(FirebaseDealerListedCar.fromJson(data));
+        }
       }
 
       return allDealerListedCar;
@@ -148,6 +150,30 @@ class GetDealerUploadCars extends ChangeNotifier {
       data2!["status"] = 'AVAILABLE';
 
       data!['status'] = 'AVAILABLE';
+      await doc2.update(data2);
+      await doc.update(data);
+    } catch (e) {
+      debugPrint("$e");
+      debugPrint("error in changing car status");
+    }
+  }
+
+  deleteCar({required BuildContext context, required String carId}) async {
+    DocumentReference doc = firestore.collection('vehicles').doc(carId);
+    DocumentReference doc2 = firestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection("listedVehicles")
+        .doc(carId);
+    try {
+      DocumentSnapshot snapshot = await doc.get();
+      DocumentSnapshot snapshot2 = await doc2.get();
+
+      Map<String, dynamic>? data = snapshot.data() as Map<String, dynamic>?;
+      Map<String, dynamic>? data2 = snapshot2.data() as Map<String, dynamic>?;
+      data2!["status"] = 'INACTIVE';
+
+      data!['status'] = 'INACTIVE';
       await doc2.update(data2);
       await doc.update(data);
     } catch (e) {

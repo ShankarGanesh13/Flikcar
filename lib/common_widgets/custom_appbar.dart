@@ -1,9 +1,5 @@
 import 'package:flikcar/common_widgets/snackbar.dart';
-import 'package:flikcar/screens/buy_car_flow/filter_applied/view_all_buyer_cars_screen.dart';
-import 'package:flikcar/screens/home_screen/home_screen.dart';
 import 'package:flikcar/screens/start_screen/start_screen.dart';
-import 'package:flikcar/services/facebook_events.dart';
-import 'package:flikcar/services/firebase_events.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -187,7 +183,7 @@ class CustomAppBar {
                       ),
                       counterText: "",
                       counterStyle: const TextStyle(color: Colors.transparent),
-                      hintText: "Search for Cars by Models",
+                      hintText: "Search for Cars",
                       prefixIcon: const Icon(Icons.search),
                     ),
                     onChanged: (value) {

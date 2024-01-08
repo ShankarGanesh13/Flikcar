@@ -152,9 +152,9 @@ class SearchService extends ChangeNotifier {
   searchFunction(String query) {
     searchedCarList = filteredCars;
     searchedCarList = filteredCars
-        .where((item) => item.properties.model.toLowerCase().contains(
-              query.toLowerCase(),
-            ))
+        .where((item) =>
+            item.properties.model.toLowerCase().contains(query.toLowerCase()) ||
+            item.properties.brand.toLowerCase().contains(query.toLowerCase()))
         .toList();
     notifyListeners();
   }
@@ -255,35 +255,38 @@ class SearchService extends ChangeNotifier {
         var car = FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
 
         // Apply filters
-        if ((minYear == null || car.properties.registrationYear >= minYear!) &&
-                (maxYear == null ||
-                    car.properties.registrationYear <= maxYear!) &&
-                //
-                (minPrice == null || int.parse(car.carPrice) >= minPrice!) &&
-                (maxPrice == null || int.parse(car.carPrice) <= maxPrice!) &&
-                //
-                (selectedFuelTypeFilters.isEmpty ||
-                    selectedFuelTypeFilters
-                        .contains(car.properties.fuelType)) &&
-                //
-                (selectedModel.isEmpty ||
-                    selectedModel.contains(car.properties.model)) &&
-                (selectedBrand.isEmpty ||
-                    selectedBrand.contains(car.properties.brand)) &&
-                //
-                (selectedOwnershipTypeFilters.isEmpty ||
-                    selectedOwnershipTypeFilters
-                        .contains(car.properties.ownerType)) &&
-                //
-                (selectedTransmissionTypeFilters.isEmpty ||
-                    selectedTransmissionTypeFilters
-                        .contains(car.properties.transmission)) &&
-                //
-                (selectedBodyTypeFilters.isEmpty ||
-                    selectedBodyTypeFilters.contains(car.properties.bodyType))
-            //
-            ) {
-          filteredCars.add(car);
+        if (car.status != "INACTIVE") {
+          if ((minYear == null ||
+                      car.properties.registrationYear >= minYear!) &&
+                  (maxYear == null ||
+                      car.properties.registrationYear <= maxYear!) &&
+                  //
+                  (minPrice == null || int.parse(car.carPrice) >= minPrice!) &&
+                  (maxPrice == null || int.parse(car.carPrice) <= maxPrice!) &&
+                  //
+                  (selectedFuelTypeFilters.isEmpty ||
+                      selectedFuelTypeFilters
+                          .contains(car.properties.fuelType)) &&
+                  //
+                  (selectedModel.isEmpty ||
+                      selectedModel.contains(car.properties.model)) &&
+                  (selectedBrand.isEmpty ||
+                      selectedBrand.contains(car.properties.brand)) &&
+                  //
+                  (selectedOwnershipTypeFilters.isEmpty ||
+                      selectedOwnershipTypeFilters
+                          .contains(car.properties.ownerType)) &&
+                  //
+                  (selectedTransmissionTypeFilters.isEmpty ||
+                      selectedTransmissionTypeFilters
+                          .contains(car.properties.transmission)) &&
+                  //
+                  (selectedBodyTypeFilters.isEmpty ||
+                      selectedBodyTypeFilters.contains(car.properties.bodyType))
+              //
+              ) {
+            filteredCars.add(car);
+          }
         }
       }
     } catch (e) {
