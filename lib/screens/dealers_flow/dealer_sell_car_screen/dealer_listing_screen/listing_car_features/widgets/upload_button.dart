@@ -22,7 +22,7 @@ class _UploadButtonState extends State<UploadButton> {
       _isLoading = true;
     });
 
-    Future.delayed(const Duration(seconds: 5), () {
+    Future.delayed(const Duration(seconds: 7), () {
       if (mounted) {
         setState(() {
           _isLoading = false;

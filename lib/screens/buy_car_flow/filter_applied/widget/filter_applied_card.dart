@@ -51,7 +51,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Image.network(
-                  widget.car.images[0].imageUrl,
+                  findThumbnail(),
                   fit: BoxFit.contain,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) {
@@ -137,5 +137,16 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
       decimalDigits: 0,
     );
     return currencyFormatter.format(price);
+  }
+
+  String findThumbnail() {
+    try {
+      var thumbnail =
+          widget.car.images.firstWhere((e) => e.imageType == "THUMB");
+
+      return thumbnail.imageUrl;
+    } catch (e) {
+      return widget.car.images[0].imageUrl;
+    }
   }
 }

@@ -452,7 +452,7 @@ class DealerUploadCar extends ChangeNotifier {
             SnackBar(
               duration: const Duration(seconds: 5),
               backgroundColor: const Color(0xFF45C08D),
-              content: const Text("Images Uploading"),
+              content: const Text("Images Uploading, Please wait "),
               action: SnackBarAction(
                 label: 'Dismiss',
                 textColor: Colors.white,
@@ -711,5 +711,94 @@ class DealerUploadCar extends ChangeNotifier {
     otherImages = [];
     allImages = [];
     notifyListeners();
+  }
+
+  updateDealerUploadedCar(
+      {required String brand,
+      required BuildContext context,
+      required int carPrice,
+      required String model,
+      required String varient,
+      required String fuelType,
+      required String bodyType,
+      required String color,
+      required int seat,
+      required String ownerType,
+      required String rtoLocation,
+      required int kmsDriven,
+      required int registrationYear,
+      required int manufacturingYear,
+      required String transmission,
+      required String mileage,
+      required String description,
+      required String carId}) async {
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    FirebaseAuth auth = FirebaseAuth.instance;
+    DocumentReference vehicleRef = firestore.collection('vehicles').doc(carId);
+    var vehicleSnapshot = await vehicleRef.get();
+    var data = vehicleSnapshot.data() as Map<String, dynamic>;
+    var properties = data["properties"];
+
+    properties["brand"] = brand;
+    properties["model"] = model;
+    properties["variant"] = varient;
+    properties["fuelType"] = fuelType;
+    properties["bodyType"] = bodyType;
+    properties["color"] = color;
+    properties["seat"] = seat;
+    properties["ownerType"] = ownerType;
+    properties["city"] = "Kolkata";
+    properties["RTOlocation"] = rtoLocation;
+    properties["kmsDriven"] = kmsDriven;
+    properties["registrationYear"] = registrationYear;
+    properties["manufacturedYear"] = manufacturingYear;
+    properties["transmission"] = transmission;
+    properties["description"] = description;
+    properties["uploadedAt"] = DateTime.now().millisecondsSinceEpoch;
+    vehicleRef.update({
+      "properties": properties,
+      "carPrice": carPrice,
+    });
+
+    DocumentReference dealerRef = firestore
+        .collection("users")
+        .doc(auth.currentUser!.uid)
+        .collection('listedVehicles')
+        .doc(carId);
+    dealerRef.update({
+      "carPrice": carPrice,
+      "brand": brand,
+      "model": model,
+      "variant": varient,
+      "fuelType": fuelType,
+      "ownerType": ownerType,
+      "kmsDriven": kmsDriven,
+      "registrationYear": registrationYear,
+      "transmission": transmission,
+      "uploadedAt": DateTime.now().millisecondsSinceEpoch,
+    });
+    Navigator.pop(context);
+    ScaffoldMessenger.of(context).showSnackBar(
+        MySnackbar.showSnackBar(context, "Car Updated Successfully"));
+
+    // vehicleRef.update({
+    //   "brand": brand,
+    //   "model": model,
+    //   "variant": varient,
+    //   "fuelType": fuelType,
+    //   "bodyType": bodyType,
+    //   "color": color,
+    //   "seat": seat,
+    //   "ownerType": ownerType,
+    //   "city": "Kolkata",
+    //   "RTOlocation": rtoLocation,
+    //   "kmsDriven": kmsDriven,
+    //   "registrationYear": registrationYear,
+    //   "manufacturedYear": manufacturingYear,
+    //   "transmission": transmission,
+    //   "description": description,
+    //   "uploadedAt": DateTime.now().millisecondsSinceEpoch,
+    // });
+    //  {
   }
 }

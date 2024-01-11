@@ -65,18 +65,22 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                                   const EdgeInsets.only(left: 10, right: 10),
                             ),
                             onPressed: () {
-                              Navigator.pop(context);
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => EditDealerListedCar(
+                                          car: snapshot.data!)));
                             },
                             child: Row(
                               children: [
                                 const Icon(
-                                  Icons.arrow_back,
+                                  Icons.edit,
                                   color: Colors.white,
                                   size: 18,
                                 ),
                                 const SizedBox(width: 4),
                                 Text(
-                                  "Back",
+                                  "Edit",
                                   style: AppFonts.w500white14,
                                 ),
                               ],
@@ -123,16 +127,16 @@ class DealerListedCarDetailsScreen extends StatelessWidget {
                       color: const Color.fromARGB(255, 240, 255, 249),
                       child: Row(
                         children: [
-                          // GestureDetector(
-                          //   onTap: () {
-                          //     Navigator.pop(context);
-                          //   },
-                          //   child: Icon(
-                          //     Icons.chevron_left,
-                          //     color: AppColors.p2,
-                          //     size: 28,
-                          //   ),
-                          // ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                            },
+                            child: Icon(
+                              Icons.chevron_left,
+                              color: AppColors.p2,
+                              size: 28,
+                            ),
+                          ),
                           const SizedBox(width: 10),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
