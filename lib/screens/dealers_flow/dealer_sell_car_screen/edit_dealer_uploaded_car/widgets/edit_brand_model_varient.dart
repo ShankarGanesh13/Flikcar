@@ -98,17 +98,19 @@ class _EditBrandVarientModelDropDownState
                 },
                 buttonStyleData: const ButtonStyleData(
                   padding: EdgeInsets.only(
-                    left: 0,
-                    right: 5,
+                    left: 15,
+                    top: 3,
+                    bottom: 3,
+                    right: 15,
                   ),
-                  height: 40,
+                  height: 45,
                 ),
                 iconStyleData: const IconStyleData(
                   icon: Icon(
                     Icons.arrow_drop_down,
                     color: Colors.black45,
                   ),
-                  iconSize: 24,
+                  iconSize: 20,
                 ),
                 dropdownStyleData: DropdownStyleData(
                   padding: const EdgeInsets.only(left: 5, right: 10),
@@ -117,7 +119,7 @@ class _EditBrandVarientModelDropDownState
                   ),
                 ),
                 menuItemStyleData: const MenuItemStyleData(
-                  padding: EdgeInsets.all(0),
+                  padding: EdgeInsets.all(5),
                 ),
               );
             } else {
@@ -138,9 +140,9 @@ class _EditBrandVarientModelDropDownState
       ),
       DropdownButtonFormField2<String>(
         isExpanded: true,
-        decoration: const InputDecoration.collapsed(
-          hintText: "Select a model",
-          border: OutlineInputBorder(
+        decoration: InputDecoration.collapsed(
+          hintText: widget.car.properties.model,
+          border: const OutlineInputBorder(
             borderRadius: BorderRadius.all(
               Radius.circular(3.0),
             ),
@@ -148,8 +150,8 @@ class _EditBrandVarientModelDropDownState
           ),
         ),
         hint: Text(
-          "Select a model",
-          style: AppFonts.w500dark212,
+          widget.car.properties.model,
+          style: AppFonts.w500black14,
         ),
         value: selectedModel,
         items: models
@@ -177,17 +179,17 @@ class _EditBrandVarientModelDropDownState
         },
         buttonStyleData: const ButtonStyleData(
           padding: EdgeInsets.only(
-            left: 0,
-            right: 5,
+            left: 15,
+            right: 15,
           ),
-          height: 40,
+          height: 45,
         ),
         iconStyleData: const IconStyleData(
           icon: Icon(
             Icons.arrow_drop_down,
             color: Colors.black45,
           ),
-          iconSize: 24,
+          iconSize: 20,
         ),
         dropdownStyleData: DropdownStyleData(
           padding: const EdgeInsets.only(left: 5, right: 10),
@@ -223,8 +225,8 @@ class _EditBrandVarientModelDropDownState
           ),
         ),
         hint: Text(
-          "Select a varient",
-          style: AppFonts.w500dark212,
+          widget.car.properties.variant,
+          style: AppFonts.w500black14,
         ),
         value: selectedVarient,
         items: varients
@@ -249,17 +251,17 @@ class _EditBrandVarientModelDropDownState
         },
         buttonStyleData: const ButtonStyleData(
           padding: EdgeInsets.only(
-            left: 0,
-            right: 5,
+            left: 15,
+            right: 15,
           ),
-          height: 40,
+          height: 45,
         ),
         iconStyleData: const IconStyleData(
           icon: Icon(
             Icons.arrow_drop_down,
             color: Colors.black45,
           ),
-          iconSize: 24,
+          iconSize: 20,
         ),
         dropdownStyleData: DropdownStyleData(
           padding: const EdgeInsets.only(left: 5, right: 10),
