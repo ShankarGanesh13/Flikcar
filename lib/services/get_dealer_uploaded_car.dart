@@ -186,11 +186,17 @@ class GetDealerUploadCars extends ChangeNotifier {
     DocumentReference doc = firestore.collection('vehicles').doc(carId);
 
     return doc.snapshots().map((snapshot) {
-      if (snapshot.exists) {
-        //      print(snapshot.data());
-        return FirebaseBuyerCar.fromJson(
-            snapshot.data() as Map<String, dynamic>);
-      } else {
+      try {
+        if (snapshot.exists) {
+          print(FirebaseBuyerCar.fromJson(
+              snapshot.data() as Map<String, dynamic>));
+          return FirebaseBuyerCar.fromJson(
+              snapshot.data() as Map<String, dynamic>);
+        } else {
+          return null;
+        }
+      } catch (e) {
+        print('Error parsing Firestore data: $e');
         return null;
       }
     });

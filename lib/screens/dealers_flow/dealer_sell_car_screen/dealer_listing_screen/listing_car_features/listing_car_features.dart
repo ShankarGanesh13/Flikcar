@@ -1,5 +1,4 @@
 import 'package:flikcar/common_widgets/custom_appbar.dart';
-import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/car_comfort.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/car_entertainment.dart';
@@ -7,7 +6,6 @@ import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listi
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/car_interior.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/car_safety.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_features/widgets/upload_button.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/listing_car_images.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';

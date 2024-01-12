@@ -21,7 +21,10 @@ class _RtoDropdownState extends State<EditRtoDropdown> {
   String? selectedRto;
   @override
   void initState() {
+    print(widget.car.properties.RTOlocation);
     selectedRto = widget.car.properties.RTOlocation;
+
+    print(selectedRto);
     // TODO: implement initState
     super.initState();
   }
@@ -62,7 +65,7 @@ class _RtoDropdownState extends State<EditRtoDropdown> {
                   value: selectedRto,
                   items: snapshot.data!
                       .map((item) => DropdownMenuItem(
-                            value: item.rtoCode,
+                            value: item.rtoName,
                             child: Text("${item.rtoName} ( ${item.rtoCode} )",
                                 style: AppFonts.w500black14),
                           ))
@@ -75,8 +78,6 @@ class _RtoDropdownState extends State<EditRtoDropdown> {
                   },
                   onChanged: (value) {
                     debugPrint(value);
-                    Provider.of<DealerUploadCar>(context, listen: false)
-                        .getRtoLocationId(id: value.toString());
                   },
                   buttonStyleData: const ButtonStyleData(
                     padding: EdgeInsets.only(left: 10, right: 10),

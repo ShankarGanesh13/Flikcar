@@ -602,7 +602,7 @@ class DealerUploadCar extends ChangeNotifier {
           "seat": int.parse(seat),
           "ownerType": ownership,
           "city": "Kolkata",
-          "RTOlocation": rtoLocation,
+          "rtoLocation": rtoLocation,
           "kmsDriven": int.parse(driveKm),
           "registrationYear": int.parse(registerationYear),
           "manufacturedYear": int.parse(manufacturedYear),

@@ -59,7 +59,7 @@ class FirebaseBuyerCarProperties {
 
   factory FirebaseBuyerCarProperties.fromJson(Map<String, dynamic> json) {
     return FirebaseBuyerCarProperties(
-      RTOlocation: json['RTOlocation'] ?? '',
+      RTOlocation: json['rtoLocation'] ?? '',
       bodyType: json['bodyType'] ?? '',
       brand: json['brand'] ?? '',
       city: json['city'] ?? '',
