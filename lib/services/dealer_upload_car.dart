@@ -50,7 +50,6 @@ class DealerUploadCar extends ChangeNotifier {
   List<String> selectedExterior = [];
   List<String> selectedSafety = [];
   List<String> selectedEntertainment = [];
-  String apiUrl = Env.apiUrl;
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   changeFeatureIndex(int index) {
@@ -165,6 +164,10 @@ class DealerUploadCar extends ChangeNotifier {
   getEngineCC({required String cc}) {
     engineCC = cc;
     // print(engineCC);
+  }
+
+  getCity({required String city}) {
+    city = city;
   }
 
   addFeatures({required String feature, required String id}) {
@@ -601,7 +604,7 @@ class DealerUploadCar extends ChangeNotifier {
           "color": color,
           "seat": int.parse(seat),
           "ownerType": ownership,
-          "city": "Kolkata",
+          "city": city,
           "rtoLocation": rtoLocation,
           "kmsDriven": int.parse(driveKm),
           "registrationYear": int.parse(registerationYear),
@@ -644,7 +647,7 @@ class DealerUploadCar extends ChangeNotifier {
             context,
             MaterialPageRoute(
               builder: (context) => const DealerFlow(
-                index: 1,
+                index: 3,
               ),
             ),
             (route) => false,
@@ -663,12 +666,13 @@ class DealerUploadCar extends ChangeNotifier {
               actions: <Widget>[
                 TextButton(
                   onPressed: () {
-                    Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const DealerFlow(index: 1)),
-                      (route) => false,
-                    );
+                    // Navigator.pushAndRemoveUntil(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const DealerFlow(index: 3)),
+                    //   (route) => false,
+                    // );
+                    Navigator.pop(context);
                   },
                   child: const Text('OK'),
                 ),
@@ -715,6 +719,7 @@ class DealerUploadCar extends ChangeNotifier {
 
   updateDealerUploadedCar(
       {required String brand,
+      required String city,
       required BuildContext context,
       required int carPrice,
       required String model,
@@ -729,7 +734,7 @@ class DealerUploadCar extends ChangeNotifier {
       required int registrationYear,
       required int manufacturingYear,
       required String transmission,
-      required String mileage,
+      required int mileage,
       required String description,
       required String carId}) async {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -747,13 +752,13 @@ class DealerUploadCar extends ChangeNotifier {
     properties["color"] = color;
     properties["seat"] = seat;
     properties["ownerType"] = ownerType;
-    properties["city"] = "Kolkata";
-    properties["RTOlocation"] = rtoLocation;
+    properties["city"] = city;
     properties["kmsDriven"] = kmsDriven;
     properties["registrationYear"] = registrationYear;
     properties["manufacturedYear"] = manufacturingYear;
     properties["transmission"] = transmission;
-    properties["description"] = description;
+    properties["carDescription"] = description;
+    properties["city"] = city;
     properties["uploadedAt"] = DateTime.now().millisecondsSinceEpoch;
     vehicleRef.update({
       "properties": properties,

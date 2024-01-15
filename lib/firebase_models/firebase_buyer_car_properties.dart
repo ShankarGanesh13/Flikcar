@@ -68,7 +68,7 @@ class FirebaseBuyerCarProperties {
       description: json['carDescription'] ?? '',
       engineCC: json['engineCC'],
       exterior: List<String>.from(json['exterior'] ?? []),
-      fuelType: json['fuelType'] ?? '',
+      fuelType: json['fuelType'] ?? '',                                                                                                                                                 
       interior: List<String>.from(json['interior'] ?? []),
       kmsDriven: json['kmsDriven'] ?? 0,
       manufacturedYear: json['manufacturedYear'] ?? 0,

@@ -20,7 +20,7 @@ class DealerUploadCarDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List data = [
-      "RTO location: ${car.properties.RTOlocation.toUpperCase()}",
+      "City: ${car.properties.city.toUpperCase()}",
       "Km Driven: ${car.properties.kmsDriven.toString()}",
       "Owners: ${car.properties.ownerType}",
       "Fuel Type: ${car.properties.fuelType}",

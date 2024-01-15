@@ -64,7 +64,6 @@ class ListingCarImages extends StatelessWidget {
               function: () {
                 if (interiorImages.isEmpty ||
                     exteriorImages.isEmpty ||
-                    otherImages.isEmpty ||
                     tyreImages.isEmpty ||
                     engineImages.isEmpty ||
                     thumbnailImages.isEmpty) {
@@ -158,7 +157,7 @@ class ListingCarImages extends StatelessWidget {
               title: "Interior Images*",
               images: interiorImages,
               type: "interior",
-              title2: "(Upto 15 images)",
+              title2: "(Upto 10 images)",
               function: () {
                 Provider.of<DealerUploadCar>(context, listen: false)
                     .pickCarImages(context: context, type: "interior");
@@ -168,7 +167,7 @@ class ListingCarImages extends StatelessWidget {
               title: "Exterior Images*",
               images: exteriorImages,
               type: "exterior",
-              title2: "(Upto 15 images)",
+              title2: "(Upto 10 images)",
               function: () {
                 Provider.of<DealerUploadCar>(context, listen: false)
                     .pickCarImages(context: context, type: "exterior");
@@ -178,7 +177,7 @@ class ListingCarImages extends StatelessWidget {
               title: "Engine Images*",
               images: engineImages,
               type: "engine",
-              title2: "(Upto 15 images)",
+              title2: "(Upto 10 images)",
               function: () {
                 Provider.of<DealerUploadCar>(context, listen: false)
                     .pickCarImages(context: context, type: "engine");
@@ -188,17 +187,17 @@ class ListingCarImages extends StatelessWidget {
               title: "Tyres Images*",
               images: tyreImages,
               type: "tyres",
-              title2: "(Upto 15 images)",
+              title2: "(Upto 10 images)",
               function: () {
                 Provider.of<DealerUploadCar>(context, listen: false)
                     .pickCarImages(context: context, type: "tyres");
               },
             ),
             UploadImageCard(
-              title: "Other Images*",
+              title: "Other Images",
               images: otherImages,
               type: "others",
-              title2: "(Upto 15 images)",
+              title2: "(Upto 10 images)",
               function: () {
                 Provider.of<DealerUploadCar>(context, listen: false)
                     .pickCarImages(context: context, type: "others");
@@ -208,7 +207,7 @@ class ListingCarImages extends StatelessWidget {
               title: "Dents Images",
               images: dentImages,
               type: "dents",
-              title2: "(Optional Upto 15 images)",
+              title2: "(Optional Upto 10 images)",
               function: () {
                 Provider.of<DealerUploadCar>(context, listen: false)
                     .pickCarImages(context: context, type: "dents");

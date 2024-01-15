@@ -1,15 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flikcar/common_widgets/snackbar.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/home_screen/home_screen.dart';
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SellingProcessProvider extends ChangeNotifier {
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -21,15 +16,12 @@ class SellingProcessProvider extends ChangeNotifier {
   String contactNumber = "";
   String selectedBrandId = "";
   String selectedModelId = "";
-  String selectedBrand = "";
-  String selectedModel = "";
-
   String registerationYear = "";
-
+  String sellingTime = "";
   int brandIndex = -1;
   int modelIndex = -1;
 
-  List<String> list = ["", "", "", "", "", "", "", "", "", ""];
+  List<String> list = ["", "", "", ""];
 
   setBrand(
       {required String brandId,
@@ -41,6 +33,10 @@ class SellingProcessProvider extends ChangeNotifier {
     list[0] = brand;
     selecedModels = models;
     notifyListeners();
+  }
+
+  setSellingTime({required String time}) {
+    sellingTime = time;
   }
 
   setManufacturingYear({required String year}) {
@@ -142,7 +138,7 @@ class SellingProcessProvider extends ChangeNotifier {
           //         builder: (context) => const HomeScreen(index: 1)));
           Navigator.pop(context);
           print("pc1");
-          list = ["", "", "", "", "", "", "", "", "", ""];
+          list = ["", "", "", ""];
           modelIndex = -1;
           brandIndex = -1;
           notifyListeners();
@@ -192,10 +188,11 @@ class SellingProcessProvider extends ChangeNotifier {
         "registrationYear": "$registerationYear",
         "phone": "$contactNumber",
         "status": "IN-PROGRESS",
+        "timeOfSelling": sellingTime,
         "createdAt": DateTime.now().millisecondsSinceEpoch,
         "id": id,
       };
-      print(requestBody);
+      debugPrint("$requestBody");
 
       collection.doc(id).set(requestBody).then((value) {
         if (context.mounted) {
@@ -247,7 +244,12 @@ class SellingProcessProvider extends ChangeNotifier {
     brandIndex = -1;
     modelIndex = -1;
 
-    list = ["", "", "", "", "", "", "", "", "", ""];
+    list = [
+      "",
+      "",
+      "",
+      "",
+    ];
     notifyListeners();
   }
 }

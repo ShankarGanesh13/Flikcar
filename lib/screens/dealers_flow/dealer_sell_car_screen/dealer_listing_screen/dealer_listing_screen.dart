@@ -1,17 +1,14 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikcar/common_widgets/custom_appbar.dart';
-import 'package:flikcar/common_widgets/heading1.dart';
 import 'package:flikcar/common_widgets/primary_button.dart';
 import 'package:flikcar/models/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_flow.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/listing_car_images/listing_car_images.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/brand_model_varient.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/details_dropdown.dart';
-import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/dropDownTextField.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/listing_text_field.dart';
 import 'package:flikcar/screens/dealers_flow/dealer_sell_car_screen/dealer_listing_screen/widgets/rto_dropdown.dart';
 import 'package:flikcar/services/dealer_upload_car.dart';
-import 'package:flikcar/services/get_brand_model_varient.dart';
 import 'package:flikcar/utils/colors.dart';
 import 'package:flikcar/utils/fonts.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +32,7 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
   TextEditingController maxPowerController = TextEditingController();
   TextEditingController mileageController = TextEditingController();
   TextEditingController rtoController = TextEditingController();
+  TextEditingController city = TextEditingController();
 
   TextEditingController kmsController = TextEditingController();
   TextEditingController sellingPriceController = TextEditingController();
@@ -132,8 +130,6 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                     DetailsDropDown(),
                     const SizedBox(height: 20),
 
-                    RtoDropdown(),
-                    const SizedBox(height: 20),
                     ListingTextField(
                       inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 2018",
@@ -204,6 +200,23 @@ class _DealerListingScreenState extends State<DealerListingScreen> {
                             .getSellingPrice(price: value);
                       },
                     ),
+                    const SizedBox(height: 20),
+                    ListingTextField(
+                      inputType: [],
+                      hint: "Eg. Kolkata",
+                      maxlength: 8,
+                      validator: false,
+                      title: "City",
+                      keyboardType: TextInputType.name,
+                      controller: city,
+                      onChanged: (value) {
+                        Provider.of<DealerUploadCar>(context, listen: false)
+                            .getCity(city: value);
+                      },
+                    ),
+                    const SizedBox(height: 20),
+
+                    RtoDropdown(),
                     const SizedBox(height: 20),
                     ListingTextField(
                       inputType: [FilteringTextInputFormatter.digitsOnly],

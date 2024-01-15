@@ -18,7 +18,7 @@ class RtoDropdown extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          "RTO Location *",
+          "RTO Location ",
           style: AppFonts.w700black16,
         ),
         const SizedBox(
@@ -54,9 +54,6 @@ class RtoDropdown extends StatelessWidget {
                           ))
                       .toList(),
                   validator: (value) {
-                    if (value == null) {
-                      return "Enter valid data";
-                    }
                     return null;
                   },
                   onChanged: (value) {

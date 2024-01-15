@@ -39,6 +39,8 @@ class _EditDealerListedCarState extends State<EditDealerListedCar> {
   TextEditingController kmsController = TextEditingController();
   TextEditingController sellingPriceController = TextEditingController();
   TextEditingController descController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+
   final _formKey = GlobalKey<FormState>();
   String bodyType = "";
   String brand = "";
@@ -49,6 +51,12 @@ class _EditDealerListedCarState extends State<EditDealerListedCar> {
   String ownerType = "";
   String rtoLocation = "";
   String transmission = "";
+
+  // int manufacturedYear=2020;
+  // int regYear=2020;
+  // int seat=5;
+  // int kmsDriven=14580;
+  // int sellingPrice
 
   // BrandModelVarient? selectedBrand;
   // Model? selectedModel;
@@ -67,6 +75,11 @@ class _EditDealerListedCarState extends State<EditDealerListedCar> {
     sellingPriceController = TextEditingController(text: widget.car.carPrice);
     descController =
         TextEditingController(text: widget.car.properties.description);
+    if (widget.car.properties.mileage != null) {
+      mileageController =
+          TextEditingController(text: widget.car.properties.mileage.toString());
+    }
+    cityController = TextEditingController(text: widget.car.properties.city);
     bodyType = widget.car.properties.bodyType;
     brand = widget.car.properties.brand;
     model = widget.car.properties.model;
@@ -116,6 +129,7 @@ class _EditDealerListedCarState extends State<EditDealerListedCar> {
                 if (_formKey.currentState!.validate()) {
                   Provider.of<DealerUploadCar>(context, listen: false)
                       .updateDealerUploadedCar(
+                    city: cityController.text,
                     context: context,
                     carPrice: int.parse(sellingPriceController.text),
                     bodyType: bodyType,
@@ -126,7 +140,7 @@ class _EditDealerListedCarState extends State<EditDealerListedCar> {
                     fuelType: fuelType,
                     kmsDriven: int.parse(kmsController.text),
                     manufacturingYear: int.parse(manuYearController.text),
-                    mileage: mileageController.text,
+                    mileage: int.parse(mileageController.text),
                     model: model,
                     ownerType: ownerType,
                     registrationYear: int.parse(regYearController.text),
@@ -218,11 +232,10 @@ class _EditDealerListedCarState extends State<EditDealerListedCar> {
                         transmission = value;
                       },
                     ),
-                    const SizedBox(height: 20),
 
-                    EditRtoDropdown(
-                      car: widget.car,
-                    ),
+                    // EditRtoDropdown(
+                    //   car: widget.car,
+                    // ),
                     const SizedBox(height: 20),
                     ListingTextField(
                       inputType: [FilteringTextInputFormatter.digitsOnly],
@@ -321,6 +334,18 @@ class _EditDealerListedCarState extends State<EditDealerListedCar> {
                     //   },
                     // ),
                     // const SizedBox(height: 20),
+                    //    const SizedBox(height: 20),
+                    ListingTextField(
+                      inputType: [],
+                      hint: "Eg. Kolkata",
+                      maxlength: 30,
+                      keyboardType: TextInputType.name,
+                      title: "City",
+                      controller: cityController,
+                      validator: false,
+                      onChanged: (value) {},
+                    ),
+                    const SizedBox(height: 20),
                     ListingTextField(
                       inputType: [FilteringTextInputFormatter.digitsOnly],
                       hint: "Eg. 23",
