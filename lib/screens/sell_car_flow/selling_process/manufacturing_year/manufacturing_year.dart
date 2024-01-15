@@ -21,6 +21,10 @@ class _ManufacturingYearState extends State<ManufacturingYear> {
     // TODO: implement initState
     phoneNumberController =
         TextEditingController(text: auth.currentUser!.phoneNumber);
+    Provider.of<SellingProcessProvider>(context, listen: false)
+        .setContactNumber(
+      phone: auth.currentUser!.phoneNumber!,
+    );
     super.initState();
   }
 

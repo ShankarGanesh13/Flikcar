@@ -101,7 +101,9 @@ class SellingProcessProvider extends ChangeNotifier {
 
       case 3:
         {
-          if (list[2] != "" && list[3] != "") {
+          print(list);
+
+          if (list[2] != "") {
             controller.animateToPage(3,
                 duration: const Duration(milliseconds: 200),
                 curve: Curves.bounceInOut);
@@ -111,7 +113,7 @@ class SellingProcessProvider extends ChangeNotifier {
             notifyListeners();
           } else {
             ScaffoldMessenger.of(context).showSnackBar(MySnackbar.showSnackBar(
-                context, "Please enter manufacturing year and phone number"));
+                context, "Please enter registered year and phone number"));
           }
           print("nc3");
         }
