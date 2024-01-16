@@ -94,10 +94,18 @@ class GetCarDetails extends ChangeNotifier {
     displayCars = [];
     CollectionReference collection = firebase.collection("vehicles");
     try {
-      QuerySnapshot query = await collection.limit(12).get();
-      for (var doc in query.docs) {
-        displayCars
-            .add(FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
+      QuerySnapshot query = await collection.get();
+      List<DocumentSnapshot> allDocs = query.docs;
+
+      allDocs.shuffle();
+
+      List<DocumentSnapshot> selectedDocs = allDocs.take(15).toList();
+      for (var doc in selectedDocs) {
+        var car = FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
+        if (car.status != "INACTIVE") {
+          displayCars.add(
+              FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
+        }
       }
     } catch (e) {
       debugPrint("$e");
@@ -111,16 +119,23 @@ class GetCarDetails extends ChangeNotifier {
     displayCars2 = [];
     CollectionReference collection = firebase.collection("vehicles");
     try {
-      QuerySnapshot query = await collection.limit(12).get();
-      for (var doc in query.docs) {
-        displayCars2
-            .add(FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
+      QuerySnapshot query = await collection.get();
+      List<DocumentSnapshot> allDocs = query.docs;
+
+      allDocs.shuffle();
+
+      List<DocumentSnapshot> selectedDocs = allDocs.take(15).toList();
+
+      for (var doc in selectedDocs) {
+        var car = FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
+        if (car.status != "INACTIVE") {
+          displayCars2.add(car);
+        }
       }
     } catch (e) {
       debugPrint("$e");
       debugPrint("error in get all buyer cars");
     }
-    displayCars2.shuffle();
     debugPrint("$displayCars2");
   }
 

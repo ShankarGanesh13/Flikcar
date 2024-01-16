@@ -114,7 +114,7 @@ class SellCarHomeScreen extends StatelessWidget {
                         const SelectBrand(),
                         const SizedBox(height: 20),
                         PrimaryButton(
-                          title: "Get Free Inspection",
+                          title: "Book Free Inspection",
                           backgroundColor: AppColors.s1,
                           borderColor: Colors.transparent,
                           textStyle: AppFonts.w500white14,

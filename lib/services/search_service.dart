@@ -252,50 +252,59 @@ class SearchService extends ChangeNotifier {
     try {
       QuerySnapshot query = await collection.get();
       for (var doc in query.docs) {
-        var car = FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
+        try {
+          var car =
+              FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
 
-        // Apply filters
-        if (car.status != "INACTIVE") {
-          if ((minYear == null ||
-                      car.properties.registrationYear >= minYear!) &&
-                  (maxYear == null ||
-                      car.properties.registrationYear <= maxYear!) &&
-                  //
-                  (minPrice == null || int.parse(car.carPrice) >= minPrice!) &&
-                  (maxPrice == null || int.parse(car.carPrice) <= maxPrice!) &&
-                  //
-                  (selectedFuelTypeFilters.isEmpty ||
-                      selectedFuelTypeFilters
-                          .contains(car.properties.fuelType)) &&
-                  //
-                  (selectedModel.isEmpty ||
-                      selectedModel.contains(car.properties.model)) &&
-                  (selectedBrand.isEmpty ||
-                      selectedBrand.contains(car.properties.brand)) &&
-                  //
-                  (selectedOwnershipTypeFilters.isEmpty ||
-                      selectedOwnershipTypeFilters
-                          .contains(car.properties.ownerType)) &&
-                  //
-                  (selectedTransmissionTypeFilters.isEmpty ||
-                      selectedTransmissionTypeFilters
-                          .contains(car.properties.transmission)) &&
-                  //
-                  (selectedBodyTypeFilters.isEmpty ||
-                      selectedBodyTypeFilters.contains(car.properties.bodyType))
-              //
-              ) {
-            filteredCars.add(car);
+          if (car.status != "INACTIVE") {
+            if ((minYear == null ||
+                        car.properties.registrationYear >= minYear!) &&
+                    (maxYear == null ||
+                        car.properties.registrationYear <= maxYear!) &&
+                    //
+                    (minPrice == null ||
+                        int.parse(car.carPrice) >= minPrice!) &&
+                    (maxPrice == null ||
+                        int.parse(car.carPrice) <= maxPrice!) &&
+                    //
+                    (selectedFuelTypeFilters.isEmpty ||
+                        selectedFuelTypeFilters
+                            .contains(car.properties.fuelType)) &&
+                    //
+                    (selectedModel.isEmpty ||
+                        selectedModel.contains(car.properties.model)) &&
+                    (selectedBrand.isEmpty ||
+                        selectedBrand.contains(car.properties.brand)) &&
+                    //
+                    (selectedOwnershipTypeFilters.isEmpty ||
+                        selectedOwnershipTypeFilters
+                            .contains(car.properties.ownerType)) &&
+                    //
+                    (selectedTransmissionTypeFilters.isEmpty ||
+                        selectedTransmissionTypeFilters
+                            .contains(car.properties.transmission)) &&
+                    //
+                    (selectedBodyTypeFilters.isEmpty ||
+                        selectedBodyTypeFilters
+                            .contains(car.properties.bodyType))
+                //
+                ) {
+              filteredCars.add(car);
+            }
           }
+        } catch (e) {
+          debugPrint(
+              "error in converting doc to  FirebaseBuyerCar========== $e");
         }
       }
     } catch (e) {
       debugPrint("$e");
       debugPrint("error in  filter cars");
     }
+    filteredCars.shuffle();
     searchedCarList = filteredCars;
     notifyListeners();
-    debugPrint("filtered cars---------------------- $filteredCars");
+    // debugPrint("filtered cars---------------------- $filteredCars");
   }
 
   getFuelType() async {

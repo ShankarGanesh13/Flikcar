@@ -51,7 +51,7 @@ class SellingProcessProvider extends ChangeNotifier {
     contactNumber = phone;
     list[3] = phone;
     //manufacturingYearIndex = selectedIndex;
-    notifyListeners();
+    //  notifyListeners();
   }
 
   setCarModel(
