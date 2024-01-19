@@ -69,8 +69,7 @@ class DealerAccountScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   openUrl(
-                      url: "https://www.flikcar.com/about-us/",
-                      context: context);
+                      url: "https://flikcar.com/about-us/", context: context);
                 },
                 child: profileDetails(
                     title: "About Us",
@@ -80,7 +79,7 @@ class DealerAccountScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   openUrl(
-                      url: "https://www.flikcar.com/privacy-policy/",
+                      url: "https://flikcar.com/privacy-policy/",
                       context: context);
                 },
                 child: profileDetails(
@@ -91,7 +90,7 @@ class DealerAccountScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   openUrl(
-                      url: "https://www.flikcar.com/terms-conditions/",
+                      url: "https://flikcar.com/terms-and-conditions",
                       context: context);
                 },
                 child: profileDetails(
@@ -260,8 +259,8 @@ class DealerAccountScreen extends StatelessWidget {
       scheme: 'mailto',
       path: 'help@flikcar.com',
     );
-    if (!await launchUrl(
-      emailLaunchUri,
-    )) ;
+    if (!await launchUrl(emailLaunchUri)) {
+      throw Exception('Could not launch $emailLaunchUri');
+    }
   }
 }

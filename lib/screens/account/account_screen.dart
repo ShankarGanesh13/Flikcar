@@ -88,7 +88,7 @@ class _AccountScreenState extends State<AccountScreen> {
               // ),
               GestureDetector(
                 onTap: () {
-                  openUrl(url: "https://www.flikcar.com/about-us/");
+                  openUrl(url: "https://flikcar.com/about-us");
                 },
                 child: profileDetails(
                     title: "About Us",
@@ -97,7 +97,7 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  openUrl(url: "https://www.flikcar.com/privacy-policy/");
+                  openUrl(url: "https://flikcar.com/privacy-policy");
                 },
                 child: profileDetails(
                     title: "Privacy Policy",
@@ -106,7 +106,7 @@ class _AccountScreenState extends State<AccountScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  openUrl(url: "https://www.flikcar.com/terms-conditions");
+                  openUrl(url: "https://flikcar.com/terms-and-conditions");
                 },
                 child: profileDetails(
                     title: "Terms and Conditions",
