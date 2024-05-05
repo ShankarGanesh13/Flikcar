@@ -42,7 +42,7 @@ class DealerAuthService {
     Navigator.pushAndRemoveUntil(
       context,
       MaterialPageRoute(
-        builder: (context) => StartScreen(),
+        builder: (context) => PhoneNumber(),
       ),
       (route) => false,
     );

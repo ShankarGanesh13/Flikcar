@@ -102,7 +102,7 @@ class GetCarDetails extends ChangeNotifier {
       List<DocumentSnapshot> selectedDocs = allDocs.take(15).toList();
       for (var doc in selectedDocs) {
         var car = FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
-        if (car.status != "INACTIVE") {
+        if (car.status != "INACTIVE" && car.status != "SOLD_OUT") {
           displayCars.add(
               FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>));
         }
@@ -128,7 +128,7 @@ class GetCarDetails extends ChangeNotifier {
 
       for (var doc in selectedDocs) {
         var car = FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
-        if (car.status != "INACTIVE") {
+        if (car.status != "INACTIVE" && car.status != "SOLD_OUT") {
           displayCars2.add(car);
         }
       }

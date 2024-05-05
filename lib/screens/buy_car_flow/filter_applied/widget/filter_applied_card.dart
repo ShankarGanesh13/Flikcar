@@ -71,7 +71,7 @@ class _FilterAppliedCardState extends State<FilterAppliedCard> {
                   Row(
                     children: [
                       SizedBox(
-                          width: MediaQuery.of(context).size.width / 3.2,
+                          width: MediaQuery.of(context).size.width / 3.3,
                           child: Text(widget.car.properties.brand,
                               style: AppFonts.w500dark214)),
                       Text(

@@ -79,7 +79,7 @@ class DealerAccountScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   openUrl(
-                      url: "https://flikcar.com/privacy-policy/",
+                      url: "https://flikcar.com/privacy-policy",
                       context: context);
                 },
                 child: profileDetails(

@@ -122,6 +122,40 @@ class _AccountScreenState extends State<AccountScreen> {
                     subtitle: "help@flikcar.com",
                     icon: Icons.chevron_right),
               ),
+              GestureDetector(
+                onTap: () {
+                  showDialog<String>(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Delete Your Account'),
+                      content: const Text(
+                          "Warning: This process will delete all associated data and cannot be undone. Are you sure you want to proceed with the deletion?"),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'Cancel'),
+                          child: Text(
+                            'Close',
+                            style: AppFonts.w500p215,
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            DealerAuthService.deleteAccount(context);
+                          },
+                          child: Text(
+                            'OK',
+                            style: AppFonts.w500p215,
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                child: profileDetails(
+                    title: "Delete Account",
+                    subtitle: "Remove all your data",
+                    icon: Icons.chevron_right),
+              ),
               Container(
                 color: Colors.transparent,
                 padding: const EdgeInsets.all(15.0),

@@ -132,7 +132,7 @@ class FirebaseAuthService {
   Stream<String?> listenToStatus() {
     return FirebaseFirestore.instance
         .collection('users')
-        .doc(auth.currentUser!.uid)
+        .doc(auth.currentUser != null ? auth.currentUser!.uid : "ddd")
         .snapshots()
         .map((doc) {
       var data = doc.data() as Map<String, dynamic>;

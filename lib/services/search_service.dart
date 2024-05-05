@@ -256,7 +256,7 @@ class SearchService extends ChangeNotifier {
           var car =
               FirebaseBuyerCar.fromJson(doc.data() as Map<String, dynamic>);
 
-          if (car.status != "INACTIVE") {
+          if (car.status != "INACTIVE" && car.status != "SOLD_OUT") {
             if ((minYear == null ||
                         car.properties.registrationYear >= minYear!) &&
                     (maxYear == null ||
